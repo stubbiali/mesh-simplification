@@ -1,0 +1,139 @@
+\RequirePackage[hyphens]{url}
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{listings}
+\usepackage{amsmath}
+\allowdisplaybreaks
+\usepackage{amsfonts}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{anyfontsize}
+%\usepackage{enumitem}
+\usepackage{pdfpages}
+\usepackage{fourier}	% Style
+\usepackage{bm}
+\usepackage{epstopdf}
+\usepackage{lipsum}
+\usepackage{authblk}
+\usepackage[top=2cm, bottom=3cm, left=2cm, right=2cm, scale=0.75]{geometry}	% Set the margins
+\usepackage{fancyhdr}
+\usepackage[letterspace=150]{microtype}
+\usepackage{textcomp}
+\usepackage{gensymb}
+\usepackage{booktabs}
+\usepackage{amsmath,etoolbox}
+\usepackage{mathtools}
+\usepackage{array}
+\usepackage{anyfontsize}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{float}
+\usepackage{subfig}
+\usepackage[labelfont=bf,labelsep=period]{caption}
+\usepackage{booktabs}
+\usepackage{newunicodechar}
+\usepackage{booktabs}
+\usepackage{nicefrac}	% For diagonal fractions
+\usepackage{bbm}
+
+% Packages needed for tables
+\usepackage{longtable}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{array}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage{hyperref}
+\usepackage{breakurl}
+
+% To put footnotes at the bottom of the page
+\usepackage[bottom]{footmisc}
+
+% No indent
+\setlength\parindent{0pt}
+
+% To enumerate subequations with arabic numbers (e.g. 1.1, 1.2, ecc)
+\patchcmd{\subequations}{\def\theequation{\theparentequation\alph{equation}}}{\def\theequation{\theparentequation.\arabic{equation}}}{}{}
+
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+
+% Definition of definition environment
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+% Definition of theorem environment
+\theoremstyle{theorem}
+\newtheorem{thm}{Theorem}[section]
+
+% To enumerate the equations and the figures according to the section they are in
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+% Path to images folder
+\graphicspath{{./img/}}
+
+% To modify the space between figure and caption
+%\setlength{\abovecaptionskip}{-4pt}
+%\setlength{\belowcaptionskip}{3pt}
+
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\topfraction}{0.9}
+
+\usepackage{tikz}
+
+\begin{document}
+
+	\section{Introduction}
+
+		This is a schematic description of the C++ code performing mesh reduction for a non-planar spatial regression analysis involving a penalty term. \\
+		The document is structured in the following way. In Section \ref{section:Repo structure} we illustrate the contents of each folder of the Git repository \texttt{mesh-simplification}. Then in section \ref{section:} we present the interface of the main classes and functions defined in the code. A brief description for each code entity is given. To help the reader go through the rather complicated structure of the library, hyperlinks among different sections will be provided.
+	
+	\section{Repo structure}
+	\label{section:Repo structure}
+	
+		The code has been organized in the following folders:
+		\begin{itemize}
+			\item[\texttt{/bin}] folder storing the binaries, i.e. \texttt{cpp} files with \texttt{main};
+			\item[\texttt{/doc}] heterogeneous documentation regarding the code;
+			\item[\texttt{/mesh}] set of test grids, useful for numerical simulations;
+			\item[\texttt{/RobustPredicated}] suite of geometric standard tests for a grid; they are said \emph{robust} because they are designed to properly work even with numerically dangerous objects, e.g. badly-conditioned matrices;
+			\item[\texttt{/src}] the header and source files constituing the library;
+			\item[\texttt{/unitTests}] suite of short tests aiming at validating the code.
+		\end{itemize}
+		Within the folder \texttt{/src}, one may find the following subfolders:
+		\begin{itemize}
+			\item[\texttt{/core}] definition of base geometric entities, e.g. point;
+			\item[\texttt{/file}] to manage I/O; note that post-processing is carried out in ParaView;
+			\item[\texttt{/intersec}] check if two geometric elements, e.g. two triangles, intersect;
+			\item[\texttt{/utility}] various geometric tests, e.g. check if a point falls within a polygon;
+			\item[\texttt{/geometry}] definition of the data structured to store a grid; the main files it contains are:
+			\begin{itemize}
+				\item \texttt{connect2D.hpp}: it implements the connections between elements; remember that an element is characterized by:
+				\begin{enumerate}
+					\item ID,
+					\item point(s),
+					\item color, representing the material;
+				\end{enumerate}
+				\item \texttt{mesh2D.hpp}: data structure to store a two-dimensional grid;
+				\item \texttt{tricky2D.hpp}: performs different operations on the grid \emph{without} altering the node-element connections;
+			\end{itemize}
+			\item[\texttt{/doctor}] perform the following operations on the grid:
+			\begin{itemize}
+				\item smoothing,
+				\item edge swapping,
+				\item edge splitting,
+				\item edge collapsing.
+			\end{itemize} 
+			Note that this operations modify the node-element connections;
+			\item[\texttt{/meshOperation}] compute the cost functional for each edge, whose making the \texttt{doctor} aware of which edges have to contract; the main file is \texttt{simplification2d}.
+		\end{itemize}
+
+\end{document}

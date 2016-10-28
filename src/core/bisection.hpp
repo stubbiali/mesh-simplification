@@ -1,6 +1,8 @@
 #ifndef BISECTION_HPP_
 #define BISECTION_HPP_
 
+#include <cmath>
+#include <iostream>
 #include "../core/shapes.hpp"
 
 namespace geometry
@@ -66,7 +68,7 @@ template<class F>  bisection<F>::bisection()
 {
     // setto i valori base
     toll     = 1e-14;
-    max_iter = 1000;
+    max_iter = 1e6;
 }
 
 //
@@ -94,7 +96,7 @@ template<class F> Real bisection<F>::find_zero(F fun, Real a, Real b)
 	fc=fun.evaluate_f(x);
 
 	// calcolo l'errore  
-	err=fabs(fc);
+	err=std::fabs(fc);
 	
 	// controllo se devo uscire 
 	if(err<toll)			break;
@@ -104,11 +106,13 @@ template<class F> Real bisection<F>::find_zero(F fun, Real a, Real b)
 	else 				b_tmp=x;
     }
 
+	/*
     // faccio le stampe
     if(n_iter<max_iter)  std::cout<<"Bisezione converge in "<<n_iter<<" iterazioni. Errore "<<err<<std::endl; 
     else
       std::cout<<"Attenzione: massismo di iterazioni ( "<<max_iter<<" ) per bisezione raggiunto. Errore "<<err<<std::endl;
-
+	*/
+	
     return x;
 }
 
