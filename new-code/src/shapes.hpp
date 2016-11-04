@@ -6,8 +6,8 @@
 
 #include <array>
 
-namespace geometry {
-
+namespace geometry 
+{
 	//
 	// Macro and aliases
 	//
@@ -40,8 +40,8 @@ namespace geometry {
 	/*! A point. */
 	struct simplePoint {
 		using BShape = simplePoint;
-		static constexpr ReferenceShapes Shape = POINT; 
-		static constexpr ReferenceGeometry Geometry = VERTEX;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 0;   
 		static constexpr UInt numVertices = 1;
 		static constexpr UInt numFaces = 0;
@@ -51,8 +51,8 @@ namespace geometry {
 	/*! A line. */
 	struct Line {
 		using BShape = simplePoint;
-		static constexpr ReferenceShapes Shape = LINE;
-		static constexpr ReferenceGeometry Geometry = EDGE;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 1;
 		static constexpr UInt numFaces = 0;
 		static constexpr UInt numEdges = 1;
@@ -64,8 +64,8 @@ namespace geometry {
 	/*! A triangle. */
 	struct Triangle {
 		using BShape = Line;
-		static constexpr ReferenceShapes Shape = TRIANGLE;
-		static constexpr ReferenceGeometry Geometry = FACE;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 2;
 		static constexpr UInt numVertices = 3;
 		static constexpr UInt numFaces = 1;
@@ -79,8 +79,8 @@ namespace geometry {
 	/*! A quadrilateral. */
 	struct Quad {
 		using BShape = Line;
-		static constexpr ReferenceShapes Shape = QUAD;
-		static constexpr ReferenceGeometry Geometry = FACE;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 2;
 		static constexpr UInt numVertices = 4;
 		static constexpr UInt numFaces = 1;
@@ -94,8 +94,8 @@ namespace geometry {
 	/*! A tetrahedron. */
 	struct Tetra {
 		using BShape = Triangle;
-		static constexpr ReferenceShapes Shape = TETRA;
-		static constexpr ReferenceGeometry Geometry = VOLUME;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 3;
 		static constexpr UInt numVertices = 4;
 		static constexpr UInt numFaces = 4;
@@ -110,8 +110,8 @@ namespace geometry {
 	/*! A hexahedron. */
 	struct Hexa {
 		using BShape = Quad;
-		static constexpr ReferenceShapes Shape = HEXA;
-		static constexpr ReferenceGeometry Geometry = VOLUME;
+		static const ReferenceShapes Shape; 
+		static const ReferenceGeometry Geometry;
 		static constexpr UInt dim = 3;
 		static constexpr UInt numFaces = 6;
 		static constexpr UInt numVertices = 8;
