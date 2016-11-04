@@ -43,16 +43,17 @@ namespace geometry {
 			// Constructors and destructor
 			//
 		
-			/*! (Default) constructor.
-				\param ID	point id
+			/*! Constructor.
 				\param x	first coordinate
 				\param y	second coordinate
 				\param z	third coordinate
+				\param ID	point id
 				\param bond	boundary flag */
 	    	point(const Real & x = 0.0, const Real & y = 0.0, const Real & z = 0.0, const UInt & ID = 0, const UInt & bond = 0);
 
 			/*! Constructor. 
 				\param c	array with coordinates
+				\param ID	point id
 				\param bond	boundary flag */
 		    point(const array<Real,3> & c, const UInt & ID = 0, const UInt & bond = 0);
 
@@ -205,11 +206,10 @@ namespace geometry {
 				\param newBond	the new boundary flag */
 			inline void setBoundary(const UInt & newBond) {boundary = newBond;};
 		     
-		private:                 
-			         
+		private:                     
 			/*! Print to output the point data.
 				\param out	the output string */
-			void print(ostream & out) const;
+			virtual void print(ostream & out) const;
 
 	};
 
