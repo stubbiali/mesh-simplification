@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cassert>
 #include <vector>
+#include <stdlib.h>
 
 #include "shapes.hpp"
 

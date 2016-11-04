@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall    CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o  -o smoothingRoutine -rdynamic src/libmeshSimplification.a RobustPredicates/libpredicates.a 

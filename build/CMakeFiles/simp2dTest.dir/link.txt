@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall    CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o  -o simp2dTest -rdynamic src/libmeshSimplification.a RobustPredicates/libpredicates.a 
