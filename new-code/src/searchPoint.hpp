@@ -9,9 +9,7 @@
 namespace geometry 
 {
 	using namespace std;
-	
-	class point;
-		
+			
 	/*! Class inheriting point and storing the indices for structured data search. 
 		All methods are modified so to keep the indices updated after any operation. */
 	class searchPoint final : public simplePoint
@@ -167,7 +165,7 @@ namespace geometry
 			
 			/*! Set all cells sizes.
 				\param val	array with new cells sizes */
-			static void setdl(const array<UInt,3> & val);
+			static void setdl(const array<Real,3> & val);
 			
 			/*! Set number of cells along one direction.
 				\param i	component
@@ -176,7 +174,7 @@ namespace geometry
 			
 			/*! Set number of cells along each direction.
 				\param val	array with new number of cells */
-			static void setNumCells(const array<UInt,3> val);
+			static void setNumCells(const array<UInt,3> & val);
 			
 			/*! Initialize extrema of the grid and cells sizes.
 				This method is supposed to be called ONLY ONCE and BEFORE any use of the class.

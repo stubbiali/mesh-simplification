@@ -1,4 +1,5 @@
-#include "points.hpp"
+#include "point.hpp"
+#include "searchPoint.hpp"
 
 namespace geometry {
 
