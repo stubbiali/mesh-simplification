@@ -24,7 +24,7 @@ namespace geometry {
 	/*! Class storing a node of a mesh and performing different operations on it. */
 	class point : public simplePoint {
 
-		private:
+		protected:
 		
 			/*! The node id. */
 			UInt id;
@@ -61,8 +61,8 @@ namespace geometry {
 		    point(const array<Real,3> & c, const UInt & ID = 0, const UInt & bond = 0);
 
 			/*! Synthetic copy constructor.
-				\param V	point */
-		    point(const point & V) = default;
+				\param p	point */
+		    point(const point & p) = default;
 
 			/*! Destructor */
 		    virtual ~point() = default;
@@ -72,8 +72,8 @@ namespace geometry {
 			//
 			
 			/*! The equality operator. 
-				\param V	point */
-			point & operator=(const point & V);
+				\param p	point */
+			virtual point & operator=(const point & p);
 
 			/*! Sum operator. 
 				\param pA	first point
@@ -216,12 +216,11 @@ namespace geometry {
 			/*! Convert to a searchPoint object.
 				\return		the related searchPoint object */
 			operator searchPoint() const;
-		     
+					     
 		private:                     
 			/*! Print to output the point data.
 				\param out	the output string */
 			virtual void print(ostream & out) const;
-
 	};
 	
 }

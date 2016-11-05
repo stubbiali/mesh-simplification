@@ -1,8 +1,8 @@
 #include "point.hpp"
 #include "searchPoint.hpp"
 
-namespace geometry {
-
+namespace geometry 
+{
 	using namespace std;
 
 	//
@@ -23,15 +23,15 @@ namespace geometry {
 
 	// For copy-aiignment operator: just consider the coordinates and the boundary flag, but not the id.
 	// This will be useful when updating the mesh after an edge contraction.
-	point & point::operator=(const point & V) 
+	point & point::operator=(const point & p) 
 	{
 		// Copy the coordinates
-		coor[0] = V.coor[0];
-		coor[1] = V.coor[1];
-		coor[2] = V.coor[2];
+		coor[0] = p.coor[0];
+		coor[1] = p.coor[1];
+		coor[2] = p.coor[2];
 		
 		// Copy the boundary flag
-		boundary = V.boundary;
+		boundary = p.boundary;
 		
 		return *this;
 	}
