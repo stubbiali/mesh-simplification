@@ -1,4 +1,4 @@
-#include "point.hpp"
+#include "points.hpp"
 
 namespace geometry {
 
@@ -178,6 +178,16 @@ namespace geometry {
 		coor[0] = newCoor[0];
 		coor[1] = newCoor[1];
 		coor[2] = newCoor[2];
+	}
+	
+	
+	//
+	// Conversion method
+	//
+	
+	point::operator searchPoint() const
+	{
+		return searchPoint(*this);
 	}
 
 	
