@@ -1,11 +1,11 @@
 /*! \file graphItem.hpp
 	\brief A class representing the element of a generic graph. */
 	
-#ifndef HH_GRAPHITEM_HH
-#define HH_GRAPHITEM_HH
+#ifndef HH_UNORDEREDGRAPHITEM_HH
+#define HH_UNORDEREDGRAPHITEM_HH
 
 #include <iostream>
-#include <vector>
+#include <set>
 #include <utility>
 
 #include "shapes.hpp"
@@ -16,25 +16,26 @@ namespace geometry
 	
 	/*! This class represents an element of a generic graph.
 		The element is characterized by an Id and the Id's of the connected
-		elements are stored in a STL vector. In this way, the order in which
-		the connected elements are inserted matters. 
+		elements are stored in a STL set. In this way, the order in which
+		the connected elements are inserted does not matter. 
+		Connected Id's are ascendig-ordered.  
 		Every operation is carefully performed not to give rise to 
-		duplicated in connected Id's vector.
+		duplicated in connected Id's set.
 		
 		This class is useful for representing items whose connected elements
-		may change throughout the code but whose number is fixed. 
-		If this is not the case, the user might prefer the class unordered_graphItem. 
+		may change throughout the code but whose order does not matter.
+		If this is not the case, the user might prefer the class graphItem.  
 		
-		\sa unordered_graphItem */
+		\sa graphItem */
 		
-	class graphItem
+	class unordered_graphItem
 	{
 		private:
 			/*! Element Id. */
 			UInt id;
 		
 			/*! Id's of connected elements. */
-			vector<UInt> conn;
+			set<UInt> conn;
 		
 			/*! Flag
 				<ol>
@@ -47,23 +48,20 @@ namespace geometry
 			//
 			// Constructors
 			//
-			
-			/*! Default constructor. */
-			graphItem();
-						
-			/*! Constructor.
+									
+			/*! (Default) constructor.
 				\param N	number of connected elements 
 				\param ID	element Id */
-			graphItem(const UInt & N, const UInt & ID = 0);
+			unordered_graphItem(const UInt & ID = 0);
 			
 			/*! Constructor.
 				\param ID	element Id 
 				\param c	ID's of connected elements */
-			graphItem(const vector<UInt> & c, const UInt & ID = 0);
+			unordered_graphItem(const vector<UInt> & c, const UInt & ID = 0);
 			
 			/*! Synthetic copy constructor.
 				\param g	another graph item */
-			graphItem(const graphItem & g) = default;
+			unordered_graphItem(const graphItem & g) = default;
 			
 			//
 			// Operators
@@ -146,7 +144,7 @@ namespace geometry
 			
 			/*! Set active flag.
 				\param flag	active flag */
-			inline void setActive(const bool & flag = true) {active = flag;};
+			inline void setActive(const bool & flag) {active = flag;};
 			
 			//
 			// Find, insert, replace and erase methods

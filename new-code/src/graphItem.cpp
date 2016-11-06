@@ -1,4 +1,5 @@
 #include "graphItem.hpp"
+
 #include <algorithm>
 #include <set>
 #include <iterator>
