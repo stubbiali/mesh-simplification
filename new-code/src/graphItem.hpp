@@ -5,8 +5,10 @@
 #define HH_GRAPHITEM_HH
 
 #include <iostream>
+#include <vector>
 #include <utility>
-#include <algorithm>
+
+#include "shapes.hpp"
 
 namespace geometry
 {
