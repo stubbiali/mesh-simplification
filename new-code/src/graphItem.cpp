@@ -111,10 +111,10 @@ namespace geometry
 	// Find, insert, replace and erase methods
 	//
 	
-	pair<bool,vector<UInt>::iterator> graphItem::find(const UInt & val)
+	pair<vector<UInt>::iterator,bool> graphItem::find(const UInt & val)
 	{
 		auto it = std::find(conn.begin(), conn.end(), val);
-		return make_pair(it != conn.end(), it);
+		return make_pair(it, it != conn.end());
 	}
 	
 	

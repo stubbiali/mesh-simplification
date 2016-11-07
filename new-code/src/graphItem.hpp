@@ -9,6 +9,7 @@
 #include <utility>
 
 #include "shapes.hpp"
+#include "undirectedGraphItem.hpp"
 
 namespace geometry
 {
@@ -23,9 +24,9 @@ namespace geometry
 		
 		This class is useful for representing items whose connected elements
 		may change throughout the code but whose number is fixed. 
-		If this is not the case, the user might prefer the class unordered_graphItem. 
+		If this is not the case, the user might prefer the class undirectedGraphItem. 
 		
-		\sa unordered_graphItem */
+		\sa undirectedGraphItem */
 		
 	class graphItem
 	{
@@ -43,6 +44,9 @@ namespace geometry
 				<\ol> */
 			bool active;
 			
+			/* undirectedGraphItem is a friend class. */
+			friend class undirectedGraphItem;
+			
 		public:
 			//
 			// Constructors
@@ -57,8 +61,8 @@ namespace geometry
 			graphItem(const UInt & N, const UInt & ID = 0);
 			
 			/*! Constructor.
-				\param ID	element Id 
-				\param c	ID's of connected elements */
+				\param c	ID's of connected elements 
+				\param ID	element Id */
 			graphItem(const vector<UInt> & c, const UInt & ID = 0);
 			
 			/*! Synthetic copy constructor.
@@ -84,19 +88,19 @@ namespace geometry
 				\return		i-th connected element Id */
 			inline UInt & operator[](const UInt & i) {return conn[i];};
 			
-			/*! Less than operator. The connected id's are compared before comparison.
+			/*! Less than operator. The connected id's are sorted before comparison.
 				\param g1	the first graph item
 				\param g2	the second graph item
 				\return		bool saying whether g1 is "less than" g2 or not */
 			friend bool operator<(const graphItem & g1, const graphItem & g2);
 			
-			/*! The inequality operator. The connected id's are compared before comparison.
+			/*! The inequality operator. The connected id's are sorted before comparison.
 				\param g1	the first graph item
 				\param g2	the second graph item
 				\return		bool saying whether g1 is different from g2 or not */
 			friend bool operator!=(const graphItem & g1, const graphItem & g2);
 		
-			/*! The equality operator. The connected id's are compared before comparison.
+			/*! The equality operator. The connected id's are sorted before comparison.
 				\param g1	the first graph item
 				\param g2	the second graph item
 				\return		bool saying whether g1 is equal to g2 or not */
@@ -107,6 +111,13 @@ namespace geometry
 				\param g	a graph item
 				\return		updated output stream */
 			friend ostream & operator<<(ostream & out, const graphItem & g);
+			
+			//
+			// Conversion methods
+			//
+			
+			/*! Convert to an undirected graph item. */
+			inline operator undirectedGraphItem() const {return undirectedGraphItem(*this);};
 			
 			//
 			// Get methods
@@ -157,7 +168,7 @@ namespace geometry
 				\return		pair where the first element is a bool saying
 							whether the item has been found or not,
 							while the second element is an iterator to the element */
-			pair<bool,vector<UInt>::iterator> find(const UInt & val);
+			pair<vector<UInt>::iterator,bool> find(const UInt & val);
 						
 			/*! Append a new Id to the connected elements.
 				\param val	value to append
@@ -174,6 +185,10 @@ namespace geometry
 				\param val	Id to erase
 				\return		bool saying whether the Id has been deleted or not */
 			bool erase(const UInt & val);
+			
+			/*! Erase a connected element.
+				\param it	iterator to the element to erase */
+			inline void erase(vector<UInt>::iterator it) {conn.erase(it);};
 			
 			/*! Clear the vector with connected Id's. */
 			inline void clear() {conn.clear();};
