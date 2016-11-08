@@ -6,8 +6,6 @@
 
 namespace geometry
 {
-	using namespace std;
-	
 	//
 	// Constructors
 	//

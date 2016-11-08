@@ -1,4 +1,4 @@
-/*! \file graphItem.hpp
+/*! \file  graphItem.hpp
 	\brief A class representing the element of a generic graph. */
 	
 #ifndef HH_GRAPHITEM_HH
@@ -8,13 +8,11 @@
 #include <vector>
 #include <utility>
 
-#include "shapes.hpp"
+#include "inc.hpp"
 #include "undirectedGraphItem.hpp"
 
 namespace geometry
 {
-	using namespace std;
-	
 	/*! This class represents an element of a generic graph.
 		The element is characterized by an Id and the Id's of the connected
 		elements are stored in a STL vector. In this way, the order in which
@@ -81,12 +79,12 @@ namespace geometry
 			/*! Access operator (const version). It allows to access the connected elements.
 				\param i	element position
 				\return		i-th connected element Id */
-			inline UInt operator[](const UInt & i) const {return conn[i];};
+			UInt operator[](const UInt & i) const;
 			
 			/*! Access operator (non const version). It allows to access the connected elements.
 				\param i	element position
 				\return		i-th connected element Id */
-			inline UInt & operator[](const UInt & i) {return conn[i];};
+			UInt & operator[](const UInt & i);
 			
 			/*! Less than operator. The connected id's are sorted before comparison.
 				\param g1	the first graph item
@@ -117,7 +115,7 @@ namespace geometry
 			//
 			
 			/*! Convert to an undirected graph item. */
-			inline operator undirectedGraphItem() const {return undirectedGraphItem(*this);};
+			operator undirectedGraphItem() const;
 			
 			//
 			// Get methods
@@ -125,19 +123,19 @@ namespace geometry
 			
 			/*! Get element Id.
 				\return		element Id */
-			inline UInt getId() const {return id;};
+			UInt getId() const;
 			
 			/*! Get number of connected elements.
 				\return 	number of connected elements */
-			inline UInt size() const {return conn.size();};
+			UInt size() const;
 			
 			/*! Get a vector with the Id's of connected elements.
 				\return 	Id's of connected elements */
-			inline vector<UInt> getConnected() const {return conn;};
+			vector<UInt> getConnected() const;
 			
 			/*! Get active flag.
 				\return		active flag */
-			inline bool isActive() const {return active;};
+			bool isActive() const;
 			
 			//
 			// Set methods
@@ -145,11 +143,11 @@ namespace geometry
 			
 			/*! Set element Id.
 				\param ID	the new element Id */
-			inline void setId(const UInt & ID) {id = ID;};
+			void setId(const UInt & ID);
 			
 			/*! Set number of connected elements.
 				\param N	number of connected elements */
-			inline void resize(const UInt & N) {conn.resize(N);};
+			void resize(const UInt & N);
 			
 			/*! Set all connected Id's.
 				\param v	vector with connected Id's */
@@ -157,7 +155,7 @@ namespace geometry
 			
 			/*! Set active flag.
 				\param flag	active flag */
-			inline void setActive(const bool & flag = true) {active = flag;};
+			void setActive(const bool & flag = true);
 			
 			//
 			// Find, insert, replace and erase methods
@@ -188,10 +186,10 @@ namespace geometry
 			
 			/*! Erase a connected element.
 				\param it	iterator to the element to erase */
-			inline void erase(vector<UInt>::iterator it) {conn.erase(it);};
+			void erase(vector<UInt>::iterator it);
 			
 			/*! Clear the vector with connected Id's. */
-			inline void clear() {conn.clear();};
+			void clear();
 			
 			//
 			// Common and uncommon connected
@@ -216,5 +214,8 @@ namespace geometry
 			friend vector<UInt> symmetric_difference(const graphItem & g1, const graphItem & g2);			
 	};
 }
+
+/*! Include definitions of inlined members. */
+#include "inline/inline_graphItem.hpp"
 
 #endif

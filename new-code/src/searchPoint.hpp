@@ -7,9 +7,7 @@
 #include "point.hpp"
 
 namespace geometry 
-{
-	using namespace std;
-			
+{			
 	/*! Class inheriting point and storing the indices for structured data search. 
 		All methods are modified so to keep the indices updated after any operation. */
 	class searchPoint final : public simplePoint
@@ -31,7 +29,7 @@ namespace geometry
 				Note: this is done because the code is supposed to deal with one mesh at time. */
 			static point			pNE;
 			static point 			pSW;
-			static array<Real,3> 	dl;
+			static array<Real,3> 	cellSize;
 			static array<UInt,3> 	numCells;
 			
 		public:
@@ -84,23 +82,23 @@ namespace geometry
 				\param pA	LHS
 				\param pB	RHS 
 				\return 	bool reporting the result */ 
-			friend inline bool operator!=(const searchPoint & pA, const searchPoint & pB) {return (pA.idx != pB.idx);};
+			friend bool operator!=(const searchPoint & pA, const searchPoint & pB);
 
 			/*! Inequality operator: two points are equal if they fall within the same cell. 
 				\param pA	LHS
 				\param pB	RHS 
 				\return 	bool reporting the result */
-			friend inline bool operator==(const searchPoint & pA, const searchPoint & pB) {return (pA.idx == pB.idx);};
+			friend bool operator==(const searchPoint & pA, const searchPoint & pB);
 			
 			/*! Access operator (non const version).
 				\param i	component
 				\return		index */
-			inline UInt & operator[](const UInt & i) {return idx[i];};
+			UInt & operator[](const UInt & i);
 			
 			/*! Access operator (const version).
 				\param i	component
 				\return		index */
-			inline UInt operator[](const UInt & i) const {return idx[i];};
+			UInt operator[](const UInt & i) const;
 			
 			/*! Output stream operator.
 				\param out	output stream
@@ -114,33 +112,33 @@ namespace geometry
 			
 			/*! Get the id.
 				\return		the point id */
-			inline UInt getId() const {return id;};
+			UInt getId() const;
 			
 			/*! Get North-East point.
 				\return 	the North-East point of the grid. */
-			inline static point getPNE() {return searchPoint::pNE;};
+			static point getPNE();
 						
 			/*! Get South-West point.
 				\return 	the South-West point of the grid. */
-			inline static point getPSW() {return searchPoint::pSW;};
+			static point getPSW();
 			
 			/*! Get one size of the cells.
 				\param i	component
 				\return 	the size */
-			inline static Real getdl(const UInt & i) {return searchPoint::dl[i];};
+			static Real getCellSize(const UInt & i);
 			
 			/*! Get cells sizes.
 				\return		array with cells sizes */
-			inline static array<Real,3> getdl() {return searchPoint::dl;};
+			static array<Real,3> getCellSize();
 			
 			/*! Get number of cells along one direction.
 				\param i	direction
 				\return		number of cells */
-			inline static UInt getNumCells(const UInt & i) {return searchPoint::numCells[i];};
+			static UInt getNumCells(const UInt & i);
 			
 			/*! Get number of cells along each direction.
 				\return		array with number of cells along each direction */
-			inline static array<UInt,3> getNumCells() {return searchPoint::numCells;};
+			static array<UInt,3> getNumCells();
 			
 			//
 			// Set methods 
@@ -148,7 +146,7 @@ namespace geometry
 			
 			/*! Set the id.
 				\param idNew	the new id */
-			inline void setId(const UInt & idNew) {id = idNew;};
+			void setId(const UInt & idNew);
 			
 			/*! Set the North-East point.
 				\param p	the new North-East point */
@@ -161,11 +159,11 @@ namespace geometry
 			/*! Set one cells size.
 				\param i	component
 				\param val	value */
-			static void setdl(const UInt & i, const Real & val);
+			static void setCellSize(const UInt & i, const Real & val);
 			
 			/*! Set all cells sizes.
 				\param val	array with new cells sizes */
-			static void setdl(const array<Real,3> & val);
+			static void setCellSize(const array<Real,3> & val);
 			
 			/*! Set number of cells along one direction.
 				\param i	component
@@ -201,7 +199,7 @@ namespace geometry
 			static void updateCellSize(const UInt & i);
 			
 			/*! Update cells sizes along each direction. */
-			static void updateCellSizes();
+			static void updateCellSize();
 			
 						
 		private:      
@@ -214,5 +212,8 @@ namespace geometry
 			void print(ostream & out) const;
 	};
 }
+
+/*! Include definitions of inlined members and friend functions. */
+#include "inline/inline_searchPoint.hpp"
 
 #endif

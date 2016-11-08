@@ -9,12 +9,10 @@
 #include <utility>
 #include <algorithm>
 
-#include "shapes.hpp"
+#include "inc.hpp"
 
 namespace geometry
 {
-	using namespace std;
-	
 	// Forward declaration of graphItem
 	class graphItem;
 	
@@ -114,22 +112,19 @@ namespace geometry
 			
 			/*! Get element Id.
 				\return		element Id */
-			inline UInt getId() const {return id;};
+			UInt getId() const;
 			
 			/*! Get number of connected elements.
 				\return 	number of connected elements */
-			inline UInt size() const {return conn.size();};
+			UInt size() const;
 			
 			/*! Get a vector with the Id's of connected elements.
 				\return 	Id's of connected elements */
-			inline vector<UInt> getConnected() const 
-			{
-				return vector<UInt>(conn.cbegin(), conn.cend());
-			};
+			vector<UInt> getConnected() const;
 			
 			/*! Get active flag.
 				\return		active flag */
-			inline bool isActive() const {return active;};
+			bool isActive() const;
 			
 			//
 			// Set methods
@@ -137,7 +132,7 @@ namespace geometry
 			
 			/*! Set element Id.
 				\param ID	the new element Id */
-			inline void setId(const UInt & ID) {id = ID;};
+			void setId(const UInt & ID);
 						
 			/*! Set all connected Id's.
 				\param v	vector with connected Id's */
@@ -145,7 +140,7 @@ namespace geometry
 			
 			/*! Set active flag.
 				\param flag	active flag */
-			inline void setActive(const bool & flag) {active = flag;};
+			void setActive(const bool & flag);
 			
 			//
 			// Find, insert, replace and erase methods
@@ -154,10 +149,7 @@ namespace geometry
 			/*! Find a connected Id.
 				\param val	Id to search
 				\return		TRUE if the Id has been found, FALSE otherwise */
-			inline bool find(const UInt & val) const 
-			{
-				return std::find(conn.cbegin(), conn.cend(), val) != conn.cend();
-			}
+			bool find(const UInt & val) const;
 						
 			/*! Find a connected Id.
 				\param val	Id to search
@@ -168,7 +160,7 @@ namespace geometry
 						
 			/*! Insert a new Id to the connected elements.
 				\param val	value to append */
-			inline void insert(const UInt & val) {conn.insert(val);};
+			void insert(const UInt & val);
 			
 			/*! Replace a connected.
 				\param oldId	the old Id
@@ -181,14 +173,14 @@ namespace geometry
 			/*! Erase a connected element.
 				\param val	Id to erase 
 				\return		number of removed elements */
-			inline UInt erase(const UInt & val) {return conn.erase(val);};
+			UInt erase(const UInt & val);
 			
 			/*! Erase a connected element.
 				\param it	iterator to the element to erase */
-			inline void erase(set<UInt>::iterator it) {conn.erase(it);};
+			void erase(set<UInt>::iterator it);
 			
 			/*! Clear the set with connected Id's. */
-			inline void clear() {conn.clear();};
+			void clear();
 			
 			//
 			// Common and uncommon connected

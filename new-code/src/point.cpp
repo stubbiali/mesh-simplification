@@ -35,44 +35,7 @@ namespace geometry
 		
 		return *this;
 	}
-	
-	
-	point operator+(const point & pA, const point & pB) 
-	{
-		return point(pA.coor[0]+pB.coor[0], pA.coor[1]+pB.coor[1], pA.coor[2]+pB.coor[2]);
-	}
-	
-	
-	point operator-(const point & pA, const point & pB) 
-	{
-		return point(pA.coor[0]-pB.coor[0], pA.coor[1]-pB.coor[1], pA.coor[2]-pB.coor[2]);
-	}
 		
-
-	point operator^(const point & pA, const point & pB) 
-	{
-		return  point(  pA.coor[1]*pB.coor[2] - pB.coor[1]*pA.coor[2],
-						pA.coor[2]*pB.coor[0] - pB.coor[2]*pA.coor[0],
-						pA.coor[0]*pB.coor[1] - pB.coor[0]*pA.coor[1]);
-	}
-
-	point operator/(const point & p, const Real & a) 
-	{
-		return point(p.coor[0]/a, p.coor[1]/a, p.coor[2]/a);
-	}
-
-
-	point operator*(const point & p, const Real & a)
-	{
-		return point(p.coor[0]*a, p.coor[1]*a, p.coor[2]*a);
-	}
-
-
-	Real operator*(const point & pA, const point & pB) 
-	{
-		return pA.coor[0]*pB.coor[0] + pA.coor[1]*pB.coor[1] + pA.coor[2]*pB.coor[2];
-	}
-
 
 	bool operator<(const point & pA, const point & pB) 
 	{
@@ -111,7 +74,7 @@ namespace geometry
 		
 		return true;
 	}
-		
+			
 	
 	ostream & operator<<(ostream & out, const point & p)
 	{
@@ -149,9 +112,9 @@ namespace geometry
 	
 	
 	// 
-	// Norm method
+	// Norm methods
 	//
-	
+		
 	void point::normalize()
 	{
 		// Compute the norm 
@@ -168,10 +131,10 @@ namespace geometry
 		coor[1] /= len;
 		coor[2] /= len;
 	}
-	
+		
 	
 	//
-	// Set method
+	// Set methods
 	//	
 
 	void point::setCoor(const array<Real,3> & newCoor)
@@ -180,17 +143,7 @@ namespace geometry
 		coor[1] = newCoor[1];
 		coor[2] = newCoor[2];
 	}
-	
-	
-	//
-	// Conversion method
-	//
-	
-	point::operator searchPoint() const
-	{
-		return searchPoint(*this);
-	}
-
+		
 	
 	//
 	// Print

@@ -11,21 +11,12 @@
 
 #include "shapes.hpp"
 
-namespace geometry {
-
-	using namespace std;
-
-	// Forward declaration of searchPoint.
-	class searchPoint;
-
-	/*! Tolerance. */
-	#define TOLL 1e-10
-		    
+namespace geometry 
+{		    
 	/*! Class storing a node of a mesh and performing different operations on it. */
-	class point : public simplePoint {
-
+	class point : public simplePoint 
+	{
 		protected:
-		
 			/*! The node id. */
 			UInt id;
 			
@@ -41,7 +32,6 @@ namespace geometry {
 			UInt boundary;
 	                
 		public:
-		
 			//
 			// Constructors and destructor
 			//
@@ -104,6 +94,12 @@ namespace geometry {
 				\param a	scalar 
 				\return 	result */
 			friend point operator*(const point & p, const Real & a);
+			
+			/*! Product by a scalar. 
+				\param a	scalar 
+				\param p	point
+				\return 	result */
+			friend point operator*(const Real & a, const point & p);
 
 			/*! Scalar product. 
 				\param pA	first point
@@ -132,12 +128,12 @@ namespace geometry {
 			/*! Access operator (non const version).
 				\param i	index of the coordinate
 				\return		coordinate */
-			inline Real & operator[](const UInt & i) {return coor[i];};
+			Real & operator[](const UInt & i);
 			
 			/*! Access operator (const version).
 				\param i	index of the coordinate
 				\return		coordinate */
-			inline Real operator[](const UInt & i) const {return coor[i];};
+			Real operator[](const UInt & i) const;
 			
 			/*! Output stream operator.
 				\param out	output stream
@@ -176,7 +172,7 @@ namespace geometry {
 				
 			/*! The Euclidean norm of the vector.
 				\return	the norm */
-			inline Real norm2() const {return std::sqrt(coor[0]*coor[0] + coor[1]*coor[1] + coor[2]*coor[2]);};
+			Real norm2() const;
 
 			/*! Normalize the coordinates vector. */
 			void normalize();
@@ -187,11 +183,11 @@ namespace geometry {
 		
 			/*! Get the id.
 				\return the id */
-			inline UInt getId() const {return id;};
+			UInt getId() const;
 
 			/*! Get boundary flag.
 				\return the boundary flag */
-			inline UInt getBoundary() const {return boundary;};
+			UInt getBoundary() const;
 						                
 			//
 			// Set methods
@@ -203,27 +199,21 @@ namespace geometry {
 
 			/*! Set the id.
 				\param newId	the new id */
-			inline void setId(const UInt & newId) {id = newId;};
+			void setId(const UInt & newId);
 
 			/*! Set boundary information. 
 				\param newBond	the new boundary flag */
-			inline void setBoundary(const UInt & newBond) {boundary = newBond;};
-			
-			//
-			// Conversion methods
-			//
-			
-			/*! Convert to a searchPoint object.
-				\return		the related searchPoint object */
-			operator searchPoint() const;
-					     
-		private:                     
+			void setBoundary(const UInt & newBond);
+								     
+		private:              
 			/*! Print to output the point data.
 				\param out	the output string */
 			virtual void print(ostream & out) const;
 	};
-	
 }
+
+/*! Include definitions of inlined members and friend functions. */
+#include "inline/inline_point.hpp"
 
 #endif
 

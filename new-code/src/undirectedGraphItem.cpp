@@ -3,8 +3,6 @@
 
 namespace geometry
 {
-	using namespace std;
-	
 	//
 	// Constructors
 	//
@@ -42,25 +40,7 @@ namespace geometry
 		
 		return *this;
 	}
-	
-	
-	inline bool operator<(const undirectedGraphItem & g1, const undirectedGraphItem & g2)
-	{
-		return (g1.conn < g2.conn);
-	}
-	
-	
-	inline bool operator!=(const undirectedGraphItem & g1, const undirectedGraphItem & g2)
-	{
-		return (g1.conn != g2.conn);
-	}
-	
-	
-	inline bool operator==(const undirectedGraphItem & g1, const undirectedGraphItem & g2)
-	{
-		return (g1.conn == g2.conn);
-	}
-	
+		
 	
 	ostream & operator<<(ostream & out, const undirectedGraphItem & g)
 	{

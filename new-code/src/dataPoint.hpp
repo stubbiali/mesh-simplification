@@ -7,9 +7,7 @@
 #include "point.hpp"
 
 namespace geometry
-{
-	using namespace std;
-	
+{	
 	/*! Class inheriting point and expanding it adding the datum associated to the point. */
 	class dataPoint final : public point
 	{
@@ -51,7 +49,7 @@ namespace geometry
 			
 			/*! Get the datum.
 				\return 	the datum */
-			inline Real getDatum() const {return datum;};
+			Real getDatum() const;
 			
 			//
 			// Set methods
@@ -59,13 +57,16 @@ namespace geometry
 			
 			/*! Set the datum.
 				\param dat	the new datum */
-			inline void setDatum(Real const & dat) {datum = dat;};
+			void setDatum(const Real & dat);
 			
 		private:
 			/*! Print to output the point data.
 				\param out	the output string */
-			virtual void print(ostream & out) const;
+			virtual void print(ostream & out) const override;
 	}; 
 }
+
+/*! Include definitions of inlined members. */
+#include "inline/inline_dataPoint.hpp"
 
 #endif

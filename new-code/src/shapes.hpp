@@ -6,19 +6,10 @@
 
 #include <array>
 
+#include "inc.hpp"
+
 namespace geometry 
 {
-	//
-	// Macro and aliases
-	//
-
-	/*! Definition of pi */
-	#define PGRECO 3.141592653589793238462643383279502884197169399375105820974944592308
-
-	/*! Aliases */
-	using Real = double;
-	using UInt = unsigned int;
-	
 	//
 	// Enumerations
 	//
@@ -38,7 +29,8 @@ namespace geometry
 	//
 
 	/*! A point. */
-	struct simplePoint {
+	struct simplePoint 
+	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -49,7 +41,8 @@ namespace geometry
 	};
 
 	/*! A line. */
-	struct Line {
+	struct Line 
+	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -58,11 +51,12 @@ namespace geometry
 		static constexpr UInt numEdges = 1;
 		static constexpr UInt numVertices = 2;
 		static constexpr UInt numVerticesPerEdge = 2;
-		static const std::array<UInt, numEdges*numVerticesPerEdge> edgeConn;
+		static const array<UInt, numEdges*numVerticesPerEdge> edgeConn;
 	};
 
 	/*! A triangle. */
-	struct Triangle {
+	struct Triangle 
+	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -72,12 +66,13 @@ namespace geometry
 		static constexpr UInt numEdges = numVertices;
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 3;
-		static const std::array<UInt, numEdges*BShape::numVertices> edgeConn;
-		static const std::array<UInt, numFaces*numVerticesPerFace> faceConn;
+		static const array<UInt, numEdges*BShape::numVertices> edgeConn;
+		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 
 	/*! A quadrilateral. */
-	struct Quad {
+	struct Quad 
+	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -87,12 +82,13 @@ namespace geometry
 		static constexpr UInt numEdges = numVertices;
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 4;
-		static const std::array<UInt, numEdges*BShape::numVertices> edgeConn;
-		static const std::array<UInt, numFaces*numVerticesPerFace> faceConn;
+		static const array<UInt, numEdges*BShape::numVertices> edgeConn;
+		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 
 	/*! A tetrahedron. */
-	struct Tetra {
+	struct Tetra 
+	{
 		using BShape = Triangle;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -103,12 +99,13 @@ namespace geometry
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 3;
 		static constexpr UInt numVerticesPerVolume = 4;
-		static const std::array<UInt, numEdges*numVerticesPerEdge> edgeConn;
-		static const std::array<UInt, numFaces*numVerticesPerFace> faceConn;
+		static const array<UInt, numEdges*numVerticesPerEdge> edgeConn;
+		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 
 	/*! A hexahedron. */
-	struct Hexa {
+	struct Hexa 
+	{
 		using BShape = Quad;
 		static const ReferenceShapes Shape; 
 		static const ReferenceGeometry Geometry;
@@ -119,8 +116,8 @@ namespace geometry
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 4;
 		static constexpr UInt numVerticesPerVolume = 8;
-		static const std::array<UInt, numEdges*numVerticesPerEdge> edgeConn;
-		static const std::array<UInt, numFaces*numVerticesPerFace> faceConn;
+		static const array<UInt, numEdges*numVerticesPerEdge> edgeConn;
+		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 
 }
