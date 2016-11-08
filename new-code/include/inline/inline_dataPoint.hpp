@@ -1,5 +1,5 @@
-/*! \file inline_dataPoint.hpp
-	\brief Definitions of inlined members for class dataPoint. */
+/*! \file 	inline_dataPoint.hpp
+	\brief 	Definitions of inlined members for class dataPoint. */
 	
 #ifndef HH_INLINEDATAPOINT_HH
 #define HH_INLINEDATAPOINT_HH

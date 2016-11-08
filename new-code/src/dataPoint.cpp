@@ -8,10 +8,16 @@ namespace geometry
 	// Constructors
 	//
 	
-	dataPoint::dataPoint(const array<Real,3> & c, const UInt & ID, const UInt & dat) : point(c,ID), datum(dat) {}
+	dataPoint::dataPoint(const array<Real,3> & c, const UInt & ID, const UInt & dat) : 
+		point(c,ID), datum(dat) 
+	{
+	}
 	
 	
-	dataPoint::dataPoint(const point & p, Real const & dat) : point(p), datum(dat) {}
+	dataPoint::dataPoint(const point & p, Real const & dat) : 
+		point(p), datum(dat) 
+	{
+	}
 	
 	
 	//
@@ -36,7 +42,7 @@ namespace geometry
 	
 	void dataPoint::print(ostream & out) const
 	{
-		out << "Point ID: " << id << endl;
+		out << "Point ID: " << Id << endl;
 		
 		out << "Point coordinates: x = " << coor[0]
 			<< "                   y = " << coor[1]

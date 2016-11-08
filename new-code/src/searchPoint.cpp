@@ -1,5 +1,6 @@
-#include "searchPoint.hpp"
 #include <algorithm>
+
+#include "searchPoint.hpp"
 
 namespace geometry 
 {	
@@ -18,13 +19,15 @@ namespace geometry
 	// Constructors
 	//
 	
-	searchPoint::searchPoint(const array<UInt,3> & idx, const UInt & ID) : id(ID), idx(idx) 
+	searchPoint::searchPoint(const array<UInt,3> & idx, const UInt & ID) : 
+		Id(ID), idx(idx) 
 	{
 		assert(idx < searchPoint::numCells);
 	}
 	
 	
-	searchPoint::searchPoint(const Real & x, const Real & y, const Real & z, const UInt & ID) : id(ID)
+	searchPoint::searchPoint(const Real & x, const Real & y, const Real & z, const UInt & ID) : 
+		Id(ID)
 	{
 		idx[0] = static_cast<UInt>((x - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
 		idx[1] = static_cast<UInt>((y - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
@@ -35,7 +38,8 @@ namespace geometry
 	}
 	
 	
-	searchPoint::searchPoint(const array<Real,3> & c, const UInt & ID) : id(ID)
+	searchPoint::searchPoint(const array<Real,3> & c, const UInt & ID) : 
+		Id(ID)
 	{
 		idx[0] = static_cast<UInt>((c[0] - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
 		idx[1] = static_cast<UInt>((c[1] - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
@@ -46,7 +50,8 @@ namespace geometry
 	}
 	
 	
-	searchPoint::searchPoint(const point & p) : id(p.getId())
+	searchPoint::searchPoint(const point & p) : 
+		Id(p.getId())
 	{
 		idx[0] = static_cast<UInt>((p[0] - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
 		idx[1] = static_cast<UInt>((p[1] - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
@@ -206,7 +211,7 @@ namespace geometry
 	
 	void searchPoint::print(ostream & out) const
 	{
-		out << "Point ID: " << id << endl;		
+		out << "Point ID: " << Id << endl;		
 		out << "Point indices: " << idx[0] << ", " << idx[1] << ", " << idx[2] << endl;
 		out << endl;
 	}

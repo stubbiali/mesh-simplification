@@ -10,18 +10,22 @@ namespace geometry
 	//
 
 	point::point(const Real & x, const Real & y, const Real & z, const UInt & ID, const UInt & bond) :
-		id(ID), coor{x, y, z}, boundary(bond) {}
+		Id(ID), coor{x, y, z}, boundary(bond) 
+	{
+	}
 	
 
 	point::point(const array<Real,3> & c, const UInt & ID, const UInt & bond) :
-		id(ID), coor(c), boundary(bond) {}
+		Id(ID), coor(c), boundary(bond) 
+	{
+	}
 	
 
 	//
 	// Operators
 	//
 
-	// For copy-aiignment operator: just consider the coordinates and the boundary flag, but not the id.
+	// For copy-assignment operator: just consider the coordinates and the boundary flag, but not the Id.
 	// This will be useful when updating the mesh after an edge contraction.
 	point & point::operator=(const point & p) 
 	{
@@ -151,7 +155,7 @@ namespace geometry
 	
 	void point::print(ostream & out) const
 	{
-		out << "Point ID: " << id << endl;
+		out << "Point ID: " << Id << endl;
 		
 		out << "Point coordinates: x = " << coor[0]
 			<< "                   y = " << coor[1]

@@ -1,5 +1,5 @@
-/*! \file dataPoint.hpp
-	\brief Declaration of a class representing a point with an associated datum. */
+/*! \file 	dataPoint.hpp
+	\brief 	Declaration of a class representing a point with an associated datum. */
 	
 #ifndef HH_DATAPOINT_HH
 #define HH_DATAPOINT_HH
@@ -22,7 +22,7 @@ namespace geometry
 			
 			/*! Constructor. 
 				\param c	array with coordinates 
-				\param ID	point id
+				\param ID	point Id
 				\param dat	datum */
 			dataPoint(const array<Real,3> & c, const UInt & ID = 0, const UInt & dat = 0.);
 			

@@ -1,5 +1,5 @@
-/*! \file shapes.hpp
-	\brief Set of structs describing different geometric shapes used throughout the library. */
+/*! \file 	shapes.hpp
+	\brief 	Set of structs describing different geometric shapes used throughout the library. */
 
 #ifndef HH_SHAPES_HH
 #define HH_SHAPES_HH

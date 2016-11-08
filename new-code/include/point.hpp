@@ -1,5 +1,5 @@
-/*! \file point.hpp
-	\brief Class storing a point. */
+/*! \file 	point.hpp
+	\brief 	Class storing a point. */
 
 #ifndef HH_POINT_HH
 #define HH_POINT_HH
@@ -17,8 +17,8 @@ namespace geometry
 	class point : public simplePoint 
 	{
 		protected:
-			/*! The node id. */
-			UInt id;
+			/*! The node Id. */
+			UInt Id;
 			
 			/*! The coordinates. */
 			array<Real,3> coor;
@@ -40,13 +40,13 @@ namespace geometry
 				\param x	first coordinate
 				\param y	second coordinate
 				\param z	third coordinate
-				\param ID	point id
+				\param ID	point Id
 				\param bond	boundary flag */
 	    	point(const Real & x = 0.0, const Real & y = 0.0, const Real & z = 0.0, const UInt & ID = 0, const UInt & bond = 0);
 
 			/*! Constructor. 
 				\param c	array with coordinates
-				\param ID	point id
+				\param ID	point Id
 				\param bond	boundary flag */
 		    point(const array<Real,3> & c, const UInt & ID = 0, const UInt & bond = 0);
 
@@ -181,8 +181,8 @@ namespace geometry
 			// Get methods
 			//
 		
-			/*! Get the id.
-				\return the id */
+			/*! Get the Id.
+				\return the Id */
 			UInt getId() const;
 
 			/*! Get boundary flag.
@@ -197,8 +197,8 @@ namespace geometry
 				\param newCoor	the new coordinates */
 			void setCoor(const array<Real,3> & newCoor);
 
-			/*! Set the id.
-				\param newId	the new id */
+			/*! Set the Id.
+				\param newId	the new Id */
 			void setId(const UInt & newId);
 
 			/*! Set boundary information. 

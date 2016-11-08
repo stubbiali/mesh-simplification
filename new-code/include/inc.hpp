@@ -1,5 +1,5 @@
-/*! \file inc.hpp
-	\brief Definitions of macros, typedef's and namespaces used throughout the library. */
+/*! \file 	inc.hpp
+	\brief 	Definitions of macros, typedef's and namespaces used throughout the library. */
 	
 #ifndef HH_INC_HH
 #define HH_INC_HH

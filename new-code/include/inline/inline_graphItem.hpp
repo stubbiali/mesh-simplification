@@ -1,32 +1,18 @@
-/*! \file  inline_graphItem.hpp
-	\brief Definitions of inlined members of class graphItem. */
+/*! \file  	inline_graphItem.hpp
+	\brief 	Definitions of inlined members and friend functions of class graphItem. */
 	
 #ifndef HH_INLINEGRAPHITEM_HH
 #define HH_INLINEGRAPHITEM_HH
 
 namespace geometry
 {
-	INLINE UInt graphItem::operator[](const UInt & i) const 
-	{
-		return conn[i];
-	}
-	
-	
-	INLINE UInt & graphItem::operator[](const UInt & i) 
-	{
-		return conn[i];
-	}
-	
-	
-	INLINE graphItem::operator undirectedGraphItem() const 
-	{
-		return undirectedGraphItem(*this);
-	}
-	
+	//
+	// Definitions of inlined members
+	//
 	
 	INLINE UInt graphItem::getId() const 
 	{
-		return id;
+		return Id;
 	}
 			
 	
@@ -38,7 +24,7 @@ namespace geometry
 	
 	INLINE vector<UInt> graphItem::getConnected() const 
 	{
-		return conn;
+		return vector<UInt>(conn.cbegin(), conn.cend());
 	}
 	
 	
@@ -46,27 +32,39 @@ namespace geometry
 	{
 		return active;
 	}
-
-
+	
+	
 	INLINE void graphItem::setId(const UInt & ID) 
-	{	
-		id = ID;
-	}
-			
-			
-	INLINE void graphItem::resize(const UInt & N) 
 	{
-		conn.resize(N);
+		Id = ID;
 	}
 	
 	
 	INLINE void graphItem::setActive(const bool & flag) 
 	{
 		active = flag;
-	}	
+	}
 	
 	
-	INLINE void graphItem::erase(vector<UInt>::iterator it) 
+	INLINE bool graphItem::find(const UInt & val) const 
+	{
+		return std::find(conn.cbegin(), conn.cend(), val) != conn.cend();
+	}
+	
+	
+	INLINE void graphItem::insert(const UInt & val) 
+	{
+		conn.insert(val);
+	}
+	
+	
+	INLINE UInt graphItem::erase(const UInt & val) 
+	{
+		return conn.erase(val);
+	}
+	
+	
+	INLINE void graphItem::erase(set<UInt>::iterator it) 
 	{
 		conn.erase(it);
 	}
@@ -75,7 +73,29 @@ namespace geometry
 	INLINE void graphItem::clear() 
 	{
 		conn.clear();
-	}		
+	}
+	
+	
+	//
+	// Definitions of inlined friend functions
+	//
+	
+	INLINE bool operator<(const graphItem & g1, const graphItem & g2)
+	{
+		return (g1.conn < g2.conn);
+	}
+	
+	
+	INLINE bool operator!=(const graphItem & g1, const graphItem & g2)
+	{
+		return (g1.conn != g2.conn);
+	}
+	
+	
+	INLINE bool operator==(const graphItem & g1, const graphItem & g2)
+	{
+		return (g1.conn == g2.conn);
+	}
 }
 
 #endif

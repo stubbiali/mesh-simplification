@@ -1,5 +1,5 @@
-/*! \file inline_point.hpp
-	\brief Definitions of inlined members and friend functions of class point. */
+/*! \file 	inline_point.hpp
+	\brief 	Definitions of inlined members and friend functions of class point. */
 	
 #ifndef HH_INLINEPOINT_HH
 #define HH_INLINEPOINT_HH
@@ -30,7 +30,7 @@ namespace geometry
 
 	INLINE UInt point::getId() const 
 	{
-		return id;
+		return Id;
 	}
 
 
@@ -42,7 +42,7 @@ namespace geometry
 
 	INLINE void point::setId(const UInt & newId) 
 	{
-		id = newId;
+		Id = newId;
 	}
 
 

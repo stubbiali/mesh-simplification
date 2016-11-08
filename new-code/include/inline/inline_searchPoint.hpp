@@ -1,5 +1,5 @@
-/*! \file inline_searchPoint.hpp
-	\brief Definitions of members and friend functions of class searchPoint. */
+/*! \file 	inline_searchPoint.hpp
+	\brief 	Definitions of members and friend functions of class searchPoint. */
 	
 #ifndef HH_INLINESEARCHPOINT_HH
 #define HH_INLINESEARCHPOINT_HH
@@ -23,7 +23,7 @@ namespace geometry
 	
 	INLINE UInt searchPoint::getId() const 
 	{
-		return id;
+		return Id;
 	}
 			
 	
@@ -65,7 +65,7 @@ namespace geometry
 	
 	INLINE void searchPoint::setId(const UInt & idNew) 
 	{
-		id = idNew;
+		Id = idNew;
 	}
 	
 	

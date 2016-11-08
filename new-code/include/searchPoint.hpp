@@ -1,5 +1,5 @@
-/*! \file searchPoint.hpp
-	\brief Class storing point information useful for structured data search. */
+/*! \file 	searchPoint.hpp
+	\brief 	Class storing point information useful for structured data search. */
 	
 #ifndef HH_SEARCHPOINT_HH
 #define HH_SEARCHPOINT_HH
@@ -14,7 +14,7 @@ namespace geometry
 	{
 		private:
 			/*! ID. */
-			UInt					id;
+			UInt					Id;
 			
 			/*! Indices. */
 			std::array<UInt,3> 		idx;
@@ -39,20 +39,20 @@ namespace geometry
 			
 			/*! Constructor.
 				\param idx	array with indices
-				\param ID	point id */
+				\param ID	point Id */
 			searchPoint(const array<UInt,3> & idx, const UInt & ID = 0);
 			
 			/*! Constructor.
 				\param x	first coordinate
 				\param y	second coordinate
 				\param z	third coordinate
-				\param ID	point id
+				\param ID	point Id
 				\param bond	boundary flag */
 			searchPoint(const Real & x = 0.0, const Real & y = 0.0, const Real & z = 0.0, const UInt & ID = 0);
 			
 			/*! Constructor.
 				\param c	array with coordinates
-				\param ID	point id
+				\param ID	point Id
 				\param bond	boundary flag */		
 			searchPoint(const array<Real,3> & c, const UInt & ID = 0);
 			
@@ -110,8 +110,8 @@ namespace geometry
 			// Get methods 
 			//
 			
-			/*! Get the id.
-				\return		the point id */
+			/*! Get the Id.
+				\return		the point Id */
 			UInt getId() const;
 			
 			/*! Get North-East point.
@@ -144,8 +144,8 @@ namespace geometry
 			// Set methods 
 			//
 			
-			/*! Set the id.
-				\param idNew	the new id */
+			/*! Set the Id.
+				\param idNew	the new Id */
 			void setId(const UInt & idNew);
 			
 			/*! Set the North-East point.

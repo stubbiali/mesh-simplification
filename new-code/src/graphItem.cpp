@@ -1,93 +1,61 @@
 #include "graphItem.hpp"
 
-#include <algorithm>
-#include <set>
-#include <iterator>
-
 namespace geometry
 {
 	//
 	// Constructors
 	//
 	
-	graphItem::graphItem() : id(0), conn(0), active(true) {}
+	graphItem::graphItem(const UInt & ID) : 
+		Id(ID), active(true) 
+	{
+	}
 	
 	
-	graphItem::graphItem(const UInt & N, const UInt & ID) : id(ID), conn(N), active(true) {}
+	graphItem::graphItem(const vector<UInt> & c, const UInt & ID) :
+		Id(ID), conn(c.cbegin(), c.cend()), active(true) 
+	{
+	}
+		
 	
-	
-	graphItem::graphItem(const vector<UInt> & c, const UInt & ID) : id(ID), conn(c), active(true) {}
-	
-	
+	graphItem::graphItem(const set<UInt> & c, const UInt & ID) :
+		Id(ID), conn(c.cbegin(), c.cend()), active(true) 
+	{
+	}
+		
+		
 	//
 	// Operators
 	//
 	
 	graphItem & graphItem::operator=(const graphItem & g)
 	{
-		// Copy id
-		id = g.id;
+		// Copy Id
+		Id = g.Id;
 		
-		// Copy connected
-		conn.resize(g.conn.size());
-		copy(g.conn.cbegin(), g.conn.cend(), conn.begin());
+		// Copy connected elements
+		conn.clear();
+		copy(g.conn.cbegin(), g.conn.cend(), inserter(conn, conn.end()));
 		
 		// Copy active flag
 		active = g.active;
+		
+		return *this;
 	}
-	
-	
-	bool operator<(const graphItem & g1, const graphItem & g2)
-	{
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
 		
-		// Compare
-		return (s1 < s2);
-	}
-	
-	
-	bool operator!=(const graphItem & g1, const graphItem & g2)
-	{	
-		// First, a check on sizes
-		if (g1.size() != g2.size())	return true;
-		
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
-		
-		// Compare
-		return (s1 != s2);
-	}
-	
-	
-	bool operator==(const graphItem & g1, const graphItem & g2)
-	{	
-		// First, a check on sizes
-		if (g1.size() != g2.size())	return false;
-		
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
-		
-		// Compare
-		return (s1 == s2);
-	}
-	
 	
 	ostream & operator<<(ostream & out, const graphItem & g)
 	{
 		if (g.active)
 		{
-			out << "Element Id: " << g.id << endl;
+			out << "Element Id: " << g.Id << endl;
 			out << "Connected Id's: ";
 			for (auto el : g.conn)
 				out << el << " ";
 			out << endl;
 		}
 		else
-			out << "Element " << g.id << " is inactive." << endl;
+			out << "Element " << g.Id << " is inactive." << endl;
 			
 		out << endl;
 		return out;
@@ -100,8 +68,8 @@ namespace geometry
 	
 	void graphItem::setConnected(const vector<UInt> & v)
 	{
-		conn.resize(v.size());
-		copy(v.cbegin(), v.cend(), conn.begin());
+		conn.clear();
+		copy(v.cbegin(), v.cend(), inserter(conn, conn.end()));
 	}
 	
 	
@@ -109,46 +77,22 @@ namespace geometry
 	// Find, insert, replace and erase methods
 	//
 	
-	pair<vector<UInt>::iterator,bool> graphItem::find(const UInt & val)
+	pair<set<UInt>::iterator,bool> graphItem::find(const UInt & val)
 	{
-		auto it = std::find(conn.begin(), conn.end(), val);
-		return make_pair(it, it != conn.end());
+		auto it = std::find(conn.cbegin(), conn.cend(), val);
+		return make_pair(it, it != conn.cend());
 	}
 	
 	
-	bool graphItem::push_back(const UInt & val)
+	void graphItem::replace(const UInt & oldId, const UInt & newId)
 	{
-		auto it = std::find(conn.begin(), conn.end(), val);
-		if (it != conn.end())
-		{
-			conn.push_back(val);
-			return true;
-		}
-		else	return false;
-	}
-	
-	
-	bool graphItem::replace(const UInt & oldId, const UInt & newId)
-	{
-		auto it = std::find(conn.begin(), conn.end(), oldId);
-		if (it != conn.end())
-		{
-			*it = newId;
-			return true;
-		}
-		else	return false;
-	}
-	
-	
-	bool graphItem::erase(const UInt & val)
-	{
-		auto it = std::find(conn.begin(), conn.end(), val);
-		if (it != conn.end())
-		{
-			conn.erase(it);
-			return true;
-		}
-		else	return false;
+		#ifndef NDEBUG
+		if (oldId == newId)
+			cerr << "Warning: oldId (" << oldId << ") coincides with newId." << endl;
+		#endif
+		
+		conn.erase(oldId);
+		conn.insert(newId);
 	}
 	
 	
@@ -156,46 +100,40 @@ namespace geometry
 	// Common and uncommon connected
 	//
 	
-	vector<UInt> intersection(const graphItem & g1, const graphItem & g2)
+	set<UInt> set_intersection(const graphItem & g1, const graphItem & g2)
 	{
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
-		
-		// Intersec
-		vector<UInt> res;
-		set_intersection(s1.cbegin(), s1.cend(), s2.cbegin(), s2.cend(), back_inserter(res));
-		
+		set<UInt> res;
+		set_intersection(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
 		return res;
 	}
 	
 	
-	vector<UInt> difference(const graphItem & g1, const graphItem & g2)
+	set<UInt> set_union(const graphItem & g1, const graphItem & g2)
 	{
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
-		
-		// Make difference
-		vector<UInt> res;
-		set_difference(s1.cbegin(), s1.cend(), s2.cbegin(), s2.cend(), back_inserter(res));
-		
+		set<UInt> res;
+		set_union(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
 		return res;
 	}
 	
 	
-	vector<UInt> symmetric_difference(const graphItem & g1, const graphItem & g2)
+	set<UInt> set_difference(const graphItem & g1, const graphItem & g2)
 	{
-		// Sort connected Id's
-		const set<UInt> s1(g1.conn.cbegin(), g1.conn.cend());
-		const set<UInt> s2(g2.conn.cbegin(), g2.conn.cend());
-		
-		// Make symmetric difference
-		vector<UInt> res;
-		set_symmetric_difference(s1.cbegin(), s1.cend(), s2.cbegin(), s2.cend(), back_inserter(res));
-		
+		set<UInt> res;
+		set_difference(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
+		return res;
+	}
+	
+	
+	set<UInt> set_symmetric_difference(const graphItem & g1, const graphItem & g2)
+	{
+		set<UInt> res;
+		set_symmetric_difference(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
 		return res;
 	}
 }
+
+
+
+
 
 
