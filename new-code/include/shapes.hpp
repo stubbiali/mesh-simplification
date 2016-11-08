@@ -29,7 +29,7 @@ namespace geometry
 	//
 
 	/*! A point. */
-	struct simplePoint 
+	class simplePoint 
 	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
@@ -41,7 +41,7 @@ namespace geometry
 	};
 
 	/*! A line. */
-	struct Line 
+	class Line 
 	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
@@ -55,7 +55,7 @@ namespace geometry
 	};
 
 	/*! A triangle. */
-	struct Triangle 
+	class Triangle 
 	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 
@@ -66,12 +66,12 @@ namespace geometry
 		static constexpr UInt numEdges = numVertices;
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 3;
-		static const array<UInt, numEdges*BShape::numVertices> edgeConn;
+		static const array<UInt, numEdges*numVerticesPerEdge> edgeConn;
 		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 
 	/*! A quadrilateral. */
-	struct Quad 
+	class Quad 
 	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 
@@ -82,7 +82,7 @@ namespace geometry
 		static constexpr UInt numEdges = numVertices;
 		static constexpr UInt numVerticesPerEdge = 2;
 		static constexpr UInt numVerticesPerFace = 4;
-		static const array<UInt, numEdges*BShape::numVertices> edgeConn;
+		static const array<UInt, numEdges*numVerticesPerEdge> edgeConn;
 		static const array<UInt, numFaces*numVerticesPerFace> faceConn;
 	};
 

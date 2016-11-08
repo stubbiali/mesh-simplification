@@ -212,4 +212,7 @@ namespace geometry
 	};
 }
 
+/*! Include definitions of inlined members and friend functions. */
+#include "inline/inline_undirectedGraphItem.hpp"
+
 #endif

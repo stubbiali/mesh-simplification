@@ -10,12 +10,15 @@ namespace geometry
 	// Macros
 	//
 	
-	/*! Disable inlining in debug phase. */
+	/*! Disable inlining in debug phase. 
+		Remember that constexpr implies inline. */
 	#ifndef NDEBUG
 		#define INLINE
+		#define CONSTEXPR
 	#else
 		#define INLINED
 		#define INLINE inline
+		#define CONSTEXPR constexpr
 	#endif
 	
 	/*! Definition of pi. */
