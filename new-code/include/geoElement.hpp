@@ -23,7 +23,7 @@ namespace geometry
 	{
 		private:
 			/*! Number of vertices. */
-			using NV = typename SHAPE::numVertices;
+			static constexpr UInt NV = SHAPE::numVertices;
 			
 			/*! Id of the element. */
 			UInt Id;
@@ -121,7 +121,7 @@ namespace geometry
 			
 			/*! Get an array with vertices Id's.
 				\return 	Id's of vertices */
-			array<UInt> getVertices() const;
+			array<UInt,NV> getVertices() const;
 			
 			/*! Get active flag.
 				\return		active flag */
@@ -141,7 +141,7 @@ namespace geometry
 			
 			/*! Set all vertices Id's.
 				\param v	array with vertices Id's */
-			void setVertices(const array<UInt> & v);
+			void setVertices(const array<UInt,NV> & v);
 			
 			/*! Set active flag.
 				\param flag	active flag */
@@ -161,7 +161,7 @@ namespace geometry
 				\return		pair where the first element is a bool saying
 							whether the vertex has been found or not,
 							while the second element is an iterator to the element */
-			pair<array<UInt>::iterator,bool> find(const UInt & val);
+			pair<typename array<UInt,NV>::iterator, bool> find(const UInt & val);
 						
 			/*! Replace a vertex.
 				\param oldId	the old Id

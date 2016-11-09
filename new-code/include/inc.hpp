@@ -26,6 +26,12 @@ namespace geometry
 	
 	/*! Tolerance. */
 	#define TOLL 1e-10
+	
+	/*! Maximum number of nodes a mesh class can store. */
+	#define MAX_NUM_NODES 1e8
+	
+	/*! Maximum number of elements a mesh class can store. */
+	#define MAX_NUM_ELEMS 1e8
 		
 	//
 	// Aliases

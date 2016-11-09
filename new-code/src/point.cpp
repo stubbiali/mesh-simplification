@@ -10,13 +10,13 @@ namespace geometry
 	//
 
 	point::point(const Real & x, const Real & y, const Real & z, const UInt & ID, const UInt & bond) :
-		Id(ID), coor{x, y, z}, boundary(bond) 
+		Id(ID), coor{x, y, z}, boundary(bond), active(true)
 	{
 	}
 	
 
 	point::point(const array<Real,3> & c, const UInt & ID, const UInt & bond) :
-		Id(ID), coor(c), boundary(bond) 
+		Id(ID), coor(c), boundary(bond), active(true)
 	{
 	}
 	
@@ -155,25 +155,30 @@ namespace geometry
 	
 	void point::print(ostream & out) const
 	{
-		out << "Point ID: " << Id << endl;
-		
-		out << "Point coordinates: x = " << coor[0]
-			<< "                   y = " << coor[1]
-			<< "                   z = " << coor[2]
-			<< endl;
-			
-		switch(boundary)
+		if (active)
 		{
-			case 0:
-				out << "Internal point" << endl;
-				break;
-			case 1:
-				out << "Boundary point" << endl;
-				break;
-			case 2:
-				out << "Triple point" << endl;
-				break;
+			out << "Point ID: " << Id << endl;
+		
+			out << "Point coordinates: x = " << coor[0]
+				<< "                   y = " << coor[1]
+				<< "                   z = " << coor[2]
+				<< endl;
+			
+			switch(boundary)
+			{
+				case 0:
+					out << "Internal point" << endl;
+					break;
+				case 1:
+					out << "Boundary point" << endl;
+					break;
+				case 2:
+					out << "Triple point" << endl;
+					break;
+			}
 		}
+		else
+			out << "Point " << Id << " is inactive." << endl;
 				
 		out << endl;
 	}

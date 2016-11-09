@@ -30,6 +30,9 @@ namespace geometry
 			 	<li>  2 triple (i.e. fixed) node
 			 	</ol> */
 			UInt boundary;
+			
+			/*! Active flag. */
+			bool active;
 	                
 		public:
 			//
@@ -188,6 +191,10 @@ namespace geometry
 			/*! Get boundary flag.
 				\return the boundary flag */
 			UInt getBoundary() const;
+			
+			/*! Check if the point is active.
+				\return active flag */
+			bool isActive() const;
 						                
 			//
 			// Set methods
@@ -204,6 +211,9 @@ namespace geometry
 			/*! Set boundary information. 
 				\param newBond	the new boundary flag */
 			void setBoundary(const UInt & newBond);
+			
+			/*! Set active flag. */
+			void setActive(const bool & flag = true);
 								     
 		private:              
 			/*! Print to output the point data.

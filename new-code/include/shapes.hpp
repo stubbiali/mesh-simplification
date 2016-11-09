@@ -29,7 +29,7 @@ namespace geometry
 	//
 
 	/*! A point. */
-	class simplePoint 
+	struct simplePoint 
 	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
@@ -41,7 +41,7 @@ namespace geometry
 	};
 
 	/*! A line. */
-	class Line 
+	struct Line 
 	{
 		using BShape = simplePoint;
 		static const ReferenceShapes Shape; 
@@ -55,7 +55,7 @@ namespace geometry
 	};
 
 	/*! A triangle. */
-	class Triangle 
+	struct Triangle 
 	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 
@@ -71,7 +71,7 @@ namespace geometry
 	};
 
 	/*! A quadrilateral. */
-	class Quad 
+	struct Quad 
 	{
 		using BShape = Line;
 		static const ReferenceShapes Shape; 

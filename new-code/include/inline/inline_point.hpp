@@ -38,6 +38,12 @@ namespace geometry
 	{
 		return boundary;
 	}
+	
+	
+	INLINE bool point::isActive() const
+	{
+		return active;
+	}
 
 
 	INLINE void point::setId(const UInt & newId) 
@@ -49,6 +55,12 @@ namespace geometry
 	INLINE void point::setBoundary(const UInt & newBond) 
 	{
 		boundary = newBond;
+	}
+	
+	
+	INLINE void point::setActive(const bool & flag)
+	{
+		active = flag;
 	}
 
 

@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <utility>
 #include <iterator>
+#include <set>
 
 namespace geometry
 {
@@ -23,7 +24,7 @@ namespace geometry
 	
 	template<typename SHAPE>
 	geoElement<SHAPE>::geoElement(const array<UInt,NV> & v, const UInt & id, const UInt & gid) :
-		Id(id), geoId(gid), vertices(v.cbegin(), v.cend()), active(true) 
+		Id(id), geoId(gid), vertices(v), active(true) 
 	{
 	}
 	
@@ -35,9 +36,6 @@ namespace geometry
 	template<typename SHAPE>
 	geoElement<SHAPE> & geoElement<SHAPE>::operator=(const geoElement<SHAPE> & g)
 	{
-		// Copy Id
-		Id = g.Id;
-		
 		// Copy geo Id
 		geoId = g.geoId;
 		
@@ -102,13 +100,13 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	friend ostream & operator<<(ostream & out, const geoElement<SHAPE> & g)
+	ostream & operator<<(ostream & out, const geoElement<SHAPE> & g)
 	{
 		if (g.active)
 		{
 			out << "Element Id   : " << g.Id << endl;
 			out << "Geometric Id : " << g.geoId << endl;
-			out << "Vertices Id's:
+			out << "Vertices Id's: ";
 			for (auto v : g.vertices)
 				out << v << " ";
 			out << endl;
@@ -133,7 +131,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	INLINE UInt geoElement<SHAPE>::getGeiId() const
+	INLINE UInt geoElement<SHAPE>::getGeoId() const
 	{
 		return geoId;
 	}
@@ -147,7 +145,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	INLINE array<UInt> geoElement<SHAPE>::getVertices() const
+	INLINE array<UInt,geoElement<SHAPE>::NV> geoElement<SHAPE>::getVertices() const
 	{
 		return vertices;
 	}
@@ -179,7 +177,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	INLINE void geoElement<SHAPE>::setVertices(const array<UInt> & v)
+	INLINE void geoElement<SHAPE>::setVertices(const array<UInt,NV> & v)
 	{
 		copy(v.cbegin(), v.cend(), vertices.begin());
 	}
@@ -204,10 +202,10 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	pair<array<UInt>::iterator,bool> geoElement<SHAPE>::find(const UInt & val)
+	pair<typename array< UInt, geoElement<SHAPE>::NV >::iterator, bool> geoElement<SHAPE>::find(const UInt & val)
 	{
-		auto it = std::find(vertices.cbegin(), vertices.cend(), val);
-		return make_pair(it, it != vertices.cend());
+		auto it = std::find(vertices.begin(), vertices.end(), val);
+		return make_pair(it, it != vertices.end());
 	}
 	
 	
