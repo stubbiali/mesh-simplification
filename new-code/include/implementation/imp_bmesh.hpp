@@ -9,6 +9,9 @@
 #include <fstream>
 #include <sstream>
 #include <istream>
+#include <array>
+
+#include "utility.hpp"
 
 namespace geometry
 {
@@ -37,7 +40,16 @@ namespace geometry
 	template<typename SHAPE>
 	bmesh<SHAPE>::bmesh(const string & filename)
 	{
-		// TODO
+		// Extract file extension
+		auto format = utility::getFileExtension(filename);
+		
+		// Switch the format
+		if (format == "inp")
+			read_inp(filename);
+		else if (format == "vtk")
+			read_vtk(filename);
+		else
+			throw runtime_error("Format " + format + " not known.");
 	}
 	
 	
@@ -202,6 +214,82 @@ namespace geometry
 	
 	
 	//
+	// Read mesh from file
+	//
+	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::read_inp(const string & filename)
+	{
+		ifstream file(filename);
+		if (file.is_open())
+		{
+			string line;
+						
+			// Get number of nodes and elements
+			UInt numNodes, numElems;
+			getline(file,line);
+			static_cast<stringstream>(line) >> numNodes >> numElems;
+			
+			// Assert
+			assert(numNodes < MAX_NUM_NODES);
+			assert(numElems < MAX_NUM_ELEMS);
+			
+			// Reserve memory
+			nodes.reserve(numNodes);
+			elems.reserve(numElems);
+			
+			// Insert nodes
+			UInt Id;
+			array<Real,3> coor; 
+			for (UInt n = 0; n < numNodes && getline(file,line); n++)
+			{
+				// Extract coordinates
+				static_cast<stringstream>(line)	>> Id 
+												>> coor[0] 
+												>> coor[1] 
+												>> coor[2];
+												
+				// Insert at back
+				nodes.emplace_back(coor,n);
+			}
+			
+			// Insert elements
+			UInt geoId;
+			string foo; 
+			array<UInt,NV> vert;
+			for (UInt n = 0; n < numElems && getline(file,line); n++)
+			{
+				// Extract geometric Id
+				stringstream ss(line);
+				ss >> Id >> geoId >> foo;
+				
+				// Extract vertices Id's
+				// They need to be made compliant with a zero-based indexing
+				for (auto & v : vert)
+				{
+					ss >> v;
+					v--;
+				}
+				
+				// Insert at back							
+				elems.emplace_back(vert, n, geoId);
+			}
+			
+			// Close the file
+			file.close();
+		}
+		else
+			throw runtime_error(filename + " can not be opened.");
+	}
+	
+	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::read_vtk(const string & filename)
+	{
+		// TODO
+	}
+	
+	//
 	// Print
 	//
 	
@@ -224,18 +312,8 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::print(const string & filename) const
 	{
-		// Reverse filename
-		string aux(filename);
-		reverse(aux.begin(), aux.end());
-		
-		// Extract the format
-		string format;
-		istringstream iss;
-		iss.str(aux);
-		if (!(getline(iss, format, '.')))
-			reverse(format.begin(), format.end());
-		else
-			throw runtime_error("The provided file does not present an extension.");
+		// Extract file extension
+		auto format = utility::getFileExtension(filename);
 		
 		// Switch the format
 		if (format == "inp")
@@ -243,10 +321,11 @@ namespace geometry
 		else if (format == "vtk")
 			print_vtk(filename);
 		else
-			throw runtime_error("Format not allowed.");
+			throw runtime_error("Format " + format + " not known.");
 	}
 	
 	
+	// Specialization for triangles
 	template<>
 	void bmesh<Triangle>::print_inp(const string & filename) const
 	{
@@ -255,6 +334,9 @@ namespace geometry
 		
 		if (file.is_open())
 		{
+			// Set number of significant figures
+			file.precision(11);
+			
 			// Preamble
 			file << nodes.size() << " "
 				 << elems.size() << " " 
@@ -272,21 +354,19 @@ namespace geometry
 				file << elem.getId()+1 	<< " "
 					 << elem.getGeoId() << "  "
 					 << "tri" 			<< "  "
-					 << elem[0] 		<< "  "
-					 << elem[1] 		<< "  "
-					 << elem[2] 		<< endl;
+					 << elem[0]+1		<< "  "
+					 << elem[1]+1		<< "  "
+					 << elem[2]+1		<< endl;
 					 
 			// Close the file
 			file.close();
 		}
 		else
-		{
-			string err(filename + " can not be opened.");
-			throw runtime_error(err);
-		}
+			throw runtime_error(filename + " can not be opened.");
 	}
 	
 	
+	// Specialization for quadrilaterals
 	template<>
 	void bmesh<Quad>::print_inp(const string & filename) const
 	{
@@ -321,10 +401,7 @@ namespace geometry
 			file.close();
 		}
 		else
-		{
-			string err(filename + " can not be opened.");
-			throw runtime_error(err);
-		}
+			throw runtime_error(filename + " can not be opened.");
 	}
 	
 	

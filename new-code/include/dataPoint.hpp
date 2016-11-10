@@ -67,6 +67,8 @@ namespace geometry
 }
 
 /*! Include definitions of inlined members. */
+#ifdef INLINED
 #include "inline/inline_dataPoint.hpp"
+#endif
 
 #endif

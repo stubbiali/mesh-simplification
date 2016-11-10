@@ -1,5 +1,10 @@
 #include "graphItem.hpp"
 
+// Include definitions of inlined members and friend functions. 
+#ifndef INLINED
+#include "inline/inline_graphItem.hpp"
+#endif
+
 namespace geometry
 {
 	//

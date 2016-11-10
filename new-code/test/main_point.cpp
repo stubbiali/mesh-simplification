@@ -1,3 +1,6 @@
+/*! \file	main_point.cpp
+	\brief	Small executable to test class point. */
+
 #include <iostream>
 
 #include "point.hpp"

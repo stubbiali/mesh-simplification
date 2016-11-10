@@ -114,7 +114,6 @@ namespace geometry
 		else
 			out << "Element " << g.Id << " is inactive." << endl;
 			
-		out << endl;
 		return out;
 	}
 	

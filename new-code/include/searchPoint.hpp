@@ -3,13 +3,14 @@
 	
 #ifndef HH_SEARCHPOINT_HH
 #define HH_SEARCHPOINT_HH
-	
-#include "point.hpp"
 
 namespace geometry 
-{			
+{		
+	/*! Forward declaration of class point. */
+	class point;
+	
 	/*! Class inheriting point and storing the indices for structured data search. 
-		All methods are modified so to keep the indices updated after any operation. */
+		All methods are designed so to keep the indices updated after any operation. */
 	class searchPoint final : public simplePoint
 	{
 		private:
@@ -214,6 +215,8 @@ namespace geometry
 }
 
 /*! Include definitions of inlined members and friend functions. */
+#ifdef INLINED
 #include "inline/inline_searchPoint.hpp"
+#endif
 
 #endif

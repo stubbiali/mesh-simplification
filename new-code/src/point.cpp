@@ -1,5 +1,9 @@
 #include "point.hpp"
-#include "searchPoint.hpp"
+
+// Include definitions of inlined members and friend functions. 
+#ifndef INLINED
+#include "inline/inline_point.hpp"
+#endif
 
 namespace geometry 
 {
@@ -159,10 +163,9 @@ namespace geometry
 		{
 			out << "Point ID: " << Id << endl;
 		
-			out << "Point coordinates: x = " << coor[0]
-				<< "                   y = " << coor[1]
-				<< "                   z = " << coor[2]
-				<< endl;
+			out << "Point coordinates: x = " << coor[0] << endl
+				<< "                   y = " << coor[1] << endl
+				<< "                   z = " << coor[2] << endl;
 			
 			switch(boundary)
 			{
@@ -179,8 +182,6 @@ namespace geometry
 		}
 		else
 			out << "Point " << Id << " is inactive." << endl;
-				
-		out << endl;
 	}
 }
 

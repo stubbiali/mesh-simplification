@@ -28,7 +28,7 @@ namespace geometry
 	class bmesh
 	{
 		public:
-			/*! Number of vertex for each element. */
+			/*! Number of vertices for each element. */
 			static constexpr UInt NV = SHAPE::numVertices;
 			
 		protected:			
@@ -193,6 +193,18 @@ namespace geometry
 			
 			/*! Update elements Id's so to make them coincide with the position in the vector. */
 			void setUpElemsIds();
+						
+			//
+			// Read mesh from file
+			//
+			
+			/*! Read mesh from a .inp file.
+				\param filename	name of the input file */
+			void read_inp(const string & filename);
+			
+			/*! Read mesh from a .vtk file.
+				\param filename	name of the input file */
+			void read_vtk(const string & filename);
 			
 			//
 			// Print in different format

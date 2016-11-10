@@ -8,6 +8,7 @@ namespace geometry
 {
 	//
 	// Definitions of inlined members
+	//
 	
 	INLINE UInt & searchPoint::operator[](const UInt & i) 
 	{

@@ -223,7 +223,9 @@ namespace geometry
 }
 
 /*! Include definitions of inlined members and friend functions. */
+#ifdef INLINED
 #include "inline/inline_point.hpp"
+#endif
 
 #endif
 

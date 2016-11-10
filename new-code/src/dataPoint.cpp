@@ -1,5 +1,10 @@
 #include "dataPoint.hpp"
 
+// Include definitions of inlined members. 
+#ifndef INLINED
+#include "inline/inline_dataPoint.hpp"
+#endif
+
 namespace geometry
 {
 	using namespace std;

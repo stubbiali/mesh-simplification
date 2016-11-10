@@ -1,6 +1,12 @@
 #include <algorithm>
 
+#include "point.hpp"
 #include "searchPoint.hpp"
+
+// Include definitions of inlined members and friend functions. 
+#ifndef INLINED
+#include "inline/inline_searchPoint.hpp"
+#endif
 
 namespace geometry 
 {	
