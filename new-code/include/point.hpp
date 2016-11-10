@@ -38,7 +38,7 @@ namespace geometry
 			//
 			// Constructors and destructor
 			//
-		
+			
 			/*! Constructor.
 				\param x	first coordinate
 				\param y	second coordinate

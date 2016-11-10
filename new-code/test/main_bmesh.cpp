@@ -12,8 +12,11 @@ int main()
 	// Read from file
 	string inputfile("../../mesh/bunny.inp");
 	bmesh<Triangle> bm(inputfile);
-	cout << "Number of nodes   : " << bm.getNumNodes() << endl
-		 << "Number of elements: " << bm.getNumElems() << endl;
+	cout << "Number of nodes    : " << bm.getNumNodes() << endl
+		 << "Number of elements : " << bm.getNumElems() << endl;
+		 
+	//cout << m.getNode(45) << endl;
+	//cout << m.getElem(133) << endl;
 		 
 	// Print to file
 	string outputfile("../../mesh/out_bunny.inp");

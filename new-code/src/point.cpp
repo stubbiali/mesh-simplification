@@ -7,12 +7,10 @@
 
 namespace geometry 
 {
-	using namespace std;
-
 	//
 	// Constructors
 	//
-
+	
 	point::point(const Real & x, const Real & y, const Real & z, const UInt & ID, const UInt & bond) :
 		Id(ID), coor{x, y, z}, boundary(bond), active(true)
 	{

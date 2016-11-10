@@ -19,15 +19,16 @@ SRC_TMP=$(TEST_DIR)/instantiation.cpp
 OBJ_TMP=$(patsubst %.cpp, %.o, $(SRC_TMP)) 
 
 # Source and object files for test
-SRC_TEST=$(TEST_DIR)/main_point.cpp $(TEST_DIR)/main_bmesh.cpp
+SRC_TEST=$(TEST_DIR)/main_point.cpp $(TEST_DIR)/main_bmesh.cpp $(TEST_DIR)/main_mesh.cpp
 OBJ_TEST=$(patsubst %.cpp, %.o, $(SRC_TEST)) 
 
 # Executables
-EXEC=main_point main_bmesh
+EXEC=main_point main_bmesh main_mesh
 
 # Compilation flags
 CXX=g++
 CXXFLAGS=-std=c++11 -g -I$(INC_DIR)
+#CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I$(INC_DIR)
 
 
 #

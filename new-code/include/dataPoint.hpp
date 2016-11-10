@@ -20,6 +20,9 @@ namespace geometry
 			// Constructors
 			//
 			
+			/*! Default constructor. */
+			dataPoint();
+			
 			/*! Constructor. 
 				\param c	array with coordinates 
 				\param ID	point Id
@@ -29,7 +32,7 @@ namespace geometry
 			/*! Constructor.
 				\param p	point
 				\param dat	datum */
-			dataPoint(const point & p, Real const & dat);
+			dataPoint(const point & p, Real const & dat = 0.);
 			
 			/*! Synthetic copy constructor.
 				\param p	another point */

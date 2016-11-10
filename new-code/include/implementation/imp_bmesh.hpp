@@ -189,7 +189,7 @@ namespace geometry
 		nodes.erase(it);
 		
 		// Update id's
-		this->setUpNodesIds();
+		setUpNodesIds();
 	}
 	
 	
@@ -201,7 +201,7 @@ namespace geometry
 		elems.erase(it);
 		
 		// Update id's
-		this->setUpElemsIds();
+		setUpElemsIds();
 	}
 	
 	
@@ -296,14 +296,13 @@ namespace geometry
 	template<typename SHAPE>
 	ostream & operator<<(ostream & out, const bmesh<SHAPE> & bm)
 	{
-		out << "Number of nodes   : " << bm.nodes.size() << endl
-			<< "Number of elements: " << bm.elems.size() << endl << endl;
-			
-		out << "List of nodes:" << endl;
+		// Print list of nodes			
+		out << "List of " << bm.getNumNodes() << " nodes:" << endl;
 		for (auto node : bm.nodes)
 			out << node << endl;
 			
-		out << "List of elements:" << endl;
+		// Print list of elements
+		out << "List of " << bm.getNumElems() << " elements:" << endl;
 		for (auto elem : bm.elems)
 			out << elem << endl;
 	}
