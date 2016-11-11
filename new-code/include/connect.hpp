@@ -51,18 +51,61 @@ namespace geometry
 			// Connections initializers
 			//
 			
+			/*! Initialize element-data connections. */
 			void buildElem2Data();
 			
+			/*! Initialize data-element connections. */
 			void buildData2Elem();
 			
+			/*! Re-build all connections. */
 			virtual void refresh();
 			
 			//
 			// Connections modifiers
 			//
 			
+			/*! Remove data from element-data connections.
+				\param ids	vector with Id's of data to remove */
+			void eraseDataInElem2Data(const vector<UInt> & ids);
+						
+			/*! Insert data in element-data connections.
+				\param ids	vector with Id's of data to insert */
+			void insertDataInElem2Data(const vector<UInt> & ids);
 			
+			// 
+			// Get methods
+			//
+			
+			/*! Get element-data connections for an element.
+				\param Id	element Id
+				\return		the connections */
+			graphItem getElem2Data(const UInt & Id) const;
+			
+			/*! Get element-data connections for all elements.
+				\return		vector of connections */
+			vector<graphItem> getElem2Data() const;
+			
+			/*! Get data-element connections for a datum.
+				\param Id	datum Id
+				\return		the connections */
+			graphItem getData2Elem(const UInt & Id) const;
+			
+			/*! Get data-element connections for all data.
+				\return		vector of connections */
+			vector<graphItem> getData2Elem() const;
+			
+			//
+			// Set methods
+			//
+			
+			/*! Set data-element connections for a datum.
+				\param Id			datum Id
+				\param newConn		new connections */
+			void setData2Elem(const UInt & Id, const set<UInt> & newConn);
 	};
 }
+
+/*! Include implementations of class members. */
+#include "implementation/imp_connect.hpp"
 
 #endif
