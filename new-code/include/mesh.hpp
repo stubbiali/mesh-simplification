@@ -13,7 +13,7 @@ namespace geometry
 	enum class MeshType {GEO, DATA};
 	
 	/*! This class represents a wrapper for bmesh, which it inherits.
-		There are two template parameters:
+		It takes two template parameters:
 		<ol>
 		<li> SHAPE: shape of the elements;
 		<li> MT: 	mesh type, i.e. with or without distributed data;
@@ -28,7 +28,6 @@ namespace geometry
 		data implemented yet. Think about it!
 		
 		\sa bmesh, MeshType */
-		
 	template<typename SHAPE, MeshType MT = MeshType::GEO>
 	class mesh final : public bmesh<SHAPE>
 	{

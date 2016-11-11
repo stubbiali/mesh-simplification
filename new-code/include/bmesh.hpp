@@ -40,7 +40,7 @@ namespace geometry
 		
 		public:
 			//
-			// Constructors
+			// Constructors and destructor
 			//
 			
 			/*! (Default) constructor.
@@ -60,6 +60,9 @@ namespace geometry
 			/*! Synthetic copy constructor. 
 				\param bm	another mesh */
 			bmesh(const bmesh & bm) = default;
+			
+			/*! Synthetic destructor. */
+			virtual ~bmesh() = default;
 						
 			//
 			// Get methods
