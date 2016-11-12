@@ -99,9 +99,29 @@ namespace geometry
 			//
 			
 			/*! Set data-element connections for a datum.
+				Before setting the new connections, it calls eraseDataInElemToData().
+				After having set the new connections, it calls insertDataInElemToData().
+				
 				\param Id			datum Id
-				\param newConn		new connections */
+				\param newConn		new connections 
+				
+				\sa eraseDataInElemToData(), insertDataInElemToData() */
 			void setData2Elem(const UInt & Id, const set<UInt> & newConn);
+			
+			/*! Set data-element connections for a datum.
+				Before setting the new connections, it calls eraseDataInElemToData().
+				After having set the new connections, it calls insertDataInElemToData().
+				
+				\param newData2Elem	new graph item 
+				
+				\sa eraseDataInElemToData(), insertDataInElemToData() */
+			void setData2Elem(const graphItem & newData2Elem);
+			
+			/*! Set data-element connections for all data.
+				This is particularly useful if the data do not initially coincide with nodes.
+				
+				\param newData2Elem	vector of connections */
+			void setData2Elem(const vector<graphItem> & newData2Elem);
 	};
 }
 

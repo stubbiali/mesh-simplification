@@ -78,7 +78,7 @@ namespace geometry
 			// Connections initializers
 			//
 			
-			/*! Initialize node-node connections. */
+			/*! Initialize node-node connections. It also fill the set of edges. */
 			void buildNode2Node();
 			
 			/*! Initialize node-element connections. */
@@ -158,9 +158,11 @@ namespace geometry
 				\return		the mesh */
 			shared_ptr<mesh<SHAPE,MT>> getMesh();
 			
-			/*! Fill a vector with all edges of the mesh.
-				\param v	the vector to fill */
-			void getEdges(vector<geoElement<Line>> & v) const;
+			/*! Get edges of the mesh.
+				\return		vector of edges */
+			// Note: we return a (possible huge) vector by value for Return Value Optimization (RVO).
+			// Reference: https://web.archive.org/web/20130930101140/http://cpp-next.com/archive/2009/08/want-speed-pass-by-value
+			vector<geoElement<Line>> getEdges() const;
 						
 			/*! Get the node-node connections for a node.
 				\param Id	node Id

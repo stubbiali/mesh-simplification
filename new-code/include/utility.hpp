@@ -8,18 +8,14 @@
 
 #include "inc.hpp"
 
-namespace geometry
+namespace utility
 {
-	/*! This class provides utilities which are quite general.
-		They are all implementated as static members. */
-	class utility
-	{
-		public:
-			/*! Utility to extract the extension of a file.
-				\param filename		name of the file
-				\return				file extension (if any) */
-			static string getFileExtension(const string & filename);
-	};
+	using namespace std;
+	
+	/*! Utility to extract the extension of a file.
+		\param filename		name of the file
+		\return				file extension (if any) */
+	string getFileExtension(string filename);
 }
 
 #endif

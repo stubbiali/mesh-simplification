@@ -113,11 +113,25 @@ namespace geometry
 	}
 	
 	
+	void set_intersection(const graphItem & g1, const graphItem & g2, vector<UInt> & v)
+	{
+		v.clear();
+		set_intersection(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), back_inserter(v));
+	}
+	
+	
 	set<UInt> set_union(const graphItem & g1, const graphItem & g2)
 	{
 		set<UInt> res;
 		set_union(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
 		return res;
+	}
+	
+	
+	void set_union(const graphItem & g1, const graphItem & g2, vector<UInt> & v)
+	{
+		v.clear();
+		set_union(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), back_inserter(v));
 	}
 	
 	
@@ -129,11 +143,25 @@ namespace geometry
 	}
 	
 	
+	void set_difference(const graphItem & g1, const graphItem & g2, vector<UInt> & v)
+	{
+		v.clear();
+		set_difference(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), back_inserter(v));
+	}
+	
+	
 	set<UInt> set_symmetric_difference(const graphItem & g1, const graphItem & g2)
 	{
 		set<UInt> res;
 		set_symmetric_difference(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), inserter(res, res.end()));
 		return res;
+	}
+	
+	
+	void set_symmetric_difference(const graphItem & g1, const graphItem & g2, vector<UInt> & v)
+	{
+		v.clear();
+		set_symmetric_difference(g1.conn.cbegin(), g1.conn.cend(), g2.conn.cbegin(), g2.conn.cend(), back_inserter(v));
 	}
 }
 

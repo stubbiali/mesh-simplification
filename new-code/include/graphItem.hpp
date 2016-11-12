@@ -7,7 +7,7 @@
 #include <iostream>
 #include <set>
 #include <utility>
-#include <algorithm>
+#include <vector>
 
 #include "inc.hpp"
 
@@ -108,10 +108,10 @@ namespace geometry
 				\return 	number of connected elements */
 			UInt size() const;
 			
-			/*! Get a vector with the Id's of connected elements.
+			/*! Get a set with the Id's of connected elements.
 				\return 	Id's of connected elements */
 			vector<UInt> getConnected() const;
-			
+						
 			/*! Get active flag.
 				\return		active flag */
 			bool isActive() const;
@@ -149,8 +149,12 @@ namespace geometry
 			pair<set<UInt>::iterator,bool> find(const UInt & val);
 						
 			/*! Insert a new Id to the connected elements.
-				\param val	value to append */
+				\param val	value to insert */
 			void insert(const UInt & val);
+			
+			/*! Insert a set of new Id's to the connected elements.
+				\param s	set to insert */
+			void insert(const set<UInt> & s);
 			
 			/*! Replace a connected.
 				\param oldId	the old Id
@@ -182,11 +186,23 @@ namespace geometry
 				\return		set of common Id's */
 			friend set<UInt> set_intersection(const graphItem & g1, const graphItem & g2);
 			
+			/*! Find the connected Id's shared by two graph items and store them in a vector.
+				\param g1	first graph item
+				\param g2	second graph item 
+				\param v	vector to fill */
+			friend void set_intersection(const graphItem & g1, const graphItem & g2, vector<UInt> & v);
+			
 			/*! Find the connected Id's shared by at least one of two graph items.
 				\param g1	first graph item
 				\param g2	second graph item
 				\return		set of common and uncommon Id's */
 			friend set<UInt> set_union(const graphItem & g1, const graphItem & g2);
+			
+			/*! Find the connected Id's shared by at least one of two graph items and store them in a vector.
+				\param g1	first graph item
+				\param g2	second graph item 
+				\param v	vector to fill */
+			friend void set_union(const graphItem & g1, const graphItem & g2, vector<UInt> & v);
 			
 			/*! Find the Id's connected to the first item but not to the second one.
 				\param g1	first graph item
@@ -194,11 +210,23 @@ namespace geometry
 				\return		set of desired Id's */
 			friend set<UInt> set_difference(const graphItem & g1, const graphItem & g2);
 			
+			/*! Find the Id's connected to the first item but not to the second one and store them in a vector.
+				\param g1	first graph item
+				\param g2	second graph item 
+				\param v	vector to fill */
+			friend void set_difference(const graphItem & g1, const graphItem & g2, vector<UInt> & v);
+			
 			/*! Find the connected Id's not shared by two undirected graph items.
 				\param g1	first graph item
 				\param g2	second graph item
 				\return		set of uncommon Id's */
-			friend set<UInt> set_symmetric_difference(const graphItem & g1, const graphItem & g2);			
+			friend set<UInt> set_symmetric_difference(const graphItem & g1, const graphItem & g2);
+			
+			/*! Find the connected Id's not shared by two undirected graph items and store them in a vector.
+				\param g1	first graph item
+				\param g2	second graph item 
+				\param v	vector to fill */
+			friend void set_symmetric_difference(const graphItem & g1, const graphItem & g2, vector<UInt> & v);			
 	};
 }
 

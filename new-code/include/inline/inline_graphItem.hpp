@@ -4,6 +4,8 @@
 #ifndef HH_INLINEGRAPHITEM_HH
 #define HH_INLINEGRAPHITEM_HH
 
+#include <algorithm>
+
 namespace geometry
 {
 	//
@@ -55,6 +57,12 @@ namespace geometry
 	INLINE void graphItem::insert(const UInt & val) 
 	{
 		conn.insert(val);
+	}
+	
+	
+	INLINE void graphItem::insert(const set<UInt> & s)
+	{
+		set_union(conn.begin(), conn.end(), s.cbegin(), s.cend(), inserter(conn, conn.begin()));
 	}
 	
 	
