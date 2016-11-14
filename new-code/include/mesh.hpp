@@ -33,6 +33,34 @@ namespace geometry
 	{
 	};
 	
+	/*!	Partial specialization for grids without distributed data. */
+	template<typename SHAPE>
+	class mesh<SHAPE, MeshType::GEO> : public bmesh<SHAPE>
+	{
+		public:
+			//
+			// Constructor
+			//
+		
+			/*! (Default) constructor.
+				\param numNodes	number of nodes
+				\param numElems	number of elements */
+			mesh(const UInt & numNodes = 0, const UInt & numElems = 0);
+			
+			/*! Constructor.
+				\param nds	vector of nodes
+				\param els	vector of elements */
+			mesh(const vector<point> & nds, const vector<geoElement<SHAPE>> & els);
+			
+			/*! Constructor.
+				\param filename	name of the file storing the mesh */
+			mesh(const string & filename);
+			
+			/*! Synthetic copy constructor. 
+				\param bm	another mesh */
+			mesh(const mesh & m) = default;
+	};
+	
 	/*! Partial specialization for grids with distributed data. */
 	template<typename SHAPE>
 	class mesh<SHAPE, MeshType::DATA> final : public bmesh<SHAPE>

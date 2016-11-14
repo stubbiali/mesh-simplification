@@ -89,6 +89,13 @@ namespace geometry
 	}
 	
 	
+	void graphItem::insert(const vector<UInt> & v)
+	{
+		// Make v a set and then add it
+		set<UInt> s(v.cbegin(), v.cend());
+		set_union(conn.begin(), conn.end(), s.cbegin(), s.cend(), inserter(conn, conn.begin()));
+	}
+	
 	void graphItem::replace(const UInt & oldId, const UInt & newId)
 	{
 		#ifndef NDEBUG

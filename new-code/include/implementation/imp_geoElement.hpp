@@ -183,9 +183,16 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	INLINE void geoElement<SHAPE>::setActive(const bool & flag)
+	INLINE void geoElement<SHAPE>::setActive()
 	{
-		active = flag;
+		active = true;
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE void geoElement<SHAPE>::setInactive()
+	{
+		active = false;
 	}
 	
 	

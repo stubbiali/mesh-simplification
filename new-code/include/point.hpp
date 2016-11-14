@@ -212,8 +212,11 @@ namespace geometry
 				\param newBond	the new boundary flag */
 			void setBoundary(const UInt & newBond);
 			
-			/*! Set active flag. */
-			void setActive(const bool & flag = true);
+			/*! Set active flag to true. */
+			void setActive();
+			
+			/*! Set active flag to false. */
+			void setInactive();
 								     
 		private:              
 			/*! Print to output the point data.

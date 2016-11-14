@@ -141,14 +141,14 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setNodeInactive(const UInt & Id)
 	{
-		nodes[Id].setActive(false);
+		nodes[Id].setInactive();
 	}
 	
 	
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setElemInactive(const UInt & Id)
 	{
-		elems[Id].setActive(false);
+		elems[Id].setInactive();
 	}
 	
 	

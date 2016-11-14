@@ -143,9 +143,11 @@ namespace geometry
 				\param v	array with vertices Id's */
 			void setVertices(const array<UInt,NV> & v);
 			
-			/*! Set active flag.
-				\param flag	active flag */
-			void setActive(const bool & flag = true);
+			/*! Set active flag to true. */
+			void setActive();
+			
+			/*! Set active flag to false. */
+			void setInactive();
 			
 			//
 			// Find and replace methods

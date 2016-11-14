@@ -1,16 +1,19 @@
-/*! \file	bconnect.hpp
+/*!	\file	bconnect.hpp
 	\brief	A class creating the connections for a mesh. */
 	
 #ifndef HH_BCONNECT_HH
 #define HH_BCONNECT_HH
 
 #include <memory>
+#include <unordered_set>
 
+#include "hash.hpp"
+#include "graphItem.hpp"
 #include "mesh.hpp"
 
 namespace geometry
 {
-	/*! This is a base class creating the following connections for
+	/*!	This is a base class creating the following connections for
 		a standard mesh (i.e. without distributed data):
 		<ol>
 		<li> node-node;
@@ -38,17 +41,17 @@ namespace geometry
 	{
 		public:
 			/*! Number of vertices for each element. */
-			static constexpr NV = SHAPE::numVertices;
+			static constexpr UInt NV = SHAPE::numVertices;
 			
 			/*! Number of edges for each element. */
-			static constexpr NE = SHAPE::numEdges;
+			static constexpr UInt NE = SHAPE::numEdges;
 			
 			/*! Number of vertices per edge times number of vertices. */
-			static constexpr N = NV*NE;
+			static constexpr UInt N = NV*NE;
 			
 		protected:
 			/*! Smart pointer to the mesh. */
-			smart_ptr<mesh<SHAPE,MT>> grid;
+			shared_ptr<mesh<SHAPE,MT>> grid;
 			
 			/*! Set of edges. */
 			unordered_set<geoElement<Line>> edges;
@@ -69,13 +72,13 @@ namespace geometry
 			
 			/*! (Default) constructor. 
 				\param g	shared pointer to the grid */
-			bconnect(smart_ptr<mesh<SHAPE,MT>> g = nullptr);
+			bconnect(shared_ptr<mesh<SHAPE,MT>> g = nullptr);
 			
 			/*! Synthetic destructor. */
 			virtual ~bconnect() = default;
 			
 			//
-			// Connections initializers
+			// Initialize and clear connections
 			//
 			
 			/*! Initialize node-node connections. It also fill the set of edges. */
@@ -94,8 +97,11 @@ namespace geometry
 			/*! Re-build all connections. */
 			virtual void refresh();
 			
+			/*! Clear all connections and the set of edges. */
+			virtual void clear();
+			
 			//
-			// Connections modifiers
+			// Modify connections
 			//
 			
 			/*! Replace a node in node-node connections.
@@ -128,7 +134,7 @@ namespace geometry
 			void eraseElemsInNode2Elem(const vector<UInt> & toRemove);
 			
 			/*! Remove two elements from node-element connections after an edge contraction.
-				Release mode: the nodes to updated are already provided.
+				Release mode: the nodes to update are already provided.
 				
 				\param toRemove	Id's of the elements to remove 
 				\param newId	Id of the node resulting from the collapse
@@ -136,20 +142,29 @@ namespace geometry
 			void eraseElemsInNode2Elem(const vector<UInt> & toRemove, const UInt & newId, const vector<UInt> & involved);
 			
 			/*! Remove elements from element-element connections.
-				Debug mode: the method find itself the elements involved in the process
-				and whose connections must be re-built.
-				
 				\param toRemove	Id's of elements to remove */
 			void eraseElemsInElem2Elem(const vector<UInt> & toRemove);
 			
-			/*! Remove two elements from element-element conncetions after an edge contraction.
-				Release mode: the elements involved in the contraction, whose connections must
-				be re-built, are already provided.
+			/*! Update connections after an edge contraction (debug mode).
+				Note that the set of edges is not updated. 
+				This method shows the order the various methods of the class should be used.
 				
-				\param toRemove	elements to remove
-				\param toKeep	elements whose connections must be re-built */
-			void eraseElemsInElem2Elem(const vector<UInt> & toRemove, const vector<UInt> & toKeep);
+				\param oldId	Id of the node to remove
+				\param newId	Id of the node to keep
+				\param toRemove	Id's of the elements to remove */
+			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, const vector<UInt> & toRemove);
 			
+			/*! Update connections after an edge contraction (release mode).
+				Note that the set of edges is not updated. 
+				This method shows the order the various methods of the class should be used.
+				
+				\param oldId	Id of the node to remove
+				\param newId	Id of the node to keep
+				\param toRemove	Id's of the elements to remove 
+				\param involved	Id's of the nodes involved in the contraction */
+			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, const vector<UInt> & toRemove,
+				const vector<UInt> & involved);
+						
 			//
 			// Get methods
 			//

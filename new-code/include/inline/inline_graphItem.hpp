@@ -42,9 +42,15 @@ namespace geometry
 	}
 	
 	
-	INLINE void graphItem::setActive(const bool & flag) 
+	INLINE void graphItem::setActive() 
 	{
-		active = flag;
+		active = true;
+	}
+	
+	
+	INLINE void graphItem::setInactive() 
+	{
+		active = false;
 	}
 	
 	

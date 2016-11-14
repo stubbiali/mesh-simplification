@@ -9,7 +9,32 @@
 namespace geometry
 {
 	//
-	// Constructors
+	// Constructors (MeshType::GEO)
+	//
+	
+	template<typename SHAPE>
+	mesh<SHAPE, MeshType::GEO>::mesh(const UInt & numNodes, const UInt & numElems) :
+		bmesh<SHAPE>(numNodes, numElems)
+	{
+	}
+	
+	
+	template<typename SHAPE>
+	mesh<SHAPE, MeshType::GEO>::mesh(const vector<point> & nds, const vector<geoElement<SHAPE>> & els) :
+		bmesh<SHAPE>(nds, els)
+	{
+	}
+	
+	
+	template<typename SHAPE>
+	mesh<SHAPE, MeshType::GEO>::mesh(const string & filename) :
+		bmesh<SHAPE>(filename)
+	{
+	}
+	
+	
+	//
+	// Constructors (MeshType::DATA)
 	//
 	
 	template<typename SHAPE>

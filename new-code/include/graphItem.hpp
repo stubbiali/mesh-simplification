@@ -128,9 +128,11 @@ namespace geometry
 				\param v	vector with connected Id's */
 			void setConnected(const vector<UInt> & v);
 			
-			/*! Set active flag.
-				\param flag	active flag */
-			void setActive(const bool & flag);
+			/*! Set active flag to true. */
+			void setActive();
+			
+			/*! Set active flag to false. */
+			void setInactive();
 			
 			//
 			// Find, insert, replace and erase methods
@@ -155,6 +157,10 @@ namespace geometry
 			/*! Insert a set of new Id's to the connected elements.
 				\param s	set to insert */
 			void insert(const set<UInt> & s);
+			
+			/*! Insert a vector of new Id's to the connected elements.
+				\param v	vector to insert */
+			void insert(const vector<UInt> & v);
 			
 			/*! Replace a connected.
 				\param oldId	the old Id
@@ -186,6 +192,13 @@ namespace geometry
 				\return		set of common Id's */
 			friend set<UInt> set_intersection(const graphItem & g1, const graphItem & g2);
 			
+			/*! Find the connected Id's shared by an arbitrary number of items.
+				\param g	first graph item
+				\param args	all other graph items
+				\return 	set of common Id's */
+			template<typename... Args>
+			friend set<UInt> set_intersection(const graphItem & g, Args... args);
+			
 			/*! Find the connected Id's shared by two graph items and store them in a vector.
 				\param g1	first graph item
 				\param g2	second graph item 
@@ -197,6 +210,13 @@ namespace geometry
 				\param g2	second graph item
 				\return		set of common and uncommon Id's */
 			friend set<UInt> set_union(const graphItem & g1, const graphItem & g2);
+			
+			/*! Find the connected Id's shared by at least one of an arbitrary number of items.
+				\param g	first graph item
+				\param args	all other graph items
+				\return 	set of common and uncommon Id's */
+			template<typename... Args>
+			friend set<UInt> set_union(const graphItem & g, Args... args);
 			
 			/*! Find the connected Id's shared by at least one of two graph items and store them in a vector.
 				\param g1	first graph item
@@ -234,5 +254,8 @@ namespace geometry
 #ifdef INLINED
 #include "inline/inline_graphItem.hpp"
 #endif
+
+/*! Include definitions of template friend functions. */
+#include "implementation/imp_graphItem.hpp"
 
 #endif

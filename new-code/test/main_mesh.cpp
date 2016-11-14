@@ -16,8 +16,8 @@ int main()
 		 << "Number of elements    : " << m.getNumElems() << endl
 		 << "Number of data points : " << m.getNumData() << endl;
 		 
-	//cout << m.getNode(45) << endl;
-	//cout << m.getData(45) << endl;
+	cout << m.getNode(45) << endl;
+	cout << m.getData(45) << endl;
 		 
 	// Print to file
 	string outputfile("../../mesh/out_bunny.inp");

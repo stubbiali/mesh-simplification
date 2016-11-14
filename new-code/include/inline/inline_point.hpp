@@ -58,9 +58,15 @@ namespace geometry
 	}
 	
 	
-	INLINE void point::setActive(const bool & flag)
+	INLINE void point::setActive()
 	{
-		active = flag;
+		active = true;
+	}
+	
+	
+	INLINE void point::setInactive()
+	{
+		active = false;
 	}
 
 
