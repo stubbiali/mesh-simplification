@@ -27,17 +27,10 @@ namespace geometry
 	{
 	};
 	
-	/*! Partial specialization for grids with distributed data. */
+	/*! Partial specialization for grids without distributed data. */
 	template<typename SHAPE>
-	class connect<SHAPE, MeshType::DATA> final : public bconnect<SHAPE, MeshType::DATA> 
+	class connect<SHAPE, MeshType::GEO> final : public bconnect<SHAPE, MeshType::GEO> 
 	{
-		private:
-			/*! Element-data connections. */
-			vector<graphItem> elem2data;
-			
-			/*! Data-element connections. */
-			vector<graphItem> data2elem;
-			
 		public:
 			//
 			// Constructor
@@ -45,23 +38,53 @@ namespace geometry
 			
 			/*! (Default) constructor.
 				\param g	shared pointer to the grid */
-			connect(smart_ptr<mesh<SHAPE,MT>> g = nullptr); 
+			connect(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g = nullptr);
+	};
+	
+	/*! Partial specialization for grids with distributed data. */
+	template<typename SHAPE>
+	class connect<SHAPE, MeshType::DATA> final : public bconnect<SHAPE, MeshType::DATA> 
+	{
+		private:
+			/*! Data-element connections. */
+			vector<graphItem> data2elem;
+			
+			/*! Element-data connections. */
+			vector<graphItem> elem2data;
+						
+		public:
+			//
+			// Constructor
+			//
+			
+			/*! (Default) constructor.
+				\param g	shared pointer to the grid */
+			connect(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g = nullptr); 
 			
 			//
-			// Connections initializers
+			// Initialize and clear connections
 			//
+			
+			/*! Initialize data-element connections. 
+				This method supposes the data points coincide with the nodes, 
+				then data-element connections coincide with node-element connections.
+				In case data points and nodes do not coincide, the user may manually
+				set data-element connections through setData2Elem(). 
+				
+				\sa setData2Elem() */
+			void buildData2Elem();
 			
 			/*! Initialize element-data connections. */
 			void buildElem2Data();
-			
-			/*! Initialize data-element connections. */
-			void buildData2Elem();
-			
+					
 			/*! Re-build all connections. */
 			virtual void refresh();
 			
+			/*! Clear all connections and the set of edges. */
+			virtual void clear();
+			
 			//
-			// Connections modifiers
+			// Modify connections
 			//
 			
 			/*! Remove data from element-data connections.
@@ -76,15 +99,6 @@ namespace geometry
 			// Get methods
 			//
 			
-			/*! Get element-data connections for an element.
-				\param Id	element Id
-				\return		the connections */
-			graphItem getElem2Data(const UInt & Id) const;
-			
-			/*! Get element-data connections for all elements.
-				\return		vector of connections */
-			vector<graphItem> getElem2Data() const;
-			
 			/*! Get data-element connections for a datum.
 				\param Id	datum Id
 				\return		the connections */
@@ -94,6 +108,15 @@ namespace geometry
 				\return		vector of connections */
 			vector<graphItem> getData2Elem() const;
 			
+			/*! Get element-data connections for an element.
+				\param Id	element Id
+				\return		the connections */
+			graphItem getElem2Data(const UInt & Id) const;
+			
+			/*! Get element-data connections for all elements.
+				\return		vector of connections */
+			vector<graphItem> getElem2Data() const;
+						
 			//
 			// Set methods
 			//

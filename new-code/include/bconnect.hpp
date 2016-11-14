@@ -72,7 +72,7 @@ namespace geometry
 			
 			/*! (Default) constructor. 
 				\param g	shared pointer to the grid */
-			bconnect(shared_ptr<mesh<SHAPE,MT>> g = nullptr);
+			bconnect(const shared_ptr<mesh<SHAPE,MT>> & g = nullptr);
 			
 			/*! Synthetic destructor. */
 			virtual ~bconnect() = default;
@@ -212,7 +212,7 @@ namespace geometry
 			
 			/*! Set mesh pointer. After that, the connections are (re-)built.
 				\param newGrid	the new mesh */
-			void setMesh(shared_ptr<mesh<SHAPE,MT>> newGrid);
+			void setMesh(const shared_ptr<mesh<SHAPE,MT>> & newGrid);
 	};
 }
 
