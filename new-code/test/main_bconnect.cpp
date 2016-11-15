@@ -16,14 +16,16 @@ int main()
 	
 	// Import mesh
 	string inputfile("../../mesh/bunny.inp");
-	auto grid = make_shared<mesh<Triangle>>(inputfile);
+	//auto grid = make_shared<mesh<Triangle>>(inputfile);
 	
 	// Create connections
-	bconnect<Triangle, MeshType::GEO> bc(grid);
+	//bconnect<Triangle, MeshType::GEO> bc(grid);
+	bconnect<Triangle, MeshType::GEO> bc(inputfile);
 	
 	// Print mesh to file
 	string outputfile("../../mesh/out_bunny.inp");
-	grid->print(outputfile);
+	//grid->print(outputfile);
+	bc.getMesh()->print(outputfile);
 	
 	// Elapsed time
 	high_resolution_clock::time_point end = high_resolution_clock::now();

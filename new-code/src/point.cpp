@@ -121,7 +121,7 @@ namespace geometry
 	// Norm methods
 	//
 		
-	void point::normalize()
+	point & point::normalize()
 	{
 		// Compute the norm 
 		Real len = norm2();
@@ -136,6 +136,8 @@ namespace geometry
 		coor[0] /= len;
 		coor[1] /= len;
 		coor[2] /= len;
+		
+		return *this;
 	}
 		
 	

@@ -8,6 +8,14 @@
 
 namespace geometry
 {
+	/*!	Forward declaration of class bmeshInfo. */
+	template<typename SHAPE, MeshType MT>
+	class bmeshInfo;
+	
+	/*!	Forward declaration of class meshInfo. */
+	template<typename SHAPE, MeshType MT>
+	class meshInfo;
+		
 	/*! This is a wrapper class for bconnect, which it inherits.
 		It takes two template parameters:
 		<ol>
@@ -32,6 +40,12 @@ namespace geometry
 	class connect<SHAPE, MeshType::GEO> final : public bconnect<SHAPE, MeshType::GEO> 
 	{
 		public:
+			/*! bmeshInfo is a friend class. */
+			friend class bmeshInfo<SHAPE, MeshType::GEO>;
+			
+			/*! meshInfo is a friend class. */
+			friend class meshInfo<SHAPE, MeshType::GEO>;
+			
 			//
 			// Constructor
 			//
@@ -39,6 +53,13 @@ namespace geometry
 			/*! (Default) constructor.
 				\param g	shared pointer to the grid */
 			connect(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g = nullptr);
+			
+			/*! Constructor.
+				\param args	arguments to forward to mesh 
+				
+				\sa mesh.hpp */
+			template<typename... Args>
+			connect(Args... args);
 	};
 	
 	/*! Partial specialization for grids with distributed data. */
@@ -53,6 +74,12 @@ namespace geometry
 			vector<graphItem> elem2data;
 						
 		public:
+			/*! bmeshInfo is a friend class. */
+			friend class bmeshInfo<SHAPE, MeshType::DATA>;
+			
+			/*! meshInfo is a friend class. */
+			friend class meshInfo<SHAPE, MeshType::DATA>;
+			
 			//
 			// Constructor
 			//
@@ -60,6 +87,13 @@ namespace geometry
 			/*! (Default) constructor.
 				\param g	shared pointer to the grid */
 			connect(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g = nullptr); 
+			
+			/*! Constructor.
+				\param args	arguments to forward to mesh 
+				
+				\sa mesh.hpp */
+			template<typename... Args>
+			connect(Args... args);
 			
 			//
 			// Initialize and clear connections
@@ -87,9 +121,17 @@ namespace geometry
 			// Modify connections
 			//
 			
+			/*! Remove a datum from element-data connections.
+				\param Id	Id of the datum to remove */
+			void eraseDataInElem2Data(const UInt & Id);
+			
 			/*! Remove data from element-data connections.
 				\param ids	vector with Id's of data to remove */
 			void eraseDataInElem2Data(const vector<UInt> & ids);
+			
+			/*! Insert a datum in element-data connections.
+				\param Id	Id of the datum to insert */
+			void insertDataInElem2Data(const UInt & Id);
 						
 			/*! Insert data in element-data connections.
 				\param ids	vector with Id's of data to insert */
@@ -124,21 +166,37 @@ namespace geometry
 			/*! Set data-element connections for a datum.
 				Before setting the new connections, it calls eraseDataInElemToData().
 				After having set the new connections, it calls insertDataInElemToData().
+				It returns the old connections.
 				
 				\param Id			datum Id
 				\param newConn		new connections 
+				\return				old connections
 				
 				\sa eraseDataInElemToData(), insertDataInElemToData() */
-			void setData2Elem(const UInt & Id, const set<UInt> & newConn);
+			vector<UInt> setData2Elem(const UInt & Id, const set<UInt> & newConn);
 			
 			/*! Set data-element connections for a datum.
 				Before setting the new connections, it calls eraseDataInElemToData().
 				After having set the new connections, it calls insertDataInElemToData().
+				It returns the old connections.
 				
-				\param newData2Elem	new graph item 
+				\param Id			datum Id
+				\param newConn		new connections 
+				\return				old connections
 				
 				\sa eraseDataInElemToData(), insertDataInElemToData() */
-			void setData2Elem(const graphItem & newData2Elem);
+			vector<UInt> setData2Elem(const UInt & Id, const vector<UInt> & newConn);
+			
+			/*! Set data-element connections for a datum.
+				Before setting the new connections, it calls eraseDataInElemToData().
+				After having set the new connections, it calls insertDataInElemToData().
+				It returns the old connections.
+				
+				\param newData2Elem	new graph item 
+				\return				old connections
+				
+				\sa eraseDataInElemToData(), insertDataInElemToData() */
+			graphItem setData2Elem(const graphItem & newData2Elem);
 			
 			/*! Set data-element connections for all data.
 				This is particularly useful if the data do not initially coincide with nodes.

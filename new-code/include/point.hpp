@@ -178,7 +178,7 @@ namespace geometry
 			Real norm2() const;
 
 			/*! Normalize the coordinates vector. */
-			void normalize();
+			point & normalize();
 
 			//
 			// Get methods

@@ -1,3 +1,6 @@
+/*!	\file	utility.cpp
+	\brief	Implementations of static members of class utility. */
+	
 #include <istream>
 #include <sstream>
 #include <algorithm>
@@ -5,9 +8,9 @@
 
 #include "utility.hpp"
 
-namespace utility
+namespace geometry
 {
-	string getFileExtension(string filename)
+	string utility::getFileExtension(string filename)
 	{
 		// Reverse name of the file
 		reverse(filename.begin(), filename.end());
