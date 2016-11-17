@@ -31,14 +31,18 @@ template class connect<Quad>;
 template class connect<Quad, MeshType::DATA>;
 
 #include "bmeshInfo.hpp"
+#ifndef NDEBUG
 template class bmeshInfo<Triangle, MeshType::GEO>;
 template class bmeshInfo<Triangle, MeshType::DATA>;
 template class bmeshInfo<Quad, MeshType::GEO>;
 template class bmeshInfo<Quad, MeshType::DATA>;
+#endif
 
 #include "meshInfo.hpp"
+#ifndef NDEBUG
 template class meshInfo<Triangle>;
 template class meshInfo<Triangle, MeshType::DATA>;
 template class meshInfo<Quad>;
 template class meshInfo<Quad, MeshType::DATA>;
+#endif
 

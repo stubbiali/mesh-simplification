@@ -65,7 +65,7 @@ namespace geometry
 		private:
 			/*! Print to output the point data.
 				\param out	the output string */
-			virtual void print(ostream & out) const override;
+			void print(ostream & out) const;
 	}; 
 }
 

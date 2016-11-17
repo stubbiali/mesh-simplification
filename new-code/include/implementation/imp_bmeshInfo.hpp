@@ -14,6 +14,21 @@
 	Since for each shape there is at least one method not defined, not 
 	to get errors at compile time, all static_assert's are enabled 
 	only in release mode.
+	
+	The involved methods are:
+		* 	getTriPatch()		provided only for triangular grids;
+								for over shapes, use getElemPatch()
+		* 	getIntervalLength() provided only for 1D grids
+		* 	getTriArea() 		provided only for triangular grids
+		* 	getNormal() 		provided only for triangular grids
+		
+	Methods which may be implemented in future:
+		*	getElemArea()		compute the area of a generically-shaped
+								element of a 2D grid
+		*	getElemVolume()		compute the volume of a generically-shaped
+								element of a 3D grid
+		*	getElemNormals()	get the normal for each face of an
+								element of a 3D grid
 */
 
 namespace geometry
@@ -100,7 +115,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	vector<UInt> bmeshInfo<SHAPE,MT>::getTriaPatch(const UInt & Id) const
+	vector<UInt> bmeshInfo<SHAPE,MT>::getTriPatch(const UInt & Id) const
 	{
 		// This method is provided only for triangular grids
 		#ifdef NDEBUG
@@ -162,7 +177,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	Real bmeshInfo<SHAPE,MT>::getTriaArea(const UInt & Id) const
+	Real bmeshInfo<SHAPE,MT>::getTriArea(const UInt & Id) const
 	{
 		// This method is provided only for triangular grids
 		#ifdef NDEBUG

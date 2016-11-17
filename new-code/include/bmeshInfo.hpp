@@ -92,7 +92,7 @@ namespace geometry
 				
 				\param Id	triangle Id
 				\return		Id's of the triangles belonging to the patch */
-			vector<UInt> getTriaPatch(const UInt & Id) const;
+			vector<UInt> getTriPatch(const UInt & Id) const;
 			
 			/*!	Get the patch of an element, i.e. all elements sharing at least a node with the element.
 				\param Id	element Id
@@ -115,7 +115,7 @@ namespace geometry
 				
 				\param Id	element Id
 				\return		element area */
-			Real getTriaArea(const UInt & Id) const;
+			Real getTriArea(const UInt & Id) const;
 						
 			/*!	Get the normal of an element.
 				This method is provided only for triangular grids.
