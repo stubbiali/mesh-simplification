@@ -28,6 +28,9 @@ namespace geometry
 			/*! Id of the element. */
 			UInt Id;
 			
+			/*!	Index of the element. Useful for structured data search. */
+			UInt idx;
+			
 			/*! Geometric Id of the element. */
 			UInt geoId;
 			
@@ -111,6 +114,10 @@ namespace geometry
 				\return		element Id */
 			UInt getId() const;
 			
+			/*!	Get element index.
+				\return		element index */
+			UInt getIdx() const;
+			
 			/*! Get geometric Id.
 				\return		geometric Id */
 			UInt getGeoId() const;
@@ -134,6 +141,10 @@ namespace geometry
 			/*! Set element Id.
 				\param ID	the new element Id */
 			void setId(const UInt & id);
+			
+			/*!	Set element index.
+				\param index	the new element index */
+			void setIdx(const UInt & index);
 			
 			/*! Set geometric Id.
 				\param gid	the new geometric Id */

@@ -17,14 +17,14 @@ namespace geometry
 	
 	template<typename SHAPE>
 	geoElement<SHAPE>::geoElement(const UInt & id) : 
-		Id(id), geoId(0), active(true) 
+		Id(id), idx(0), geoId(0), active(true) 
 	{
 	}
 	
 	
 	template<typename SHAPE>
 	geoElement<SHAPE>::geoElement(const array<UInt,NV> & v, const UInt & id, const UInt & gid) :
-		Id(id), geoId(gid), vertices(v), active(true) 
+		Id(id), idx(0), geoId(gid), vertices(v), active(true) 
 	{
 	}
 	
@@ -36,6 +36,9 @@ namespace geometry
 	template<typename SHAPE>
 	geoElement<SHAPE> & geoElement<SHAPE>::operator=(const geoElement<SHAPE> & g)
 	{
+		// Copy index
+		idx = g.idx;
+		
 		// Copy geo Id
 		geoId = g.geoId;
 		
@@ -105,6 +108,7 @@ namespace geometry
 		if (g.active)
 		{
 			out << "Element Id   : " << g.Id << endl;
+			out << "Index        : " << g.idx << endl;
 			out << "Geometric Id : " << g.geoId << endl;
 			out << "Vertices Id's: ";
 			for (auto v : g.vertices)
@@ -126,6 +130,13 @@ namespace geometry
 	INLINE UInt geoElement<SHAPE>::getId() const
 	{
 		return Id;
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE UInt geoElement<SHAPE>::getIdx() const
+	{
+		return idx;
 	}
 	
 	
@@ -165,6 +176,13 @@ namespace geometry
 	INLINE void geoElement<SHAPE>::setId(const UInt & id)
 	{
 		Id = id;
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE void geoElement<SHAPE>::setIdx(const UInt & index)
+	{
+		idx = index;
 	}
 	
 	

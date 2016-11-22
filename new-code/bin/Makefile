@@ -28,7 +28,7 @@ EXEC=main_geoPoint main_point main_bmesh main_mesh main_graphItem main_bconnect 
 # Compilation flags
 CXX=g++
 CXXFLAGS=-std=c++11 -g -I$(INC_DIR)
-CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I$(INC_DIR)
+#CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I$(INC_DIR)
 
 
 #
