@@ -48,11 +48,11 @@ namespace geometry
 			// Reserve memory
 			node2node.clear();
 			node2node.reserve(grid->getNumNodes());
-			
+						
 			// Set nodes Id's
 			for (UInt id = 0; id < grid->getNumNodes(); id++)
 				node2node.emplace_back(id);
-				
+							
 			// Loop over all elements
 			geoElement<SHAPE> elem;
 			UInt id1, id2;
@@ -60,18 +60,18 @@ namespace geometry
 			{
 				// Extract element
 				elem = grid->getElem(id);
-				
+								
 				// Loop over edges
 				for (UInt j = 0; j < N; j+=2)
 				{
 					// Extract extrema of the edge
 					id1 = elem[SHAPE::edgeConn[j]];
 					id2 = elem[SHAPE::edgeConn[j+1]];
-					
+										
 					// Add node-node connections
 					node2node[id1].insert(id2);
 					node2node[id2].insert(id1);
-					
+										
 					// Update set of edges
 					edges.emplace(array<UInt,2>({id1,id2}));
 				}

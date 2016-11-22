@@ -5,6 +5,8 @@
 #ifndef HH_BMESHINFO_HH
 #define HH_BMESHINFO_HH
 
+#include <utility>
+
 #include "connect.hpp"
 
 namespace geometry
@@ -58,6 +60,10 @@ namespace geometry
 			/*!	Get mesh connectivity.
 				\return		the connectivity */
 			connect<SHAPE,MT> getConnectivity() const;
+			
+			/*!	Set the mesh.
+				\param grid	shared pointer to the mesh */
+			void setMesh(const shared_ptr<mesh<SHAPE,MT>> & g);
 			
 			//
 			// Get topological info
@@ -122,7 +128,28 @@ namespace geometry
 				
 				\param Id	element Id
 				\return		its normal */
-			point getNormal(const UInt & Id) const;
+			point3d getNormal(const UInt & Id) const;
+			
+			/*!	Get the North-East vertex of the bounding box 
+				surrounding the grid.
+				
+				\return		the North-East point */
+			point3d getNorthEastPoint() const;
+			
+			/*!	Get the South-West vertex of the bounding box 
+				surrounding the grid.
+				
+				\return		the South-West point */
+			point3d getSouthWestPoint() const;
+			
+			/*!	Get the the bounding box surrounding the grid.
+				\return		a pair with the North-East and the
+							South-West point of the bounding box */
+			pair<point3d,point3d> getBoundingBoxVertices() const;
+			
+			/*!	Get the size of the cells for structured data search.
+				\return		array with cells size */
+			array<Real,3> getCellSize() const;
 			
 			//
 			// Set geometric features

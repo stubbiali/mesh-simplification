@@ -46,3 +46,11 @@ template class meshInfo<Quad>;
 template class meshInfo<Quad, MeshType::DATA>;
 #endif
 
+#include "boundingBox.hpp"
+#ifndef NDEBUG
+template class boundingBox<2>;
+template class boundingBox<3>;
+template class boundingBox<10>;
+#endif
+
+

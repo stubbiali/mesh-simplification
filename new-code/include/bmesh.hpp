@@ -72,11 +72,19 @@ namespace geometry
 				\param Id	node Id
 				\return		the point */
 			point getNode(const UInt & Id) const;
+			
+			/*!	Get full list of nodes.
+				\return		list of nodes */
+			vector<point> getNodes() const;
 						
 			/*! Get an element.
 				\param Id	element Id
 				\return		the element */
 			geoElement<SHAPE> getElem(const UInt & Id) const;
+			
+			/*!	Get full list of elements.
+				\return		list of elements */
+			vector<geoElement<SHAPE>> getElems() const;
 			
 			/*! Get number of nodes.
 				\return		number of nodes */

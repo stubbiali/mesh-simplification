@@ -4,34 +4,43 @@
 #ifndef HH_SEARCHPOINT_HH
 #define HH_SEARCHPOINT_HH
 
+#include "geoPoint.hpp"
+#include "bmeshInfo.hpp"
+
 namespace geometry 
 {		
 	/*! Forward declaration of class point. */
 	class point;
 	
 	/*! Class inheriting point and storing the indices for structured data search. 
-		All methods are designed so to keep the indices updated after any operation. */
+		All methods are designed so to keep the indices updated after any operation. 
+		Note: this class is designed to work with only one mesh at a time. */
 	class searchPoint final : public simplePoint
 	{
 		private:
-			/*! ID. */
-			UInt					Id;
+			//
+			// Static attributes
+			//
+			
+			/*!	Mesh (global) North-East and South-West point. */
+			static point3d NE_global;
+			static point3d SW_global;
+			
+			/*! Mesh characteristic dimension along each direction. */
+			static array<Real,3> cellSize;
+			
+			/*! Number of cells along each direction. */
+			static array<UInt,3> numCells;
+			
+			//
+			// Non-static attributes
+			//
+			
+			/*! Id. */
+			UInt Id;
 			
 			/*! Indices. */
-			std::array<UInt,3> 		idx;
-			
-			/*! Static variables storing
-				<ol>
-				<li> the North-East point of the grid
-				<li> the South-West point of the grid 
-				<li> the cells sizes
-				<li> the number of cells along each direction
-				</ol>
-				Note: this is done because the code is supposed to deal with one mesh at time. */
-			static point			pNE;
-			static point 			pSW;
-			static array<Real,3> 	cellSize;
-			static array<UInt,3> 	numCells;
+			std::array<UInt,3> idx;
 			
 		public:
 			//
@@ -59,7 +68,7 @@ namespace geometry
 			
 			/*! Constructor.
 				\param p	a point */
-			searchPoint(const point & p);
+			searchPoint(const point3d & p);
 						
 			/*! Copy constructor.
 				\param p	a point */
@@ -115,13 +124,13 @@ namespace geometry
 				\return		the point Id */
 			UInt getId() const;
 			
-			/*! Get North-East point.
+			/*! Get (global) North-East point.
 				\return 	the North-East point of the grid. */
-			static point getPNE();
+			static point3d getGlobalNE();
 						
-			/*! Get South-West point.
+			/*! Get (global) South-West point.
 				\return 	the South-West point of the grid. */
-			static point getPSW();
+			static point3d getGlobalSW();
 			
 			/*! Get one size of the cells.
 				\param i	component
@@ -149,13 +158,13 @@ namespace geometry
 				\param idNew	the new Id */
 			void setId(const UInt & idNew);
 			
-			/*! Set the North-East point.
+			/*! Set the (global) North-East point.
 				\param p	the new North-East point */
-			static void setPNE(const point & p);
+			static void setGlobalNE(const point3d & p);
 			
-			/*! Set the South-West point.
+			/*! Set the (global) South-West point.
 				\param p	the new South-West point */
-			static void setPSW(const point & p);
+			static void setGlobalSW(const point3d & p);
 			
 			/*! Set one cells size.
 				\param i	component
@@ -175,15 +184,28 @@ namespace geometry
 				\param val	array with new number of cells */
 			static void setNumCells(const array<UInt,3> & val);
 			
-			/*! Initialize extrema of the grid and cells sizes.
-				This method is supposed to be called ONLY ONCE and BEFORE any use of the class.
+			/*! Set static (i.e. global) class members.
+				This method should be called ONLY ONCE and BEFORE any use of the class.
+				
 				\param pne	North-East point
 				\param psw	South-West point
 				\param dx	cells size along x
 				\param dy	cells size along y
 				\param dz	cells size along z */
-			static void initialize(const point & pne = point(1.,1.,1.), const point & psw = point(0.,0.,0.), const Real & dx = 1., const Real & dy = 1., const Real & dz = 1.);
+			static void setup(const point3d & pne = point3d(1.,1.,1.),  
+				const point3d & psw = point3d(0.,0.,0.), 
+				const Real & dx = 1., const Real & dy = 1., const Real & dz = 1.);
+				
+			/*! Set static (i.e. global) class members.
+				This method should be called ONLY ONCE and BEFORE any use of the class.
+				
+				\param news	a bmeshInfo object
+				
+				\sa bmeshInfo.hpp, meshInfo.hpp */
+			template<typename SHAPE, MeshType MT>
+			static void setup(const bmeshInfo<SHAPE,MT> & news);
 			
+		private:
 			//
 			// Methods to keep static variables coherent
 			//     
@@ -201,16 +223,6 @@ namespace geometry
 			
 			/*! Update cells sizes along each direction. */
 			static void updateCellSize();
-			
-						
-		private:      
-			//
-			// Print method
-			//
-			
-			/*! Print to output the point data.
-				\param out	the output string */
-			void print(ostream & out) const;
 	};
 }
 
@@ -218,5 +230,8 @@ namespace geometry
 #ifdef INLINED
 #include "inline/inline_searchPoint.hpp"
 #endif
+
+/*!	Include definitions of template members. */
+#include "implementation/imp_searchPoint.hpp"
 
 #endif

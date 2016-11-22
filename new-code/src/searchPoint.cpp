@@ -1,9 +1,12 @@
+/*!	\file	searchPoint.cpp
+	\brief	Implementations of members and friend functions of class searchPoint. */
+	
 #include <algorithm>
 
 #include "point.hpp"
 #include "searchPoint.hpp"
 
-// Include definitions of inlined members and friend functions. 
+// Include definitions of inlined members and friend functions
 #ifndef INLINED
 #include "inline/inline_searchPoint.hpp"
 #endif
@@ -14,10 +17,10 @@ namespace geometry
 	// Definitions of static members
 	//
 	// These are just default initializations. The user, before using any instances of the 
-	// searchPoint class, should call initialize so to set the actual values for static members.
+	// searchPoint class, should call setup() so to set the actual values for static members.
 	
-	point searchPoint::pNE(1.,1.,1.);
-	point searchPoint::pSW(0.,0.,0.);
+	point3d searchPoint::NE_global(1.,1.,1.);
+	point3d searchPoint::SW_global(0.,0.,0.);
 	array<Real,3> searchPoint::cellSize{1.,1.,1.};
 	array<UInt,3> searchPoint::numCells{1,1,1}; 
 	
@@ -35,9 +38,9 @@ namespace geometry
 	searchPoint::searchPoint(const Real & x, const Real & y, const Real & z, const UInt & ID) : 
 		Id(ID)
 	{
-		idx[0] = static_cast<UInt>((x - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
-		idx[1] = static_cast<UInt>((y - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
-		idx[2] = static_cast<UInt>((z - searchPoint::pSW[2]) / searchPoint::cellSize[2]);
+		idx[0] = static_cast<UInt>((x - searchPoint::SW_global[0]) / searchPoint::cellSize[0]);
+		idx[1] = static_cast<UInt>((y - searchPoint::SW_global[1]) / searchPoint::cellSize[1]);
+		idx[2] = static_cast<UInt>((z - searchPoint::SW_global[2]) / searchPoint::cellSize[2]);
 		
 		// Check
 		assert(idx < searchPoint::numCells);
@@ -47,21 +50,21 @@ namespace geometry
 	searchPoint::searchPoint(const array<Real,3> & c, const UInt & ID) : 
 		Id(ID)
 	{
-		idx[0] = static_cast<UInt>((c[0] - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
-		idx[1] = static_cast<UInt>((c[1] - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
-		idx[2] = static_cast<UInt>((c[2] - searchPoint::pSW[2]) / searchPoint::cellSize[2]);
+		idx[0] = static_cast<UInt>((c[0] - searchPoint::SW_global[0]) / searchPoint::cellSize[0]);
+		idx[1] = static_cast<UInt>((c[1] - searchPoint::SW_global[1]) / searchPoint::cellSize[1]);
+		idx[2] = static_cast<UInt>((c[2] - searchPoint::SW_global[2]) / searchPoint::cellSize[2]);
 		
 		// Check
 		assert(idx < searchPoint::numCells);
 	}
 	
 	
-	searchPoint::searchPoint(const point & p) : 
-		Id(p.getId())
+	searchPoint::searchPoint(const point3d & p) : 
+		Id(0)
 	{
-		idx[0] = static_cast<UInt>((p[0] - searchPoint::pSW[0]) / searchPoint::cellSize[0]);
-		idx[1] = static_cast<UInt>((p[1] - searchPoint::pSW[1]) / searchPoint::cellSize[1]);
-		idx[2] = static_cast<UInt>((p[2] - searchPoint::pSW[2]) / searchPoint::cellSize[2]);
+		idx[0] = static_cast<UInt>((p[0] - searchPoint::SW_global[0]) / searchPoint::cellSize[0]);
+		idx[1] = static_cast<UInt>((p[1] - searchPoint::SW_global[1]) / searchPoint::cellSize[1]);
+		idx[2] = static_cast<UInt>((p[2] - searchPoint::SW_global[2]) / searchPoint::cellSize[2]);
 		
 		// Check
 		assert(idx < searchPoint::numCells);
@@ -87,7 +90,8 @@ namespace geometry
 	
 	ostream & operator<<(ostream & out, const searchPoint & p)
 	{
-		p.print(cout);
+		out << "Point ID: " << p.Id << endl;		
+		out << "Point indices: " << p.idx[0] << ", " << p.idx[1] << ", " << p.idx[2] << endl;
 		return cout;
 	}
 	
@@ -96,20 +100,20 @@ namespace geometry
 	// Set methods
 	//
 	
-	void searchPoint::setPNE(const point & p)
+	void searchPoint::setGlobalNE(const point3d & p)
 	{
 		// Set the new point
-		searchPoint::pNE = p;
+		searchPoint::NE_global = p;
 		
 		// Update number of cells
 		searchPoint::updateNumCells();
 	}
 	
 	
-	void searchPoint::setPSW(const point & p)
+	void searchPoint::setGlobalSW(const point3d & p)
 	{
 		// Set the new point
-		searchPoint::pSW = p;
+		searchPoint::SW_global = p;
 		
 		// Update number of cells
 		searchPoint::updateNumCells();
@@ -160,10 +164,11 @@ namespace geometry
 	}
 	
 	
-	void searchPoint::initialize(const point & pne, const point & psw, const Real & dx, const Real & dy, const Real & dz)
+	void searchPoint::setup(const point3d & pne, const point3d & psw, 
+		const Real & dx, const Real & dy, const Real & dz)
 	{
-		searchPoint::pNE = pne;
-		searchPoint::pSW = psw;
+		searchPoint::NE_global = pne;
+		searchPoint::SW_global = psw;
 		searchPoint::cellSize = {dx,dy,dz};
 				
 		// Compute number of cells
@@ -178,7 +183,9 @@ namespace geometry
 	void searchPoint::updateNumCells(const UInt & i)
 	{
 		// Update the number of cells
-		searchPoint::numCells[i] = static_cast<UInt>((searchPoint::pNE[i] - searchPoint::pSW[i]) / searchPoint::cellSize[i]);
+		searchPoint::numCells[i] = 
+			static_cast<UInt>((searchPoint::NE_global[i] - searchPoint::SW_global[i]) 
+			/ searchPoint::cellSize[i]);
 		
 		// Check it is not zero
 		if (searchPoint::numCells[i] == 0)
@@ -200,7 +207,7 @@ namespace geometry
 	{
 		assert(searchPoint::numCells[i] > 0);
 		
-		searchPoint::cellSize[i] = (searchPoint::pNE[i] - searchPoint::pSW[i]) / searchPoint::numCells[i];
+		searchPoint::cellSize[i] = (searchPoint::NE_global[i] - searchPoint::SW_global[i]) / searchPoint::numCells[i];
 	}
 	
 	
@@ -208,18 +215,6 @@ namespace geometry
 	{
 		for (size_t i = 0; i < 3; i++)
 			searchPoint::updateCellSize(i);
-	}
-	
-	
-	//
-	// Print
-	//
-	
-	void searchPoint::print(ostream & out) const
-	{
-		out << "Point ID: " << Id << endl;		
-		out << "Point indices: " << idx[0] << ", " << idx[1] << ", " << idx[2] << endl;
-		out << endl;
 	}
 }
 

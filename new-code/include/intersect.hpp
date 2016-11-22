@@ -57,10 +57,6 @@ namespace geometry
 			shared_ptr<bmesh<Triangle>> grid;
 			
 		public:
-			/*!	A couple of typedef's to ease notation. */
-			using point2d = geoPoint<2>;
-			using point3d = geoPoint<3>;
-			
 			//
 			// Constructors
 			//
@@ -75,6 +71,14 @@ namespace geometry
 				\sa mesh.hpp */
 			template<typename... Args>
 			intersect(Args... args);
+			
+			//
+			// Get methods
+			//
+			
+			/*!	Get mesh pointer.
+				\return		shared pointer to the mesh */
+			shared_ptr<bmesh<Triangle>> getMesh();
 			
 			//
 			// Interface
@@ -103,6 +107,44 @@ namespace geometry
 			// Auxiliary methods
 			//
 			
+			/*!	Get the signed area of a two-dimensional triangle.
+				\param a	first vertex of the triangle
+				\param b	second vertex of the triangle
+				\param c	third vertex of the triangle
+				\return		the signed area */
+			static Real getTriArea2d(const point2d & a, const point2d & b, const point2d & c);
+			
+			/*!	Test if a two-dimensional point lays within a triangle. 
+				\param p	the point
+				\param a	first vertex of the triangle
+				\param b	second vertex of the triangle
+				\param c	third vertex of the triangle
+				\return		relative position of the point w.r.t. the triangle */
+			static Point2Tri inTri2d(const point2d & p, const point2d & a,
+				const point2d & b, const point2d & c);
+			
+			/*!	Test if two segments in the plane intersect one each other. 
+				\param q1	querying end-point of first segment
+				\param r1	ray end-point of first segment
+				\param q2	querying end-point of second segment
+				\param r2	ray end-point of second segment 
+				\return		intersection type */
+			static IntersectionType intSegSeg2d(const point2d & q1, const point2d & r1,
+				const point2d & q2, const point2d & r2);
+			
+			/*!	Test if a segment intersect a plane.
+				\param Q	querying end-point of the segment
+				\param R	ray end-point of the segment 
+				\param N	unit normal to the triangle 
+				\param D	RHS term in the equation of the plane
+							determined by the triangle
+				\return		relative position line-plane
+				\return		position of the intersection point \$ p \$
+							(if any) in the segment
+				\return		\$ t \$ s.t. \$ p = q + t \cdot (r - q) \$ */
+			static tuple<Line2Plane, Point2Seg, Real> intSegPlane(const point3d & Q, 
+				const point3d & R, const point3d & N, const Real & D); 
+						
 			/*!	Test if a segment intersect a triangle (debug mode).
 				\param Q	querying end-point of the segment
 				\param R	ray end-point of the segment
@@ -131,45 +173,15 @@ namespace geometry
 			static IntersectionType intSegTri(const point3d & Q, const point3d & R,
 				const point2d & a, const point2d & b, const point2d & c, 
 				const point3d & N, const Real & D, const UInt & x, const UInt & y);
-			
-			/*!	Test if a segment intersect a plane.
-				\param Q	querying end-point of the segment
-				\param R	ray end-point of the segment 
-				\param N	unit normal to the triangle 
-				\param D	RHS term in the equation of the plane
-							determined by the triangle
-				\return		relative position line-plane
-				\return		position of the intersection point \$ p \$
-							(if any) in the segment
-				\return		\$ t \$ s.t. \$ p = q + t \cdot (r - q) \$ */
-			static tuple<Line2Plane, Point2Seg, Real> intSegPlane(const point3d & Q, 
-				const point3d & R, const point3d & N, const Real & D); 
-				
-			/*!	Test if two segments in the plane intersect one each other. 
-				\param q1	querying end-point of first segment
-				\param r1	ray end-point of first segment
-				\param q2	querying end-point of second segment
-				\param r2	ray end-point of second segment 
-				\return		intersection type */
-			static IntersectionType intSegSeg2d(const point2d & q1, const point2d & r1,
-				const point2d & q2, const point2d & r2);
-				
-			/*!	Test if a two-dimensional point lays within a triangle. 
-				\param p	the point
-				\param a	first vertex of the triangle
-				\param b	second vertex of the triangle
-				\param c	third vertex of the triangle
-				\return		relative position of the point w.r.t. the triangle */
-			static Point2Tri inTri2d(const point2d & p, const point2d & a,
-				const point2d & b, const point2d & c);
-				
-			/*!	Get the signed area of a two-dimensional triangle.
-				\param a	first vertex of the triangle
-				\param b	second vertex of the triangle
-				\param c	third vertex of the triangle
-				\return		the signed area */
-			static Real getTriArea2d(const point2d & a, const point2d & b, const point2d & c);
 	};
 }
+
+/*!	Include definitions of template members. */
+#include "implementation/imp_intersect.hpp"
+
+/*!	Include definitions of inlined members. */
+#ifdef INLINED
+#include "inline/inline_intersect.hpp"
+#endif
 
 #endif

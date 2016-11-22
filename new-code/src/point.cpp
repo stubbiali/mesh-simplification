@@ -1,6 +1,9 @@
+/*!	\file	point.cpp
+	\brief	Implementations of members and friend functions of class point. */
+
 #include "point.hpp"
 
-// Include definitions of inlined members and friend functions. 
+// Include definitions of inlined members and friend functions
 #ifndef INLINED
 #include "inline/inline_point.hpp"
 #endif

@@ -46,8 +46,9 @@ namespace geometry
 			/*! Number of edges for each element. */
 			static constexpr UInt NE = SHAPE::numEdges;
 			
-			/*! Number of vertices per edge times number of vertices. */
-			static constexpr UInt N = NV*NE;
+			/*! Number of vertices per edge times number of edges. */
+			static constexpr UInt N = 
+				SHAPE::numVerticesPerEdge * SHAPE::numEdges;
 			
 		protected:
 			/*! Smart pointer to the mesh. */

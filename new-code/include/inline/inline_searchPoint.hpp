@@ -28,15 +28,15 @@ namespace geometry
 	}
 			
 	
-	INLINE point searchPoint::getPNE() 
+	INLINE point3d searchPoint::getGlobalNE() 
 	{
-		return searchPoint::pNE;
+		return searchPoint::NE_global;
 	}
 				
 	
-	INLINE point searchPoint::getPSW() 
+	INLINE point3d searchPoint::getGlobalSW() 
 	{
-		return searchPoint::pSW;
+		return searchPoint::SW_global;
 	}
 	
 	

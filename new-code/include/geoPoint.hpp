@@ -41,7 +41,11 @@ namespace geometry
 			
 			/*! Synthetic default constructor. */
 			geoPoint() = default;
-						
+				
+			/*!	Constructor.
+				\param val	initialization value for all coordinates */
+			geoPoint(const Real & val);
+					
 			/*!	Constructor.
 				Provided only for two-dimensional points.
 				
@@ -150,9 +154,8 @@ namespace geometry
 			friend Real operator*(const geoPoint<DIM> & gpA, const geoPoint<DIM> & gpB);
 
 			/*! Less than operator: a point is "less" than another 
-				if its first coordinate is less than the other point one. 
-				If the first component values are equal, the second ones 
-				are considered and so on. 
+				if all its coordinates are smaller than the corresponding
+				ones of the other point. 
 				
 				\param gpA	LHS
 				\param gpB	RHS 
@@ -160,16 +163,35 @@ namespace geometry
 			template<UInt DIM>
 			friend bool operator<(const geoPoint<DIM> & gpA, const geoPoint<DIM> & gpB);
 			
+			/*! Less or equal than operator: a point is "less" than another 
+				if all its coordinates are smaller than the corresponding
+				ones of the other point. 
+				
+				\param gpA	LHS
+				\param gpB	RHS 
+				\return 	bool reporting the result */
+			template<UInt DIM>
+			friend bool operator<=(const geoPoint<DIM> & gpA, const geoPoint<DIM> & gpB);
+			
 			/*! Greater than operator: a point is "greater" than another 
-				if its first coordinate is greater than the other point one. 
-				If the first component values are equal, the second ones 
-				are considered and so on. 
+				if all its coordinates are greater than the corresponding
+				ones of the other point. 
 				
 				\param gpA	LHS
 				\param gpB	RHS 
 				\return 	bool reporting the result */
 			template<UInt DIM>
 			friend bool operator>(const geoPoint<DIM> & gpA, const geoPoint<DIM> & gpB);
+			
+			/*! Greater or equal than operator: a point is "greater" than another 
+				if all its coordinates are greater than the corresponding
+				ones of the other point. 
+				
+				\param gpA	LHS
+				\param gpB	RHS 
+				\return 	bool reporting the result */
+			template<UInt DIM>
+			friend bool operator>=(const geoPoint<DIM> & gpA, const geoPoint<DIM> & gpB);
 
 			/*! Inequality operator: two points are equal if their components 
 				are equal up to the geometric tolerance. 
@@ -234,7 +256,19 @@ namespace geometry
 			/*!	Get the index of the greatest coordinate (in absolute value).
 				\return		the greatest coordinate */
 			UInt getMaxCoor() const;
+			
+			//
+			// Set methods
+			//
+			
+			/*!	Reset coordinates.
+				\param val	new values to set all coordinates to */
+			void reset(const Real & val = 0.);
 	};
+	
+	/*!	A couple of typedef's for ease of notation. */
+	using point2d = geoPoint<2>;
+	using point3d = geoPoint<3>;
 }
 
 /*!	Include implementations of class members and friend functions. */

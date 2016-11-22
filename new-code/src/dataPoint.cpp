@@ -1,6 +1,9 @@
+/*!	\file	dataPoint.cpp
+	\brief	Implementations of members of class dataPoint. */
+
 #include "dataPoint.hpp"
 
-// Include definitions of inlined members. 
+// Include definitions of inlined members 
 #ifndef INLINED
 #include "inline/inline_dataPoint.hpp"
 #endif

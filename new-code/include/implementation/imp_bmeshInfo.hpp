@@ -1,9 +1,6 @@
 /*!	\file	imp_bmeshInfo.hpp
 	\brief	Implementations of members of class bmeshInfo. */
 	
-#ifndef HH_IMPBMESHINFO_HH
-#define	HH_IMPBMESHINFO_HH
-
 /*
 	Note: some methods are provided only for some classes of grids,
 	e.g. only for triangular grids. To accomplish this, we add some 
@@ -30,6 +27,12 @@
 		*	getElemNormals()	get the normal for each face of an
 								element of a 3D grid
 */
+
+#ifndef HH_IMPBMESHINFO_HH
+#define	HH_IMPBMESHINFO_HH
+
+#include <limits>
+#include <cmath>
 
 namespace geometry
 {
@@ -60,6 +63,13 @@ namespace geometry
 	INLINE connect<SHAPE,MT> bmeshInfo<SHAPE,MT>::getConnectivity() const
 	{
 		return connectivity;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE void bmeshInfo<SHAPE,MT>::setMesh(const shared_ptr<mesh<SHAPE,MT>> & g)
+	{
+		connectivity.setMesh(g);
 	}
 	
 	
@@ -199,7 +209,7 @@ namespace geometry
 		
 	
 	template<typename SHAPE, MeshType MT>
-	point bmeshInfo<SHAPE,MT>::getNormal(const UInt & Id) const
+	point3d bmeshInfo<SHAPE,MT>::getNormal(const UInt & Id) const
 	{
 		// This method is provided only for triangular grids
 		#ifdef NDEBUG
@@ -217,6 +227,117 @@ namespace geometry
 		
 		// Get element normal
 		return ((pB - pA)^(pC - pB)).normalize();
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	point3d bmeshInfo<SHAPE,MT>::getNorthEastPoint() const
+	{
+		// Initialize output point
+		auto aux = numeric_limits<Real>::lowest();
+		point3d NE(aux,aux,aux);
+			
+		// Loop over all nodes and extract the maximum
+		// for each coordinate
+		auto nodes = connectivity.grid->getNodes();
+		for (auto p : nodes)
+		{
+			if (p[0] > NE[0])
+				NE[0] = p[0];
+			if (p[1] > NE[1])
+				NE[1] = p[1];
+			if (p[2] > NE[2])
+				NE[2] = p[2];
+		}
+		
+		return NE;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	point3d bmeshInfo<SHAPE,MT>::getSouthWestPoint() const
+	{
+		// Initialize output point
+		auto aux = numeric_limits<Real>::max();
+		point3d SW(aux,aux,aux);
+			
+		// Loop over all nodes and extract the minimum
+		// for each coordinate
+		auto nodes = connectivity.grid->getNodes();
+		for (auto p : nodes)
+		{
+			if (p[0] < SW[0])
+				SW[0] = p[0];
+			if (p[1] < SW[1])
+				SW[1] = p[1];
+			if (p[2] < SW[2])
+				SW[2] = p[2];
+		}
+		
+		return SW;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	pair<point3d,point3d> bmeshInfo<SHAPE,MT>::getBoundingBoxVertices() const
+	{
+		// Initialize output points
+		auto aux = numeric_limits<Real>::max();
+		point3d NE(-aux,-aux,-aux);
+		point3d SW(aux,aux,aux);
+			
+		// Loop over all nodes and extract the 
+		// maximum and minimum for each coordinate
+		auto nodes = connectivity.grid->getNodes();
+		for (auto p : nodes)
+		{
+			for (UInt i = 0; i < 3; i++)
+			{ 
+				// Update North-East point
+				if (p[i] > NE[i])
+					NE[i] = p[i];
+										
+				// Update South-West point
+				if (p[i] < SW[i])
+					SW[i] = p[i];
+			}
+		}
+		
+		return make_pair(NE,SW);
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	array<Real,3> bmeshInfo<SHAPE,MT>::getCellSize() const
+	{
+		Real dx(0.), dy(0.), dz(0.);
+			
+		// Loop over all edges to extract the maximum
+		// length along each coordinate
+		auto edges = connectivity.getEdges();
+		for (auto edge : edges)
+		{
+			// Extract end-points of the edge
+			auto p = connectivity.grid->getNode(edge[0]); 
+			auto q = connectivity.grid->getNode(edge[1]);
+			
+			// Update dx
+			Real pq_x = abs(p[0] - q[0]);
+			if (pq_x > dx)
+				dx = pq_x; 
+				
+			// Update dy
+			Real pq_y = abs(p[1] - q[1]);
+			if (pq_y > dy)
+				dy = pq_y; 
+				
+			// Update dz
+			Real pq_z = abs(p[2] - q[2]);
+			if (pq_z > dz)
+				dz = pq_z; 
+		}
+		
+		return array<Real,3>({dx,dy,dz});
 	}
 	
 	

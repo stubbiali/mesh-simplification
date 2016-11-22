@@ -18,6 +18,13 @@ namespace geometry
 	//
 	
 	template<UInt N>
+	geoPoint<N>::geoPoint(const Real & val)
+	{
+		coor.fill(val);
+	}
+	
+	
+	template<UInt N>
 	geoPoint<N>::geoPoint(const Real & x, const Real & y) :
 		coor{x,y}
 	{
@@ -161,36 +168,68 @@ namespace geometry
 	template<UInt N>	
 	bool operator<(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		// Lexicographic comparison
 		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
 		{
-			if (gpA.coor[i] < (gpB.coor[i] - TOLL))
-				return true;
-			
+			// If the i-th coordinate of the first point is greater
+			// or equal than the i-th coordinate of the second point,
+			// return false
+			if (gpA.coor[i] >= (gpB.coor[i] - TOLL))
+				return false;
+		}
+		
+		// gpA is smaller than gpB
+		return true;
+	}
+	
+	
+	template<UInt N>	
+	bool operator<=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
+	{
+		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		{
+			// If the i-th coordinate of the first point is greater
+			// than the i-th coordinate of the second point,
+			// return false
 			if (gpA.coor[i] > (gpB.coor[i] + TOLL))
 				return false;
 		}
 		
-		// The two points are equal
-		return false;
+		// gpA is smaller or equal than gpB
+		return true;
 	}
 	
 	
 	template<UInt N>	
 	bool operator>(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		// Lexicographic comparison
 		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
 		{
-			if (gpA.coor[i] > (gpB.coor[i] + TOLL))
-				return true;
-
+			// If the i-th coordinate of the first point is smaller
+			// or equal than the i-th coordinate of the second point,
+			// return false
+			if (gpA.coor[i] <= (gpB.coor[i] + TOLL))
+				return false;
+		}
+		
+		// gpA is greater than gpB
+		return true;
+	}
+	
+	
+	template<UInt N>	
+	bool operator>=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
+	{
+		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		{
+			// If the i-th coordinate of the first point is smaller
+			// than the i-th coordinate of the second point,
+			// return false
 			if (gpA.coor[i] < (gpB.coor[i] - TOLL))
 				return false;
 		}
 		
-		// The two points are equal
-		return false;
+		// gpA is greater or equal than gpB
+		return true;
 	}
 	
 	
@@ -311,6 +350,17 @@ namespace geometry
 		transform(coor.cbegin(), coor.cend(), absCoor.begin(),
 			[](const Real & el){ return abs(el); });
 		return distance(absCoor.begin(), max_element(absCoor.begin(), absCoor.end()));
+	}
+	
+	
+	//
+	// Set methods
+	//
+	
+	template<UInt N>
+	INLINE void geoPoint<N>::reset(const Real & val)
+	{
+		coor.fill(val);
 	}
 }
 

@@ -1,3 +1,6 @@
+/*!	\file	shapes.cpp
+	\brief	Definitions of static members of shapes-defining classes. */
+
 #include "shapes.hpp"
 
 namespace geometry 

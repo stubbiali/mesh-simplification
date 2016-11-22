@@ -1,12 +1,32 @@
 /*!	\file	intersect.cpp
 	\brief	Implementations of members of class intersect. */
 	
+/* 	Note: the class may not correctly handle the case of two
+	coinciding triangles. In the non-static interface, this
+	is tackled by checking if the two input triangles Id's
+	are different. One could argue that two different triangles
+	may come to coincide after an operation on the mesh.
+	Even if we cannot exclude it, we think this is a really 
+	exceptional case, especially in a process of mesh simplification
+	by edge collapsing. 
+	On the other hand, the static API does not perform any check
+	for detecting completely overlapping triangles. Even if not
+	necessary for our code (as just explained), this kind of 
+	checks may be implemented in future just for the sake of
+	completeness. */
+	
+#include "utility.hpp"
 #include "intersect.hpp"
+
+//	Include definitions of inlined members
+#ifndef INLINED
+#include "inline/inline_intersect.hpp"
+#endif
 
 namespace geometry
 {
 	//
-	// Constructors
+	// Constructor
 	//
 	
 	intersect<Triangle>::intersect(const shared_ptr<bmesh<Triangle>> & g) :
@@ -15,22 +35,9 @@ namespace geometry
 	}
 	
 	
-	template<typename... Args>
-	intersect<Triangle>::intersect(Args... args) :
-		grid(make_shared<bmesh<Triangle>>(args...))
-	{
-	}
-	
 	//
 	// Auxiliary methods
 	//
-	
-	INLINE Real intersect<Triangle>::getTriArea2d(const point2d & a, 
-		const point2d & b, const point2d & c)
-	{
-		return 0.5 * ((b - a)^(c - b))[0];
-	}
-	
 	
 	Point2Tri intersect<Triangle>::inTri2d(const point2d & p, 
 		const point2d & a, const point2d & b, const point2d & c)
@@ -198,7 +205,7 @@ namespace geometry
 		(const point3d & Q, const point3d & R, const point3d & N, const Real & D)
 	{
 		auto l2p = Line2Plane::INCIDENT; 
-		auto p2s = Point2Seg::INTERN;
+		auto p2s = Point2Seg::ONVERTEX;
 		Real t;
 		
 		// Compute numerator and denumerator of Equation (7.7), p. 228
@@ -234,14 +241,16 @@ namespace geometry
 			return make_tuple(l2p, p2s, t);
 		}
 		
-		// The intersection point coincides with a vertex of the segment
-		// iif \$ t == 0 \$ or \$ t == 1 \$
+		// The intersection point is strictly inside the segment
+		// iff \$ 0 < t < 1 \$
 		if ((TOLL < t) && (t < 1.-TOLL))
 		{
 			p2s = Point2Seg::INTERN;
 			return make_tuple(l2p, p2s, t);
 		}
 					
+		// Only remaining scenario: the intersection point coincides
+		// with a vertex of the segment, i.e. \$ t == 0 \$ or \$ t == 1 \$
 		return make_tuple(l2p, p2s, t);
 	}
 	
@@ -251,7 +260,7 @@ namespace geometry
 	{
 		// Compute the normal to the triangle and the RHS 
 		// of the equation of the plane the triangle lies in
-		auto N = (B - A)^(C - B);
+		auto N = ((B - A)^(C - B)).normalize();
 		auto D = N*A;
 		
 		// Extract the maximum coordinate of N
@@ -298,6 +307,12 @@ namespace geometry
 			auto qr_ca = intSegSeg2d(q,r,c,a);
 			if (qr_ca == IntersectionType::INVALID)
 				return qr_ca;
+				
+			// The segment may be completely within the triangle
+			auto q_abc = inTri2d(q,a,b,c);
+			auto r_abc = inTri2d(r,a,b,c);
+			if ((q_abc == Point2Tri::INTERN) || (r_abc == Point2Tri::INTERN))
+				return IntersectionType::INVALID;
 			 
 			// If here, the triangles do not intersect or
 			// they intersect in a conformal way
@@ -378,8 +393,7 @@ namespace geometry
 			if ((q_abc == Point2Tri::INTERN) || (r_abc == Point2Tri::INTERN))
 				return IntersectionType::INVALID;
 				
-			// If here, we should test if the segment
-			// does not intersect the triangle or if
+			// If here, the triangles do not intersect or
 			// they intersect in a conformal way
 			// Since we do not really care about that,
 			// just classify the intersection as VALID
@@ -411,6 +425,10 @@ namespace geometry
 	}
 	
 	
+	//
+	// Interface
+	//	
+	
 	bool intersect<Triangle>::doIntersect(const point3d & A, const point3d & B, const point3d & C, 
 		const point3d & D, const point3d & E, const point3d & F)
 	{
@@ -421,8 +439,8 @@ namespace geometry
 		#ifdef NDEBUG
 		// Compute the normal to the triangle and the RHS 
 		// of the equation of the plane the triangle lies in
-		auto N = (B - A)^(C - B);
-		auto D = N*A;
+		auto N = ((B - A)^(C - B)).normalize();
+		auto RHS = N*A;
 		
 		// Extract the maximum coordinate of N
 		UInt z = N.getMaxCoor();
@@ -441,11 +459,11 @@ namespace geometry
 		auto ef_abc = intSegTri(E,F,A,B,C);
 		auto fd_abc = intSegTri(F,D,A,B,C);
 		#else
-		auto de_abc = intSegTri(D,E,a,b,c,N,D,x,y);
-		auto ef_abc = intSegTri(E,F,a,b,c,N,D,x,y);
-		auto fd_abc = intSegTri(F,D,a,b,c,N,D,x,y);
+		auto de_abc = intSegTri(D,E,a,b,c,N,RHS,x,y);
+		auto ef_abc = intSegTri(E,F,a,b,c,N,RHS,x,y);
+		auto fd_abc = intSegTri(F,D,a,b,c,N,RHS,x,y);
 		#endif
-		
+				
 		// If at least one segment-triangle intersection
 		// is not conformal, the triangle-triangle intersection is 
 		// invalid too
@@ -461,8 +479,8 @@ namespace geometry
 		#ifdef NDEBUG
 		// Compute the normal to the triangle and the RHS 
 		// of the equation of the plane the triangle lies in
-		N = (B - A)^(C - B);
-		D = N*A;
+		N = ((E - D)^(F - E)).normalize();
+		RHS = N*D;
 		
 		// Extract the maximum coordinate of N
 		z = N.getMaxCoor();
@@ -481,11 +499,11 @@ namespace geometry
 		auto bc_def = intSegTri(B,C,D,E,F);
 		auto ca_def = intSegTri(C,A,D,E,F);
 		#else
-		auto ab_def = intSegTri(A,B,d,e,f,N,D,x,y);
-		auto bc_def = intSegTri(B,C,d,e,f,N,D,x,y);
-		auto ca_def = intSegTri(C,A,d,e,f,N,D,x,y);
+		auto ab_def = intSegTri(A,B,d,e,f,N,RHS,x,y);
+		auto bc_def = intSegTri(B,C,d,e,f,N,RHS,x,y);
+		auto ca_def = intSegTri(C,A,d,e,f,N,RHS,x,y);
 		#endif
-		
+				
 		// If at least one segment-triangle intersection
 		// is not conformal, the triangle-triangle intersection is 
 		// invalid too
@@ -515,7 +533,7 @@ namespace geometry
 		point3d F(grid->getNode(el2[2]));
 		
 		// Call static interface
-		return doIntersect(A,B,C,D,E,F);
+		return ((id1 != id2) && doIntersect(A,B,C,D,E,F));
 	}
 }
 

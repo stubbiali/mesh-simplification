@@ -1,6 +1,9 @@
+/*!	\file	graphItem.cpp
+	\brief	Implementations of members and friend functions of class graphItem. */
+	
 #include "graphItem.hpp"
 
-// Include definitions of inlined members and friend functions. 
+// Include definitions of inlined members and friend functions 
 #ifndef INLINED
 #include "inline/inline_graphItem.hpp"
 #endif

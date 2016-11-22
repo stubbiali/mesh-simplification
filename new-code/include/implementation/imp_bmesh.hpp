@@ -67,9 +67,23 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	INLINE vector<point> bmesh<SHAPE>::getNodes() const
+	{
+		return nodes;
+	}
+	
+	
+	template<typename SHAPE>
 	INLINE geoElement<SHAPE> bmesh<SHAPE>::getElem(const UInt & Id) const
 	{
 		return elems[Id];
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE vector<geoElement<SHAPE>> bmesh<SHAPE>::getElems() const
+	{
+		return elems;
 	}
 	
 	
