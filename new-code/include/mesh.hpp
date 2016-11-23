@@ -39,7 +39,7 @@ namespace geometry
 	{
 		public:
 			//
-			// Constructor
+			// Constructors
 			//
 		
 			/*! (Default) constructor.
@@ -56,8 +56,12 @@ namespace geometry
 				\param filename	name of the file storing the mesh */
 			mesh(const string & filename);
 			
+			/*! Constructor. 
+				\param bm	a bmesh object */
+			mesh(const bmesh<SHAPE> & bm);
+			
 			/*! Synthetic copy constructor. 
-				\param bm	another mesh */
+				\param m	another mesh */
 			mesh(const mesh & m) = default;
 	};
 	
@@ -96,6 +100,10 @@ namespace geometry
 			/*! Constructor.
 				\param filename	name of input file */
 			mesh(const string & filename);
+			
+			/*! Constructor. 
+				\param bm	a bmesh object */
+			mesh(const bmesh<SHAPE> & bm);
 			
 			/*! Synthetic copy constructor.
 				\param m	another mesh */

@@ -13,6 +13,13 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
+	mesh<SHAPE, MeshType::GEO>::mesh(const bmesh<SHAPE> & bm) :
+		bmesh<SHAPE>(bm)
+	{
+	}
+	
+	
+	template<typename SHAPE>
 	mesh<SHAPE, MeshType::GEO>::mesh(const UInt & numNodes, const UInt & numElems) :
 		bmesh<SHAPE>(numNodes, numElems)
 	{
@@ -36,6 +43,18 @@ namespace geometry
 	//
 	// Constructors (MeshType::DATA)
 	//
+	
+	template<typename SHAPE>
+	mesh<SHAPE, MeshType::DATA>::mesh(const bmesh<SHAPE> & bm) :
+		bmesh<SHAPE>(bm)
+	{
+		// Fill data points list with points coinciding 
+		// with the nodes and associated to a null datum
+		data.reserve(this->nodes.size());
+		for (auto node : this->nodes)
+			data.emplace_back(node);
+	}
+	
 	
 	template<typename SHAPE>
 	mesh<SHAPE, MeshType::DATA>::mesh(const vector<point> & nds, 

@@ -125,7 +125,7 @@ namespace geometry
 			/*! Make a reserve for the vector of elements.
 				\param numElems new number of elements */
 			void reserveElems(const UInt & numElems);
-			
+						
 			/*! Set boundary flag for a node.
 				\param Id		node Id
 				\param bound	boundary flag */
@@ -134,6 +134,11 @@ namespace geometry
 			/*! Set a node inactive.
 				\param Id	node Id */
 			void setNodeInactive(const UInt & Id);
+			
+			/*!	Set index for structured data search.
+				\param Id	element Id
+				\param idx	element index */
+			void setIdx(const UInt & Id, const UInt & idx);
 			
 			/*! Set an element inactive.
 				\param Id	element Id */

@@ -64,6 +64,13 @@ namespace geometry
 			/*!	Default constructor. */
 			boundingBox();
 			
+			/*!	Constructor converting an index to a boundingBox object.
+				This will be useful when searching a bounding box
+				in an ordered set (see structuredData class).
+				
+				\param index	element index */
+			boundingBox(const UInt & index);
+			
 			/*!	Constructor.
 				\param args	vertices of the element */			
 			template<typename... Args>

@@ -25,7 +25,7 @@ namespace geometry
 		be provided by meshInfo - a class inherits bmeshInfo.
 		
 		\sa meshInfo.hpp, doctor.hpp */
-	template<typename SHAPE, MeshType MT>
+	template<typename SHAPE, MeshType MT = MeshType::GEO>
 	class bmeshInfo
 	{
 		public:
@@ -47,6 +47,12 @@ namespace geometry
 			bmeshInfo(const shared_ptr<mesh<SHAPE,MT>> & g = nullptr);
 			
 			/*!	Constructor.
+				\param bg	shared pointer to a bmesh
+				
+				\sa bmesh.hpp */
+			bmeshInfo(const shared_ptr<bmesh<SHAPE>> & bg);
+			
+			/*!	Constructor.
 				\param args	arguments to forward to mesh 
 				
 				\sa mesh.hpp */
@@ -56,6 +62,10 @@ namespace geometry
 			//
 			// Access attributes
 			//
+			
+			/*!	Get the mesh.
+				\return		the mesh */
+			shared_ptr<mesh<SHAPE,MT>> getMesh();
 			
 			/*!	Get mesh connectivity.
 				\return		the connectivity */

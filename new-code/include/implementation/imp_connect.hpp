@@ -11,6 +11,13 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
+	connect<SHAPE, MeshType::GEO>::connect(const shared_ptr<bmesh<SHAPE>> & bg) :
+		bconnect<SHAPE, MeshType::GEO>(bg)
+	{
+	}
+	
+	
+	template<typename SHAPE>
 	connect<SHAPE, MeshType::GEO>::connect(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g) :
 		bconnect<SHAPE, MeshType::GEO>(g)
 	{

@@ -54,6 +54,12 @@ namespace geometry
 				\param g	shared pointer to the grid */
 			connect(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g = nullptr);
 			
+			/*!	Constructor.
+				\param bg	shared pointer to a bmesh
+				
+				\sa bmesh.hpp */
+			connect(const shared_ptr<bmesh<SHAPE>> & bg);
+			
 			/*! Constructor.
 				\param args	arguments to forward to mesh 
 				
@@ -87,6 +93,12 @@ namespace geometry
 			/*! (Default) constructor.
 				\param g	shared pointer to the grid */
 			connect(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g = nullptr); 
+			
+			/*!	Constructor.
+				\param bg	shared pointer to a bmesh
+				
+				\sa bmesh.hpp */
+			connect(const shared_ptr<bmesh<SHAPE>> & bg);
 			
 			/*! Constructor.
 				\param args	arguments to forward to mesh 

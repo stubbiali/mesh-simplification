@@ -53,4 +53,8 @@ template class boundingBox<3>;
 template class boundingBox<10>;
 #endif
 
+#include "structuredData.hpp"
+template class structuredData<Triangle>;
+template class structuredData<Quad>;
+
 

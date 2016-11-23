@@ -4,9 +4,14 @@
 #include <algorithm>
 	
 #include "hash.hpp"
+#include "boundingBox.hpp"
 
 namespace std
 {
+	//
+	// Specialization for geoElement<Line>
+	//
+	
 	size_t hash<geoElement<Line>>::operator()(const geoElement<Line> & g) const
 	{
 		// Extract maximum and minimum Id

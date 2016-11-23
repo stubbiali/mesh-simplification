@@ -145,7 +145,7 @@ namespace geometry
 	{
 		elems.reserve(numElems);
 	}
-	
+		
 	
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setBoundary(const UInt & Id, const UInt & bound)
@@ -158,6 +158,13 @@ namespace geometry
 	INLINE void bmesh<SHAPE>::setNodeInactive(const UInt & Id)
 	{
 		nodes[Id].setInactive();
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE void bmesh<SHAPE>::setIdx(const UInt & Id, const UInt & idx)
+	{
+		elems[Id].setIdx(idx);
 	}
 	
 	

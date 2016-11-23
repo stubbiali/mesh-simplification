@@ -19,6 +19,14 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	meshInfo<SHAPE, MeshType::GEO>::meshInfo
+		(const shared_ptr<bmesh<SHAPE>> & bg) :
+		bmeshInfo<SHAPE, MeshType::GEO>(bg)
+	{
+	}
+	
+	
+	template<typename SHAPE>
 	template<typename... Args>
 	meshInfo<SHAPE, MeshType::GEO>::meshInfo(Args... args) :
 		bmeshInfo<SHAPE, MeshType::GEO>(args...)
@@ -34,6 +42,14 @@ namespace geometry
 	meshInfo<SHAPE, MeshType::DATA>::meshInfo
 		(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g) :
 		bmeshInfo<SHAPE, MeshType::DATA>(g)
+	{
+	}
+	
+	
+	template<typename SHAPE>
+	meshInfo<SHAPE, MeshType::DATA>::meshInfo
+		(const shared_ptr<bmesh<SHAPE>> & bg) :
+		bmeshInfo<SHAPE, MeshType::DATA>(bg)
 	{
 	}
 	

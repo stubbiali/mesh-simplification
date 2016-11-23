@@ -75,6 +75,12 @@ namespace geometry
 				\param g	shared pointer to the grid */
 			bconnect(const shared_ptr<mesh<SHAPE,MT>> & g = nullptr);
 			
+			/*!	Constructor.
+				\param bg	shared pointer to a bmesh
+				
+				\sa bmesh.hpp */
+			bconnect(const shared_ptr<bmesh<SHAPE>> & bg);
+			
 			/*! Constructor.
 				\param args	arguments to forward to mesh 
 				

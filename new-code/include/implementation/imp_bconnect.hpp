@@ -14,6 +14,17 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
+	bconnect<SHAPE,MT>::bconnect(const shared_ptr<bmesh<SHAPE>> & bg) : 
+		grid(make_shared<mesh<SHAPE,MT>>(*bg))
+	{
+		// Build all connections and fill set of edges
+		buildNode2Node();
+		buildNode2Elem();
+		buildElem2Elem();
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
 	bconnect<SHAPE,MT>::bconnect(const shared_ptr<mesh<SHAPE,MT>> & g) : 
 		grid(g)
 	{
@@ -22,7 +33,7 @@ namespace geometry
 		buildNode2Elem();
 		buildElem2Elem();
 	}
-	
+		
 	
 	template<typename SHAPE, MeshType MT>
 	template<typename... Args>

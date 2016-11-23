@@ -48,6 +48,13 @@ namespace geometry
 	
 	
 	template<UInt N>
+	boundingBox<N>::boundingBox(const UInt & index) :
+		Id(0), idx(index), NE(1.), SW(0.)
+	{
+	}
+	
+	
+	template<UInt N>
 	template<typename... Args>
 	boundingBox<N>::boundingBox(Args... args) :
 		Id(0), idx(0), NE(numeric_limits<Real>::lowest()), SW(numeric_limits<Real>::max())	

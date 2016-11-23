@@ -48,6 +48,13 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
+	bmeshInfo<SHAPE,MT>::bmeshInfo(const shared_ptr<bmesh<SHAPE>> & bg) :
+		connectivity(bg)
+	{
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
 	template<typename... Args>
 	bmeshInfo<SHAPE,MT>::bmeshInfo(Args... args) :
 		connectivity(args...)
@@ -58,6 +65,13 @@ namespace geometry
 	//
 	// Access attributes
 	//
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE shared_ptr<mesh<SHAPE,MT>> bmeshInfo<SHAPE,MT>::getMesh()
+	{
+		return connectivity.grid;
+	}
+	
 	
 	template<typename SHAPE, MeshType MT>
 	INLINE connect<SHAPE,MT> bmeshInfo<SHAPE,MT>::getConnectivity() const
