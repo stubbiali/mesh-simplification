@@ -17,7 +17,7 @@ int main()
 	#endif
 	
 	// Import mesh and create connections
-	string inputfile("../../mesh/bunny.inp");
+	string inputfile("../../mesh/left_hemisphere.vtk");
 	meshInfo<Triangle, MeshType::DATA> news(inputfile);
 		
 	// Create structured data
@@ -32,5 +32,5 @@ int main()
 	cout << "Elapsed time: " << duration << " ms" << endl << endl;
 	#endif
 	
-	//cout << sd;
+	cout << sd;
 }

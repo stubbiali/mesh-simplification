@@ -309,7 +309,94 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::read_vtk(const string & filename)
 	{
-		// TODO
+		// Note: we suppose the file does not include
+		// any empty file, so in case they are present,
+		// please remove them before calling this methods.
+		
+		ifstream file(filename);
+		if (file.is_open())
+		{
+			string line, foo;
+			
+			// Disregard the first four lines
+			for (UInt i = 0; i < 4; ++i)
+				 getline(file,line);
+				 
+			//
+			// Import nodes
+			//
+						
+			// Get number of nodes
+			UInt numNodes;
+			getline(file,line);
+			static_cast<stringstream>(line) >> foo >> numNodes;
+						
+			// Assert
+			assert(numNodes < MAX_NUM_NODES);
+			
+			// Reserve memory
+			nodes.reserve(numNodes);
+			
+			// Insert nodes
+			// We take into account also the case of 
+			// multiple points on the same line
+			UInt id(0);
+			array<Real,3> coor; 
+			while ((id < numNodes) && getline(file,line))
+			{
+				stringstream ss(line);
+													
+				while (!(ss.eof()))
+				{
+					// Extract coordinates and insert at back
+					ss >> coor[0] >> coor[1] >> coor[2];
+					nodes.emplace_back(coor,id);
+					++id;
+					
+					// To handle the case of a space before "\n"					
+					char cfoo = ss.get();
+					char pfoo = ss.peek();
+				}
+			}
+			
+			//
+			// Import elements
+			//
+			
+			// Get number of elements
+			UInt numElems;
+			getline(file,line);
+			static_cast<stringstream>(line) >> foo >> numElems;
+			
+			// Assert
+			assert(numElems < MAX_NUM_ELEMS);
+			
+			// Reserve memory
+			elems.reserve(numElems);
+			
+			UInt geoId; 
+			array<UInt,NV> vert;
+			for (UInt id = 0; id < numElems && getline(file,line); ++id)
+			{
+				// Extract geometric Id
+				stringstream ss(line);
+				ss >> geoId;
+				
+				// Extract vertices Id's
+				// They do not need to be made compliant 
+				// with a zero-based indexing
+				for (auto & v : vert)
+					ss >> v;
+				
+				// Insert at back							
+				elems.emplace_back(vert, id, geoId);
+			}
+			
+			// Close the file
+			file.close();
+		}
+		else
+			throw runtime_error(filename + " can not be opened.");
 	}
 	
 	
