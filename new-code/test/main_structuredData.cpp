@@ -32,5 +32,5 @@ int main()
 	cout << "Elapsed time: " << duration << " ms" << endl << endl;
 	#endif
 	
-	cout << sd;
+	//cout << sd;
 }

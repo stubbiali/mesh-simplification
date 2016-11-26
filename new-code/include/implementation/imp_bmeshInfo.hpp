@@ -41,14 +41,7 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
-	bmeshInfo<SHAPE,MT>::bmeshInfo(const shared_ptr<mesh<SHAPE,MT>> & g) :
-		connectivity(g)
-	{
-	}
-	
-	
-	template<typename SHAPE, MeshType MT>
-	bmeshInfo<SHAPE,MT>::bmeshInfo(const shared_ptr<bmesh<SHAPE>> & bg) :
+	bmeshInfo<SHAPE,MT>::bmeshInfo(const bmesh<SHAPE> & bg) :
 		connectivity(bg)
 	{
 	}
@@ -67,9 +60,16 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
-	INLINE shared_ptr<mesh<SHAPE,MT>> bmeshInfo<SHAPE,MT>::getMesh()
+	INLINE mesh<SHAPE,MT> bmeshInfo<SHAPE,MT>::getMesh() const
 	{
 		return connectivity.grid;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE mesh<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getMeshPointer()
+	{
+		return &connectivity.grid;
 	}
 	
 	
@@ -81,7 +81,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	INLINE void bmeshInfo<SHAPE,MT>::setMesh(const shared_ptr<mesh<SHAPE,MT>> & g)
+	INLINE void bmeshInfo<SHAPE,MT>::setMesh(const bmesh<SHAPE> & g)
 	{
 		connectivity.setMesh(g);
 	}
@@ -148,7 +148,7 @@ namespace geometry
 		#endif
 			
 		// Get element 
-		auto elem = connectivity.grid->getElem(Id);
+		auto elem = connectivity.grid.getElem(Id);
 		
 		// Get elements connected to at least one of the vertices of the element
 		auto s = set_union(connectivity.node2elem[elem[0]],
@@ -165,7 +165,7 @@ namespace geometry
 	vector<UInt> bmeshInfo<SHAPE,MT>::getElemPatch(const UInt & Id) const
 	{
 		// Get element 
-		auto elem = connectivity.grid->getElem(Id);
+		auto elem = connectivity.grid.getElem(Id);
 		
 		// Get elements connected to at least one of the vertices of the element
 		auto s = set_union(connectivity.node2elem[elem[0]], connectivity.node2elem[elem[1]]);
@@ -192,11 +192,11 @@ namespace geometry
 			"getIntervalLength() is provided only for 1D grids.");
 		#endif
 			
-		assert(Id < connectivity.grid->getNumElems());
+		assert(Id < connectivity.grid.getNumElems());
 		
 		// Get interval length
-		auto elem = connectivity.grid->getElem(Id);
-		return (connectivity.grid->getNode(elem[0]) - connectivity.grid->getNode(elem[1])).norm2();
+		auto elem = connectivity.grid.getElem(Id);
+		return (connectivity.grid.getNode(elem[0]) - connectivity.grid.getNode(elem[1])).norm2();
 	}
 	
 	
@@ -209,13 +209,13 @@ namespace geometry
 			"getTriaArea() is provided only for triangular grids.");
 		#endif
 			
-		assert(Id < connectivity.grid->getNumElems());
+		assert(Id < connectivity.grid.getNumElems());
 				
 		// Get element vertices
-		auto elem = connectivity.grid->getElem(Id);
-		auto pA = connectivity.grid->getNode(elem[0]);
-		auto pB = connectivity.grid->getNode(elem[1]);
-		auto pC = connectivity.grid->getNode(elem[2]);
+		auto elem = connectivity.grid.getElem(Id);
+		auto pA = connectivity.grid.getNode(elem[0]);
+		auto pB = connectivity.grid.getNode(elem[1]);
+		auto pC = connectivity.grid.getNode(elem[2]);
 		
 		// Get element area
 		return 0.5 * ((pB - pA)^(pC - pA)).norm2();
@@ -231,13 +231,13 @@ namespace geometry
 			"getNormal() is provided only for triangular grids.");
 		#endif
 			
-		assert(Id < connectivity.grid->getNumElems());
+		assert(Id < connectivity.grid.getNumElems());
 				
 		// Get (some of) the element vertices
-		auto elem = connectivity.grid->getElem(Id);
-		auto pA = connectivity.grid->getNode(elem[0]);
-		auto pB = connectivity.grid->getNode(elem[1]);
-		auto pC = connectivity.grid->getNode(elem[2]);
+		auto elem = connectivity.grid.getElem(Id);
+		auto pA = connectivity.grid.getNode(elem[0]);
+		auto pB = connectivity.grid.getNode(elem[1]);
+		auto pC = connectivity.grid.getNode(elem[2]);
 		
 		// Get element normal
 		return ((pB - pA)^(pC - pB)).normalize();
@@ -253,7 +253,7 @@ namespace geometry
 			
 		// Loop over all nodes and extract the maximum
 		// for each coordinate
-		auto nodes = connectivity.grid->getNodes();
+		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
 			if (p[0] > NE[0])
@@ -277,7 +277,7 @@ namespace geometry
 			
 		// Loop over all nodes and extract the minimum
 		// for each coordinate
-		auto nodes = connectivity.grid->getNodes();
+		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
 			if (p[0] < SW[0])
@@ -302,7 +302,7 @@ namespace geometry
 			
 		// Loop over all nodes and extract the 
 		// maximum and minimum for each coordinate
-		auto nodes = connectivity.grid->getNodes();
+		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
 			for (UInt i = 0; i < 3; i++)
@@ -332,8 +332,8 @@ namespace geometry
 		for (auto edge : edges)
 		{
 			// Extract end-points of the edge
-			auto p = connectivity.grid->getNode(edge[0]); 
-			auto q = connectivity.grid->getNode(edge[1]);
+			auto p = connectivity.grid.getNode(edge[0]); 
+			auto q = connectivity.grid.getNode(edge[1]);
 			
 			// Update dx
 			Real pq_x = abs(p[0] - q[0]);
@@ -362,7 +362,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bmeshInfo<SHAPE,MT>::setBoundary(const UInt & Id)
 	{
-		assert(Id < connectivity.grid->getNumElems());
+		assert(Id < connectivity.grid.getNumElems());
 		
 		// Extract node-element connections
 		auto conn = connectivity.node2elem[Id].getConnected();
@@ -370,23 +370,23 @@ namespace geometry
 		// Get the number of different geometric Id's surrounding the node
 		set<UInt> geoIds;
 		for (auto el : conn)
-			geoIds.insert(connectivity.grid->getElem(el).getGeoId());
+			geoIds.insert(connectivity.grid.getElem(el).getGeoId());
 			
 		// Switch the number of different geometric Id's
 		auto numGeoIds = geoIds.size();
 		if (numGeoIds == 1)	
-			connectivity.grid->setBoundary(Id,0);
+			connectivity.grid.setBoundary(Id,0);
 		else if (numGeoIds == 2)
-			connectivity.grid->setBoundary(Id,1);
+			connectivity.grid.setBoundary(Id,1);
 		else
-			connectivity.grid->setBoundary(Id,2);
+			connectivity.grid.setBoundary(Id,2);
 	}
 	
 	
 	template<typename SHAPE, MeshType MT>
 	INLINE void bmeshInfo<SHAPE,MT>::setBoundary()
 	{
-		for (UInt id = 0; id < connectivity.grid->getNumNodes(); id++)
+		for (UInt id = 0; id < connectivity.grid.getNumNodes(); id++)
 			this->setBoundary(id);
 	}
 }

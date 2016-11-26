@@ -42,16 +42,13 @@ namespace geometry
 			// Constructors
 			//
 			
-			/*!	(Default) constructor.
-				\param g	shared pointer to the grid */
-			bmeshInfo(const shared_ptr<mesh<SHAPE,MT>> & g = nullptr);
+			/*!	Synthetic default constructor. */
+			bmeshInfo() = default;
 			
 			/*!	Constructor.
-				\param bg	shared pointer to a bmesh
-				
-				\sa bmesh.hpp */
-			bmeshInfo(const shared_ptr<bmesh<SHAPE>> & bg);
-			
+				\param bg	a (base) grid */
+			bmeshInfo(const bmesh<SHAPE> & bg);
+						
 			/*!	Constructor.
 				\param args	arguments to forward to mesh 
 				
@@ -65,15 +62,19 @@ namespace geometry
 			
 			/*!	Get the mesh.
 				\return		the mesh */
-			shared_ptr<mesh<SHAPE,MT>> getMesh();
+			mesh<SHAPE,MT> getMesh() const;
+			
+			/*!	Get a pointer to the mesh.
+				\return		pointer to the mesh */
+			mesh<SHAPE,MT> * getMeshPointer();
 			
 			/*!	Get mesh connectivity.
 				\return		the connectivity */
 			connect<SHAPE,MT> getConnectivity() const;
 			
 			/*!	Set the mesh.
-				\param grid	shared pointer to the mesh */
-			void setMesh(const shared_ptr<mesh<SHAPE,MT>> & g);
+				\param g	the new mesh */
+			void setMesh(const bmesh<SHAPE> & g);
 			
 			//
 			// Get topological info

@@ -57,12 +57,8 @@ namespace geometry
 			mesh(const string & filename);
 			
 			/*! Constructor. 
-				\param bm	a bmesh object */
+				\param bm	another (base) grid */
 			mesh(const bmesh<SHAPE> & bm);
-			
-			/*! Synthetic copy constructor. 
-				\param m	another mesh */
-			mesh(const mesh & m) = default;
 	};
 	
 	/*! Partial specialization for grids with distributed data. */
@@ -104,7 +100,7 @@ namespace geometry
 			/*! Constructor. 
 				\param bm	a bmesh object */
 			mesh(const bmesh<SHAPE> & bm);
-			
+						
 			/*! Synthetic copy constructor.
 				\param m	another mesh */
 			mesh(const mesh<SHAPE, MeshType::DATA> & m) = default;
@@ -112,6 +108,20 @@ namespace geometry
 			//
 			// Operators
 			//
+			
+			/*!	Copy-assignment operator.
+				"Specialization" for a source mesh without distributed data.
+				
+				\param	bm	a base mesh
+				\return		the current updated object */
+			mesh<SHAPE, MeshType::DATA> & operator=(const bmesh<SHAPE> & bm);
+						
+			/*!	Copy-assignment operator.
+				"Specialization" for a source mesh with distributed data.
+				
+				\param	m	another grid without distributed data
+				\return		the current updated object */
+			mesh<SHAPE, MeshType::DATA> & operator=(const mesh<SHAPE, MeshType::DATA> & m);
 			
 			/*! Output stream operator.
 				\param out	output stream

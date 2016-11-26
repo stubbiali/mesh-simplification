@@ -105,6 +105,40 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
+	mesh<SHAPE, MeshType::DATA> & mesh<SHAPE, MeshType::DATA>::operator=
+		(const bmesh<SHAPE> & bm)
+	{
+		// Copy nodes and elemens
+		bmesh<SHAPE>::operator=(bm);
+		
+		// Update list of data points
+		data.clear();
+		data.reserve(this->nodes.size());
+		for (auto node : this->nodes)
+			data.emplace_back(node);
+			
+		return *this;
+	}
+	
+	
+	template<typename SHAPE>
+	mesh<SHAPE, MeshType::DATA> & mesh<SHAPE, MeshType::DATA>::operator=
+		(const mesh<SHAPE, MeshType::DATA> & m)
+	{
+		// Copy nodes and elemens
+		bmesh<SHAPE>::operator=(m);
+		
+		// Update list of data points
+		data.clear();
+		data.reserve(this->nodes.size());
+		for (auto node : this->nodes)
+			data.emplace_back(node);
+		
+		return *this;
+	}
+	
+	
+	template<typename SHAPE>
 	ostream & operator<<(ostream & out, const mesh<SHAPE, MeshType::DATA> & m)
 	{
 		// Print lists of nodes and elements

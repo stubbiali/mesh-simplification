@@ -36,16 +36,13 @@ namespace geometry
 			// Constructors
 			//
 			
-			/*!	(Default) constructor.
-				\param g	shared pointer to the grid */
-			meshInfo(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g = nullptr);
+			/*!	Synthetic default constructor. */
+			meshInfo() = default;
 			
 			/*!	Constructor.
-				\param bg	shared pointer to a bmesh
-				
-				\sa bmesh.hpp */
-			meshInfo(const shared_ptr<bmesh<SHAPE>> & bg);
-						
+				\param bg	a (base) grid */
+			meshInfo(const bmesh<SHAPE> & bg);
+									
 			/*!	Constructor.
 				\param args	arguments to forward to mesh 
 				
@@ -63,16 +60,13 @@ namespace geometry
 			// Constructors
 			//
 			
-			/*!	(Default) constructor.
-				\param g	shared pointer to the grid */
-			meshInfo(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g = nullptr);
+			/*!	Synthetic default constructor. */
+			meshInfo() = default;
 			
 			/*!	Constructor.
-				\param bg	shared pointer to a bmesh
-				
-				\sa bmesh.hpp */
-			meshInfo(const shared_ptr<bmesh<SHAPE>> & bg);
-						
+				\param bg	a (base) grid */
+			meshInfo(const bmesh<SHAPE> & bg);
+			
 			/*!	Constructor.
 				\param args	arguments to forward to mesh 
 				
@@ -126,7 +120,14 @@ namespace geometry
 				\param invData	data involved in the collapsing
 				\return			Id's of the involved data */
 			vector<UInt> getDataModifiedInEdgeCollapsing(const vector<UInt> & invElems, 
-				const vector<UInt> & invData) const;						
+				const vector<UInt> & invData) const;
+				
+			/*!	Get the quantity of information associated with an element.
+				See F. Dassi et al., Equation (5).
+				
+				\param Id	element If
+				\return		quantity of information */
+			Real getQuantityOfInformation(const UInt & Id) const;						
 	};
 }
 

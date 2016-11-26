@@ -12,20 +12,12 @@ namespace geometry
 	
 	template<typename SHAPE>
 	meshInfo<SHAPE, MeshType::GEO>::meshInfo
-		(const shared_ptr<mesh<SHAPE, MeshType::GEO>> & g) :
-		bmeshInfo<SHAPE, MeshType::GEO>(g)
-	{
-	}
-	
-	
-	template<typename SHAPE>
-	meshInfo<SHAPE, MeshType::GEO>::meshInfo
-		(const shared_ptr<bmesh<SHAPE>> & bg) :
+		(const bmesh<SHAPE> & bg) :
 		bmeshInfo<SHAPE, MeshType::GEO>(bg)
 	{
 	}
 	
-	
+		
 	template<typename SHAPE>
 	template<typename... Args>
 	meshInfo<SHAPE, MeshType::GEO>::meshInfo(Args... args) :
@@ -40,15 +32,7 @@ namespace geometry
 	
 	template<typename SHAPE>
 	meshInfo<SHAPE, MeshType::DATA>::meshInfo
-		(const shared_ptr<mesh<SHAPE, MeshType::DATA>> & g) :
-		bmeshInfo<SHAPE, MeshType::DATA>(g)
-	{
-	}
-	
-	
-	template<typename SHAPE>
-	meshInfo<SHAPE, MeshType::DATA>::meshInfo
-		(const shared_ptr<bmesh<SHAPE>> & bg) :
+		(const bmesh<SHAPE> & bg) :
 		bmeshInfo<SHAPE, MeshType::DATA>(bg)
 	{
 	}
@@ -165,6 +149,29 @@ namespace geometry
 		}
 		
 		return vector<UInt>(toKeep.begin(), toKeep.end()); 
+	}
+	
+	
+	template<typename SHAPE>
+	Real meshInfo<SHAPE, MeshType::DATA>::getQuantityOfInformation(const UInt & Id) const
+	{
+		assert(Id < this->connectivity.elem2data.size());
+		
+		Real Nt = 0.;
+		
+		// Loop over all data associated with the triangle
+		auto data = this->connectivity.getElem2Data(Id).getConnected();
+		for (auto datum : data)
+		{
+			// Extract number of elements the datum is associated with
+			auto patch = this->connectivity.getData2Elem(datum).size();
+			if (patch == 1)
+				Nt += 1.;
+			else
+				Nt += 1./patch;
+		}
+		
+		return Nt;
 	}
 }
 

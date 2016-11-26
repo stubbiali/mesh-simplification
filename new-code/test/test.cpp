@@ -4,6 +4,7 @@
 #include <iostream>
 #include <array>
 #include <numeric>
+#include <memory>
 
 int main()
 {
@@ -39,5 +40,19 @@ int main()
 		array<int,4> v{2,3,4,5};
 		for (int i = 0; i < 4; i++)
 			cout << accumulate(v.begin(), v.begin()+i, 1, multiplies<int>()) << endl;
+	}
+	
+	//
+	// Test pointers
+	//
+	
+	{
+		double a(1.);
+		double const * b = &a;
+		auto c = b;
+		a = 2;
+		// *b = 2; KO: b is read-only
+		cout << *b << endl;
+		cout << *c << endl;
 	}
 }

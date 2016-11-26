@@ -56,6 +56,44 @@ namespace geometry
 	
 	
 	//
+	// Operators
+	//
+	
+	template<typename SHAPE>
+	bmesh<SHAPE> & bmesh<SHAPE>::operator=(const bmesh<SHAPE> & bm)
+	{
+		// Clear nodes and elements lists
+		nodes.clear();
+		elems.clear();
+		
+		// Set the new capacities
+		nodes.reserve(bm.getNumNodes());
+		elems.reserve(bm.getNumElems());
+		
+		// Copy
+		copy(bm.nodes.cbegin(), bm.nodes.cend(), nodes.begin());
+		copy(bm.elems.cbegin(), bm.elems.cend(), elems.begin());
+		
+		return *this;
+	}
+	
+	
+	template<typename SHAPE>
+	ostream & operator<<(ostream & out, const bmesh<SHAPE> & bm)
+	{
+		// Print list of nodes			
+		out << "List of " << bm.getNumNodes() << " nodes:" << endl;
+		for (auto node : bm.nodes)
+			out << node << endl;
+			
+		// Print list of elements
+		out << "List of " << bm.getNumElems() << " elements:" << endl;
+		for (auto elem : bm.elems)
+			out << elem << endl;
+	}
+	
+	
+	//
 	// Get methods
 	//
 	
@@ -403,22 +441,7 @@ namespace geometry
 	//
 	// Print
 	//
-	
-	template<typename SHAPE>
-	ostream & operator<<(ostream & out, const bmesh<SHAPE> & bm)
-	{
-		// Print list of nodes			
-		out << "List of " << bm.getNumNodes() << " nodes:" << endl;
-		for (auto node : bm.nodes)
-			out << node << endl;
-			
-		// Print list of elements
-		out << "List of " << bm.getNumElems() << " elements:" << endl;
-		for (auto elem : bm.elems)
-			out << elem << endl;
-	}
-	
-	
+		
 	template<typename SHAPE>
 	void bmesh<SHAPE>::print(const string & filename) const
 	{

@@ -6,15 +6,6 @@
 
 namespace geometry
 {
-	//
-	// Constructor
-	//
-	
-	template<typename... Args>
-	intersect<Triangle>::intersect(Args... args) :
-		grid(make_shared<bmesh<Triangle>>(args...))
-	{
-	}
 }
 
 #endif

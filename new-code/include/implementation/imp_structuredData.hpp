@@ -15,19 +15,19 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
-	structuredData<SHAPE>::structuredData(const shared_ptr<bmesh<SHAPE>> & g) :
-		grid(g)
+	structuredData<SHAPE>::structuredData(bmesh<SHAPE> * pg) :
+		grid(pg)
 	{
 		// Build bounding boxes
 		if (grid != nullptr)
-			refresh(bmeshInfo<SHAPE>(grid));
+			refresh(bmeshInfo<SHAPE>(*grid));
 	}
 	
 	
 	template<typename SHAPE>
 	template<MeshType MT>
 	structuredData<SHAPE>::structuredData(bmeshInfo<SHAPE,MT> & news) :
-		grid(news.getMesh())
+		grid(news.getMeshPointer())
 	{
 		// Build bounding boxes
 		refresh(news);
@@ -50,13 +50,6 @@ namespace geometry
 	//
 	// Get methods
 	//
-	
-	template<typename SHAPE>
-	INLINE shared_ptr<bmesh<SHAPE>> structuredData<SHAPE>::getMesh()
-	{
-		return grid;
-	}
-	
 	
 	template<typename SHAPE>
 	bbox3d structuredData<SHAPE>::getBoundingBox(const UInt & Id) const
@@ -134,13 +127,13 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
-	void structuredData<SHAPE>::setMesh(const shared_ptr<bmesh<SHAPE>> & g)
+	void structuredData<SHAPE>::setMesh(bmesh<SHAPE> * pg)
 	{
 		// Set the mesh
-		grid = g;
+		grid = pg;
 		
 		// (Re-)build bounding boxes
-		refresh(bmeshInfo<SHAPE>(grid));
+		refresh(bmeshInfo<SHAPE>(*grid));
 	}
 	
 	
@@ -149,7 +142,7 @@ namespace geometry
 	void structuredData<SHAPE>::setMesh(bmeshInfo<SHAPE,MT> & news)
 	{
 		// Set the mesh
-		grid = news.getMesh();
+		grid = news.getMeshPointer();
 		
 		// (Re-)build bounding boxes
 		refresh(news);

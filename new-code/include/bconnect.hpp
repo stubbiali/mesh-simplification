@@ -26,8 +26,7 @@ namespace geometry
 		<ol>
 		<li> data-element;
 		<li> element-data.
-		<\ol>
-		The class stores a shared pointer to the mesh. 
+		<\ol> 
 		When the class is required to modify some connections,
 		it supposes the mesh has been already accordingly modified.
 		This class does not directly modify the mesh in any way,
@@ -51,8 +50,8 @@ namespace geometry
 				SHAPE::numVerticesPerEdge * SHAPE::numEdges;
 			
 		protected:
-			/*! Smart pointer to the mesh. */
-			shared_ptr<mesh<SHAPE,MT>> grid;
+			/*! The mesh. */
+			mesh<SHAPE,MT> grid;
 			
 			/*! Set of edges. */
 			unordered_set<geoElement<Line>> edges;
@@ -71,16 +70,13 @@ namespace geometry
 			// Constructor and destructor
 			//
 			
-			/*! (Default) constructor. 
-				\param g	shared pointer to the grid */
-			bconnect(const shared_ptr<mesh<SHAPE,MT>> & g = nullptr);
+			/*!	Synthetic default constructor. */
+			bconnect() = default;
 			
 			/*!	Constructor.
-				\param bg	shared pointer to a bmesh
-				
-				\sa bmesh.hpp */
-			bconnect(const shared_ptr<bmesh<SHAPE>> & bg);
-			
+				\param bg	a (base) grid */
+			bconnect(const bmesh<SHAPE> & bg);
+						
 			/*! Constructor.
 				\param args	arguments to forward to mesh 
 				
@@ -183,9 +179,13 @@ namespace geometry
 			// Get methods
 			//
 			
+			/*!	Get the mesh. 
+				\return 	the mesh */
+			mesh<SHAPE,MT> getMesh() const;
+			
 			/*! Get pointer to the mesh.
-				\return		the mesh */
-			shared_ptr<mesh<SHAPE,MT>> getMesh();
+				\return		pointer the mesh */
+			mesh<SHAPE,MT> * getMeshPointer();
 			
 			/*! Get edges of the mesh.
 				\return		vector of edges */
@@ -224,9 +224,9 @@ namespace geometry
 			// Set methods
 			//
 			
-			/*! Set mesh pointer. After that, the connections are (re-)built.
-				\param newGrid	the new mesh */
-			void setMesh(const shared_ptr<mesh<SHAPE,MT>> & newGrid);
+			/*! Set mesh. After that, the connections are (re-)built.
+				\param g	the new mesh */
+			void setMesh(const bmesh<SHAPE> & g);
 	};
 }
 

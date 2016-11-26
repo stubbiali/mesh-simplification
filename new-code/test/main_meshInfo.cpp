@@ -89,7 +89,15 @@ int main()
 	auto duration_news = duration_cast<milliseconds>(stop-start).count();
 	
 	cout << "Time for reading the mesh: " << duration_read << " ms" << endl
-		 << "Time for extracting info : " << duration_news << " ms" << endl;
+		 << "Time for extracting info : " << duration_news << " ms" << endl << endl;
+		 
+	//
+	// Test getQuantityOfInformation
+	//
+	
+	UInt id = 20000;
+	auto qoi = news.getQuantityOfInformation(id);
+	cout << "Quantity of information associated with triangle " << id << ": " << qoi << endl;
 }
 
 

@@ -25,7 +25,7 @@ int main()
 	// Print mesh to file
 	string outputfile("../../mesh/out_bunny.inp");
 	//grid->print(outputfile);
-	conn.getMesh()->print(outputfile);
+	conn.getMeshPointer()->print(outputfile);
 	
 	// Elapsed time
 	high_resolution_clock::time_point end = high_resolution_clock::now();

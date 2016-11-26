@@ -7,23 +7,12 @@
 namespace geometry
 {
 	//
-	// Get methods
+	// Access mesh
 	//
 	
-	INLINE shared_ptr<bmesh<Triangle>> intersect<Triangle>::getMesh()
+	INLINE void intersect<Triangle>::setMesh(const bmesh<Triangle> * pg)
 	{
-		return grid;
-	}
-	
-	
-	//
-	// Auxiliary methods
-	//
-	
-	INLINE Real intersect<Triangle>::getTriArea2d(const point2d & a, 
-		const point2d & b, const point2d & c)
-	{
-		return 0.5 * ((b - a)^(c - b))[2];
+		grid = pg;
 	}
 }
 

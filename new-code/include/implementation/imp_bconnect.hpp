@@ -14,31 +14,20 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
-	bconnect<SHAPE,MT>::bconnect(const shared_ptr<bmesh<SHAPE>> & bg) : 
-		grid(make_shared<mesh<SHAPE,MT>>(*bg))
+	bconnect<SHAPE,MT>::bconnect(const bmesh<SHAPE> & bg) : 
+		grid(bg)
 	{
 		// Build all connections and fill set of edges
 		buildNode2Node();
 		buildNode2Elem();
 		buildElem2Elem();
 	}
-	
-	
-	template<typename SHAPE, MeshType MT>
-	bconnect<SHAPE,MT>::bconnect(const shared_ptr<mesh<SHAPE,MT>> & g) : 
-		grid(g)
-	{
-		// Build all connections and fill set of edges
-		buildNode2Node();
-		buildNode2Elem();
-		buildElem2Elem();
-	}
-		
+			
 	
 	template<typename SHAPE, MeshType MT>
 	template<typename... Args>
 	bconnect<SHAPE,MT>::bconnect(Args... args) :
-		grid(make_shared<mesh<SHAPE,MT>>(args...))
+		grid(args...)
 	{
 		// Build all connections and fill set of edges
 		buildNode2Node();
@@ -54,70 +43,62 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::buildNode2Node()
 	{
-		if (grid != nullptr)
-		{
-			// Reserve memory
-			node2node.clear();
-			node2node.reserve(grid->getNumNodes());
+		// Reserve memory
+		node2node.clear();
+		node2node.reserve(grid.getNumNodes());
+					
+		// Set nodes Id's
+		for (UInt id = 0; id < grid.getNumNodes(); id++)
+			node2node.emplace_back(id);
 						
-			// Set nodes Id's
-			for (UInt id = 0; id < grid->getNumNodes(); id++)
-				node2node.emplace_back(id);
+		// Loop over all elements
+		geoElement<SHAPE> elem;
+		UInt id1, id2;
+		for (UInt id = 0; id < grid.getNumElems(); id++)
+		{
+			// Extract element
+			elem = grid.getElem(id);
 							
-			// Loop over all elements
-			geoElement<SHAPE> elem;
-			UInt id1, id2;
-			for (UInt id = 0; id < grid->getNumElems(); id++)
+			// Loop over edges
+			for (UInt j = 0; j < N; j+=2)
 			{
-				// Extract element
-				elem = grid->getElem(id);
-								
-				// Loop over edges
-				for (UInt j = 0; j < N; j+=2)
-				{
-					// Extract extrema of the edge
-					id1 = elem[SHAPE::edgeConn[j]];
-					id2 = elem[SHAPE::edgeConn[j+1]];
-										
-					// Add node-node connections
-					node2node[id1].insert(id2);
-					node2node[id2].insert(id1);
-										
-					// Update set of edges
-					edges.emplace(array<UInt,2>({id1,id2}));
-				}
+				// Extract extrema of the edge
+				id1 = elem[SHAPE::edgeConn[j]];
+				id2 = elem[SHAPE::edgeConn[j+1]];
+									
+				// Add node-node connections
+				node2node[id1].insert(id2);
+				node2node[id2].insert(id1);
+									
+				// Update set of edges
+				edges.emplace(array<UInt,2>({id1,id2}));
 			}
 		}
-		else	throw runtime_error("Mesh pointer not set.");
 	}
 	
 	
 	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::buildNode2Elem()
 	{
-		if (grid != nullptr)
-		{
-			// Reserve memory
-			node2elem.clear();
-			node2elem.reserve(grid->getNumNodes());
+		// Reserve memory
+		node2elem.clear();
+		node2elem.reserve(grid.getNumNodes());
+		
+		// Set nodes Id's
+		for (UInt id = 0; id < grid.getNumNodes(); id++)
+			node2elem.emplace_back(id);
 			
-			// Set nodes Id's
-			for (UInt id = 0; id < grid->getNumNodes(); id++)
-				node2elem.emplace_back(id);
-				
-			// Loop over elements
-			geoElement<SHAPE> elem;
-			for (UInt id = 0; id < grid->getNumElems(); id++)
-			{
-				// Extract element
-				elem = grid->getElem(id);
-				
-				// Loop over its vertices and add node-element connections
-				for (UInt j = 0; j < NV; j++)
-					node2elem[elem[j]].insert(id);
-			}
+		// Loop over elements
+		geoElement<SHAPE> elem;
+		for (UInt id = 0; id < grid.getNumElems(); id++)
+		{
+			// Extract element
+			elem = grid.getElem(id);
+			
+			// Loop over its vertices and add node-element connections
+			for (UInt j = 0; j < NV; j++)
+				node2elem[elem[j]].insert(id);
 		}
-		else	throw runtime_error("Mesh pointer not set.");
 	}
 	
 	
@@ -125,15 +106,14 @@ namespace geometry
 	void bconnect<SHAPE,MT>::buildElem2Elem(const UInt & Id)
 	{
 		// Some checks (only debug mode)
-		assert(grid != nullptr);
 		assert(!(node2elem.empty()));
-		assert(Id < grid->getNumElems());
+		assert(Id < grid.getNumElems());
 
 		// First, clear the old connections
 		elem2elem[Id].clear();	
 		
 		// Extract element
-		auto elem = grid->getElem(Id);
+		auto elem = grid.getElem(Id);
 		
 		// Find the elements which share an edge with Id
 		for (UInt j = 0; j < N; j++)
@@ -151,27 +131,23 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::buildElem2Elem()
 	{
-		if (grid != nullptr)
+		// First, build the node-element connections
+		if (node2elem.empty())
+			buildNode2Elem();
+			
+		// Reserve memory
+		elem2elem.clear();
+		elem2elem.reserve(grid.getNumElems());
+			
+		// Loop over all elements		
+		for (UInt id = 0; id < grid.getNumElems(); id++)
 		{
-			// First, build the node-element connections
-			if (node2elem.empty())
-				buildNode2Elem();
-				
-			// Reserve memory
-			elem2elem.clear();
-			elem2elem.reserve(grid->getNumElems());
-				
-			// Loop over all elements		
-			for (UInt id = 0; id < grid->getNumElems(); id++)
-			{
-				// Set element Id
-				elem2elem.emplace_back(id);
-				
-				// Create element-element connections
-				buildElem2Elem(id);
-			}
+			// Set element Id
+			elem2elem.emplace_back(id);
+			
+			// Create element-element connections
+			buildElem2Elem(id);
 		}
-		else	throw runtime_error("Mesh pointer not set.");
 	}
 		
 	
@@ -259,7 +235,7 @@ namespace geometry
 	{
 		for (auto id : toRemove)
 		{
-			auto elem = grid->getElem(id);
+			auto elem = grid.getElem(id);
 			for (UInt j = 0; j < NV; j++)
 				node2elem[elem[j]].erase(id);
 		}
@@ -338,9 +314,16 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
-	INLINE shared_ptr<mesh<SHAPE,MT>> bconnect<SHAPE,MT>::getMesh()
+	INLINE mesh<SHAPE,MT> bconnect<SHAPE,MT>::getMesh() const
 	{
 		return grid;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE mesh<SHAPE,MT> * bconnect<SHAPE,MT>::getMeshPointer()
+	{
+		return &grid;
 	}
 	
 	
@@ -354,7 +337,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	INLINE graphItem bconnect<SHAPE,MT>::getNode2Node(const UInt & Id) const
 	{
-		assert(Id < grid->getNumNodes());
+		assert(Id < grid.getNumNodes());
 		return node2node[Id];
 	}
 	
@@ -369,7 +352,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	INLINE graphItem bconnect<SHAPE,MT>::getNode2Elem(const UInt & Id) const
 	{
-		assert(Id < grid->getNumNodes());
+		assert(Id < grid.getNumNodes());
 		return node2elem[Id];
 	}
 	
@@ -384,7 +367,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	INLINE graphItem bconnect<SHAPE,MT>::getElem2Elem(const UInt & Id) const
 	{
-		assert(Id < grid->getNumElems());
+		assert(Id < grid.getNumElems());
 		return elem2elem[Id];
 	}
 	
@@ -401,10 +384,10 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
-	void bconnect<SHAPE,MT>::setMesh(const shared_ptr<mesh<SHAPE,MT>> & newGrid)
+	void bconnect<SHAPE,MT>::setMesh(const bmesh<SHAPE> & g)
 	{
-		// Set mesh pointer
-		grid = newGrid;
+		// Set mesh 
+		grid = g;
 		
 		// (Re-)build connections
 		refresh();

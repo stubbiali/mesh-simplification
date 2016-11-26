@@ -63,6 +63,22 @@ namespace geometry
 			
 			/*! Synthetic destructor. */
 			virtual ~bmesh() = default;
+			
+			//
+			// Operators
+			//
+			
+			/*!	Copy-assignment operator.
+				\param bm	another bmesh
+				\return		the current, updated object */
+			virtual bmesh<SHAPE> & operator=(const bmesh<SHAPE> & bm);
+			
+			/*! Output stream operator.
+				\param out	output stream
+				\param bm	a mesh
+				\return		updated output stream */
+			template<typename S>
+			friend ostream & operator<<(ostream & out, const bmesh<S> & bm);
 						
 			//
 			// Get methods
@@ -182,14 +198,7 @@ namespace geometry
 			//
 			// Print
 			//
-			
-			/*! Output stream operator.
-				\param out	output stream
-				\param bm	a mesh
-				\return		updated output stream */
-			template<typename S>
-			friend ostream & operator<<(ostream & out, const bmesh<S> & bm);
-			
+						
 			/*! Print to file. The allowed extensions are:
 				<ol>
 				<li> .inp

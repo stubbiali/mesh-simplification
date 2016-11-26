@@ -22,8 +22,8 @@ namespace geometry
 	class structuredData
 	{
 		private:
-			/*!	Shared pointer to the mesh. */
-			shared_ptr<bmesh<SHAPE>>	grid;
+			/*!	Pointer to the mesh. */
+			bmesh<SHAPE> * grid;
 			
 			/*!	Set of bounding boxes surrouing the elements. */
 			unordered_multiset<bbox3d> 	boxes;
@@ -34,8 +34,8 @@ namespace geometry
 			//
 			
 			/*! (Default) constructor.
-				\param g	the mesh */
-			structuredData(const shared_ptr<bmesh<SHAPE>> & g = nullptr);
+				\param pg	pointer to a mesh */
+			structuredData(bmesh<SHAPE> * pg = nullptr);
 			
 			/*!	Constructor.
 				\param news	a bmeshInfo object
@@ -58,10 +58,6 @@ namespace geometry
 			//
 			// Get methods
 			//
-			
-			/*!	Get the mesh.
-				\return		shared pointer to the mesh */
-			shared_ptr<bmesh<SHAPE>> getMesh();
 			
 			/*!	Get bounding box surrouning an element.
 				\param		element Id
@@ -87,8 +83,8 @@ namespace geometry
 			// These methods are designed to keep set of bounding boxes updated.
 			
 			/*!	Set the mesh.
-				\param g	shared pointer to the mesh */
-			void setMesh(const shared_ptr<bmesh<SHAPE>> & g);
+				\param pg	pointer to a new mesh */
+			void setMesh(bmesh<SHAPE> * pg);
 
 			/*!	Set the mesh.
 				\param news	a bmeshInfo object
