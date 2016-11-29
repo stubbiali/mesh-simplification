@@ -55,28 +55,39 @@ int main()
 	//
 	
 	{
-		UInt id1(6721), id2(16057);
+		#ifdef NDEBUG
+		high_resolution_clock::time_point start, stop;
+		start = high_resolution_clock::now();
+		#endif
 		
+		UInt id1(6721), id2(16057);
+	
 		// New point location
 		// Uncomment only one line at time
 		//point newPoint(prj.getPointerToMesh()->getNode(id1));
-		//point newPoint(prj.getPointerToMesh()->getNode(id2));
-		point newPoint(0.7*(prj.getPointerToMesh()->getNode(id1) + prj.getPointerToMesh()->getNode(id2)));
-		
+		point newPoint(prj.getPointerToMesh()->getNode(id2));
+		//point newPoint(0.5*(prj.getPointerToMesh()->getNode(id1) + prj.getPointerToMesh()->getNode(id2)));
+	
 		// Modify id1, set id2 inactive
 		prj.getPointerToMesh()->setNode(id1, newPoint);
 		prj.getPointerToMesh()->setNodeInactive(id2);
-		
+	
 		// Extract elements and data involved in collapsing
 		auto invElems = prj.getElemsInvolvedInEdgeCollapsing(id1,id2);
 		auto toRemove = prj.getElemsOnEdge(id1,id2);
 		auto toKeep = prj.getElemsModifiedInEdgeCollapsing(id1,id2);
 		auto toMove = prj.getDataModifiedInEdgeCollapsing(invElems); 
-				
+			
 		// Update node-node, node-element, element-element connections
 		prj.getPointerToConnectivity()->applyEdgeCollapsing(id2, id1, toRemove, toKeep);
-		
+	
 		// Project data points and update data-element and element-data connections
 		prj.project(toMove, toKeep);
+		
+		#ifdef NDEBUG
+		stop = high_resolution_clock::now();
+		auto duration = duration_cast<microseconds>(stop-start).count();
+		cout << "Elapsed time: " << duration << " E-6 s" << endl;
+		#endif
 	}
 }

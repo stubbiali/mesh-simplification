@@ -495,10 +495,6 @@ namespace geometry
 			
 			// Update output
 			res.emplace_back(P[j], oldData2Elem);
-			
-			for (auto v : newData2Elem)
-				cout << v << " ";
-			cout << endl;
 		}
 		
 		return res;
