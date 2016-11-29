@@ -67,7 +67,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	INLINE mesh<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getMeshPointer()
+	INLINE mesh<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getPointerToMesh()
 	{
 		return &connectivity.grid;
 	}
@@ -77,6 +77,12 @@ namespace geometry
 	INLINE connect<SHAPE,MT> bmeshInfo<SHAPE,MT>::getConnectivity() const
 	{
 		return connectivity;
+	}
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE connect<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getPointerToConnectivity()
+	{
+		return &connectivity;
 	}
 	
 	

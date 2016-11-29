@@ -7,7 +7,7 @@
 #include <stdexcept>
 
 #include "utility.hpp"
-#include "intersect.hpp"
+#include "intersection.hpp"
 
 namespace geometry
 {

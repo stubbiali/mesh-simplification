@@ -27,7 +27,7 @@ namespace geometry
 	template<typename SHAPE>
 	template<MeshType MT>
 	structuredData<SHAPE>::structuredData(bmeshInfo<SHAPE,MT> & news) :
-		grid(news.getMeshPointer())
+		grid(news.getPointerToMesh())
 	{
 		// Build bounding boxes
 		refresh(news);
@@ -142,7 +142,7 @@ namespace geometry
 	void structuredData<SHAPE>::setMesh(bmeshInfo<SHAPE,MT> & news)
 	{
 		// Set the mesh
-		grid = news.getMeshPointer();
+		grid = news.getPointerToMesh();
 		
 		// (Re-)build bounding boxes
 		refresh(news);

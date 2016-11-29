@@ -1,8 +1,8 @@
-/*!	\file	intersect.hpp
+/*!	\file	intersection.hpp
 	\brief	A class to test if two equally-shaped elements intersect. */
 	
-#ifndef HH_INTERSECT_HH
-#define HH_INTERSECT_HH
+#ifndef HH_INTERSECTION_HH
+#define HH_INTERSECTION_HH
 
 #include <memory>
 #include <tuple>
@@ -24,13 +24,13 @@ namespace geometry
 		O’Rourke J. "Computational geometry in C". 
 		Cambridge (UK), Cambridge University Press, 1998. */
 	template<typename SHAPE = Triangle>
-	class intersect
+	class intersection
 	{
 	};
 	
 	/*!	Specialization for triangles. */
 	template<>
-	class intersect<Triangle>
+	class intersection<Triangle>
 	{
 		private:
 			/*!	Pointer to a mesh. 
@@ -45,7 +45,7 @@ namespace geometry
 			
 			/*!	(Default) constructor.
 				\param pg	pointer to a mesh */
-			intersect(const bmesh<Triangle> * pg = nullptr);
+			intersection(const bmesh<Triangle> * pg = nullptr);
 						
 			//
 			// Access mesh
@@ -64,7 +64,7 @@ namespace geometry
 				\param id2	Id of second triangle
 				\return		FALSE if the triangles do not intersect or
 							intersect in a conformal way, TRUE otherwise */
-			bool doIntersect(const UInt & id1, const UInt & id2) const;
+			bool intersect(const UInt & id1, const UInt & id2) const;
 			
 			/*!	Check the intersection between two triangles.
 				Note that this is a static interface.
@@ -75,17 +75,14 @@ namespace geometry
 				\param D	first vertex of second triangle
 				\param E	second vertex of second triangle
 				\param F	third vertex of second triangle */
-			static bool doIntersect(const point3d & A, const point3d & B, const point3d & C, 
+			static bool intersect(const point3d & A, const point3d & B, const point3d & C, 
 				const point3d & D, const point3d & E, const point3d & F);
 	};
 }
 
-/*!	Include definitions of template members. */
-#include "implementation/imp_intersect.hpp"
-
 /*!	Include definitions of inlined members. */
 #ifdef INLINED
-#include "inline/inline_intersect.hpp"
+#include "inline/inline_intersection.hpp"
 #endif
 
 #endif

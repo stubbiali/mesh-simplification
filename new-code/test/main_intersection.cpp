@@ -1,9 +1,9 @@
-/*!	\file	main_intersect.cpp
+/*!	\file	main_intersection.cpp
 	\brief	A small executable testing some functionality provided
-			by the class intersect<Triangle>. */
+			by the class intersection<Triangle>. */
 			
 #include <chrono>
-#include "intersect.hpp"
+#include "intersection.hpp"
 
 using namespace geometry;
 
@@ -26,7 +26,7 @@ int main()
 		point2d r2(1.5,3);
 		
 		// Output
-		utility::printIntersectionType(intersect<Triangle>::intSegSeg2d(q1,r1,q2,r2), "Segments");
+		utility::printIntersectionType(gutility::intSegSeg2d(q1,r1,q2,r2), "Segments");
 		cout << endl;
 	}
 	
@@ -48,11 +48,11 @@ int main()
 		point2d p5(c);
 		
 		// Output
-		utility::printPoint2Tri(intersect<Triangle>::inTri2d(p1,a,b,c));
-		utility::printPoint2Tri(intersect<Triangle>::inTri2d(p2,a,b,c));
-		utility::printPoint2Tri(intersect<Triangle>::inTri2d(p3,a,b,c));
-		utility::printPoint2Tri(intersect<Triangle>::inTri2d(p4,a,b,c));
-		utility::printPoint2Tri(intersect<Triangle>::inTri2d(p5,a,b,c));		
+		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p1,a,b,c));
+		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p2,a,b,c));
+		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p3,a,b,c));
+		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p4,a,b,c));
+		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p5,a,b,c));		
 		cout << endl;
 	}
 	
@@ -75,7 +75,7 @@ int main()
 		point3d R(1,0,-1);
 		
 		// Output
-		auto ans = intersect<Triangle>::intSegPlane(Q,R,N,D);
+		auto ans = intersection<Triangle>::intSegPlane(Q,R,N,D);
 		utility::printLine2Plane(get<0>(ans));
 		utility::printPoint2Seg(get<1>(ans));
 		cout << "t = " << get<2>(ans) << endl;
@@ -89,7 +89,7 @@ int main()
 	{
 		// Read mesh
 		string inputfile("../../mesh/bunny.inp");
-		intersect<Triangle> ntr(inputfile);
+		intersection<Triangle> ntr(inputfile);
 		
 		// Id's of triangles to consider
 		UInt id1 = 8034;
@@ -97,13 +97,13 @@ int main()
 		
 		// Test intersection
 		#ifndef NDEBUG
-		auto ans = ntr.doIntersect(id1,id2);
+		auto ans = ntr.intersect(id1,id2);
 		#else
 		using namespace std::chrono;
 		high_resolution_clock::time_point start, stop; 
 		start = high_resolution_clock::now();
 		for (UInt i = 0; i < 1e6; i++)
-			auto ans = ntr.doIntersect(id1,id2);
+			auto ans = ntr.intersect(id1,id2);
 		#endif
 		
 		#ifndef NDEBUG
@@ -136,7 +136,7 @@ int main()
 		point3d F(0,2,0);
 		
 		// Output
-		auto ans = intersect<Triangle>::doIntersect(A,B,C,D,E,F);
+		auto ans = intersection<Triangle>::intersect(A,B,C,D,E,F);
 		if (ans)
 			cout << "Triangles intersect." << endl;
 		else

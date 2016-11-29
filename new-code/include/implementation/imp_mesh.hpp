@@ -181,6 +181,13 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	INLINE void mesh<SHAPE, MeshType::DATA>::setData(const UInt & Id, const point3d & p)
+	{
+		data[Id].setCoor(p.getCoor());
+	}
+	
+	
+	template<typename SHAPE>
 	INLINE void mesh<SHAPE, MeshType::DATA>::setData(const UInt & Id, const Real & val)
 	{
 		data[Id].setDatum(val);

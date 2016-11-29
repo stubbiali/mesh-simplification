@@ -152,6 +152,11 @@ namespace geometry
 				\param coor	array with new coordinates */
 			void setData(const UInt & Id, const array<Real,3> & coor);
 			
+			/*! Set location of a data point.
+				\param Id	point Id
+				\param p	point storing the new coordinates */
+			void setData(const UInt & Id, const point3d & p);
+			
 			/*! Set associated value of a data point. 
 				\param Id	point Id
 				\param val	new value */

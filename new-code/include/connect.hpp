@@ -15,6 +15,10 @@ namespace geometry
 	/*!	Forward declaration of class meshInfo. */
 	template<typename SHAPE, MeshType MT>
 	class meshInfo;
+	
+	/*!	Forward declaration of class projection. */
+	template<typename SHAPE>
+	class projection;
 		
 	/*! This is a wrapper class for bconnect, which it inherits.
 		It takes two template parameters:
@@ -45,6 +49,9 @@ namespace geometry
 			
 			/*! meshInfo is a friend class. */
 			friend class meshInfo<SHAPE, MeshType::GEO>;
+			
+			/*! projection is a friend class. */
+			friend class projection<SHAPE>;
 			
 			//
 			// Constructor
@@ -82,6 +89,9 @@ namespace geometry
 			
 			/*! meshInfo is a friend class. */
 			friend class meshInfo<SHAPE, MeshType::DATA>;
+			
+			/*! projection is a friend class. */
+			friend class projection<SHAPE>;
 			
 			//
 			// Constructor
@@ -172,38 +182,38 @@ namespace geometry
 			//
 			
 			/*! Set data-element connections for a datum.
-				Before setting the new connections, it calls eraseDataInElemToData().
-				After having set the new connections, it calls insertDataInElemToData().
+				Before setting the new connections, it calls eraseDataInElem2Data().
+				After having set the new connections, it calls insertDataInElem2Data().
 				It returns the old connections.
 				
 				\param Id			datum Id
 				\param newConn		new connections 
 				\return				old connections
 				
-				\sa eraseDataInElemToData(), insertDataInElemToData() */
+				\sa eraseDataInElem2Data(), insertDataInElem2Data() */
 			vector<UInt> setData2Elem(const UInt & Id, const set<UInt> & newConn);
 			
 			/*! Set data-element connections for a datum.
-				Before setting the new connections, it calls eraseDataInElemToData().
-				After having set the new connections, it calls insertDataInElemToData().
+				Before setting the new connections, it calls eraseDataInElem2Data().
+				After having set the new connections, it calls insertDataInElem2Data().
 				It returns the old connections.
 				
 				\param Id			datum Id
 				\param newConn		new connections 
 				\return				old connections
 				
-				\sa eraseDataInElemToData(), insertDataInElemToData() */
+				\sa eraseDataInElem2Data(), insertDataInElem2Data() */
 			vector<UInt> setData2Elem(const UInt & Id, const vector<UInt> & newConn);
 			
 			/*! Set data-element connections for a datum.
-				Before setting the new connections, it calls eraseDataInElemToData().
-				After having set the new connections, it calls insertDataInElemToData().
+				Before setting the new connections, it calls eraseDataInElem2Data().
+				After having set the new connections, it calls insertDataInElem2Data().
 				It returns the old connections.
 				
 				\param newData2Elem	new graph item 
 				\return				old connections
 				
-				\sa eraseDataInElemToData(), insertDataInElemToData() */
+				\sa eraseDataInElem2Data(), insertDataInElem2Data() */
 			graphItem setData2Elem(const graphItem & newData2Elem);
 			
 			/*! Set data-element connections for all data.

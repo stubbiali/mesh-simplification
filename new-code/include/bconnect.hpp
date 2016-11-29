@@ -114,6 +114,26 @@ namespace geometry
 			// Modify connections
 			//
 			
+			/*!	Replace a node in element-node connections.
+				Debug mode: the method finds itself the elements connected
+				to the node to substitute but not the new one.
+				Ideally, these elements are the ones involved in an edge collapsing.
+				
+				\param oldId	the Id to substitute
+				\param newId	the new Id */
+			void replaceNodeInElem2Node(const UInt & oldId, const UInt & newId);
+			
+			/*!	Replace a node in element-node connections.
+				Release mode: the elements connected to the node to substitute
+				but not to the new one.
+				Ideally, these elements are the ones involved in an edge collapsing.
+				
+				\param oldId	the Id to substitute
+				\param newId	the new Id
+				\param elems	elements connected to oldId (but not to newId) */
+			void replaceNodeInElem2Node(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & toKeep);
+			
 			/*! Replace a node in node-node connections.
 				Debug mode: the method finds itself the nodes connected to the old Id.
 				
@@ -162,7 +182,8 @@ namespace geometry
 				\param oldId	Id of the node to remove
 				\param newId	Id of the node to keep
 				\param toRemove	Id's of the elements to remove */
-			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, const vector<UInt> & toRemove);
+			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				const vector<UInt> & toRemove);
 			
 			/*! Update connections after an edge contraction (release mode).
 				Note that the set of edges is not updated. 
@@ -171,8 +192,21 @@ namespace geometry
 				\param oldId	Id of the node to remove
 				\param newId	Id of the node to keep
 				\param toRemove	Id's of the elements to remove 
+				\param toKeep	Id's of the elements involved in the collapsing but to keep */
+			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				const vector<UInt> & toRemove, const vector<UInt> & toKeep);
+			
+			/*! Update connections after an edge contraction (release mode).
+				Note that the set of edges is not updated. 
+				This method shows the order the various methods of the class should be used.
+				
+				\param oldId	Id of the node to remove
+				\param newId	Id of the node to keep
+				\param toRemove	Id's of the elements to remove 
+				\param toKeep	Id's of the elements involved in the collapsing but to keep
 				\param involved	Id's of the nodes involved in the contraction */
-			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, const vector<UInt> & toRemove,
+			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				const vector<UInt> & toRemove, const vector<UInt> & toKeep, 
 				const vector<UInt> & involved);
 						
 			//
@@ -185,7 +219,7 @@ namespace geometry
 			
 			/*! Get pointer to the mesh.
 				\return		pointer the mesh */
-			mesh<SHAPE,MT> * getMeshPointer();
+			mesh<SHAPE,MT> * getPointerToMesh();
 			
 			/*! Get edges of the mesh.
 				\return		vector of edges */

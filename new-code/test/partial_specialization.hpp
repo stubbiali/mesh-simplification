@@ -50,7 +50,7 @@ class D<B,Type::EXTENDED>
 	public:
 		void print() const
 		{
-			cout << "This is the derived class in EXTENDED mode. NB = " << NB << ", NE = " << NE << "." endl;
+			cout << "This is the derived class in EXTENDED mode. NE = " << NE << "." << endl;
 		};
 };
 

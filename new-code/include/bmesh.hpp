@@ -113,7 +113,7 @@ namespace geometry
 			//
 			// Set methods
 			//
-			
+						
 			/*! Set the coordinates and the boundary flag of a node. 
 				Note that node Id will not change.
 				\param Id	node Id

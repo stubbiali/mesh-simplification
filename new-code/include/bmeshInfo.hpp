@@ -66,11 +66,15 @@ namespace geometry
 			
 			/*!	Get a pointer to the mesh.
 				\return		pointer to the mesh */
-			mesh<SHAPE,MT> * getMeshPointer();
+			mesh<SHAPE,MT> * getPointerToMesh();
 			
 			/*!	Get mesh connectivity.
 				\return		the connectivity */
 			connect<SHAPE,MT> getConnectivity() const;
+			
+			/*!	Get a pointer to the mesh connectivity.
+				\return 	pointer to the connectivity */
+			connect<SHAPE,MT> * getPointerToConnectivity();
 			
 			/*!	Set the mesh.
 				\param g	the new mesh */

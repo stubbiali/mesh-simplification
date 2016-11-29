@@ -1,5 +1,5 @@
-/*!	\file	intersect.cpp
-	\brief	Implementations of members of class intersect. */
+/*!	\file	intersection.cpp
+	\brief	Implementations of members of class intersection. */
 	
 /* 	Note: the class may not correctly handle the case of two
 	coinciding triangles. In the non-static interface, this
@@ -16,11 +16,11 @@
 	completeness. */
 	
 #include "utility.hpp"
-#include "intersect.hpp"
+#include "intersection.hpp"
 
 //	Include definitions of inlined members
 #ifndef INLINED
-#include "inline/inline_intersect.hpp"
+#include "inline/inline_intersection.hpp"
 #endif
 
 namespace geometry
@@ -29,7 +29,7 @@ namespace geometry
 	// Constructor
 	//
 	
-	intersect<Triangle>::intersect(const bmesh<Triangle> * pg) :
+	intersection<Triangle>::intersection(const bmesh<Triangle> * pg) :
 		grid(pg)
 	{
 	}
@@ -39,7 +39,7 @@ namespace geometry
 	// Interface
 	//	
 	
-	bool intersect<Triangle>::doIntersect(const point3d & A, const point3d & B, const point3d & C, 
+	bool intersection<Triangle>::intersect(const point3d & A, const point3d & B, const point3d & C, 
 		const point3d & D, const point3d & E, const point3d & F)
 	{
 		// 
@@ -122,13 +122,13 @@ namespace geometry
 			(ca_def == IntersectionType::INVALID))
 			return true;
 			
-		// If here, the triangles do not intersect one each other
+		// If here, the triangles do not intersection one each other
 		// or they do in a conformal way
 		return false;
 	}
 				
 				
-	bool intersect<Triangle>::doIntersect(const UInt & id1, const UInt & id2) const
+	bool intersection<Triangle>::intersect(const UInt & id1, const UInt & id2) const
 	{
 		// Extract vertices of first element
 		auto el1 = grid->getElem(id1); 
@@ -143,7 +143,7 @@ namespace geometry
 		point3d F(grid->getNode(el2[2]));
 		
 		// Call static interface
-		return ((id1 != id2) && intersect<Triangle>::doIntersect(A,B,C,D,E,F));
+		return ((id1 != id2) && intersection<Triangle>::intersect(A,B,C,D,E,F));
 	}
 }
 

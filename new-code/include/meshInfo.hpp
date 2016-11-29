@@ -23,7 +23,7 @@ namespace geometry
 		
 		\sa bmeshInfo.hpp, doctor.hpp */
 	template<typename SHAPE, MeshType MT = MeshType::GEO>
-	class meshInfo final : public bmeshInfo<SHAPE,MT>
+	class meshInfo : public bmeshInfo<SHAPE,MT>
 	{
 	};
 	

@@ -182,6 +182,27 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT>
+	void bconnect<SHAPE,MT>::replaceNodeInElem2Node(const UInt & oldId, const UInt & newId)
+	{
+		// Get elements connected to oldId but not to newId
+		auto toKeep = set_difference(node2elem[oldId], node2elem[newId]);
+		
+		// For all extracted elements, replace oldId with newId
+		for (auto elem : toKeep)
+			grid.replaceVertex(elem, oldId, newId);
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE void bconnect<SHAPE,MT>::replaceNodeInElem2Node(const UInt & oldId, const UInt & newId,
+		const vector<UInt> & toKeep)
+	{
+		for (auto elem : toKeep)
+			grid.replaceVertex(elem, oldId, newId);
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::replaceNodeInNode2Node(const UInt & oldId, const UInt & newId)
 	{
 		// First, remove the possible connection between oldId and newId
@@ -235,6 +256,10 @@ namespace geometry
 	{
 		for (auto id : toRemove)
 		{
+			// Set element inactive in element-node connections
+			grid.setElemInactive(id);
+			
+			// Erase element from node-element connections
 			auto elem = grid.getElem(id);
 			for (UInt j = 0; j < NV; j++)
 				node2elem[elem[j]].erase(id);
@@ -246,6 +271,10 @@ namespace geometry
 	void bconnect<SHAPE,MT>::eraseElemsInNode2Elem(const vector<UInt> & toRemove, 
 		const UInt & newId, const vector<UInt> & involved)
 	{
+		// Set element inactive in element-node connections
+		grid.setElemInactive(toRemove[0]);
+		grid.setElemInactive(toRemove[1]);
+		
 		// Remove elements from newId
 		node2elem[newId].erase(toRemove[0]);
 		node2elem[newId].erase(toRemove[1]);
@@ -278,9 +307,12 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	void bconnect<SHAPE,MT>::applyEdgeCollapsing(const UInt & oldId, 
-		const UInt & newId, const vector<UInt> & toRemove)
+	void bconnect<SHAPE,MT>::applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+		const vector<UInt> & toRemove)
 	{
+		// Update element-node connections
+		replaceNodeInElem2Node(oldId, newId);
+		
 		// Update node-node connections
 		replaceNodeInNode2Node(oldId, newId);
 		
@@ -294,9 +326,31 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	void bconnect<SHAPE,MT>::applyEdgeCollapsing(const UInt & oldId, 
-		const UInt & newId, const vector<UInt> & toRemove, const vector<UInt> & involved)
+	void bconnect<SHAPE,MT>::applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+		const vector<UInt> & toRemove, const vector<UInt> & toKeep)
 	{
+		// Update element-node connections
+		replaceNodeInElem2Node(oldId, newId, toKeep);
+		
+		// Update node-node connections
+		replaceNodeInNode2Node(oldId, newId);
+		
+		// Update node-element connections
+		replaceNodeInNode2Elem(oldId, newId);
+		eraseElemsInNode2Elem(toRemove);
+		
+		// Update element-element connections
+		eraseElemsInElem2Elem(toRemove);
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	void bconnect<SHAPE,MT>::applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+		const vector<UInt> & toRemove, const vector<UInt> & toKeep, const vector<UInt> & involved)
+	{
+		// Update element-node connections
+		replaceNodeInElem2Node(oldId, newId, toKeep);
+		
 		// Update node-node connections
 		replaceNodeInNode2Node(oldId, newId, involved);
 		
@@ -321,7 +375,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
-	INLINE mesh<SHAPE,MT> * bconnect<SHAPE,MT>::getMeshPointer()
+	INLINE mesh<SHAPE,MT> * bconnect<SHAPE,MT>::getPointerToMesh()
 	{
 		return &grid;
 	}
