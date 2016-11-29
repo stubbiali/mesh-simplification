@@ -77,6 +77,9 @@ namespace geometry
 			// and/or values we suppose they coincide with the nodes and they 
 			// are all equal to zero (or randomly generated).
 			
+			/*!	Synthetic default constructor. */
+			mesh() = default;
+			
 			/*! Constructor.
 				\param nds	vector of nodes
 				\param els	vector of elements

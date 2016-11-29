@@ -11,8 +11,7 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
-	meshInfo<SHAPE, MeshType::GEO>::meshInfo
-		(const bmesh<SHAPE> & bg) :
+	meshInfo<SHAPE, MeshType::GEO>::meshInfo(const bmesh<SHAPE> & bg) :
 		bmeshInfo<SHAPE, MeshType::GEO>(bg)
 	{
 	}
