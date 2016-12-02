@@ -6,6 +6,7 @@
 		
 #include "shapes.hpp"
 #include "geoElement.hpp"
+#include "collapseInfo.hpp"
 
 namespace geometry
 {
@@ -37,6 +38,16 @@ namespace std
 			\param bb	a N-dimensional bounding box object
 			\return		the associated hash value */
 		size_t operator()(const boundingBox<N> & bb) const;
+	};
+	
+	/*!	Specialization for collapseInfo. */
+	template<>
+	struct hash<collapseInfo>
+	{
+		/*! Call operator.
+			\param cInfo	a collapseInfo object
+			\return			the associated hash value */
+		size_t operator()(const collapseInfo & cInfo) const;
 	};
 }
 

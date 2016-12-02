@@ -57,4 +57,6 @@ template class boundingBox<10>;
 template class structuredData<Triangle>;
 template class structuredData<Quad>;
 
+#include "bcost.hpp"
+
 
