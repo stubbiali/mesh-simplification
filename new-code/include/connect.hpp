@@ -43,16 +43,16 @@ namespace geometry
 	template<typename SHAPE>
 	class connect<SHAPE, MeshType::GEO> final : public bconnect<SHAPE, MeshType::GEO> 
 	{
-		public:
-			/*! bmeshInfo is a friend class. */
-			friend class bmeshInfo<SHAPE, MeshType::GEO>;
+		/*! bmeshInfo is a friend class. */
+		friend class bmeshInfo<SHAPE, MeshType::GEO>;
+		
+		/*! meshInfo is a friend class. */
+		friend class meshInfo<SHAPE, MeshType::GEO>;
+		
+		/*! projection is a friend class. */
+		friend class projection<SHAPE>;
 			
-			/*! meshInfo is a friend class. */
-			friend class meshInfo<SHAPE, MeshType::GEO>;
-			
-			/*! projection is a friend class. */
-			friend class projection<SHAPE>;
-			
+		public:		
 			//
 			// Constructor
 			//
@@ -76,6 +76,15 @@ namespace geometry
 	template<typename SHAPE>
 	class connect<SHAPE, MeshType::DATA> final : public bconnect<SHAPE, MeshType::DATA> 
 	{
+		/*! bmeshInfo is a friend class. */
+		friend class bmeshInfo<SHAPE, MeshType::DATA>;
+		
+		/*! meshInfo is a friend class. */
+		friend class meshInfo<SHAPE, MeshType::DATA>;
+		
+		/*! projection is a friend class. */
+		friend class projection<SHAPE>;
+		
 		private:
 			/*! Data-element connections. */
 			vector<graphItem> data2elem;
@@ -84,15 +93,6 @@ namespace geometry
 			vector<graphItem> elem2data;
 						
 		public:
-			/*! bmeshInfo is a friend class. */
-			friend class bmeshInfo<SHAPE, MeshType::DATA>;
-			
-			/*! meshInfo is a friend class. */
-			friend class meshInfo<SHAPE, MeshType::DATA>;
-			
-			/*! projection is a friend class. */
-			friend class projection<SHAPE>;
-			
 			//
 			// Constructor
 			//

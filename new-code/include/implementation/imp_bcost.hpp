@@ -15,7 +15,7 @@ namespace geometry
 	
 	template<typename SHAPE, MeshType MT, typename D>
 	bcost<SHAPE,MT,D>::bcost(bmeshOperation<SHAPE,MT> * bmo) :
-		worker(bmo)
+		oprtr(bmo)
 	{
 	}
 	
@@ -36,10 +36,10 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT, typename D>
-	INLINE vector<point> bcost<SHAPE,MT,D>::getPointList(const UInt & id1, 
+	INLINE vector<point> bcost<SHAPE,MT,D>::getPointsList(const UInt & id1, 
 		const UInt & id2) const
 	{
-		return static_cast<D *>(this)->imp_getPointList(id1, id2);
+		return static_cast<const D *>(this)->imp_getPointsList(id1, id2);
 	}
 	
 	
@@ -48,7 +48,14 @@ namespace geometry
 	INLINE Real bcost<SHAPE,MT,D>::getCost(const UInt & id1, const UInt & id2, 
 		const point3d & p) const
 	{
-		return static_cast<D *>(this)->imp_getCost(id1, id2, p);
+		return static_cast<const D *>(this)->imp_getCost(id1, id2, p);
+	}
+	
+	
+	template<typename SHAPE, MeshType MT, typename D>
+	INLINE vector<collapseInfo> bcost<SHAPE,MT,D>::getCollapseInfoList() const
+	{
+		return {cInfoList.cbegin(), cInfoList.cend()};
 	}
 	
 	

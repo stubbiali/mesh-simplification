@@ -38,9 +38,9 @@ namespace geometry
 	class bcost
 	{
 		protected:
-			/*!	Pointer to a bmeshOperation object. 
+			/*!	Pointer to a bmeshOperation object, i.e. the operator. 
 				\sa bmeshOperation.hpp */
-			bmeshOperation<SHAPE,MT> * worker;
+			bmeshOperation<SHAPE,MT> * oprtr;
 			
 			/*!	Store info on collapsing edges through
 				an unordered set of collapseInfo objects. */
@@ -77,7 +77,7 @@ namespace geometry
 				\param id1	Id of first end-point of the edge
 				\param id2	Id of second end-point of the edge
 				\return		vector of valid points */
-			vector<point> getPointList(const UInt & id1, const UInt & id2) const;
+			vector<point> getPointsList(const UInt & id1, const UInt & id2) const;
 			
 			/*!	Get cost for collapsing an edge in a point.
 				The implementation is delegated to the derived class.
@@ -87,6 +87,10 @@ namespace geometry
 				\param p	collapsing point
 				\return		the cost */
 			Real getCost(const UInt & id1, const UInt & id2, const point3d & p) const;
+			
+			/*!	Get list of collapseInfo objects.
+				\return		vector of collapseInfo objects */
+			vector<collapseInfo> getCollapseInfoList() const;
 			
 			//
 			// Update list

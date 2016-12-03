@@ -6,6 +6,7 @@
 
 # Directories
 INC_DIR=../include
+EIGEN_DIR=../../Eigen
 SRC_DIR=../src
 TEST_DIR=../test
 OBJ_DIR=obj
@@ -27,8 +28,8 @@ EXEC=$(patsubst $(TEST_DIR)/%.cpp, %, $(SRC_TEST))
 
 # Compilation flags
 CXX=g++
-CXXFLAGS=-std=c++11 -g -I$(INC_DIR)
-#CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I$(INC_DIR)
+CXXFLAGS=-std=c++11 -g -I $(INC_DIR) -I $(EIGEN_DIR)
+#CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
 
 
 #

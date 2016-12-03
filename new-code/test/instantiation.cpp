@@ -57,6 +57,10 @@ template class boundingBox<10>;
 template class structuredData<Triangle>;
 template class structuredData<Quad>;
 
-#include "bcost.hpp"
+#include "OnlyGeo.hpp"
+template class bcost<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>;
+template class bcost<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>;
+template class OnlyGeo<MeshType::GEO>;
+template class OnlyGeo<MeshType::DATA>;
 
 
