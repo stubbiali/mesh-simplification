@@ -118,7 +118,8 @@ namespace geometry
 				In that case, the implementation would simply do nothing.
 				
 				\param id	Id of the collapsing point */
-			void update(const UInt & id);
+			template<typename... Args>
+			void update(const UInt & id, Args... args);
 	};
 }
 

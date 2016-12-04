@@ -22,7 +22,8 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
-	bmesh<SHAPE>::bmesh(const UInt & numNodes, const UInt & numElems) 
+	bmesh<SHAPE>::bmesh(const UInt & nNodes, const UInt & nElems) :
+		numNodes(nNodes), numElems(nElems)
 	{
 		assert(numNodes < MAX_NUM_NODES);
 		assert(numElems < MAX_NUM_ELEMS);
@@ -34,6 +35,7 @@ namespace geometry
 	
 	template<typename SHAPE>
 	bmesh<SHAPE>::bmesh(const vector<point> & nds, const vector<geoElement<SHAPE>> & els) :
+		numNodes(nds.size()), numElems(els.size()),
 		nodes(nds.cbegin(), nds.cend()), elems(els.cbegin(), els.cend())
 	{
 	}
@@ -73,6 +75,10 @@ namespace geometry
 		// Copy
 		copy(bm.nodes.cbegin(), bm.nodes.cend(), nodes.begin());
 		copy(bm.elems.cbegin(), bm.elems.cend(), elems.begin());
+		
+		// Update number of nodes and elements
+		numNodes = nodes.size();
+		numElems = elems.size();
 		
 		return *this;
 	}
@@ -128,14 +134,14 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE UInt bmesh<SHAPE>::getNumNodes() const
 	{
-		return nodes.size();
+		return numNodes;
 	}
 	
 	
 	template<typename SHAPE>
 	INLINE UInt bmesh<SHAPE>::getNumElems() const
 	{
-		return elems.size();
+		return numElems;
 	}
 	
 	
@@ -158,30 +164,62 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	INLINE void bmesh<SHAPE>::resizeNodes(const UInt & numNodes)
+	void bmesh<SHAPE>::resizeNodes(const UInt & nNodes)
 	{
-		nodes.resize(numNodes);
+		nodes.resize(nNodes);
+		
+		// Update number of (active) nodes
+		numNodes = 0;
+		for (UInt i = 0; i < nodes.size(); ++i)
+		{
+			if (nodes[i].isActive())
+				++numNodes;
+		}
 	}
 	
 	
 	template<typename SHAPE>
-	INLINE void bmesh<SHAPE>::reserveNodes(const UInt & numNodes)
+	void bmesh<SHAPE>::reserveNodes(const UInt & nNodes)
 	{
-		nodes.reserve(numNodes);
+		nodes.reserve(nNodes);
+		
+		// Update number of (active) nodes
+		numNodes = 0;
+		for (UInt i = 0; i < nodes.size(); ++i)
+		{
+			if (nodes[i].isActive())
+				++numNodes;
+		}
 	}
 	
 	
 	template<typename SHAPE>
-	INLINE void bmesh<SHAPE>::resizeElems(const UInt & numElems)
+	void bmesh<SHAPE>::resizeElems(const UInt & nElems)
 	{
-		elems.resize(numElems);
+		elems.resize(nElems);
+		
+		// Update number of (active) elements
+		numElems = 0;
+		for (UInt i = 0; i < elems.size(); ++i)
+		{
+			if (elems[i].isActive())
+				++numElems;
+		}
 	}
 	
 	
 	template<typename SHAPE>
-	INLINE void bmesh<SHAPE>::reserveElems(const UInt & numElems)
+	void bmesh<SHAPE>::reserveElems(const UInt & nElems)
 	{
-		elems.reserve(numElems);
+		elems.reserve(nElems);
+		
+		// Update number of (active) elements
+		numElems = 0;
+		for (UInt i = 0; i < elems.size(); ++i)
+		{
+			if (elems[i].isActive())
+				++numElems;
+		}
 	}
 		
 	
@@ -193,9 +231,18 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	INLINE void bmesh<SHAPE>::setNodeActive(const UInt & Id)
+	{
+		nodes[Id].setActive();
+		++numNodes;
+	}
+	
+	
+	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setNodeInactive(const UInt & Id)
 	{
 		nodes[Id].setInactive();
+		--numNodes;
 	}
 	
 	
@@ -207,9 +254,18 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	INLINE void bmesh<SHAPE>::setElemActive(const UInt & Id)
+	{
+		elems[Id].setActive();
+		++numElems;
+	}
+	
+	
+	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setElemInactive(const UInt & Id)
 	{
 		elems[Id].setInactive();
+		--numElems;
 	}
 	
 	
@@ -221,6 +277,7 @@ namespace geometry
 	INLINE void bmesh<SHAPE>::insertNode(const array<Real,3> & coor, const UInt & bound)
 	{
 		nodes.emplace_back(coor, nodes.size(), bound);
+		++numNodes;
 	}
 	
 	
@@ -228,6 +285,7 @@ namespace geometry
 	INLINE void bmesh<SHAPE>::insertElem(const array<UInt,NV> & vert, const UInt & geoId)
 	{
 		elems.emplace_back(vert, elems.size(), geoId);
+		++numElems;
 	}
 	
 	
@@ -245,8 +303,12 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::eraseNode(const UInt & Id)
 	{
-		// Erase
+		// Find the node
 		auto it = nodes.begin() + Id;
+		
+		// Before remove it, update number of nodes
+		if (it->isActive())
+			--numNodes;
 		nodes.erase(it);
 		
 		// Update id's
@@ -257,8 +319,12 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::eraseElem(const UInt & Id)
 	{
-		// Erase
+		// Find the element
 		auto it = elems.begin() + Id;
+		
+		// Before remove it, update number of elements
+		if (it->isActive())
+			--numElems;
 		elems.erase(it);
 		
 		// Update id's
@@ -269,7 +335,12 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::clear()
 	{
+		// Clear nodes
+		numNodes = 0;
 		nodes.clear();
+		
+		// Clear elements
+		numElems = 0;
 		elems.clear();
 	}
 	
@@ -287,7 +358,6 @@ namespace geometry
 			string line;
 						
 			// Get number of nodes and elements
-			UInt numNodes, numElems;
 			getline(file,line);
 			static_cast<stringstream>(line) >> numNodes >> numElems;
 			
@@ -365,7 +435,6 @@ namespace geometry
 			//
 						
 			// Get number of nodes
-			UInt numNodes;
 			getline(file,line);
 			static_cast<stringstream>(line) >> foo >> numNodes;
 						
@@ -402,7 +471,6 @@ namespace geometry
 			//
 			
 			// Get number of elements
-			UInt numElems;
 			getline(file,line);
 			static_cast<stringstream>(line) >> foo >> numElems;
 			
@@ -455,6 +523,13 @@ namespace geometry
 			print_vtk(filename);
 		else
 			throw runtime_error("Format " + format + " not known.");
+	}
+	
+	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::print_inp(const string & filename) const
+	{
+		// TODO
 	}
 		
 	

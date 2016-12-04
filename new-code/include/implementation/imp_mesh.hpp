@@ -20,8 +20,8 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	mesh<SHAPE, MeshType::GEO>::mesh(const UInt & numNodes, const UInt & numElems) :
-		bmesh<SHAPE>(numNodes, numElems)
+	mesh<SHAPE, MeshType::GEO>::mesh(const UInt & nNodes, const UInt & nElems) :
+		bmesh<SHAPE>(nNodes, nElems)
 	{
 	}
 	

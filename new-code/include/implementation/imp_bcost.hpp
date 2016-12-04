@@ -92,9 +92,10 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT, typename D>
-	void bcost<SHAPE,MT,D>::update(const UInt & id)
+	template<typename... Args>
+	void bcost<SHAPE,MT,D>::update(const UInt & id, Args... args)
 	{
-		static_cast<D *>(this)->imp_update(id);
+		static_cast<D *>(this)->imp_update(id, args...);
 	}
 }
 

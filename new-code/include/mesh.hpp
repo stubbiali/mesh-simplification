@@ -43,9 +43,9 @@ namespace geometry
 			//
 		
 			/*! (Default) constructor.
-				\param numNodes	number of nodes
-				\param numElems	number of elements */
-			mesh(const UInt & numNodes = 0, const UInt & numElems = 0);
+				\param nNodes	number of nodes
+				\param nElems	number of elements */
+			mesh(const UInt & nNodes = 0, const UInt & nElems = 0);
 			
 			/*! Constructor.
 				\param nds	vector of nodes

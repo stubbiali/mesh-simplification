@@ -31,22 +31,26 @@ namespace geometry
 			/*! Number of vertices for each element. */
 			static constexpr UInt NV = SHAPE::numVertices;
 			
-		protected:			
+		protected:	
+			/*!	Number of nodes and elements. */
+			UInt numNodes;
+			UInt numElems;
+					
 			/*! Vector of nodes. */
 			vector<point> 				nodes;
 			
 			/*! Vector of elements. */
 			vector<geoElement<SHAPE>> 	elems;
-		
+					
 		public:
 			//
 			// Constructors and destructor
 			//
 			
 			/*! (Default) constructor.
-				\param numNodes	number of nodes
-				\param numElems	number of elements */
-			bmesh(const UInt & numNodes = 0, const UInt & numElems = 0);
+				\param nNodes	number of nodes
+				\param nElems	number of elements */
+			bmesh(const UInt & nNodes = 0, const UInt & nElems = 0);
 			
 			/*! Constructor.
 				\param nds	vector of nodes
@@ -128,24 +132,28 @@ namespace geometry
 			
 			/*! Resize the vector of nodes.
 				\param numNodes	new number of nodes */
-			void resizeNodes(const UInt & numNodes);
+			void resizeNodes(const UInt & nNodes);
 			
 			/*! Make a reserve for the vector of nodes.
 				\param numNodes	new number of nodes */
-			void reserveNodes(const UInt & numNodes);
+			void reserveNodes(const UInt & nNodes);
 			
 			/*! Resize the vector of elements.
 				\param numElems	new number of elements */
-			void resizeElems(const UInt & numElems);
+			void resizeElems(const UInt & nElems);
 			
 			/*! Make a reserve for the vector of elements.
 				\param numElems new number of elements */
-			void reserveElems(const UInt & numElems);
+			void reserveElems(const UInt & nElems);
 						
 			/*! Set boundary flag for a node.
 				\param Id		node Id
 				\param bound	boundary flag */
 			void setBoundary(const UInt & Id, const UInt & bound);
+			
+			/*!	Set a node active.
+				\param Id	node Id */
+			void setNodeActive(const UInt & Id);
 			
 			/*! Set a node inactive.
 				\param Id	node Id */
@@ -155,6 +163,10 @@ namespace geometry
 				\param Id	element Id
 				\param idx	element index */
 			void setIdx(const UInt & Id, const UInt & idx);
+			
+			/*! Set an element active.
+				\param Id	element Id */
+			void setElemActive(const UInt & Id); 
 			
 			/*! Set an element inactive.
 				\param Id	element Id */
