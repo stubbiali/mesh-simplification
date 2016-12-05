@@ -125,9 +125,15 @@ namespace geometry
 			/*!	Get the quantity of information associated with an element.
 				See F. Dassi et al., Equation (5).
 				
-				\param Id	element If
+				\param Id	element Id
 				\return		quantity of information */
-			Real getQuantityOfInformation(const UInt & Id) const;						
+			Real getQuantityOfInformation(const UInt & Id) const;
+			
+			/*!	Check if an element is not associated any data point.
+				\param Id	element Id
+				\return		TRUE if no data points are associated to the element,
+							FALSE otherwise */
+			bool isEmpty(const UInt & Id) const;						
 	};
 }
 

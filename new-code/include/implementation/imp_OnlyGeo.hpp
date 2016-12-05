@@ -1,8 +1,8 @@
 /*!	\file	imp_OnlyGeo.hpp
 	\brief	Implementations of members of class OnlyGeo. */
 	
-#ifndef HH_ONLYGEO_HH
-#define HH_ONLYGEO_HH
+#ifndef HH_IMPONLYGEO_HH
+#define HH_IMPONLYGEO_HH
 
 #include "array_operators.hpp"
 #include "Eigen/Dense"
@@ -63,7 +63,7 @@ namespace geometry
 		// Compute unit normal and (signed) distance from the origin
 		// for the plane identified by the triangle
 		auto N = this->oprtr->getNormal(id);
-		auto d = - N*p;
+		auto d = -(N*p);
 		
 		// Construct matrix K
 		return array<Real,10>({N[0]*N[0], N[0]*N[1], N[0]*N[2], N[0]*d,
@@ -74,24 +74,27 @@ namespace geometry
 	template<MeshType MT>
 	void OnlyGeo<MT>::buildQs()
 	{
-		assert(oprtr != nullptr);
+		assert(this->oprtr != nullptr);
 		
 		// Extract number of nodes and elements
-		auto numNodes = oprtr->getPointerToMesh()->getNumNodes();
-		auto numElems = oprtr->getPointerToMesh()->getNumElems();
+		auto numNodes = this->oprtr->getPointerToMesh()->getNumNodes();
+		auto numElems = this->oprtr->getPointerToMesh()->getNumElems();
 		
 		// Reserve memory and initialize Q matrices to zero
 		Qs.clear();
-		Qs.reserve(numnodes);
+		Qs.reserve(numNodes);
 		for (UInt i = 0; i < numNodes; ++i)
-			Qs.emplace_back({0.,0.,0.,0.,0.,0.,0.,0.,0.,0.});
+		{
+			Qs.emplace_back();
+			Qs[i] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+		}
 			
 		// Loop over all elements, for each triangle compute the 
 		// related matrix K and add it to Q matrices of the vertices 
 		// of the triangle
 		for (UInt j = 0; j < numElems; ++j)
 		{
-			auto elem = oprtr->getPointerToMesh()->getElem(j);
+			auto elem = this->oprtr->getPointerToMesh()->getElem(j);
 			auto K = getKMatrix(j);
 			Qs[elem[0]] += K;
 			Qs[elem[1]] += K;
@@ -103,10 +106,10 @@ namespace geometry
 	template<MeshType MT>
 	void OnlyGeo<MT>::imp_update(const UInt & id)
 	{
-		assert(oprtr != nullptr);
+		assert(this->oprtr != nullptr);
 		
 		// Extract the nodes connected to id
-		auto nodes = oprtr->getPointerToConnectivity()->getNode2Node(id).getConnected();
+		auto nodes = this->oprtr->getPointerToConnectivity()->getNode2Node(id).getConnected();
 		
 		// 
 		// Re-build Q matrix for the collapsing point
@@ -117,7 +120,7 @@ namespace geometry
 		
 		// Loop over all elements sharing the collapsing point,
 		// compute K and add it to Q
-		auto id_elems = oprtr->getPointerToConnectivity()->getNode2Elem(id).getConnected();
+		auto id_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(id).getConnected();
 		for (auto elem : id_elems)
 		{
 			Qs[id] += getKMatrix(elem);
@@ -135,7 +138,7 @@ namespace geometry
 	
 			// Loop over all elements sharing the node,
 			// compute K and add it to Q
-			auto node_elems = oprtr->getPointerToConnectivity()->getNode2Elem(node).getConnected();
+			auto node_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(node).getConnected();
 			for (auto elem : node_elems)
 				Qs[node] += getKMatrix(elem);
 		}
@@ -149,7 +152,7 @@ namespace geometry
 	template<MeshType MT>
 	void OnlyGeo<MT>::imp_setMeshOperation(bmeshOperation<Triangle,MT> * bmo)
 	{
-		oprtr = bmo;
+		this->oprtr = bmo;
 		
 		// (Re-)build list of Q matrices
 		buildQs();
@@ -201,7 +204,7 @@ namespace geometry
 		// This choice should be a good compromise bewteen
 		// performance and accuracy
 		
-		Vector3r x = A.colPivHouseholderQR().solve(b);
+		Vector3r x = A.colPivHouseholderQr().solve(b);
 		
 		//
 		// Check if the solution exists and return
@@ -213,8 +216,8 @@ namespace geometry
 		
 		auto err = (A*x - b).norm() / b.norm();
 		if (err < TOLL)
-			return make_pair(true, {x(0), x(1), x(2)});
-		return make_pair(false, {0.,0.,0.});
+			return make_pair<bool,point>(true, {x(0), x(1), x(2)});
+		return make_pair<bool,point>(false, {0.,0.,0.});
 	}
 	
 	
@@ -234,9 +237,9 @@ namespace geometry
 		// This to preserve the initial shape of the domain.
 		
 		// Extract the end-points and their boundary flags
-		point P(this->optr->getPointerToMesh()->getNode(id1));
+		point P(this->oprtr->getPointerToMesh()->getNode(id1));
 		auto bP = P.getBoundary();
-		point Q(this->optr->getPointerToMesh()->getNode(id2));
+		point Q(this->oprtr->getPointerToMesh()->getNode(id2));
 		auto bQ = Q.getBoundary();
 		
 		//

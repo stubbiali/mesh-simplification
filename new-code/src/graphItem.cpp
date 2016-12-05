@@ -106,8 +106,9 @@ namespace geometry
 			cerr << "Warning: oldId (" << oldId << ") coincides with newId." << endl;
 		#endif
 		
-		conn.erase(oldId);
-		conn.insert(newId);
+		auto ans = conn.erase(oldId);
+		if (ans > 0)
+			conn.insert(newId);
 	}
 	
 	

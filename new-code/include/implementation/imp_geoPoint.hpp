@@ -319,15 +319,12 @@ namespace geometry
 	geoPoint<N> & geoPoint<N>::normalize()
 	{
 		auto len = norm2();
-		#ifndef NDEBUG
-		if (len < TOLL)
-			cerr << "Warning: point "
-				<< *this << " is close to origin." << endl;
-		#endif
-			
-		transform(coor.begin(), coor.end(), coor.begin(),
-			[=](const Real & el){ return el/len; });
-			
+		
+		// Make sure the point is not the origin
+		if (len != 0.)
+			transform(coor.begin(), coor.end(), coor.begin(),
+				[=](const Real & el){ return el/len; });
+					
 		return *this;
 	}
 	

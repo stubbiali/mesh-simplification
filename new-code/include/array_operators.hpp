@@ -13,32 +13,35 @@
 
 namespace geometry
 {
+	/*!	A typedef to simplify notation. */
+	using ULInt = unsigned long int;
+	
 	/*!	Addition operator.
 		\param a	first array
 		\param b	second array
 		\return		the sum */
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> operator+(const array<Real,N> & a, const array<Real,N> & b);
 	
 	/*!	Addition assignment operator.
 		\param a	first array
 		\param b	second array
 		\return		the sum */
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> & operator+=(array<Real,N> & a, const array<Real,N> & b);
 	
 	/*!	Multiplication by a scalar.
 		\param s	the scalar
 		\param a	the array
 		\return		the multiplication */
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> operator*(const Real & s, const array<Real,N> & a);
 	
 	/*!	Multiplication by a scalar.
 		\param a	the array
 		\param s	the scalar
 		\return		the multiplication */
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> operator*(const array<Real,N> & a, const Real & s);
 }
 

@@ -111,8 +111,10 @@ namespace geometry
 			virtual void clear();
 			
 			//
-			// Modify connections
+			// Modify connections 
 			//
+			// These methods are particularly designed for applying
+			// a possibly temporary edge collapse
 			
 			/*!	Replace a node in element-node connections.
 				Debug mode: the method finds itself the elements connected
@@ -138,24 +140,36 @@ namespace geometry
 				Debug mode: the method finds itself the nodes connected to the old Id.
 				
 				\param oldId	the Id to substitute
-				\param newId	the new Id */
-			void replaceNodeInNode2Node(const UInt & oldId, const UInt & newId);
+				\param newId	the new Id 
+				\return			old node-node connections for newId;
+								these may be useful for the method undoEdgeCollapse() 
+								
+				\sa undoEdgeCollapse() */
+			vector<UInt> replaceNodeInNode2Node(const UInt & oldId, const UInt & newId);
 			
 			/*! Replace a node in node-node connections.
 				Release mode: the nodes connected to the old one are already provided.
 				
 				\param oldId	the Id to substitute
 				\param newId	the new Id 
-				\param involved	nodes involved in the changes */
-			void replaceNodeInNode2Node(const UInt & oldId, const UInt & newId, const vector<UInt> & involved);
+				\param involved	nodes involved in the changes 
+				\return			old node-node connections for newId;
+								these may be useful for the method undoEdgeCollapse() 
+								
+				\sa undoEdgeCollapse() */
+			vector<UInt> replaceNodeInNode2Node(const UInt & oldId, const UInt & newId, const vector<UInt> & involved);
 			
 			/*! Replace a node in node-element connections.
 				This method simply moves all connected elements 
 				from the old Id to the new one.
 				
 				\param oldId	the Id to substitute
-				\param newId	the new Id */
-			void replaceNodeInNode2Elem(const UInt & oldId, const UInt & newId);
+				\param newId	the new Id 
+				\return			old node-element connections for newId;
+								these may be useful for the methods undoEdgeCollapse() 
+								
+				\sa undoEdgeCollapse() */
+			vector<UInt> replaceNodeInNode2Elem(const UInt & oldId, const UInt & newId);
 			
 			/*! Remove elements from node-element connections.
 				Debug mode: the method find itself the vertices of the elements to remove. 
@@ -169,7 +183,8 @@ namespace geometry
 				\param toRemove	Id's of the elements to remove 
 				\param newId	Id of the node resulting from the collapse
 				\param involved	Id's of nodes involved in the contraction */
-			void eraseElemsInNode2Elem(const vector<UInt> & toRemove, const UInt & newId, const vector<UInt> & involved);
+			void eraseElemsInNode2Elem(const vector<UInt> & toRemove, const UInt & newId, 
+				const vector<UInt> & involved);
 			
 			/*! Remove elements from element-element connections.
 				\param toRemove	Id's of elements to remove */
@@ -181,8 +196,9 @@ namespace geometry
 				
 				\param oldId	Id of the node to remove
 				\param newId	Id of the node to keep
-				\param toRemove	Id's of the elements to remove */
-			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				\param toRemove	Id's of the elements to remove 
+				\return			old node-node and node-element connections for newId */
+			pair<vector<UInt>, vector<UInt>> applyEdgeCollapse(const UInt & oldId, const UInt & newId, 
 				const vector<UInt> & toRemove);
 			
 			/*! Update connections after an edge contraction (release mode).
@@ -192,8 +208,9 @@ namespace geometry
 				\param oldId	Id of the node to remove
 				\param newId	Id of the node to keep
 				\param toRemove	Id's of the elements to remove 
-				\param toKeep	Id's of the elements involved in the collapsing but to keep */
-			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				\param toKeep	Id's of the elements involved in the collapsing but to keep 
+				\return			old node-node and node-element connections for newId */
+			pair<vector<UInt>, vector<UInt>> applyEdgeCollapse(const UInt & oldId, const UInt & newId, 
 				const vector<UInt> & toRemove, const vector<UInt> & toKeep);
 			
 			/*! Update connections after an edge contraction (release mode).
@@ -204,11 +221,118 @@ namespace geometry
 				\param newId	Id of the node to keep
 				\param toRemove	Id's of the elements to remove 
 				\param toKeep	Id's of the elements involved in the collapsing but to keep
-				\param involved	Id's of the nodes involved in the contraction */
-			void applyEdgeCollapsing(const UInt & oldId, const UInt & newId, 
+				\param involved	Id's of the nodes involved in the contraction 
+				\return			old node-node and node-element connections for newId */
+			pair<vector<UInt>, vector<UInt>> applyEdgeCollapse(const UInt & oldId, const UInt & newId, 
 				const vector<UInt> & toRemove, const vector<UInt> & toKeep, 
 				const vector<UInt> & involved);
-						
+				
+			//
+			// Methods to restore connections to the status 
+			// prior to a temporary edge collapse
+			//
+			
+			/*!	Restore node-node connections to the status 
+				prior to an edge collapse.
+			
+				\param oldId				Id of the node previously removed
+				\param newId				Id of the node temporarily replacing oldId
+				\param newId_oldNode2Node	old node-node connections for newId;
+											these may be given by replaceNodeInNode2Node()
+											
+				\sa replaceNodeInNode2Node() */
+			void restoreNode2Node(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & newId_oldNode2Node);
+			
+			/*!	Restore node-element connections to the status 
+				prior to an edge collapse (debug mode).
+				
+				\param oldId				Id of the node previously removed
+				\param newId				Id of the node temporarily replacing oldId
+				\param newId_oldNode2Elem	old node-element connections for newId;
+											these may be given by replaceNodeInNode2Elem()
+				
+				\sa replaceNodeInNode2Elem() */
+			void restoreNode2Elem(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & newId_oldNode2Elem);
+				
+			/*!	Restore node-element connections to the status 
+				prior to an edge collapse (release mode).
+				
+				\param oldId				Id of the node previously removed
+				\param newId				Id of the node temporarily replacing oldId
+				\param newId_oldNode2Elem	old node-element connections for newId;
+											these may be given by replaceNodeInNode2Elem()
+				\param onEdge				Id's of elements insisting on the edge
+				
+				\sa replaceNodeInNode2Elem() */
+			void restoreNode2Elem(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & newId_oldNode2Elem, const vector<UInt> & onEdge);
+			
+			/*!	Restore element-node connections to the status 
+				prior to an edge collapse (debug mode).
+				\param oldId	Id of the node previously removed
+				\param newId	Id of the node temporarily replacing oldId */
+			void restoreElem2Node(const UInt & oldId, const UInt & newId);
+			
+			/*!	Restore element-node connections to the status 
+				prior to an edge collapse (release mode).
+				\param oldId		Id of the node previously removed
+				\param newId		Id of the node temporarily replacing oldId 
+				\param onEdge		Id's of the elements insisting on the edge */
+			void restoreElem2Node(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & onEdge);
+				
+			/*!	Restore element-element connections to the status 
+				prior to an edge collapse (debug mode).
+				\param oldId		Id of the node previously removed
+				\param newId		Id of the node temporarily replacing oldId */
+			void restoreElem2Elem(const UInt & oldId, const UInt & newId);
+			
+			/*!	Restore element-element connections to the status 
+				prior to an edge collapse (release mode).
+				\param oldId		Id of the node previously removed
+				\param newId		Id of the node temporarily replacing oldId 
+				\param onEdge		Id's of the elements insisting on the edge 
+				\param toModify		Id's of elements involved in edge collapse
+									but not insisting on the edge */
+			void restoreElem2Elem(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & onEdge, const vector<UInt> & toModify);
+			
+			/*!	Restore connections to the status prior to an edge collapse
+				(debug mode).
+				This method shows the order the previous methods should be called.
+				
+				\param oldId				Id of the node previously removed
+				\param newId				Id of the node temporarily replacing oldId
+				\param newId_oldNode2Node	old node-node connections for newId;
+											these may be given by replaceNodeInNode2Node()
+				\param newId_oldNode2Elem	old node-element connections for newId;
+											these may be given by replaceNodeInNode2Elem()	
+											
+				\sa replaceNodeInElem2Node(), replaceNodeInNode2Node(), replaceNodeInNode2Elem() */
+			void undoEdgeCollapse(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & newId_oldNode2Node, const vector<UInt> & newId_oldNode2Elem);
+				
+			/*!	Restore connections to the status prior to an edge collapse
+				(release mode).
+				This method shows the order the previous methods should be called.
+				
+				\param oldId				Id of the node previously removed
+				\param newId				Id of the node temporarily replacing oldId
+				\param newId_oldNode2Node	old node-node connections for newId;
+											these may be given by replaceNodeInNode2Node()
+				\param newId_oldNode2Elem	old node-element connections for newId;
+											these may be given by replaceNodeInNode2Elem()
+				\param onEdge				Id's of the elements insisting on the edge 
+				\param toModify				Id's of elements involved in edge collapse
+											but not insisting on the edge 	
+											
+				\sa replaceNodeInElem2Node(), replaceNodeInNode2Node(), replaceNodeInNode2Elem() */
+			void undoEdgeCollapse(const UInt & oldId, const UInt & newId,
+				const vector<UInt> & newId_oldNode2Node, const vector<UInt> & newId_oldNode2Elem,
+				const vector<UInt> & onEdge, const vector<UInt> & toModify);
+									
 			//
 			// Get methods
 			//

@@ -24,7 +24,6 @@ namespace geometry
 	class OnlyGeo final : public bcost<Triangle, MT, OnlyGeo<MT>>
 	{
 		/*!	Base class is a friend function. */
-		// Note: typedef's do not work in friend class declarations
 		friend class bcost<Triangle, MT, OnlyGeo<MT>>;
 		
 		private:

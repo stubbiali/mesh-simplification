@@ -9,7 +9,7 @@
 
 namespace geometry
 {
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> operator+(const array<Real,N> & a, const array<Real,N> & b)
 	{
 		array<Real,N> c;
@@ -18,15 +18,15 @@ namespace geometry
 	}
 	
 	
-	template<UInt N>
-	array<Real,N> operator+=(array<Real,N> & a, const array<Real,N> & b)
+	template<ULInt N>
+	array<Real,N> & operator+=(array<Real,N> & a, const array<Real,N> & b)
 	{
 		transform(a.begin(), a.end(), b.cbegin(), a.begin(), plus<Real>());
 		return a;
 	}
 	
 	
-	template<UInt N>
+	template<ULInt N>
 	array<Real,N> operator*(const Real & s, const array<Real,N> & a)
 	{
 		array<Real,N> res;
@@ -35,7 +35,7 @@ namespace geometry
 	}
 	
 	
-	template<UInt N>
+	template<ULInt N>
 	INLINE array<Real,N> operator*(const array<Real,N> & a, const Real & s)
 	{
 		return s*a;

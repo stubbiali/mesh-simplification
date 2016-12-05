@@ -172,6 +172,13 @@ namespace geometry
 		
 		return Nt;
 	}
+	
+	
+	template<typename SHAPE>
+	INLINE bool meshInfo<SHAPE, MeshType::DATA>::isEmpty(const UInt & Id) const
+	{
+		return (this->connectivity.elem2data[Id].size() == 0);
+	}
 }
 
 #endif

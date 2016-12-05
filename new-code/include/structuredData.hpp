@@ -68,14 +68,14 @@ namespace geometry
 				\return		set of bounding boxes */
 			unordered_multiset<bbox3d> getBoundingBox() const;
 			
-			/*!	Get Id's of elements whose bounding box intersect
-				the bounding box of a given element.
+			/*!	Get Id's of elements whose bounding box may 
+				intersect the bounding box of a given element.
 				This method will be useful when checking for
 				mesh self-intersections.
 				
 				\param Id	element Id
 				\return		vector of Id's */ 
-			vector<UInt> getIntersectingBoundingBoxes(const UInt & Id) const;
+			vector<UInt> getNeighbouringElements(const UInt & Id) const;
 			
 			//
 			// Set methods

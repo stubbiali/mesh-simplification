@@ -68,7 +68,7 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
-	vector<UInt> structuredData<SHAPE>::getIntersectingBoundingBoxes(const UInt & Id) const
+	vector<UInt> structuredData<SHAPE>::getNeighbouringElements(const UInt & Id) const
 	{
 		// Implementation provide only for triangular and quadrilateral grids
 		static_assert(((SHAPE::numVertices == 3) || (SHAPE::numVertices == 4)),
@@ -111,7 +111,7 @@ namespace geometry
 					// Out of these boxes, keep only the active ones 
 					// actually intersecting the reference bounding box
 					for (auto it = range.first; it != range.second; ++it)
-						if (grid->getElem(it->getId()).isActive() && doIntersect(box,*it))
+						if (grid->getElem(it->getId()).isActive())
 							res.insert(it->getId());
 				}
 		

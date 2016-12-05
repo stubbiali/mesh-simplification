@@ -79,7 +79,7 @@ int main()
 		auto toMove = prj.getDataModifiedInEdgeCollapsing(invElems); 
 			
 		// Update node-node, node-element, element-element connections
-		prj.getPointerToConnectivity()->applyEdgeCollapsing(id2, id1, toRemove, toKeep);
+		prj.getPointerToConnectivity()->applyEdgeCollapse(id2, id1, toRemove, toKeep);
 	
 		// Project data points and update data-element and element-data connections
 		prj.project(toMove, toKeep);

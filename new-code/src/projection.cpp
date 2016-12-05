@@ -8,6 +8,11 @@
 #include "gutility.hpp"
 #include "projection.hpp"
 
+// Include implementations of inlined class members
+#ifndef NDEBUG
+#include "inline/inline_projection.hpp"
+#endif
+
 namespace geometry
 {
 	//

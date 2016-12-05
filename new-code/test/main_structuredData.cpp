@@ -24,7 +24,7 @@ int main()
 	structuredData<Triangle> sd(news);
 	
 	// Extract intersecting bounding boxes
-	auto ids = sd.getIntersectingBoundingBoxes(69229);
+	auto ids = sd.getNeighbouringElements(69229);
 	
 	#ifdef NDEBUG
 	stop = high_resolution_clock::now();
