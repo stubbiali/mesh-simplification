@@ -107,7 +107,6 @@ namespace geometry
 		// Re-build all connections and the set of edges
 		this->buildNode2Node();
 		this->buildNode2Elem();
-		this->buildElem2Elem();
 		buildData2Elem();
 		buildElem2Data();
 	}
@@ -129,8 +128,6 @@ namespace geometry
 	template<typename SHAPE>
 	void connect<SHAPE, MeshType::DATA>::eraseDataInElem2Data(const UInt & Id)
 	{
-		assert(Id < this->grid.getNumData());
-		
 		// Extract data-element connections
 		auto elems = data2elem[Id].getConnected();
 		
@@ -151,8 +148,6 @@ namespace geometry
 	template<typename SHAPE>
 	void connect<SHAPE, MeshType::DATA>::insertDataInElem2Data(const UInt & Id)
 	{
-		assert(Id < this->grid.getNumData());
-		
 		// Extract data-element connections
 		auto elems = data2elem[Id].getConnected();
 		
@@ -177,7 +172,6 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE graphItem connect<SHAPE, MeshType::DATA>::getData2Elem(const UInt & Id) const
 	{
-		assert(Id < this->grid.getNumData());
 		return data2elem[Id];
 	}
 	
@@ -192,7 +186,6 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE graphItem connect<SHAPE, MeshType::DATA>::getElem2Data(const UInt & Id) const
 	{
-		assert(Id < this->grid.getNumElems());
 		return elem2data[Id];
 	}
 	
@@ -211,8 +204,6 @@ namespace geometry
 	template<typename SHAPE>
 	vector<UInt> connect<SHAPE, MeshType::DATA>::setData2Elem(const UInt & Id, const set<UInt> & newConn)
 	{
-		assert(Id < this->grid.getNumData());
-		
 		// Extract old data-element connections
 		auto oldConn = data2elem[Id].getConnected();
 		
@@ -234,8 +225,6 @@ namespace geometry
 	template<typename SHAPE>
 	vector<UInt> connect<SHAPE, MeshType::DATA>::setData2Elem(const UInt & Id, const vector<UInt> & newConn)
 	{
-		assert(Id < this->grid.getNumData());
-		
 		// Extract old data-element connections
 		auto oldConn = data2elem[Id].getConnected();
 		
@@ -258,7 +247,6 @@ namespace geometry
 	graphItem connect<SHAPE, MeshType::DATA>::setData2Elem(const graphItem & newData2Elem)
 	{
 		auto Id = newData2Elem.getId();
-		assert(Id < this->grid.getNumData());
 		
 		// Extract old data-element connections
 		auto oldConn = data2elem[Id];

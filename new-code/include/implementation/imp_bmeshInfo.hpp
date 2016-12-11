@@ -44,6 +44,8 @@ namespace geometry
 	bmeshInfo<SHAPE,MT>::bmeshInfo(const bmesh<SHAPE> & bg) :
 		connectivity(bg)
 	{
+		// Set boundary flag for each node
+		setBoundary();
 	}
 	
 	
@@ -52,6 +54,8 @@ namespace geometry
 	bmeshInfo<SHAPE,MT>::bmeshInfo(Args... args) :
 		connectivity(args...)
 	{
+		// Set boundary flag for each node
+		setBoundary();
 	}
 	
 	
@@ -74,6 +78,13 @@ namespace geometry
 	
 	
 	template<typename SHAPE, MeshType MT>
+	INLINE const mesh<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getCPointerToMesh() const
+	{
+		return &connectivity.grid;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
 	INLINE connect<SHAPE,MT> bmeshInfo<SHAPE,MT>::getConnectivity() const
 	{
 		return connectivity;
@@ -81,6 +92,13 @@ namespace geometry
 	
 	template<typename SHAPE, MeshType MT>
 	INLINE connect<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getPointerToConnectivity()
+	{
+		return &connectivity;
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE const connect<SHAPE,MT> * bmeshInfo<SHAPE,MT>::getCPointerToConnectivity() const
 	{
 		return &connectivity;
 	}
@@ -141,6 +159,23 @@ namespace geometry
 		auto s = set_symmetric_difference(connectivity.node2elem[id1], 
 			connectivity.node2elem[id2]);
 		return vector<UInt>(s.begin(), s.end());
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	vector<UInt> bmeshInfo<SHAPE,MT>::getExtendedNodePatch(const UInt & Id) const
+	{
+		set<UInt> s;
+		
+		// Extract nodes connected to Id
+		auto nodes = connectivity.node2node[Id].getConnected();
+		
+		// Extract elements connected to each node,
+		// then insert them in the set
+		for (auto node : nodes)
+			set_union(connectivity.node2elem[node], s);
+			
+		return {s.cbegin(), s.cend()};
 	}
 	
 	
@@ -386,6 +421,21 @@ namespace geometry
 			connectivity.grid.setBoundary(Id,1);
 		else
 			connectivity.grid.setBoundary(Id,2);
+			
+		// To avoid holes, check that the number of elements insisting
+		// on each edge sharing the node is equal to two
+		// If not, that edge belongs to the boundary, then the node
+		// cannot be moved
+		auto nodes = connectivity.node2node[Id].getConnected();
+		for (auto node : nodes)
+		{
+			auto onEdge = getElemsOnEdge(Id,node);
+			if (onEdge.size() < 2)
+			{
+				connectivity.grid.setBoundary(Id,2);
+				break;
+			}
+		}
 	}
 	
 	

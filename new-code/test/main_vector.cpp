@@ -73,10 +73,21 @@ int main()
     // Test array
     //
     
+    /*
     {
     	array<double,5> v;
     	v = {1,2,3,4,5};
 		for (auto el : v)
 			cout << el << endl;
+    }
+    */
+    
+    {
+    	double a(0.);
+    	{
+    		double c(5.);
+    		a = c;
+    	}
+    	cout << a << endl;
     }
 }

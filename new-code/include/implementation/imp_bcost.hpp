@@ -41,16 +41,7 @@ namespace geometry
 	{
 		return static_cast<const D *>(this)->imp_getPointsList(id1, id2);
 	}
-	
-	
-	
-	template<typename SHAPE, MeshType MT, typename D>
-	INLINE Real bcost<SHAPE,MT,D>::getCost(const UInt & id1, const UInt & id2, 
-		const point3d & p) const
-	{
-		return static_cast<const D *>(this)->imp_getCost(id1, id2, p);
-	}
-	
+		
 	
 	template<typename SHAPE, MeshType MT, typename D>
 	INLINE vector<collapseInfo> bcost<SHAPE,MT,D>::getCollapseInfoList() const
@@ -89,14 +80,10 @@ namespace geometry
 			throw runtime_error(msg);
 		}
 	}
-	
-	
-	template<typename SHAPE, MeshType MT, typename D>
-	template<typename... Args>
-	void bcost<SHAPE,MT,D>::update(const UInt & id, Args... args)
-	{
-		static_cast<D *>(this)->imp_update(id, args...);
-	}
 }
+
+#ifdef INLINED
+#include "inline/inline_bcost.hpp"
+#endif
 
 #endif

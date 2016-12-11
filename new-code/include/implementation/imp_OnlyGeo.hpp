@@ -104,26 +104,26 @@ namespace geometry
 	
 	
 	template<MeshType MT>
-	void OnlyGeo<MT>::imp_update(const UInt & id)
+	void OnlyGeo<MT>::imp_update(const UInt & newId)
 	{
 		assert(this->oprtr != nullptr);
 		
 		// Extract the nodes connected to id
-		auto nodes = this->oprtr->getPointerToConnectivity()->getNode2Node(id).getConnected();
+		auto nodes = this->oprtr->getPointerToConnectivity()->getNode2Node(newId).getConnected();
 		
 		// 
 		// Re-build Q matrix for the collapsing point
 		//
 		
 		// Set Q to zero
-		Qs[id] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+		Qs[newId] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
 		
 		// Loop over all elements sharing the collapsing point,
 		// compute K and add it to Q
-		auto id_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(id).getConnected();
+		auto id_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(newId).getConnected();
 		for (auto elem : id_elems)
 		{
-			Qs[id] += getKMatrix(elem);
+			Qs[newId] += getKMatrix(elem);
 		}
 		
 		// 
@@ -267,7 +267,7 @@ namespace geometry
 		//
 		
 		if (((bP == 0) && (bQ == 1)) || ((bP != 2) && (bQ == 2)))
-			return {P};
+			return {Q};
 			
 		//
 		// Remaining scenario: both end-points are triple points

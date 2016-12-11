@@ -135,7 +135,7 @@ namespace geometry
 		point3d A(grid->getNode(el1[0]));
 		point3d B(grid->getNode(el1[1]));
 		point3d C(grid->getNode(el1[2]));
-		
+				
 		// Extract vertices of first element
 		auto el2 = grid->getElem(id2); 
 		point3d D(grid->getNode(el2[0]));

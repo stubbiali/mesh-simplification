@@ -227,7 +227,7 @@ namespace geometry
 		Real t;
 		
 		// Compute numerator and denumerator of Equation (7.7), p. 228
-		auto num = D - Q*N;
+		auto q_plane = D - Q*N;
 		auto den = (R - Q)*N;
 		
 		//
@@ -238,7 +238,7 @@ namespace geometry
 		// If the numerator does not vanish: the segment does not belong to the plane
 		if ((-TOLL <= den) && (den <= TOLL))
 		{
-			if ((-TOLL <= num) && (num <= TOLL))
+			if ((-TOLL <= q_plane) && (q_plane <= TOLL))
 				l2p = Line2Plane::COMPLANAR;
 			else
 				l2p = Line2Plane::PARALLEL;
@@ -250,7 +250,18 @@ namespace geometry
 		// The segment is not parallel to the plane
 		//
 		
-		t = num/den;
+		// Check if the plane and the segment intersect
+		// in the querying vertex of the segment
+		if ((-TOLL <= q_plane) && (q_plane <= TOLL))
+			return make_tuple(l2p, p2s, 0.);
+			
+		// Check if the plane and the segment intersect
+		// in the ray vertex of the segment
+		auto r_plane = D - R*N;
+		if ((-TOLL <= r_plane) && (r_plane <= TOLL))
+			return make_tuple(l2p, p2s, 1.);
+			
+		t = q_plane/den;
 		
 		// They intersect one each other iff \$ 0 \leq t \leq 1 \$
 		if ((t < -TOLL) || (t > 1.+TOLL))
@@ -266,10 +277,14 @@ namespace geometry
 			p2s = Point2Seg::INTERN;
 			return make_tuple(l2p, p2s, t);
 		}
-					
-		// Only remaining scenario: the intersection point coincides
-		// with a vertex of the segment, i.e. \$ t == 0 \$ or \$ t == 1 \$
-		return make_tuple(l2p, p2s, t);
+		
+		// Due to floating point arithmetic, t may turn out to be 
+		// close to 0 or 1, i.e. $-TOLL \leq t \leq TOLL$ or 
+		// $1-TOLL \leq t \leq 1+TOLL$. To avoid any run time issue, 
+		// we should handle this situation properly.
+		if ((-TOLL <= t) && (t <= TOLL))
+			return make_tuple(l2p, p2s, 0.);
+		return make_tuple(l2p, p2s, 1.);
 	}
 	
 	
@@ -344,7 +359,13 @@ namespace geometry
 		//
 		
 		// Compute the intersection point
-		point2d p = q + t*(r - q);
+		point2d p;
+		if ((-TOLL <= t) && (t <= TOLL))
+			p = q;
+		else if ((1.-TOLL <= t) && (t <= 1.+TOLL))
+			p = r;
+		else
+			p = q + t*(r - q);
 		
 		// Find the relative position between the intersection
 		// point and the triangle

@@ -18,7 +18,6 @@ namespace geometry
 		<ol>
 		<li> node-node;
 		<li> node-element;
-		<li> element-element.
 		<\ol>
 		Moreover, the set of edges is created.
 		For grids with distributed data, we delegate to the derived class
@@ -30,10 +29,10 @@ namespace geometry
 		When the class is required to modify some connections,
 		it supposes the mesh has been already accordingly modified.
 		This class does not directly modify the mesh in any way,
-		other classes (e.g. doctor) will be in charge of this.
+		other classes (e.g. simplification) will be in charge of this.
 		To make the connections updated with the mesh, call refresh().
 		
-		\sa connect.hpp, doctor.hpp */
+		\sa connect.hpp, simplification.hpp */
 		
 	template<typename SHAPE, MeshType MT>
 	class bconnect
@@ -61,10 +60,7 @@ namespace geometry
 			
 			/*! Node-element connections. */
 			vector<graphItem> node2elem;
-			
-			/*! Element-element connections. */
-			vector<graphItem> elem2elem;
-			
+						
 		public:
 			//
 			// Constructor and destructor
@@ -96,14 +92,7 @@ namespace geometry
 			
 			/*! Initialize node-element connections. */
 			void buildNode2Elem();
-			
-			/*! Build element-element connections for an element.
-				\param Id	element Id */
-			void buildElem2Elem(const UInt & Id);
-			
-			/*! Initialize element-element connections. */
-			void buildElem2Elem();
-			
+						
 			/*! Re-build all connections. */
 			virtual void refresh();
 			
@@ -185,10 +174,6 @@ namespace geometry
 				\param involved	Id's of nodes involved in the contraction */
 			void eraseElemsInNode2Elem(const vector<UInt> & toRemove, const UInt & newId, 
 				const vector<UInt> & involved);
-			
-			/*! Remove elements from element-element connections.
-				\param toRemove	Id's of elements to remove */
-			void eraseElemsInElem2Elem(const vector<UInt> & toRemove);
 			
 			/*! Update connections after an edge contraction (debug mode).
 				Note that the set of edges is not updated. 
@@ -283,22 +268,6 @@ namespace geometry
 			void restoreElem2Node(const UInt & oldId, const UInt & newId,
 				const vector<UInt> & onEdge);
 				
-			/*!	Restore element-element connections to the status 
-				prior to an edge collapse (debug mode).
-				\param oldId		Id of the node previously removed
-				\param newId		Id of the node temporarily replacing oldId */
-			void restoreElem2Elem(const UInt & oldId, const UInt & newId);
-			
-			/*!	Restore element-element connections to the status 
-				prior to an edge collapse (release mode).
-				\param oldId		Id of the node previously removed
-				\param newId		Id of the node temporarily replacing oldId 
-				\param onEdge		Id's of the elements insisting on the edge 
-				\param toModify		Id's of elements involved in edge collapse
-									but not insisting on the edge */
-			void restoreElem2Elem(const UInt & oldId, const UInt & newId,
-				const vector<UInt> & onEdge, const vector<UInt> & toModify);
-			
 			/*!	Restore connections to the status prior to an edge collapse
 				(debug mode).
 				This method shows the order the previous methods should be called.
@@ -325,13 +294,11 @@ namespace geometry
 				\param newId_oldNode2Elem	old node-element connections for newId;
 											these may be given by replaceNodeInNode2Elem()
 				\param onEdge				Id's of the elements insisting on the edge 
-				\param toModify				Id's of elements involved in edge collapse
-											but not insisting on the edge 	
 											
 				\sa replaceNodeInElem2Node(), replaceNodeInNode2Node(), replaceNodeInNode2Elem() */
 			void undoEdgeCollapse(const UInt & oldId, const UInt & newId,
 				const vector<UInt> & newId_oldNode2Node, const vector<UInt> & newId_oldNode2Elem,
-				const vector<UInt> & onEdge, const vector<UInt> & toModify);
+				const vector<UInt> & onEdge);
 									
 			//
 			// Get methods
@@ -344,6 +311,10 @@ namespace geometry
 			/*! Get pointer to the mesh.
 				\return		pointer the mesh */
 			mesh<SHAPE,MT> * getPointerToMesh();
+			
+			/*!	Get number of edges.
+				\return		number of edges */
+			UInt getNumEdges() const;
 			
 			/*! Get edges of the mesh.
 				\return		vector of edges */
@@ -368,16 +339,7 @@ namespace geometry
 			/*! Get node-element connections for all nodes.
 				\return		vector of connections */
 			vector<graphItem> getNode2Elem() const;
-			
-			/*! Get the element-element connections for an element.
-				\param Id	element Id
-				\return		the connections */
-			graphItem getElem2Elem(const UInt & Id) const;
-			
-			/*! Get element-element connections for all elements.
-				\return		vector of connections */
-			vector<graphItem> getElem2Elem() const;
-			
+						
 			//
 			// Set methods
 			//

@@ -36,6 +36,7 @@
 #include "meshInfo.hpp"
 #include "projection.hpp"
 #include "OnlyGeo.hpp"
+#include "DataGeo.hpp"
 #include "structuredData.hpp"
 #include "intersection.hpp"
 
@@ -48,7 +49,7 @@ int main()
 	#endif
 	
 	// File to mesh
-	string inputfile("../../mesh/bunny.inp");
+	string inputfile("../../mesh/left_hemisphere.vtk");
 	
 	//
 	// Test connections restoration
@@ -72,7 +73,9 @@ int main()
 		
 		projection<Triangle> prj(inputfile);
 		auto conn = prj.getPointerToConnectivity();
-		OnlyGeo<MeshType::DATA> costFunction(prj.getPointerToProjection());
+		//cout << conn->getNumEdges() << endl;
+		//OnlyGeo<MeshType::DATA> costFunction(prj.getPointerToProjection());
+		DataGeo costFunction(1./3., 1./3., 1./3., prj.getPointerToProjection());
 		structuredData<Triangle> sdata(prj);
 		intersection<Triangle> intrs(prj.getPointerToMesh());
 		
@@ -83,11 +86,13 @@ int main()
 		#endif
 		
 		// Edge end-points
-		UInt id1(6721), id2(16057);
+		//UInt id1(27040), id2(28289);
+		//UInt id1(6721), id2(16057);
+		UInt id1(38521), id2(39551);
 		
 		// Test points
-		UInt id3(888), id4(8034), id5(1983);
-		//UInt id3(38496), id4(39531), id5(40499);
+		//UInt id3(888), id4(8034), id5(1983);
+		UInt id3(38496), id4(39531), id5(40499);
 		
 		#ifndef NDEBUG
 		// Extract node-node and node-element connections
@@ -236,21 +241,45 @@ int main()
 				
 				// No mesh self-intersections
 				auto elems = sdata.getNeighbouringElements(*it1);
+				/*
 				#ifndef NDEBUG
 				if (i == 0)
 					cout << "Number of intersection tests: " << elems.size() << endl; 
 				#endif
+				*/
 				for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+				{
 					valid = !(intrs.intersect(*it1, *it2));
+					#ifndef NDEBUG
+					if (!(valid))
+					{
+						cout << "Intersecting triangles: " << *it1 << " and " << *it2 << endl;
+						
+						auto it1_conn = prj.getPointerToMesh()->getElem(*it1).getVertices();
+						cout << "Vertices of " << *it1 << ":" << endl;
+						cout << prj.getPointerToMesh()->getNode(it1_conn[0]) << endl;
+						cout << prj.getPointerToMesh()->getNode(it1_conn[1]) << endl;
+						cout << prj.getPointerToMesh()->getNode(it1_conn[2]) << endl;
+						
+						auto it2_conn = prj.getPointerToMesh()->getElem(*it2).getVertices();
+						cout << "Vertices of " << *it2 << ":" << endl;
+						cout << prj.getPointerToMesh()->getNode(it2_conn[0]) << endl;
+						cout << prj.getPointerToMesh()->getNode(it2_conn[1]) << endl;
+						cout << prj.getPointerToMesh()->getNode(it2_conn[2]) << endl;
+					}
+					#endif
+				}
 			}
 					
 			//
 			// Get cost associated with edge collapse
 			//
-		
+			
 			if (valid)
 			{
-				auto cost = costFunction.getCost(id1, id2, pointsList[i]);
+				//auto cost = costFunction.getCost(id1, id2, pointsList[i]);
+				auto cost = costFunction.getCost(id1, id2, pointsList[i], toKeep, toMove);
+				
 				#ifndef NDEBUG
 				cout << "Edge collapse cost: " << cost << endl;
 				#endif
@@ -276,7 +305,7 @@ int main()
 		
 		// Restore connections
 		conn->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second,
-			toRemove, toKeep); 
+			toRemove); 
 			
 		// Restore list of nodes
 		prj.getPointerToMesh()->setNode(id1, P);

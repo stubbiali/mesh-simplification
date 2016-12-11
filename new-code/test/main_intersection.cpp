@@ -3,6 +3,8 @@
 			by the class intersection<Triangle>. */
 			
 #include <chrono>
+
+#include "gutility.hpp"
 #include "intersection.hpp"
 
 using namespace geometry;
@@ -55,33 +57,44 @@ int main()
 		utility::printPoint2Tri(intersection<Triangle>::inTri2d(p5,a,b,c));		
 		cout << endl;
 	}
-	
+	*/
 	//
 	// Test segment-plane intersection
 	//
-	
+	/*
 	{
-		// The triangle defining the plane
-		point3d A(1,0,0);
-		point3d B(0,1,0);
-		point3d C(0,0,1);
+		string inputfile("../../mesh/bunny.inp");
+		bmesh<Triangle> bm(inputfile);
+		
+		UInt id1(8356);
+		UInt id2(1693);
+		
+		auto el1 = bm.getElem(id1); 
+		point3d A(bm.getNode(el1[0]));
+		point3d B(bm.getNode(el1[1]));
+		point3d C(bm.getNode(el1[2]));
+		
+		auto el2 = bm.getElem(id2); 
+		point3d D(bm.getNode(el2[0]));
+		point3d E(bm.getNode(el2[1]));
+		point3d F(bm.getNode(el2[2]));
 		
 		// Compute N and D
-		auto N = (B-A)^(C-B);
-		auto D = N*A;
+		auto N = ((E-D)^(F-E)).normalize();
+		auto RHS = N*D;
 		
 		// The segment
-		point3d Q(0,1,-1);
-		point3d R(1,0,-1);
+		point3d Q(A);
+		point3d R(B);
 		
 		// Output
-		auto ans = intersection<Triangle>::intSegPlane(Q,R,N,D);
+		auto ans = gutility::intSegPlane(Q,R,N,RHS);
 		utility::printLine2Plane(get<0>(ans));
 		utility::printPoint2Seg(get<1>(ans));
 		cout << "t = " << get<2>(ans) << endl;
 		cout << endl;
 	}
-	
+	*/	
 	//
 	// Test triangle-triangle intersection (non-static API)
 	//
@@ -89,11 +102,12 @@ int main()
 	{
 		// Read mesh
 		string inputfile("../../mesh/bunny.inp");
-		intersection<Triangle> ntr(inputfile);
+		bmesh<Triangle> bm(inputfile);
+		intersection<Triangle> ntr(&bm);
 		
 		// Id's of triangles to consider
-		UInt id1 = 8034;
-		UInt id2 = 8194;
+		UInt id1 = 8356;
+		UInt id2 = 1693;
 		
 		// Test intersection
 		#ifndef NDEBUG
@@ -116,9 +130,8 @@ int main()
 		auto duration = duration_cast<milliseconds>(stop-start).count();
 		cout << "Elapsed time: " << duration << " ms" << endl;
 		#endif
-		cout << endl;
 	}
-	*/
+	/*
 	//
 	// Test triangle-triangle intersection (static API)
 	//
@@ -142,4 +155,5 @@ int main()
 		else
 			cout << "Triangles do not intersect." << endl;
 	}
+	*/
 }

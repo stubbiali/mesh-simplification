@@ -14,7 +14,7 @@
 #endif
 
 namespace geometry
-{
+{	
 	//
 	// Constructors
 	//
@@ -43,11 +43,11 @@ namespace geometry
 		
 		// Get the "xy"-plane
 		auto z = N.getMaxCoor();
-		auto x = (z+1) % 3;
-		auto y = (z+2) % 3;
-		
+		UInt x = (z+1) % 3;
+		UInt y = (z+2) % 3;
+					
 		//
-		// Project onto the plane defined by the triangle
+		// Project the point onto the plane defined by the triangle
 		//
 		// Let $Q$ be the projected point, it belongs to the plane, i.e.
 		// $N \cdot Q = D$. Then, introducing $t \in \mathcal{R}$ such that
@@ -57,32 +57,165 @@ namespace geometry
 		
 		auto t = D - P*N;
 		auto Q = P + t*N;
-		
+				
 		//
-		// Check if the projection falls within the triangle 
-		//
-		
 		// Project all points onto the "xy"-plane
+		//
+		
 		point2d q(Q[x],Q[y]);
 		point2d a(A[x],A[y]);
 		point2d b(B[x],B[y]);
 		point2d c(C[x],C[y]);
 		
-		// Check if q belongs to abc
-		auto q_abc = gutility::inTri2d(q,a,b,c);
-		if (q_abc == Point2Tri::EXTERN)
-			return make_pair(-1,Q);
-		else
-			return make_pair(abs(t),Q);
+		//
+		// Check if the projection falls within the triangle
+		//
+		// If so, compute the square distance and return
+		
+		auto q_abc = gutility::inTri2d(q, a, b, c);
+		if (q_abc != Point2Tri::EXTERN)
+			return make_pair((P - Q)*(P - Q), Q);
+			
+		//
+		// The projection is outside the triangle and the element of the
+		// triangle closest to the projection is an edge
+		//
+		// For each edge, test if the orthogonal projection of the point
+		// onto the line of edge falls within the edge itself.
+		// To compute the projection $Q'$ of a point $Q$ onto the line
+		// $A B$, first note that $Q'$ can be expressed as $Q' = A + t (B - A)$,
+		// with $t \in \mathcal{R}$. Then, imposing the orthogonality between
+		// $Q Q'$ and $A B$, one gets 
+		// $t = \dfrac{(Q - A) \cdot (B - A)}{(B - A) \cdot (B - A)}$.
+		// To check if $Q'$ actually falls between $A$ and $B$, check that $A$
+		// is on the left (right) of $Q Q'$, while $B$ is on the right (left) of $Q Q'$. 
+		
+		Real opt_dist(numeric_limits<Real>::max());
+		point3d opt_Qp;
+		
+		//
+		// Edge AB
+		//
+		
+		{
+			// Project Q onto the line AB
+			auto t = (Q - A) * (B - A) / ((B - A)*(B - A));
+			auto Qp = A + t * (B - A);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within a and b...
+			auto qqpa = gutility::getTriArea2d(q, qp, a);
+			auto qqpb = gutility::getTriArea2d(q, qp, b);
+			
+			// ... and if so, update optimal variables
+			if (qqpa*qqpb < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+		
+		//
+		// Edge BC
+		//
+		
+		{
+			// Project Q onto the line BC
+			auto t = (Q - B) * (C - B) / ((C - B)*(C - B));
+			auto Qp = B + t * (C - B);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within b and c...
+			auto qqpb = gutility::getTriArea2d(q, qp, b);
+			auto qqpc = gutility::getTriArea2d(q, qp, c);
+			
+			// ... and if so, update optimal variables
+			if (qqpb*qqpc < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+		
+		//
+		// Edge CA
+		//
+		
+		{
+			// Project Q onto the line AB
+			auto t = (Q - C) * (A - C) / ((A - C)*(A - C));
+			auto Qp = C + t * (A - C);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within c and a...
+			auto qqpc = gutility::getTriArea2d(q, qp, c);
+			auto qqpa = gutility::getTriArea2d(q, qp, a);
+			
+			// ... and if so, update optimal variables
+			if (qqpc*qqpa < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+					
+		//
+		// The projection is outside the triangle and the point of the
+		// triangle closest to the point is a vertex
+		//
+		
+		// Vertex A
+		Real qa = (q[0]-a[0])*(q[0]-a[0]) + (q[1]-a[1])*(q[1]-a[1]);
+		if (qa < opt_dist)
+		{
+			opt_dist = qa;
+			opt_Qp = A;
+		}
+		
+		// Vertex B
+		Real qb = (q[0]-b[0])*(q[0]-b[0]) + (q[1]-b[1])*(q[1]-b[1]);
+		if (qb < opt_dist)
+		{
+			opt_dist = qb;
+			opt_Qp = B;
+		}
+			
+		// Vertex C
+		Real qc = (q[0]-c[0])*(q[0]-c[0]) + (q[1]-c[1])*(q[1]-c[1]);
+		if (qc < opt_dist)
+		{
+			opt_dist = qc;
+			opt_Qp = C;
+		}
+		
+		return make_pair(opt_dist, opt_Qp);
 	}
 	
 	
-	pair<Real,point3d> projection<Triangle>::project(const point3d & P,
-		const point2d & a, const point2d & b, const point2d & c,
+	pair<Real,point3d> projection<Triangle>::project(const point3d & P, 
+		const point3d & A, const point3d & B, const point3d & C,
 		const point3d & N, const Real & D, const UInt & x, const UInt & y)
-	{
+	{		
 		//
-		// Project onto the plane defined by the triangle
+		// Project the point onto the plane defined by the triangle
 		//
 		// Let $Q$ be the projected point, it belongs to the plane, i.e.
 		// $N \cdot Q = D$. Then, introducing $t \in \mathcal{R}$ such that
@@ -92,35 +225,175 @@ namespace geometry
 		
 		auto t = D - P*N;
 		auto Q = P + t*N;
-		
-		//
-		// Check if the projection falls within the triangle 
-		//
-		
-		// Project the projected point onto the "xy"-plane
-		point2d q(Q[x],Q[y]);
 				
-		// Check if q belongs to abc
-		auto q_abc = gutility::inTri2d(q,a,b,c);
-		if (q_abc == Point2Tri::EXTERN)
-			return make_pair(-1,Q);
-		else
-			return make_pair(abs(t),Q);
+		//
+		// Project the projection onto the "xy"-plane
+		//
+		
+		point2d q(Q[x],Q[y]);
+		point2d a(A[x],A[y]);
+		point2d b(B[x],B[y]);
+		point2d c(C[x],C[y]);
+				
+		//
+		// Check if the projection falls within the triangle
+		//
+		// If so, compute the square distance and return
+		
+		auto q_abc = gutility::inTri2d(q, a, b, c);
+		if (q_abc != Point2Tri::EXTERN)
+			return make_pair((P - Q)*(P - Q), Q);
+			
+		//
+		// The projection is outside the triangle and the element of the
+		// triangle closest to the projection is an edge
+		//
+		// For each edge, test if the orthogonal projection of the point
+		// onto the line of edge falls within the edge itself.
+		// To compute the projection $Q'$ of a point $Q$ onto the line
+		// $A B$, first note that $Q'$ can be expressed as $Q' = A + t (B - A)$,
+		// with $t \in \mathcal{R}$. Then, imposing the orthogonality between
+		// $Q Q'$ and $A B$, one gets 
+		// $t = \dfrac{(Q - A) \cdot (B - A)}{(B - A) \cdot (B - A)}$.
+		// To check if $Q'$ actually falls between $A$ and $B$, check that $A$
+		// is on the left (right) of $Q Q'$, while $B$ is on the right (left) of $Q Q'$. 
+		
+		Real opt_dist(numeric_limits<Real>::max());
+		point3d opt_Qp;
+		
+		//
+		// Edge AB
+		//
+		
+		{
+			// Project Q onto the line AB
+			auto t = (Q - A) * (B - A) / ((B - A)*(B - A));
+			auto Qp = A + t * (B - A);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within a and b...
+			auto qqpa = gutility::getTriArea2d(q, qp, a);
+			auto qqpb = gutility::getTriArea2d(q, qp, b);
+			
+			// ... and if so, update optimal variables
+			if (qqpa*qqpb < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+		
+		//
+		// Edge BC
+		//
+		
+		{
+			// Project Q onto the line BC
+			auto t = (Q - B) * (C - B) / ((C - B)*(C - B));
+			auto Qp = B + t * (C - B);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within b and c...
+			auto qqpb = gutility::getTriArea2d(q, qp, b);
+			auto qqpc = gutility::getTriArea2d(q, qp, c);
+			
+			// ... and if so, update optimal variables
+			if (qqpb*qqpc < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+		
+		//
+		// Edge CA
+		//
+		
+		{
+			// Project Q onto the line AB
+			auto t = (Q - C) * (A - C) / ((A - C)*(A - C));
+			auto Qp = C + t * (A - C);
+			
+			// Project Qp onto the "xy"-plane
+			point2d qp(Qp[x],Qp[y]);
+			
+			// Check if qp is within c and a...
+			auto qqpc = gutility::getTriArea2d(q, qp, c);
+			auto qqpa = gutility::getTriArea2d(q, qp, a);
+			
+			// ... and if so, update optimal variables
+			if (qqpc*qqpa < 0.)
+			{
+				Real dist = (P - Qp)*(P - Qp);
+				if (dist < opt_dist - TOLL)
+				{
+					opt_dist = dist;
+					opt_Qp = Qp;
+				}
+			}
+		}
+			
+		//
+		// The projection is outside the triangle and the point of the
+		// triangle closest to the point is a vertex
+		//
+		
+		// Vertex A
+		Real qa = (q[0]-a[0])*(q[0]-a[0]) + (q[1]-a[1])*(q[1]-a[1]);
+		if (qa < opt_dist - TOLL)
+		{
+			opt_dist = qa;
+			opt_Qp = A;
+		}
+		
+		// Vertex B
+		Real qb = (q[0]-b[0])*(q[0]-b[0]) + (q[1]-b[1])*(q[1]-b[1]);
+		if (qb < opt_dist - TOLL)
+		{
+			opt_dist = qb;
+			opt_Qp = B;
+		}
+			
+		// Vertex C
+		Real qc = (q[0]-c[0])*(q[0]-c[0]) + (q[1]-c[1])*(q[1]-c[1]);
+		if (qc < opt_dist - TOLL)
+		{
+			opt_dist = qc;
+			opt_Qp = C;
+		}
+		
+		return make_pair(opt_dist, opt_Qp);
 	}
-	
+		
 	
 	//
 	// Auxiliary methods
 	//
 	
 	vector<UInt> projection<Triangle>::getNewData2Elem(const point3d & Q, 
-		const UInt & elemId)
+		const UInt & Id)
 	{
+		//
+		// Preliminary computations
+		//
+		
 		// Extract the triangle and its vertices
-		auto elem = this->getPointerToMesh()->getElem(elemId);
-		point3d A(this->getPointerToMesh()->getNode(elem[0]));
-		point3d B(this->getPointerToMesh()->getNode(elem[1]));
-		point3d C(this->getPointerToMesh()->getNode(elem[2]));
+		auto elem = this->getCPointerToMesh()->getElem(Id);
+		point3d A(this->getCPointerToMesh()->getNode(elem[0]));
+		point3d B(this->getCPointerToMesh()->getNode(elem[1]));
+		point3d C(this->getCPointerToMesh()->getNode(elem[2]));
 		
 		// Compute normal to the plane defined by the triangle
 		// and the (signed) distance from the origin
@@ -138,15 +411,29 @@ namespace geometry
 		point2d b(B[x],B[y]);
 		point2d c(C[x],C[y]);
 		
+		//
 		// Compute area of the triangles qab, qbc and qca
+		//
+		
 		auto qab = gutility::getTriArea2d(q,a,b);
 		auto qbc = gutility::getTriArea2d(q,b,c);
 		auto qca = gutility::getTriArea2d(q,c,a);
-		
+				
+		//
 		// The point is internal
+		//
+		// This happens if and only if the signed areas are concorde
+		
 		if (((qab > TOLL) && (qbc > TOLL) && (qca > TOLL)) ||
 			((qab < -TOLL) && (qbc < -TOLL) && (qca < -TOLL)))
-			return {elemId};
+			return {Id};
+			
+		//
+		// The point is on the boundary
+		//
+		// If only one signed area vanishes, then the point lies on the
+		// related edge; if two areas vanish, the point coincides with
+		// the vertex shared by the two edges.
 			
 		// The point is on the edge AB...
 		if ((-TOLL <= qab) && (qab <= TOLL)) 
@@ -172,30 +459,64 @@ namespace geometry
 			return this->getElemsOnEdge(elem[1],elem[2]);
 		}
 		
-		// Remaining scenario: the point is on the edge CA
-		return this->getElemsOnEdge(elem[0],elem[2]);
+		// The point is on the edge CA
+		if ((-TOLL <= qca) && (qca <= TOLL)) 
+			return this->getElemsOnEdge(elem[0],elem[2]);
+		
+		//
+		// Floating point exception
+		//
+		// Due to floating point arithmetic, the point turns out to
+		// be outside the triangle, i.e. all signed areas are not
+		// vanishing and discorde. In this case, act as the point
+		// was internal.
+		
+		return {Id};
 	}
 	
 	
-	vector<UInt> projection<Triangle>::getNewData2Elem(const point3d & Q, const UInt & elemId, 
-		const point2d & a, const point2d & b, const point2d & c,
-		const point3d & N, const Real & D, const UInt & x, const UInt & y)
+	vector<UInt> projection<Triangle>::getNewData2Elem(const point3d & Q, 
+		const UInt & Id, const UInt & x, const UInt & y)
 	{
-		// Extract the element
-		auto elem = this->getPointerToMesh()->getElem(elemId);
+		//
+		// Preliminary computations
+		//
 		
-		// Project the point onto the "xy"-plane
+		// Extract the triangle and its vertices
+		auto elem = this->getCPointerToMesh()->getElem(Id);
+		point3d A(this->getCPointerToMesh()->getNode(elem[0]));
+		point3d B(this->getCPointerToMesh()->getNode(elem[1]));
+		point3d C(this->getCPointerToMesh()->getNode(elem[2]));
+				
+		// Project all points onto the "xy"-plane
 		point2d q(Q[x],Q[y]);
+		point2d a(A[x],A[y]);
+		point2d b(B[x],B[y]);
+		point2d c(C[x],C[y]);
 		
-		// Compute area of the triangles pab, pbc and pca
+		//
+		// Compute area of the triangles qab, qbc and qca
+		//
+		
 		auto qab = gutility::getTriArea2d(q,a,b);
 		auto qbc = gutility::getTriArea2d(q,b,c);
 		auto qca = gutility::getTriArea2d(q,c,a);
-		
+				
+		//
 		// The point is internal
+		//
+		// This happens if and only if the signed areas are concorde
+		
 		if (((qab > TOLL) && (qbc > TOLL) && (qca > TOLL)) ||
 			((qab < -TOLL) && (qbc < -TOLL) && (qca < -TOLL)))
-			return {elemId};
+			return {Id};
+			
+		//
+		// The point is on the boundary
+		//
+		// If only one signed area vanishes, then the point lies on the
+		// related edge; if two areas vanish, the point coincides with
+		// the vertex shared by the two edges.
 			
 		// The point is on the edge AB...
 		if ((-TOLL <= qab) && (qab <= TOLL)) 
@@ -221,10 +542,21 @@ namespace geometry
 			return this->getElemsOnEdge(elem[1],elem[2]);
 		}
 		
-		// Remaining scenario: the point is on the edge CA
-		return this->getElemsOnEdge(elem[0],elem[2]);
+		// The point is on the edge CA
+		if ((-TOLL <= qca) && (qca <= TOLL)) 
+			return this->getElemsOnEdge(elem[0],elem[2]);
+		
+		//
+		// Floating point exception
+		//
+		// Due to floating point arithmetic, the point turns out to
+		// be outside the triangle, i.e. all signed areas are not
+		// vanishing and discorde. In this case, act as the point
+		// was internal.
+		
+		return {Id};
 	}
-	
+		
 	
 	//
 	// Non-static interface
@@ -237,67 +569,50 @@ namespace geometry
 		// Extract data point
 		// 
 		
-		point3d P(this->getPointerToMesh()->getData(datum));
+		point3d P(this->getCPointerToMesh()->getData(datum));
 		
 		//
 		// Extract triangles
 		//
 		
 		// Declare auxiliary vectors
-		#ifndef NDEBUG
-			vector<point3d> A, B, C;
-		#else
+		vector<point3d> A, B, C;
+		#ifdef NDEBUG
 			vector<point3d> N;
 			vector<Real> D;
 			vector<UInt> x, y;
-			vector<point2d> a, b, c;
 		#endif
 		
 		// Reserve memory
-		#ifndef NDEBUG
-			A.reserve(elems.size());
-			B.reserve(elems.size());
-			C.reserve(elems.size());
-		#else
+		A.reserve(elems.size());
+		B.reserve(elems.size());
+		C.reserve(elems.size());
+		#ifdef NDEBUG
 			N.reserve(elems.size());
 			D.reserve(elems.size());
 			x.reserve(elems.size());
 			y.reserve(elems.size());
-			a.reserve(elems.size());
-			b.reserve(elems.size());
-			c.reserve(elems.size());
 		#endif
 		
 		// Get information on each triangle
 		for (UInt i = 0; i < elems.size(); ++i)
 		{
-			auto elem = this->getPointerToMesh()->getElem(elems[i]);
+			auto elem = this->getCPointerToMesh()->getElem(elems[i]);
 			
-			#ifndef NDEBUG
-				// Extract vertices
-				A.emplace_back(this->getPointerToMesh()->getNode(elem[0]));
-				B.emplace_back(this->getPointerToMesh()->getNode(elem[1]));
-				C.emplace_back(this->getPointerToMesh()->getNode(elem[2]));
-			#else
-				// Extract vertices
-				point3d A(this->getPointerToMesh()->getNode(elem[0]));
-				point3d B(this->getPointerToMesh()->getNode(elem[1]));
-				point3d C(this->getPointerToMesh()->getNode(elem[2]));
-				
+			// Extract vertices
+			A.emplace_back(this->getCPointerToMesh()->getNode(elem[0]));
+			B.emplace_back(this->getCPointerToMesh()->getNode(elem[1]));
+			C.emplace_back(this->getCPointerToMesh()->getNode(elem[2]));
+			#ifdef NDEBUG
 				// Extract normal to the plane defined by the triangle
 				// and (signed) distance from the origin
-				N.emplace_back(((B - A)^(C - B)).normalize());
-				D.emplace_back(N[i]*A);
-			
+				N.emplace_back(((B[i] - A[i])^(C[i] - B[i])).normalize());
+				D.emplace_back(N[i]*A[i]);
+				
 				// Get the "xy"-plane
 				auto z = N[i].getMaxCoor();
 				x.emplace_back((z+1) % 3);
 				y.emplace_back((z+2) % 3);
-			
-				// Project vertices onto the "xy"-plane
-				a.emplace_back(A[x[i]],A[y[i]]);
-				b.emplace_back(B[x[i]],B[y[i]]);
-				c.emplace_back(C[x[i]],C[y[i]]);
 			#endif
 		}
 		
@@ -307,7 +622,7 @@ namespace geometry
 		
 		Real dist, opt_dist(numeric_limits<Real>::max());
 		point3d Q, opt_Q;
-		UInt opt_id(this->getPointerToMesh()->getNumElems()), opt_i;
+		UInt opt_id(MAX_NUM_ELEMS), opt_i;
 		
 		// Loop over all triangles
 		for (UInt i = 0; i < elems.size(); ++i)
@@ -316,8 +631,7 @@ namespace geometry
 			#ifndef NDEBUG
 				tie(dist,Q) = project(P, A[i], B[i], C[i]);
 			#else
-				tie(dist,Q) = project(P, a[i], b[i], c[i],
-					N[i], D[i], x[i], y[i]);
+				tie(dist,Q) = project(P,  A[i], B[i], C[i], N[i], D[i], x[i], y[i]);
 			#endif
 			
 			// If the projection falls within the triangle,
@@ -325,7 +639,7 @@ namespace geometry
 			// Performing the test $-TOLL < dist$ we take into
 			// account the case where the point $P$ already
 			// belongs to the plane defined by the i-th triangle
-			if ((-TOLL < dist) && (dist < opt_dist - TOLL))
+			if (dist < opt_dist - TOLL)
 			{
 				opt_dist = dist;
 				opt_Q = Q;
@@ -336,7 +650,7 @@ namespace geometry
 		
 		// Test if the projection falls within a triangle
 		// (only debug mode)
-		assert(opt_id < this->getPointerToMesh()->getNumElems());
+		assert(opt_id < MAX_NUM_ELEMS);
 		
 		//
 		// Update connections
@@ -346,8 +660,7 @@ namespace geometry
 		#ifndef NDEBUG
 			auto newData2Elem = getNewData2Elem(opt_Q, opt_id);
 		#else
-			auto newData2Elem = getNewData2Elem(opt_Q, opt_id,
-				a[opt_i], b[opt_i], c[opt_i], N[opt_i], D[opt_i], x[opt_i], y[opt_i]);
+			auto newData2Elem = getNewData2Elem(opt_Q, opt_id, x[opt_i], y[opt_i]);
 		#endif
 		
 		// Set new data-element connections
@@ -370,67 +683,50 @@ namespace geometry
 		vector<point3d> P;
 		P.reserve(data.size());
 		for (auto datum : data)
-			P.emplace_back(this->getPointerToMesh()->getData(datum));
+			P.emplace_back(this->getCPointerToMesh()->getData(datum));
 		
 		//
 		// Extract triangles
 		//
 		
 		// Declare auxiliary vectors
-		#ifndef NDEBUG
-			vector<point3d> A, B, C;
-		#else
+		vector<point3d> A, B, C;
+		#ifdef NDEBUG
 			vector<point3d> N;
 			vector<Real> D;
 			vector<UInt> x, y;
-			vector<point2d> a, b, c;
 		#endif
 		
 		// Reserve memory
-		#ifndef NDEBUG
-			A.reserve(elems.size());
-			B.reserve(elems.size());
-			C.reserve(elems.size());
-		#else
+		A.reserve(elems.size());
+		B.reserve(elems.size());
+		C.reserve(elems.size());
+		#ifdef NDEBUG
 			N.reserve(elems.size());
 			D.reserve(elems.size());
 			x.reserve(elems.size());
 			y.reserve(elems.size());
-			a.reserve(elems.size());
-			b.reserve(elems.size());
-			c.reserve(elems.size());
 		#endif
 		
 		// Get information on each triangle
 		for (UInt i = 0; i < elems.size(); ++i)
 		{
-			auto elem = this->getPointerToMesh()->getElem(elems[i]);
+			auto elem = this->getCPointerToMesh()->getElem(elems[i]);
 			
-			#ifndef NDEBUG
-				// Extract vertices
-				A.emplace_back(this->getPointerToMesh()->getNode(elem[0]));
-				B.emplace_back(this->getPointerToMesh()->getNode(elem[1]));
-				C.emplace_back(this->getPointerToMesh()->getNode(elem[2]));
-			#else
-				// Extract vertices
-				point3d A(this->getPointerToMesh()->getNode(elem[0]));
-				point3d B(this->getPointerToMesh()->getNode(elem[1]));
-				point3d C(this->getPointerToMesh()->getNode(elem[2]));
-				
+			// Extract vertices
+			A.emplace_back(this->getCPointerToMesh()->getNode(elem[0]));
+			B.emplace_back(this->getCPointerToMesh()->getNode(elem[1]));
+			C.emplace_back(this->getCPointerToMesh()->getNode(elem[2]));
+			#ifdef NDEBUG
 				// Extract normal to the plane defined by the triangle
 				// and (signed) distance from the origin
-				N.emplace_back(((B - A)^(C - B)).normalize());
-				D.emplace_back(N[i]*A);
-			
+				N.emplace_back(((B[i] - A[i])^(C[i] - B[i])).normalize());
+				D.emplace_back(N[i]*A[i]);
+				
 				// Get the "xy"-plane
 				auto z = N[i].getMaxCoor();
 				x.emplace_back((z+1) % 3);
 				y.emplace_back((z+2) % 3);
-			
-				// Project vertices onto the "xy"-plane
-				a.emplace_back(A[x[i]],A[y[i]]);
-				b.emplace_back(B[x[i]],B[y[i]]);
-				c.emplace_back(C[x[i]],C[y[i]]);
 			#endif
 		}
 		
@@ -446,7 +742,7 @@ namespace geometry
 		{
 			Real dist, opt_dist(numeric_limits<Real>::max());
 			point3d Q, opt_Q;
-			UInt opt_id(this->getPointerToMesh()->getNumElems()), opt_i;
+			UInt opt_id(MAX_NUM_ELEMS), opt_i;
 			
 			//
 			// Projection
@@ -458,8 +754,7 @@ namespace geometry
 				#ifndef NDEBUG
 					tie(dist,Q) = project(P[j], A[i], B[i], C[i]);
 				#else
-					tie(dist,Q) = project(P[j], a[i], b[i], c[i],
-						N[i], D[i], x[i], y[i]);
+					tie(dist,Q) = project(P[j], A[i], B[i], C[i], N[i], D[i], x[i], y[i]);
 				#endif
 			
 				// If the projection falls within the triangle,
@@ -467,7 +762,7 @@ namespace geometry
 				// Performing the test $-TOLL < dist$ we take into
 				// account the case where the point $P$ already
 				// belongs to the plane defined by the i-th triangle
-				if ((-TOLL < dist) && (dist < opt_dist - TOLL))
+				if (dist < opt_dist - TOLL)
 				{
 					opt_dist = dist;
 					opt_Q = Q;
@@ -478,20 +773,18 @@ namespace geometry
 		
 			// Test if the projection falls within a triangle
 			// (only debug mode)
-			assert(opt_id < this->getPointerToMesh()->getNumElems());
+			assert(opt_id < MAX_NUM_ELEMS);
 		
 			//
 			// Update connections
 			//
 		
-			// Get new data-element connections
 			#ifndef NDEBUG
 				auto newData2Elem = getNewData2Elem(opt_Q, opt_id);
 			#else
-				auto newData2Elem = getNewData2Elem(opt_Q, opt_id,
-					a[opt_i], b[opt_i], c[opt_i], N[opt_i], D[opt_i], x[opt_i], y[opt_i]);
+				auto newData2Elem = getNewData2Elem(opt_Q, opt_id, x[opt_i], y[opt_i]);
 			#endif
-		
+			
 			// Set new data-element connections
 			auto oldData2Elem = this->connectivity.setData2Elem(data[j], newData2Elem);
 		

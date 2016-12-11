@@ -218,6 +218,11 @@ namespace geometry
 			template<typename... Args>
 			friend set<UInt> set_union(const graphItem & g, Args... args);
 			
+			/*! Extend a set of Id's by adding the connected Id's of a graphItem.
+				\param g	the graph item
+				\param s	the set */
+			friend void set_union(const graphItem & g, set<UInt> & s);
+			
 			/*! Find the connected Id's shared by at least one of two graph items and store them in a vector.
 				\param g1	first graph item
 				\param g2	second graph item 

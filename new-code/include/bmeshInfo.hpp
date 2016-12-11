@@ -68,6 +68,10 @@ namespace geometry
 				\return		pointer to the mesh */
 			mesh<SHAPE,MT> * getPointerToMesh();
 			
+			/*!	Get a const pointer to the mesh.
+				\return		const pointer to the mesh */
+			const mesh<SHAPE,MT> * getCPointerToMesh() const;
+			
 			/*!	Get mesh connectivity.
 				\return		the connectivity */
 			connect<SHAPE,MT> getConnectivity() const;
@@ -75,6 +79,10 @@ namespace geometry
 			/*!	Get a pointer to the mesh connectivity.
 				\return 	pointer to the connectivity */
 			connect<SHAPE,MT> * getPointerToConnectivity();
+			
+			/*!	Get a const pointer to the mesh connectivity.
+				\return 	const pointer to the connectivity */
+			const connect<SHAPE,MT> * getCPointerToConnectivity() const;
 			
 			/*!	Set the mesh.
 				\param g	the new mesh */
@@ -108,6 +116,15 @@ namespace geometry
 				\return		Id's of the involved elements */
 			vector<UInt> getElemsModifiedInEdgeCollapsing(const UInt & id1, const UInt & id2) const;
 			
+			/*!	Get all triangles connected with at least one node connected with a given node.
+				This method may be useful in updating the average quantity of information in DataGeo.
+				
+				\param Id	Id of the "central" node
+				\return		the elements in the extended patch
+				
+				\sa DataGeo.hpp */
+			vector<UInt> getExtendedNodePatch(const UInt & Id) const;
+			
 			/*!	Get the patch of a triangle, i.e. all triangles sharing at least a node with the triangle.
 				Of course, this method is provided only for triangular grids.
 				
@@ -119,7 +136,7 @@ namespace geometry
 				\param Id	element Id
 				\return		Id's of the elements belonging to the patch */
 			vector<UInt> getElemPatch(const UInt & Id) const;
-			
+						
 			//
 			// Get geometric info
 			//

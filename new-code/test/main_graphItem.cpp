@@ -22,16 +22,33 @@ int main()
 	graphItem g4(c4);
 	
 	// Make intersection
-	auto si = set_intersection(g1, g2, g3, g4);
-	cout << "set_intersection: { ";
-	for (auto it = si.begin(); it != si.end(); it++)
-		cout << *it << " ";
-	cout << "}" << endl;
+	{
+		auto si = set_intersection(g1, g2, g3, g4);
+		cout << "set_intersection: { ";
+		for (auto it = si.begin(); it != si.end(); it++)
+			cout << *it << " ";
+		cout << "}" << endl;
+	}
 	
 	// Make union
-	auto su = set_union(g1, g2, g3, g4);
-	cout << "set_union: { ";
-	for (auto it = su.begin(); it != su.end(); it++)
-		cout << *it << " ";
-	cout << "}" << endl;
+	{
+		auto su = set_union(g1, g2, g3, g4);
+		cout << "set_union: { ";
+		for (auto it = su.begin(); it != su.end(); it++)
+			cout << *it << " ";
+		cout << "}" << endl;
+	}
+	
+	// Make union
+	{
+		set<UInt> s;
+		set_union(g1,s);
+		set_union(g2,s);
+		set_union(g4,s);
+		cout << "set_union: { ";
+		for (auto it = s.begin(); it != s.end(); it++)
+			cout << *it << " ";
+		cout << "}" << endl;
+	}
+	
 }

@@ -110,6 +110,16 @@ namespace geometry
 	{
 		return (g1.conn == g2.conn);
 	}
+	
+	
+	//
+	// Common and uncommon connected
+	//
+	
+	INLINE void set_union(const graphItem & g, set<UInt> & s)
+	{
+		set_union(g.conn.cbegin(), g.conn.cend(), s.begin(), s.end(), inserter(s, s.end()));
+	}
 }
 
 #endif

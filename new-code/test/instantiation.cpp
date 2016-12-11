@@ -1,4 +1,4 @@
-/*! \file	instantiate.cpp
+/*! \file	instantiation.cpp
 	\brief	Explicitly generate the code for all members of template classes.
 			This is useful for debugging. */
 
