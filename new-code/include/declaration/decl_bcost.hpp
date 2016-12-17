@@ -5,6 +5,7 @@
 #define HH_DECLBCOST_HH
 
 #include <unordered_set>
+#include <tuple>
 
 #include "bmeshOperation.hpp"
 #include "collapseInfo.hpp"
@@ -110,16 +111,17 @@ namespace geometry
 			/*!	Add a collapseInfo object to the list.
 				\param id1	Id of first end-point of the edge
 				\param id2	Id of second end-point of the edge
-				\param p	collapsing point
-				\param val	collapsing cost */
-			void addCollapseInfo(const UInt & id1, const UInt & id2, const point3d & p, 
-				const Real & val);
+				\param val	collapsing cost
+				\param p	collapsing point */
+			void addCollapseInfo(const UInt & id1, const UInt & id2, const Real & val,
+				const point3d & p);
 			
 			/*!	Erase a collapseInfo object from the list.
 				\param id1	Id of first end-point of the edge
 				\param id2	Id of second end-point of the edge
+				\return		TRUE if the edge has been found, FALSE otherwise
 				\return		previously computed cost associated with the edge */
-			Real eraseCollapseInfo(const UInt & id1, const UInt & id2); 
+			pair<bool,Real> eraseCollapseInfo(const UInt & id1, const UInt & id2); 
 			
 			/*!	Update after an edge collapse.
 				This method should be called after having updated the mesh
@@ -140,7 +142,7 @@ namespace geometry
 				then the class bcost is in charge of forwarding the right number
 				of arguments to the implementation.
 				For further details, see imp_bcost.hpp.*/
-			void update(const UInt & newId, const UInt & oldId = {0.,0.,0.},
+			void update(const UInt & newId, const UInt & oldId = 0.,
 				const vector<UInt> & toRemove = {});
 	};
 }

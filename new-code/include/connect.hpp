@@ -139,6 +139,22 @@ namespace geometry
 			// Modify connections
 			//
 			
+			/*! Remove an element from data-element connections.
+				\param Id	Id of the element to remove */
+			void eraseElemInData2Elem(const UInt & Id);
+			
+			/*! Remove elements from data-element connections.
+				\param ids	vector with Id's of elements to remove */
+			void eraseElemInData2Elem(const vector<UInt> & ids);
+			
+			/*! Insert an element in data-element connections.
+				\param Id	Id of the element to insert */
+			void insertElemInData2Elem(const UInt & Id);
+						
+			/*! Insert elements in data-element connections.
+				\param ids	vector with Id's of elements to insert */
+			void insertElemInData2Elem(const vector<UInt> & ids);
+			
 			/*! Remove a datum from element-data connections.
 				\param Id	Id of the datum to remove */
 			void eraseDataInElem2Data(const UInt & Id);

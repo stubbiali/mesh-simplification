@@ -14,8 +14,8 @@ namespace geometry
 	bbox3d structuredData<Triangle>::getBoundingBox(const UInt & Id) const
 	{
 		auto elem = grid->getElem(Id);
-		return bbox3d(grid->getNode(elem[0]), grid->getNode(elem[1]),
-			grid->getNode(elem[2]));
+		return {grid->getNode(elem[0]), grid->getNode(elem[1]),
+			grid->getNode(elem[2])};
 	}
 	
 	
@@ -24,8 +24,8 @@ namespace geometry
 	bbox3d structuredData<Quad>::getBoundingBox(const UInt & Id) const
 	{
 		auto elem = grid->getElem(Id);
-		return bbox3d(grid->getNode(elem[0]), grid->getNode(elem[1]),
-			grid->getNode(elem[2]), grid->getNode(elem[3]));
+		return {grid->getNode(elem[0]), grid->getNode(elem[1]),
+			grid->getNode(elem[2]), grid->getNode(elem[3])};
 	}
 	
 	
@@ -52,7 +52,8 @@ namespace geometry
 			// ... Then find and remove the desired one
 			auto it_old = find_if(range.first, range.second,
 				[id](const bbox3d & bb){ return bb.getId() == id; });
-			boxes.erase(it_old);
+			if (it_old != range.second)
+				boxes.erase(it_old);
 			
 			//
 			// Insert new bounding box
@@ -87,7 +88,8 @@ namespace geometry
 			// ... Then find and remove the desired one
 			auto it_old = find_if(range.first, range.second,
 				[id](const bbox3d & bb){ return bb.getId() == id; });
-			boxes.erase(it_old);
+			if (it_old != range.second)
+				boxes.erase(it_old);
 			
 			//
 			// Insert new bounding box

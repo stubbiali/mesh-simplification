@@ -185,7 +185,7 @@ namespace geometry
 		// This method is provided only for triangular grids
 		#ifdef NDEBUG
 		static_assert(NV <= 3, 
-			"getTriaPatch() is provided only for triangular grids.");
+			"getTriPatch() is provided only for triangular grids.");
 		#endif
 			
 		// Get element 
@@ -198,7 +198,7 @@ namespace geometry
 		// Remove Id
 		s.erase(Id);
 		
-		return vector<UInt>(s.begin(), s.end());
+		return {s.cbegin(), s.cend()};
 	}
 	
 	
@@ -233,7 +233,7 @@ namespace geometry
 			"getIntervalLength() is provided only for 1D grids.");
 		#endif
 			
-		assert(Id < connectivity.grid.getNumElems());
+		assert(Id < connectivity.grid.getElemsListSize());
 		
 		// Get interval length
 		auto elem = connectivity.grid.getElem(Id);
@@ -250,7 +250,7 @@ namespace geometry
 			"getTriaArea() is provided only for triangular grids.");
 		#endif
 			
-		assert(Id < connectivity.grid.getNumElems());
+		assert(Id < connectivity.grid.getElemsListSize());
 				
 		// Get element vertices
 		auto elem = connectivity.grid.getElem(Id);
@@ -272,9 +272,9 @@ namespace geometry
 			"getNormal() is provided only for triangular grids.");
 		#endif
 			
-		assert(Id < connectivity.grid.getNumElems());
+		assert(Id < connectivity.grid.getElemsListSize());
 				
-		// Get (some of) the element vertices
+		// Get the element vertices
 		auto elem = connectivity.grid.getElem(Id);
 		auto pA = connectivity.grid.getNode(elem[0]);
 		auto pB = connectivity.grid.getNode(elem[1]);
@@ -396,6 +396,36 @@ namespace geometry
 	}
 	
 	
+	template<typename SHAPE, MeshType MT>
+	point3d bmeshInfo<SHAPE,MT>::getElemBarycenter(const UInt & Id) const
+	{
+		auto elem = connectivity.grid.getElem(Id);
+		point3d p(0.,0.,0.);
+		
+		// Loop over all vertices
+		for (UInt i = 0; i < bmeshInfo<SHAPE,MT>::NV; ++i)
+			p = p + connectivity.grid.getNode(elem[i]);
+			
+		return (p / static_cast<Real>(bmeshInfo<SHAPE,MT>::NV));
+	}
+	
+	
+	template<typename SHAPE, MeshType MT>
+	point3d bmeshInfo<SHAPE,MT>::getMeshBarycenter() const
+	{
+		point3d p(0.,0.,0.);
+		
+		// Loop over all nodes
+		for (UInt i = 0; i < connectivity.grid.getNodesListSize(); ++i)
+		{
+			if (connectivity.grid.getNode(i).isActive())
+				p = p + connectivity.grid.getNode(i);
+		}
+			
+		return (p / static_cast<Real>(connectivity.grid.getNumNodes()));
+	}
+	
+	
 	//
 	// Set geometric features
 	//
@@ -403,7 +433,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bmeshInfo<SHAPE,MT>::setBoundary(const UInt & Id)
 	{
-		assert(Id < connectivity.grid.getNumElems());
+		assert(Id < connectivity.grid.getElemsListSize());
 		
 		// Extract node-element connections
 		auto conn = connectivity.node2elem[Id].getConnected();
@@ -442,7 +472,7 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	INLINE void bmeshInfo<SHAPE,MT>::setBoundary()
 	{
-		for (UInt id = 0; id < connectivity.grid.getNumNodes(); id++)
+		for (UInt id = 0; id < connectivity.grid.getNodesListSize(); id++)
 			this->setBoundary(id);
 	}
 }

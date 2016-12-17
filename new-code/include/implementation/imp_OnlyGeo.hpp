@@ -54,11 +54,11 @@ namespace geometry
 	template<MeshType MT>
 	array<Real,10> OnlyGeo<MT>::getKMatrix(const UInt & id) const
 	{
-		assert(id < this->oprtr->getPointerToMesh()->getNumElems());
+		assert(id < this->oprtr->getCPointerToMesh()->getElemsListSize());
 		
 		// Extract the first vertex of the triangle
-		auto elem = this->oprtr->getPointerToMesh()->getElem(id);
-		auto p = this->oprtr->getPointerToMesh()->getNode(elem[0]);
+		auto elem = this->oprtr->getCPointerToMesh()->getElem(id);
+		auto p = this->oprtr->getCPointerToMesh()->getNode(elem[0]);
 		
 		// Compute unit normal and (signed) distance from the origin
 		// for the plane identified by the triangle
@@ -77,8 +77,8 @@ namespace geometry
 		assert(this->oprtr != nullptr);
 		
 		// Extract number of nodes and elements
-		auto numNodes = this->oprtr->getPointerToMesh()->getNumNodes();
-		auto numElems = this->oprtr->getPointerToMesh()->getNumElems();
+		auto numNodes = this->oprtr->getCPointerToMesh()->getNodesListSize();
+		auto numElems = this->oprtr->getCPointerToMesh()->getElemsListSize();
 		
 		// Reserve memory and initialize Q matrices to zero
 		Qs.clear();
@@ -94,7 +94,7 @@ namespace geometry
 		// of the triangle
 		for (UInt j = 0; j < numElems; ++j)
 		{
-			auto elem = this->oprtr->getPointerToMesh()->getElem(j);
+			auto elem = this->oprtr->getCPointerToMesh()->getElem(j);
 			auto K = getKMatrix(j);
 			Qs[elem[0]] += K;
 			Qs[elem[1]] += K;
@@ -109,7 +109,7 @@ namespace geometry
 		assert(this->oprtr != nullptr);
 		
 		// Extract the nodes connected to id
-		auto nodes = this->oprtr->getPointerToConnectivity()->getNode2Node(newId).getConnected();
+		auto nodes = this->oprtr->getCPointerToConnectivity()->getNode2Node(newId).getConnected();
 		
 		// 
 		// Re-build Q matrix for the collapsing point
@@ -120,11 +120,9 @@ namespace geometry
 		
 		// Loop over all elements sharing the collapsing point,
 		// compute K and add it to Q
-		auto id_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(newId).getConnected();
+		auto id_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(newId).getConnected();
 		for (auto elem : id_elems)
-		{
 			Qs[newId] += getKMatrix(elem);
-		}
 		
 		// 
 		// Re-build Q matrix for all nodes connected to
@@ -138,7 +136,7 @@ namespace geometry
 	
 			// Loop over all elements sharing the node,
 			// compute K and add it to Q
-			auto node_elems = this->oprtr->getPointerToConnectivity()->getNode2Elem(node).getConnected();
+			auto node_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(node).getConnected();
 			for (auto elem : node_elems)
 				Qs[node] += getKMatrix(elem);
 		}
@@ -182,7 +180,7 @@ namespace geometry
 		// It is the average of the matrices associated 
 		// with the end-points
 		
-		auto Q = 0.5 * (Qs[id1] + Qs[id2]);
+		auto Q = Qs[id1] + Qs[id2];
 		
 		//
 		// Construct the linear system
@@ -237,9 +235,9 @@ namespace geometry
 		// This to preserve the initial shape of the domain.
 		
 		// Extract the end-points and their boundary flags
-		point P(this->oprtr->getPointerToMesh()->getNode(id1));
+		point P(this->oprtr->getCPointerToMesh()->getNode(id1));
 		auto bP = P.getBoundary();
-		point Q(this->oprtr->getPointerToMesh()->getNode(id2));
+		point Q(this->oprtr->getCPointerToMesh()->getNode(id2));
 		auto bQ = Q.getBoundary();
 		
 		//
@@ -282,12 +280,12 @@ namespace geometry
 	Real OnlyGeo<MT>::imp_getCost(const UInt & id1, const UInt & id2, const point3d & p) const
 	{
 		// Extract the matrix Q associated to the edge
-		auto Q = 0.5 * (Qs[id1] + Qs[id2]);
+		auto Q = Qs[id1] + Qs[id2];
 		
 		// Compute the quadratic form
-		return Q[0]*p[0]*p[0] + Q[4]*p[1]*p[1] + Q[7]*p[2]*p[2]
+		return (Q[0]*p[0]*p[0] + Q[4]*p[1]*p[1] + Q[7]*p[2]*p[2]
 			+ 2*Q[1]*p[0]*p[1] + 2*Q[2]*p[0]*p[2] + 2*Q[5]*p[1]*p[2]
-			+ 2*Q[3]*p[0] + 2*Q[6]*p[1] + 2*Q[8]*p[2] + Q[9];
+			+ 2*Q[3]*p[0] + 2*Q[6]*p[1] + 2*Q[8]*p[2] + Q[9]);
 	}
 }
 

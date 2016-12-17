@@ -69,12 +69,18 @@ namespace geometry
 			//
 			
 			/*!	(Default) constructor.
+				\param bmo	pointer to a bmeshOperation object
 				\param a	coefficient for geometric cost function
 				\param b	coefficient for data displacement cost function
-				\param c	coefficient for data distribution cost function 
-				\param bmo	pointer to a bmeshOperation object */
-			DataGeo(const Real & a = 1./3., const Real & b = 1./3., const Real & c = 1./3.,
-				bmeshOperation<Triangle, MeshType::DATA> * bmo = nullptr);
+				\param c	coefficient for data distribution cost function */
+			DataGeo(bmeshOperation<Triangle, MeshType::DATA> * bmo = nullptr,
+				const Real & a = 1./3., const Real & b = 1./3., const Real & c = 1./3.);
+				
+			/*!	Constructor.
+				\param a	coefficient for geometric cost function
+				\param b	coefficient for data displacement cost function
+				\param c	coefficient for data distribution cost function */
+			DataGeo(const Real & a, const Real & b, const Real & c);
 				
 			//
 			// Access members
@@ -175,7 +181,7 @@ namespace geometry
 								but not insisting on the edge
 				\param toMove	Id's of data points involved in the collapse */
 			tuple<Real,Real,Real> getDecomposedCost(const UInt & id1, const UInt & id2,
-				const point3d & p, const vector<UInt> & toKeep, const vector<UInt> & toMove);
+				const point3d & p, const vector<UInt> & toKeep, const vector<UInt> & toMove) const;
 			
 			/*!	Among all possible collapsing points, get maximum geometric,
 				data displacement and data distribution cost function and

@@ -122,6 +122,18 @@ namespace geometry
 			vector<UInt> getDataModifiedInEdgeCollapsing(const vector<UInt> & invElems, 
 				const vector<UInt> & invData) const;
 				
+			/*!	Get data associated with the nodes insisting on an edge.
+				In an edge collapse, these data points do not need to be moved
+				but their data-element connections must be updated.
+				
+				\param toRemove	elements insisting on the edge, then to remove
+				\param toMove	data involved in the collapse which may 
+								require a projection
+				\return			data involved in the collapse which for sure
+								do not require a projection */
+			vector<UInt> getDataOnEdge(const vector<UInt> & toRemove,
+				const vector<UInt> & toMove) const;
+												
 			/*!	Get the quantity of information associated with an element.
 				See F. Dassi et al., Equation (5).
 				

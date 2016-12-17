@@ -46,13 +46,13 @@ namespace geometry
 		node2node.reserve(grid.getNumNodes());
 					
 		// Set nodes Id's
-		for (UInt id = 0; id < grid.getNumNodes(); id++)
+		for (UInt id = 0; id < grid.getNumNodes(); ++id)
 			node2node.emplace_back(id);
 						
 		// Loop over all elements
 		geoElement<SHAPE> elem;
 		UInt id1, id2;
-		for (UInt id = 0; id < grid.getNumElems(); id++)
+		for (UInt id = 0; id < grid.getNumElems(); ++id)
 		{
 			// Extract element
 			elem = grid.getElem(id);
@@ -69,7 +69,8 @@ namespace geometry
 				node2node[id2].insert(id1);
 									
 				// Update set of edges
-				edges.emplace(array<UInt,2>({id1,id2}));
+				(id1 < id2) ? edges.emplace(array<UInt,2>({id1,id2})) :
+					edges.emplace(array<UInt,2>({id2,id1}));
 			}
 		}
 	}
@@ -83,18 +84,18 @@ namespace geometry
 		node2elem.reserve(grid.getNumNodes());
 		
 		// Set nodes Id's
-		for (UInt id = 0; id < grid.getNumNodes(); id++)
+		for (UInt id = 0; id < grid.getNumNodes(); ++id)
 			node2elem.emplace_back(id);
 			
 		// Loop over elements
 		geoElement<SHAPE> elem;
-		for (UInt id = 0; id < grid.getNumElems(); id++)
+		for (UInt id = 0; id < grid.getNumElems(); ++id)
 		{
 			// Extract element
 			elem = grid.getElem(id);
 			
 			// Loop over its vertices and add node-element connections
-			for (UInt j = 0; j < NV; j++)
+			for (UInt j = 0; j < NV; ++j)
 				node2elem[elem[j]].insert(id);
 		}
 	}
@@ -219,7 +220,7 @@ namespace geometry
 			
 			// Erase element from node-element connections
 			auto elem = grid.getElem(id);
-			for (UInt j = 0; j < NV; j++)
+			for (UInt j = 0; j < NV; ++j)
 				node2elem[elem[j]].erase(id);
 		}
 	}

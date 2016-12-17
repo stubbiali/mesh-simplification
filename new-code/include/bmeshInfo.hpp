@@ -183,6 +183,15 @@ namespace geometry
 				\return		array with cells size */
 			array<Real,3> getCellSize() const;
 			
+			/*!	Get the barycenter of an element.
+				\param Id	element Id
+				\return		the barycenter */
+			point3d getElemBarycenter(const UInt & Id) const;
+			
+			/*!	Get the barycenter of the mesh.
+				\return		the global barycenter */
+			point3d getMeshBarycenter() const;
+			
 			//
 			// Set geometric features
 			//

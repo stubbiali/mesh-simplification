@@ -16,13 +16,13 @@ namespace geometry
 	// Constructor
 	//
 	
-	collapsingEdge::collapsingEdge(const UInt & id1, const UInt & id2, const point3d & cp, const Real & val) :
+	collapsingEdge::collapsingEdge(const UInt & id1, const UInt & id2, const Real & val, const point3d & cp) :
 		Id1(id1), Id2(id2), cPoint(cp), cost(val)
 	{
 	}
 	
 	
-	collapsingEdge::collapsingEdge(const vector<UInt> & ids, const point3d & cp, const Real & val) :
+	collapsingEdge::collapsingEdge(const vector<UInt> & ids, const Real & val, const point3d & cp) :
 		Id1(ids[0]), Id2(ids[1]), cPoint(cp), cost(val)
 	{
 	}
@@ -45,15 +45,5 @@ namespace geometry
 		cost = cEdge.cost;
 		
 		return *this;
-	}
-	
-	
-	bool operator<(const collapsingEdge & cEdge1, const collapsingEdge & cEdge2)
-	{
-		// If the costs are equal, compare the Id's
-		if ((cEdge2.cost - TOLL <= cEdge1.cost) && (cEdge1.cost <= cEdge2.cost + TOLL))
-			return (set<UInt>({cEdge1.Id1, cEdge1.Id2}) < set<UInt>({cEdge2.Id1, cEdge2.Id2}));
-			
-		return (cEdge1.cost < cEdge2.cost - TOLL);
 	}
 }

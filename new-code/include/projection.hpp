@@ -53,15 +53,7 @@ namespace geometry
 				\sa mesh.hpp */
 			template<typename... Args>
 			projection(Args... args);
-			
-			//
-			// Get methods
-			//
-			
-			/*!	Get a (raw) pointer to the current projection object.
-				\return		pointer to projection */
-			projection<Triangle> * getPointerToProjection();
-			
+						
 			//
 			// Static interface
 			//
@@ -73,8 +65,13 @@ namespace geometry
 				\param C	third vertex of the triangle
 				\return		the square distance between the point and
 							the projected point 
-				\return		the projected point */
-			static pair<Real,point3d> project(const point3d & P, 
+				\return		the projected point 
+				\return		0 if the projection falls inside the triangle,
+							1, 2 or 3 if the projection falls onto the edge
+							AB, BC or CA, respectively, 
+							4, 5, 6 if the projection coincides with the vertex
+							A, B or C, respectively */
+			static tuple<Real, point3d, UInt> project(const point3d & P, 
 				const point3d & A, const point3d & B, const point3d & C);
 				
 			/*!	Project a point on a triangle (release mode).
@@ -89,8 +86,13 @@ namespace geometry
 				\param y	the "y"-coordinate
 				\return		the square distance between the point and
 							the projected point 
-				\return		the projected point */
-			static pair<Real,point3d> project(const point3d & P, 
+				\return		the projected point 
+				\return		0 if the projection falls inside the triangle,
+							1, 2 or 3 if the projection falls onto the edge
+							AB, BC or CA, respectively, 
+							4, 5, 6 if the projection coincides with the vertex
+							A, B or C, respectively */
+			static tuple<Real, point3d, UInt> project(const point3d & P, 
 				const point3d & A, const point3d & B, const point3d & C,
 				const point3d & N, const Real & D, const UInt & x, const UInt & y);
 											
@@ -103,8 +105,8 @@ namespace geometry
 				
 				\param datum	data point Id
 				\param elems	elements Id's
-				\return			an STL pair storing the projected point 
-								and Id's of the elements the projection belongs to */
+				\return			an STL pair storing the original location of the datum
+								and Id's of the elements the datum belonged to */
 			pair<point3d, vector<UInt>> project(const UInt & datum, 
 				const vector<UInt> & elems);
 						
@@ -114,8 +116,8 @@ namespace geometry
 				\param data		data points Id's
 				\param elems	elements Id's
 				\return			a vector of STL pairs storing, for each data point, 
-								its projection and Id's of the elements the projection 
-								belongs to */
+								its original location and Id's of the elements the 
+								it used to belong */
 			vector<pair<point3d, vector<UInt>>> project(const vector<UInt> & data, 
 				const vector<UInt> & elems);
 				
@@ -135,37 +137,37 @@ namespace geometry
 			// Auxiliary methods
 			//
 			
-			/*!	Starting from the belonging to an element, get all elements
-				a projection falls within (debug mode).
-				This method should be called after a static version of project().
-				
-				\param Q	the projected point
-				\param Id	Id of the element the projection falls within
-							(as given by project())
-				\return		Id's of the elements the projection falls within */			
-			vector<UInt> getNewData2Elem(const point3d & Q, const UInt & Id);
+			/*!	Check if a 2D point belongs to a triangle.
+				\param p	the point
+				\param a	first vertex of the triangle
+				\param b	second vertex of the triangle
+				\param c	thrid vertex of the triangle
+				\return		0 if the point falls inside the triangle,
+							1, 2 or 3 if the proint falls onto the edge
+							ab, bc or cd, respectively, 
+							4, 5, 6 if the point coincides with the vertex
+							a, b or c, respectively,
+							7 if the point does not belong to the triangle */
+			static UInt inTri2d(const point2d & p, const point2d & a, const point2d & b, 
+				const point2d & c);
 			
 			/*!	Starting from the belonging to an element, get all elements
-				a projection falls within (release mode).
+				a projection falls within.
 				This method should be called after a static version of project().
 				
-				\param Q	the projected point
-				\param Id	Id of the element the projection falls within
+				\param Id	Id of the triangle ABC the projection falls within
 							(as given by project())
-				\param x	the "x"-coordinate
-				\param y	the "y"-coordinate
+				\param pos	0 if the projection falls inside the triangle,
+							1, 2 or 3 if the projection falls onto the edge
+							AB, BC or CA, respectively, 
+							4, 5, 6 if the projection coincides with the vertex
+							A, B or C, respectively 
 				\return		Id's of the elements the projection falls within */			
-			vector<UInt> getNewData2Elem(const point3d & Q, const UInt & Id,
-				const UInt & x, const UInt & y);
+			vector<UInt> getNewData2Elem(const UInt & Id, const UInt & pos) const;
 	};
 }
 
 /*!	Include implementations of template class members. */
 #include "implementation/imp_projection.hpp"
-
-/*!	Include implementations of inlined class members. */
-#ifdef INLINED
-#include "inline/inline_projection.hpp"
-#endif
 
 #endif

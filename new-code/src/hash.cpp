@@ -9,6 +9,22 @@
 namespace std
 {
 	//
+	// Specialization for pair<UInt,UInt>
+	//
+	
+	size_t hash<pair<UInt,UInt>>::operator()(const pair<UInt,UInt> & p) const
+	{
+		// Extract maximum and minimum 
+		auto maximum = max(p.first, p.second);
+		auto minimum = min(p.first, p.second);
+		
+		// Hash value defined through bit-shift operator
+		// Reference: http://cboard.cprogramming.com/c-programming/101067-hash-function-two-numbers.html
+		return ((minimum << 7) | (maximum << 19));
+	}
+	
+	
+	//
 	// Specialization for geoElement<Line>
 	//
 	

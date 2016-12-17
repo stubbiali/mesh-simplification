@@ -67,7 +67,7 @@ namespace geometry
 		
 		// Fill the vector of data points
 		data.reserve(this->nodes.size());
-		for (UInt i = 0; i < this->nodes.size(); i++)
+		for (UInt i = 0; i < this->nodes.size(); ++i)
 			data.emplace_back(this->nodes[i],val[i]);
 	}
 	
@@ -258,7 +258,7 @@ namespace geometry
 	template<typename SHAPE>
 	void mesh<SHAPE, MeshType::DATA>::setUpDataIds()
 	{
-		for (UInt Id = 0; Id < data.size(); Id++)
+		for (UInt Id = 0; Id < data.size(); ++Id)
 			data[Id].setId(Id);
 	}	
 }

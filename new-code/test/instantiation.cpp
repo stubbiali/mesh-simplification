@@ -2,6 +2,7 @@
 	\brief	Explicitly generate the code for all members of template classes.
 			This is useful for debugging. */
 
+/*
 #include "inc.hpp"
 using namespace geometry;
 
@@ -63,4 +64,7 @@ template class bcost<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>;
 template class OnlyGeo<MeshType::GEO>;
 template class OnlyGeo<MeshType::DATA>;
 
+#include "simplification.hpp"
+template class simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>;
+*/
 

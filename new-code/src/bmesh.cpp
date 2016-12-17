@@ -5,7 +5,11 @@
 
 namespace geometry
 {
-	// Specialization for triangles
+	//
+	// Print
+	//
+	
+	// Specialization for triangular grids
 	template<>
 	void bmesh<Triangle>::print_inp(const string & filename) const
 	{
@@ -13,7 +17,7 @@ namespace geometry
 		ofstream file(filename);
 		
 		if (file.is_open())
-		{
+		{			
 			// Set number of significant figures
 			file.precision(11);
 			
@@ -46,7 +50,7 @@ namespace geometry
 	}
 	
 	
-	// Specialization for quadrilaterals
+	// Specialization for quadrilateral grids
 	template<>
 	void bmesh<Quad>::print_inp(const string & filename) const
 	{

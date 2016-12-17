@@ -47,31 +47,31 @@ namespace geometry
 		//
 		
 		#ifdef NDEBUG
-		// Compute the normal to the triangle and the RHS 
-		// of the equation of the plane the triangle lies in
-		auto N = ((B - A)^(C - B)).normalize();
-		auto RHS = N*A;
+			// Compute the normal to the triangle and the RHS 
+			// of the equation of the plane the triangle lies in
+			auto N = ((B - A)^(C - B)).normalize();
+			auto RHS = N*A;
 		
-		// Extract the maximum coordinate of N
-		UInt z = N.getMaxCoor();
-		UInt x = (z+1) % 3;
-		UInt y = (z+2) % 3;
+			// Extract the maximum coordinate of N
+			UInt z = N.getMaxCoor();
+			UInt x = (z+1) % 3;
+			UInt y = (z+2) % 3;
 		
-		// Project the triangle ABC onto the "xy"-plane
-		point2d a(A[x],A[y]);
-		point2d b(B[x],B[y]);
-		point2d c(C[x],C[y]);
+			// Project the triangle ABC onto the "xy"-plane
+			point2d a(A[x],A[y]);
+			point2d b(B[x],B[y]);
+			point2d c(C[x],C[y]);
 		#endif
 		
 		// Test intersection of each edge of DEF with ABC
 		#ifndef NDEBUG
-		auto de_abc = gutility::intSegTri(D,E,A,B,C);
-		auto ef_abc = gutility::intSegTri(E,F,A,B,C);
-		auto fd_abc = gutility::intSegTri(F,D,A,B,C);
+			auto de_abc = gutility::intSegTri(D,E,A,B,C);
+			auto ef_abc = gutility::intSegTri(E,F,A,B,C);
+			auto fd_abc = gutility::intSegTri(F,D,A,B,C);
 		#else
-		auto de_abc = gutility::intSegTri(D,E,a,b,c,N,RHS,x,y);
-		auto ef_abc = gutility::intSegTri(E,F,a,b,c,N,RHS,x,y);
-		auto fd_abc = gutility::intSegTri(F,D,a,b,c,N,RHS,x,y);
+			auto de_abc = gutility::intSegTri(D,E,a,b,c,N,RHS,x,y);
+			auto ef_abc = gutility::intSegTri(E,F,a,b,c,N,RHS,x,y);
+			auto fd_abc = gutility::intSegTri(F,D,a,b,c,N,RHS,x,y);
 		#endif
 				
 		// If at least one segment-triangle intersection
@@ -87,31 +87,31 @@ namespace geometry
 		//
 		
 		#ifdef NDEBUG
-		// Compute the normal to the triangle and the RHS 
-		// of the equation of the plane the triangle lies in
-		N = ((E - D)^(F - E)).normalize();
-		RHS = N*D;
+			// Compute the normal to the triangle and the RHS 
+			// of the equation of the plane the triangle lies in
+			N = ((E - D)^(F - E)).normalize();
+			RHS = N*D;
 		
-		// Extract the maximum coordinate of N
-		z = N.getMaxCoor();
-		x = (z+1) % 3;
-		y = (z+2) % 3;
+			// Extract the maximum coordinate of N
+			z = N.getMaxCoor();
+			x = (z+1) % 3;
+			y = (z+2) % 3;
 		
-		// Project the triangle ABC onto the "xy"-plane
-		point2d d(D[x],D[y]);
-		point2d e(E[x],E[y]);
-		point2d f(F[x],F[y]);
+			// Project the triangle ABC onto the "xy"-plane
+			point2d d(D[x],D[y]);
+			point2d e(E[x],E[y]);
+			point2d f(F[x],F[y]);
 		#endif
 		
 		// Test intersection of each edge of DEF with ABC
 		#ifndef NDEBUG
-		auto ab_def = gutility::intSegTri(A,B,D,E,F);
-		auto bc_def = gutility::intSegTri(B,C,D,E,F);
-		auto ca_def = gutility::intSegTri(C,A,D,E,F);
+			auto ab_def = gutility::intSegTri(A,B,D,E,F);
+			auto bc_def = gutility::intSegTri(B,C,D,E,F);
+			auto ca_def = gutility::intSegTri(C,A,D,E,F);
 		#else
-		auto ab_def = gutility::intSegTri(A,B,d,e,f,N,RHS,x,y);
-		auto bc_def = gutility::intSegTri(B,C,d,e,f,N,RHS,x,y);
-		auto ca_def = gutility::intSegTri(C,A,d,e,f,N,RHS,x,y);
+			auto ab_def = gutility::intSegTri(A,B,d,e,f,N,RHS,x,y);
+			auto bc_def = gutility::intSegTri(B,C,d,e,f,N,RHS,x,y);
+			auto ca_def = gutility::intSegTri(C,A,d,e,f,N,RHS,x,y);
 		#endif
 				
 		// If at least one segment-triangle intersection

@@ -66,7 +66,7 @@ namespace geometry
 		auto bar = 0.5*(NE + SW);
 		
 		// Compute index
-		for (UInt i = 0; i < N; i++) 
+		for (UInt i = 0; i < N; ++i) 
 		{
 			// "Local" index along i-th direction
 			auto idx_I = static_cast<UInt>((bar[i] - boundingBox::SW_global[i])
@@ -130,7 +130,7 @@ namespace geometry
 		auto bar = 0.5*(NE + SW);
 		
 		// Compute index
-		for (UInt i = 0; i < N; i++) 
+		for (UInt i = 0; i < N; ++i) 
 		{
 			// "Local" index along i-th direction
 			auto idx_I = static_cast<UInt>((bar[i] - boundingBox::SW_global[i])
@@ -342,7 +342,7 @@ namespace geometry
 		auto bar = 0.5*(NE + SW);
 		
 		// Update index
-		for (UInt i = 0; i < N; i++) 
+		for (UInt i = 0; i < N; ++i) 
 		{
 			// "Local" index along i-th direction
 			auto idx_I = static_cast<UInt>((bar[i] - boundingBox::SW_global[i])
@@ -418,7 +418,7 @@ namespace geometry
 		auto bar = 0.5*(NE + SW);
 		
 		// Update index
-		for (UInt i = 0; i < N; i++) 
+		for (UInt i = 0; i < N; ++i) 
 		{
 			// "Local" index along i-th direction
 			auto idx_I = static_cast<UInt>((bar[i] - boundingBox::SW_global[i])
@@ -574,6 +574,12 @@ namespace geometry
 	}
 	
 	
+	// Declare specialization for three-dimensional elements
+	template<>
+	void boundingBox<3>::setup(const point3d & pne, const point3d & psw, 
+		const Real & dx, const Real & dy, const Real & dz);
+	
+	
 	template<UInt N>
 	template<typename SHAPE, MeshType MT>
 	void boundingBox<N>::setup(const bmeshInfo<SHAPE,MT> & news)
@@ -611,7 +617,7 @@ namespace geometry
 	{
 		// Update North-East and South-West points
 		// according to p
-		for (UInt i = 0; i < N; i++)
+		for (UInt i = 0; i < N; ++i)
 		{
 			if (p[i] > NE[i])
 				NE[i] = p[i];
@@ -657,7 +663,7 @@ namespace geometry
 	template<UInt N>
 	void boundingBox<N>::updateNumCells()
 	{
-		for (UInt i = 0; i < N; i++)
+		for (UInt i = 0; i < N; ++i)
 			boundingBox::updateNumCells(i);
 	}
 	
@@ -675,7 +681,7 @@ namespace geometry
 	template<UInt N>
 	void boundingBox<N>::updateCellSize()
 	{
-		for (UInt i = 0; i < N; i++)
+		for (UInt i = 0; i < N; ++i)
 			boundingBox::updateCellSize(i);
 	}
 }

@@ -55,30 +55,26 @@ namespace geometry
 	//
 	
 	template<typename SHAPE, MeshType MT, typename D>
-	INLINE void bcost<SHAPE,MT,D>::addCollapseInfo(const UInt & id1, const UInt & id2, 
-		const point3d & p, const Real & val)
+	INLINE void bcost<SHAPE,MT,D>::addCollapseInfo(const UInt & id1, const UInt & id2, const Real & val,
+		const point3d & p)
 	{
-		cInfoList.emplace(id1, id2, p, val);
+		cInfoList.emplace(id1, id2, val, p);
 	}
 	
 	
 	template<typename SHAPE, MeshType MT, typename D>
-	Real bcost<SHAPE,MT,D>::eraseCollapseInfo(const UInt & id1, const UInt & id2)
+	pair<bool,Real> bcost<SHAPE,MT,D>::eraseCollapseInfo(const UInt & id1, const UInt & id2)
 	{
 		// Find the edge and before erasing it extract the related cost
-		// If the edge cannot be found, throw an exception
+		// Correctly handle the case the edge cannot be found
 		auto it = cInfoList.find({id1, id2});
 		if (it != cInfoList.end())
 		{
-			auto ans = it->getCost();
+			auto val = it->getCost();
 			cInfoList.erase(it);
-			return ans;
+			return {true, val};
 		}
-		else
-		{
-			string msg("Edge (" + to_string(id1) + ", " + to_string(id2) + ") not found.");
-			throw runtime_error(msg);
-		}
+		return {false, -1};
 	}
 }
 

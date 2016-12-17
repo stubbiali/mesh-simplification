@@ -77,6 +77,7 @@ namespace geometry
 	INLINE searchPoint & searchPoint::operator=(const searchPoint & V)
 	{
 		copy(V.idx.cbegin(), V.idx.cend(), idx.begin());
+		return *this;
 	}
 			
 	INLINE bool operator!=(const searchPoint & pA, const searchPoint & pB) 

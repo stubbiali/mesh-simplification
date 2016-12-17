@@ -92,7 +92,7 @@ namespace geometry
 	{
 		out << "Point ID: " << p.Id << endl;		
 		out << "Point indices: " << p.idx[0] << ", " << p.idx[1] << ", " << p.idx[2] << endl;
-		return cout;
+		return out;
 	}
 	
 	
@@ -189,7 +189,7 @@ namespace geometry
 		
 		// Check it is not zero
 		if (searchPoint::numCells[i] == 0)
-			searchPoint::numCells[i] == 1;
+			searchPoint::numCells[i] = 1;
 			
 		// Update size
 		searchPoint::updateCellSize(i);
@@ -198,7 +198,7 @@ namespace geometry
 	
 	void searchPoint::updateNumCells()
 	{
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 0; i < 3; ++i)
 			searchPoint::updateNumCells(i);
 	}
 	
@@ -213,7 +213,7 @@ namespace geometry
 	
 	void searchPoint::updateCellSize()
 	{
-		for (size_t i = 0; i < 3; i++)
+		for (size_t i = 0; i < 3; ++i)
 			searchPoint::updateCellSize(i);
 	}
 }

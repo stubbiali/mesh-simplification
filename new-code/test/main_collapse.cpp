@@ -49,7 +49,7 @@ int main()
 	#endif
 	
 	// File to mesh
-	string inputfile("../../mesh/left_hemisphere.vtk");
+	string inputfile("../../mesh/bunny.inp");
 	
 	//
 	// Test connections restoration
@@ -73,9 +73,8 @@ int main()
 		
 		projection<Triangle> prj(inputfile);
 		auto conn = prj.getPointerToConnectivity();
-		//cout << conn->getNumEdges() << endl;
 		//OnlyGeo<MeshType::DATA> costFunction(prj.getPointerToProjection());
-		DataGeo costFunction(1./3., 1./3., 1./3., prj.getPointerToProjection());
+		DataGeo costFunction(&prj, 1./3., 1./3., 1./3.);
 		structuredData<Triangle> sdata(prj);
 		intersection<Triangle> intrs(prj.getPointerToMesh());
 		
@@ -87,12 +86,12 @@ int main()
 		
 		// Edge end-points
 		//UInt id1(27040), id2(28289);
-		//UInt id1(6721), id2(16057);
-		UInt id1(38521), id2(39551);
+		UInt id1(6721), id2(16057);
+		//UInt id1(38521), id2(39551);
 		
 		// Test points
-		//UInt id3(888), id4(8034), id5(1983);
-		UInt id3(38496), id4(39531), id5(40499);
+		UInt id3(888), id4(8034), id5(1983), id6(2161);
+		//UInt id3(38496), id4(39531), id5(40499);
 		
 		#ifndef NDEBUG
 		// Extract node-node and node-element connections
@@ -151,7 +150,7 @@ int main()
 		auto invElems = prj.getElemsInvolvedInEdgeCollapsing(id1,id2);
 		auto toRemove = prj.getElemsOnEdge(id1,id2);
 		auto toKeep = prj.getElemsModifiedInEdgeCollapsing(id1,id2);
-		auto toMove = prj.getDataModifiedInEdgeCollapsing(id1,id2);
+		auto toMove = prj.getDataModifiedInEdgeCollapsing(invElems);
 		
 		// Get normals to the elements involved in the collapse
 		vector<point3d> oldNormals;
@@ -161,9 +160,9 @@ int main()
 		
 		#ifndef NDEBUG
 		{
-			auto dp1_data2elem = conn->getData2Elem(toMove[0]).getConnected();
-			cout << "dp1_data2elem: ";
-			for (auto v : dp1_data2elem)
+			auto id6_data2elem = conn->getData2Elem(id6).getConnected();
+			cout << "id6_data2elem: ";
+			for (auto v : id6_data2elem)
 				cout << v << " ";
 			cout << endl;
 			
@@ -179,9 +178,8 @@ int main()
 		// Update connections
 		//
 		
-		// Store old id1 and make id2 inactive
+		// Store old id1
 		auto P(prj.getPointerToMesh()->getNode(id1));
-		prj.getPointerToMesh()->setNodeInactive(id2);
 		
 		// Update node-node, node-element and element-node connections
 		auto oldConnections = conn->applyEdgeCollapse(id2, id1, toRemove, toKeep);
@@ -222,6 +220,18 @@ int main()
 			
 			// Project data points and update data-element and element-data connections
 			auto oldData = prj.project(toMove, toKeep);
+			conn->eraseElemInData2Elem(toRemove);
+			
+			#ifndef NDEBUG
+			if (i == 0)
+			{
+				auto id6_data2elem = conn->getData2Elem(id6).getConnected();
+				cout << "id6_data2elem: ";
+				for (auto v : id6_data2elem)
+					cout << v << " ";
+				cout << endl;
+			}
+			#endif
 			
 			//
 			// Check collapse validity
@@ -234,10 +244,10 @@ int main()
 				++it1, ++oldNormal)
 			{
 				// No triangle inversions
-				valid = ((*oldNormal) * prj.getNormal(*it1) > TOLL);
+				valid = valid && ((*oldNormal) * prj.getNormal(*it1) > TOLL);
 				
 				// No empty triangles
-				valid = !(prj.isEmpty(*it1));
+				valid = valid && !(prj.isEmpty(*it1));
 				
 				// No mesh self-intersections
 				auto elems = sdata.getNeighbouringElements(*it1);
@@ -249,7 +259,7 @@ int main()
 				*/
 				for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
 				{
-					valid = !(intrs.intersect(*it1, *it2));
+					valid = valid && !(intrs.intersect(*it1, *it2));
 					#ifndef NDEBUG
 					if (!(valid))
 					{
@@ -297,6 +307,7 @@ int main()
 			//
 			
 			prj.undo(toMove, oldData);
+			conn->insertElemInData2Elem(toRemove);
 		}
 		
 		//
@@ -309,7 +320,6 @@ int main()
 			
 		// Restore list of nodes
 		prj.getPointerToMesh()->setNode(id1, P);
-		prj.getPointerToMesh()->setNodeActive(id2);
 		
 		// Restore structured data
 		sdata.update(toKeep);
@@ -331,7 +341,7 @@ int main()
 			auto id3_node2elem = conn->getNode2Elem(id3).getConnected();
 			auto id4_node2elem = conn->getNode2Elem(id4).getConnected();
 			auto id5_node2elem = conn->getNode2Elem(id5).getConnected();
-			auto dp1_data2elem = conn->getData2Elem(toMove[0]).getConnected();
+			auto id6_data2elem = conn->getData2Elem(id6).getConnected();
 			auto el1_elem2data = conn->getElem2Data(toKeep[2]).getConnected();
 		
 			cout << endl << "id3_node2node: ";
@@ -364,8 +374,8 @@ int main()
 				cout << v << " ";
 			cout << endl;
 			
-			cout << "dp1_data2elem: ";
-			for (auto v : dp1_data2elem)
+			cout << "id6_data2elem: ";
+			for (auto v : id6_data2elem)
 				cout << v << " ";
 			cout << endl;
 			

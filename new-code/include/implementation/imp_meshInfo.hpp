@@ -60,16 +60,11 @@ namespace geometry
 		assert(invElems.size() > 0);
 		
 		// Get data associated to the involved elements
-		if (invElems.size() == 1)
-			return this->connectivity.elem2data[invElems[0]].getConnected();
-		else
-		{
-			auto s = set_union(this->connectivity.elem2data[invElems[0]], 
-				this->connectivity.elem2data[invElems[1]]);
-			for (vector<UInt>::size_type el = 2; el < invElems.size(); el++)
-				s = set_union(graphItem(s), this->connectivity.elem2data[invElems[el]]);
-			return vector<UInt>(s.begin(), s.end());
-		}
+		auto s = set_union(this->connectivity.elem2data[invElems[0]], 
+			this->connectivity.elem2data[invElems[1]]);
+		for (vector<UInt>::size_type el = 2; el < invElems.size(); ++el)
+			s = set_union(graphItem(s), this->connectivity.elem2data[invElems[el]]);
+		return vector<UInt>(s.begin(), s.end());
 	}
 	
 	
@@ -80,16 +75,11 @@ namespace geometry
 		assert(invElems.size() > 0);
 		
 		// Get data associated to the involved elements
-		if (invElems.size() == 1)
-			return this->connectivity.elem2data[invElems[0]].getConnected();
-		else
-		{
-			auto s = set_union(this->connectivity.elem2data[invElems[0]], 
-				this->connectivity.elem2data[invElems[1]]);
-			for (vector<UInt>::size_type el = 2; el < invElems.size(); el++)
-				s = set_union(graphItem(s), this->connectivity.elem2data[invElems[el]]);
-			return vector<UInt>(s.begin(), s.end());
-		}
+		auto s = set_union(this->connectivity.elem2data[invElems[0]], 
+			this->connectivity.elem2data[invElems[1]]);
+		for (vector<UInt>::size_type el = 2; el < invElems.size(); ++el)
+			s = set_union(graphItem(s), this->connectivity.elem2data[invElems[el]]);
+		return vector<UInt>(s.begin(), s.end());
 	}
 	
 	
@@ -148,6 +138,25 @@ namespace geometry
 		}
 		
 		return vector<UInt>(toKeep.begin(), toKeep.end()); 
+	}
+	
+	
+	template<typename SHAPE>
+	vector<UInt> meshInfo<SHAPE, MeshType::DATA>::getDataOnEdge(const vector<UInt> & toRemove,
+		const vector<UInt> & toMove) const
+	{
+		set<UInt> notMove;
+		
+		// Loop over all elements insisting on the collapsing edge
+		for (auto elem : toRemove)
+		{	
+			// Check for data associated to the element but not to move,
+			// then possibly insert them into notMove
+			auto s = set_difference(this->connectivity.elem2data[elem], graphItem(toMove));
+			notMove.insert(s.cbegin(), s.cend());
+		}
+		
+		return {notMove.cbegin(), notMove.cend()};
 	}
 	
 	

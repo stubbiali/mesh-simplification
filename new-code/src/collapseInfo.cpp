@@ -14,13 +14,13 @@ namespace geometry
 	// Constructor
 	//
 	
-	collapseInfo::collapseInfo(const UInt & id1, const UInt & id2, const point3d & cp, const Real & val) :
+	collapseInfo::collapseInfo(const UInt & id1, const UInt & id2, const Real & val, const point3d & cp) :
 		Id1(id1), Id2(id2), cPoint(cp), cost(val)
 	{
 	}
 	
 	
-	collapseInfo::collapseInfo(const vector<UInt> & ids, const point3d & cp, const Real & val) :
+	collapseInfo::collapseInfo(const vector<UInt> & ids, const Real & val, const point3d & cp) :
 		Id1(ids[0]), Id2(ids[1]), cPoint(cp), cost(val)
 	{
 	}

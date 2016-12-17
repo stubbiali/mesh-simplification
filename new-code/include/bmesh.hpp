@@ -110,9 +110,19 @@ namespace geometry
 				\return		number of nodes */
 			UInt getNumNodes() const;
 			
+			/*!	Get size of nodes list, i.e. number of nodes both
+				active and inactive.
+				\return		size of nodes list */
+			UInt getNodesListSize() const;
+			
 			/*! Get number of elements.
 				\return		number of elements */
 			UInt getNumElems() const;
+			
+			/*!	Get size of elements list, i.e. number of elements both
+				active and inactive.
+				\return		size of elements list */
+			UInt getElemsListSize() const;
 			
 			//
 			// Set methods
@@ -180,12 +190,12 @@ namespace geometry
 				\param coor		array with the coordinates
 				\param bound	boundary flag */	
 			void insertNode(const array<Real,3> & coor, const UInt & bound);
-			
+						
 			/*! Insert a new element at the back of the list.
 				\param geoId	geometric Id
 				\param vert		array with vertices Id's */
 			void insertElem(const array<UInt,NV> & vert, const UInt & geoId = 0);
-			
+						
 			/*! Replace the vertex of an element.
 				\param elemId	element Id
 				\param oldId	old vertex Id
@@ -208,6 +218,13 @@ namespace geometry
 			void clear();
 			
 			//
+			// Refresh methods
+			//
+			
+			/*!	Remove inactive nodes and elements from the lists and update Id's. */
+			void refresh();
+			
+			//
 			// Print
 			//
 						
@@ -218,7 +235,7 @@ namespace geometry
 				<\ol>
 				
 				\param filename	name of the output file */
-			void print(const string & filename) const; 
+			void print(const string & filename); 
 			
 		protected:
 			//

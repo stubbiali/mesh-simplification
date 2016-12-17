@@ -54,6 +54,7 @@ namespace geometry
 	{
 		out << "Point " << p.Id << ": "
 			<< static_cast<const geoPoint<3> &>(p);
+		return out;
 	}
 }
 

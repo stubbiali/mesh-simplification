@@ -11,7 +11,7 @@ namespace std
 	//
 	
 	template<UInt N>
-	size_t hash<boundingBox<N>>::operator()(const boundingBox<N> & bb) const
+	INLINE size_t hash<boundingBox<N>>::operator()(const boundingBox<N> & bb) const
 	{
 		return bb.getIdx();
 	}

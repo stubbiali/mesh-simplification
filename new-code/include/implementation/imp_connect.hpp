@@ -82,11 +82,11 @@ namespace geometry
 		elem2data.reserve(this->grid.getNumElems());
 		
 		// Set elements Id's
-		for (UInt id = 0; id < this->grid.getNumElems(); id++)
+		for (UInt id = 0; id < this->grid.getNumElems(); ++id)
 			elem2data.emplace_back(id);
 			
 		// Loop over all elements
-		for (UInt datumId = 0; datumId < this->grid.getNumData(); datumId++)
+		for (UInt datumId = 0; datumId < this->grid.getNumData(); ++datumId)
 		{
 			// Extract elements connected to the datum
 			auto conn = data2elem[datumId].getConnected();
@@ -126,6 +126,46 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
+	void connect<SHAPE, MeshType::DATA>::eraseElemInData2Elem(const UInt & Id)
+	{
+		// Extract element-data connections
+		auto data = elem2data[Id].getConnected();
+		
+		// Remove element
+		for (auto datum : data)
+			data2elem[datum].erase(Id);
+	}
+	
+	
+	template<typename SHAPE>
+	void connect<SHAPE, MeshType::DATA>::eraseElemInData2Elem(const vector<UInt> & ids)
+	{
+		for (auto id : ids)
+			eraseElemInData2Elem(id);
+	}
+	
+	
+	template<typename SHAPE>
+	void connect<SHAPE, MeshType::DATA>::insertElemInData2Elem(const UInt & Id)
+	{
+		// Extract element-data connections
+		auto data = elem2data[Id].getConnected();
+		
+		// Insert element
+		for (auto datum : data)
+			data2elem[datum].insert(Id);
+	}
+	
+	
+	template<typename SHAPE>
+	void connect<SHAPE, MeshType::DATA>::insertElemInData2Elem(const vector<UInt> & ids)
+	{
+		for (auto id : ids)
+			insertElemInData2Elem(id);
+	}
+	
+	
+	template<typename SHAPE>
 	void connect<SHAPE, MeshType::DATA>::eraseDataInElem2Data(const UInt & Id)
 	{
 		// Extract data-element connections
@@ -151,7 +191,7 @@ namespace geometry
 		// Extract data-element connections
 		auto elems = data2elem[Id].getConnected();
 		
-		// Remove datum
+		// Insert datum
 		for (auto elem : elems)
 			elem2data[elem].insert(Id);
 	}

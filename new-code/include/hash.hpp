@@ -3,6 +3,8 @@
 	
 #ifndef HH_HASH_HH
 #define HH_HASH_HH
+
+#include <tuple>
 		
 #include "shapes.hpp"
 #include "geoElement.hpp"
@@ -19,6 +21,16 @@ namespace std
 {
 	using namespace geometry; 
 	
+	/*! Specialization for pair<UInt,UInt>. */
+	template<>
+	struct hash<pair<UInt,UInt>>
+	{
+		/*! Call operator.
+			\param p	a pair<UInt,UInt> object
+			\return		the associated hash value */
+		size_t operator()(const pair<UInt,UInt> & p) const;
+	};
+	
 	/*! Specialization for geoElement<Line>. */
 	template<>
 	struct hash<geoElement<Line>>
@@ -30,7 +42,9 @@ namespace std
 	};
 			
 	/*!	Specialization for boundingBox. */
+	#ifndef __clang__
 	template<>
+	#endif
 	template<UInt N>
 	struct hash<boundingBox<N>>
 	{

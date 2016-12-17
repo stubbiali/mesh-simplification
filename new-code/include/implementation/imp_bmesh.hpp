@@ -12,6 +12,7 @@
 #include <sstream>
 #include <istream>
 #include <array>
+#include <map>
 
 #include "utility.hpp"
 
@@ -139,9 +140,23 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	INLINE UInt bmesh<SHAPE>::getNodesListSize() const
+	{
+		return nodes.size();
+	}
+	
+	
+	template<typename SHAPE>
 	INLINE UInt bmesh<SHAPE>::getNumElems() const
 	{
 		return numElems;
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE UInt bmesh<SHAPE>::getElemsListSize() const
+	{
+		return elems.size();
 	}
 	
 	
@@ -233,16 +248,22 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setNodeActive(const UInt & Id)
 	{
-		nodes[Id].setActive();
-		++numNodes;
+		if (!(nodes[Id].isActive()))
+		{
+			nodes[Id].setActive();
+			++numNodes;
+		}
 	}
 	
 	
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setNodeInactive(const UInt & Id)
 	{
-		nodes[Id].setInactive();
-		--numNodes;
+		if (nodes[Id].isActive())
+		{
+			nodes[Id].setInactive();
+			--numNodes;
+		}
 	}
 	
 	
@@ -256,16 +277,22 @@ namespace geometry
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setElemActive(const UInt & Id)
 	{
-		elems[Id].setActive();
-		++numElems;
+		if (!(elems[Id].isActive()))
+		{
+			elems[Id].setActive();
+			++numElems;
+		}
 	}
 	
 	
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::setElemInactive(const UInt & Id)
 	{
-		elems[Id].setInactive();
-		--numElems;
+		if (elems[Id].isActive())
+		{
+			elems[Id].setInactive();
+			--numElems;
+		}
 	}
 	
 	
@@ -287,7 +314,7 @@ namespace geometry
 		elems.emplace_back(vert, elems.size(), geoId);
 		++numElems;
 	}
-	
+		
 	
 	template<typename SHAPE>
 	INLINE void bmesh<SHAPE>::replaceVertex(const UInt & elemId, const UInt & oldId, const UInt & newId)
@@ -346,6 +373,91 @@ namespace geometry
 	
 	
 	//
+	// Refresh methods
+	//
+	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::refresh()
+	{
+		// Map from ond to new nodes id's
+		map<UInt,UInt> old2new;
+		
+		// Temporary list of (active) nodes and elements
+		vector<point> tmp_nodes;
+		vector<geoElement<SHAPE>> tmp_elems;
+
+		// Reserve memory 
+		tmp_nodes.reserve(numNodes);
+		tmp_elems.reserve(numElems);
+		
+		//
+		// Build temporary list of nodes
+		//
+		
+		// Counter
+		UInt count(0);
+		
+		// Loop on the nodes
+		for (UInt i = 0; i < nodes.size(); ++i)
+		{
+			if (nodes[i].isActive())
+			{
+				// Put the node in the temporary list and set the Id
+				tmp_nodes.push_back(nodes[i]);
+				tmp_nodes[count].setId(count);
+
+				// Update old-to-new map and counter
+				old2new[i] = count;
+				
+				++count;
+			}
+		}
+		
+		//
+		// Build temporary list of elements
+		//
+		
+		// Reset counter
+		count = 0;
+		
+		// Loop on the elements
+		for (UInt i = 0; i < elems.size(); ++i)
+		{
+			if (elems[i].isActive())
+			{
+				// Extract the vertices and apply old-to-new map
+				array<UInt, bmesh<SHAPE>::NV> ids;
+				for (UInt j = 0; j < bmesh<SHAPE>::NV; ++j)
+					ids[j] = old2new[elems[i][j]];
+				
+				// Extract the geometrical Id
+				auto gId = elems[i].getGeoId();
+
+				// Insert in the temporary list of elements
+				tmp_elems.emplace_back(ids, count, gId);
+				
+				// Update counter
+				++count;
+			}
+		}
+		
+		//
+		// Set new lists of nodes and elements
+		//
+		
+		// Nodes
+		nodes.clear();
+		nodes.reserve(numNodes);
+		copy(tmp_nodes.cbegin(), tmp_nodes.cend(), back_inserter(nodes));
+		
+		// Elements
+		elems.clear();
+		elems.reserve(numNodes);
+		copy(tmp_elems.cbegin(), tmp_elems.cend(), back_inserter(elems));
+	}
+	
+	
+	//
 	// Read mesh from file
 	//
 	
@@ -372,7 +484,7 @@ namespace geometry
 			// Insert nodes
 			UInt Id;
 			array<Real,3> coor; 
-			for (UInt n = 0; n < numNodes && getline(file,line); n++)
+			for (UInt n = 0; n < numNodes && getline(file,line); ++n)
 			{
 				// Extract coordinates
 				static_cast<stringstream>(line)	>> Id 
@@ -388,7 +500,7 @@ namespace geometry
 			UInt geoId;
 			string foo; 
 			array<UInt,NV> vert;
-			for (UInt n = 0; n < numElems && getline(file,line); n++)
+			for (UInt n = 0; n < numElems && getline(file,line); ++n)
 			{
 				// Extract geometric Id
 				stringstream ss(line);
@@ -399,7 +511,7 @@ namespace geometry
 				for (auto & v : vert)
 				{
 					ss >> v;
-					v--;
+					--v;
 				}
 				
 				// Insert at back							
@@ -511,10 +623,14 @@ namespace geometry
 	//
 		
 	template<typename SHAPE>
-	void bmesh<SHAPE>::print(const string & filename) const
+	void bmesh<SHAPE>::print(const string & filename)
 	{
 		// Extract file extension
 		auto format = utility::getFileExtension(filename);
+				
+		// Check if the mesh needs a refresh
+		if ((numNodes < nodes.size()) || (numElems < elems.size()))
+			refresh();
 		
 		// Switch the format
 		if (format == "inp")
@@ -529,9 +645,18 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::print_inp(const string & filename) const
 	{
-		// TODO
 	}
-		
+	
+	
+	// Declare specialization for triangular grids
+	template<>
+	void bmesh<Triangle>::print_inp(const string & filename) const;
+	
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	void bmesh<Quad>::print_inp(const string & filename) const;
+				
 	
 	template<typename SHAPE>
 	void bmesh<SHAPE>::print_vtk(const string & filename) const
@@ -547,7 +672,7 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::setUpNodesIds()
 	{
-		for (UInt i = 0; i < nodes.size(); i++)
+		for (UInt i = 0; i < nodes.size(); ++i)
 			nodes[i].setId(i);
 	}
 	
@@ -555,7 +680,7 @@ namespace geometry
 	template<typename SHAPE>
 	void bmesh<SHAPE>::setUpElemsIds()
 	{
-		for (UInt i = 0; i < elems.size(); i++)
+		for (UInt i = 0; i < elems.size(); ++i)
 			elems[i].setId(i);
 	}
 }

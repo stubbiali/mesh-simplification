@@ -57,7 +57,18 @@ namespace geometry
 		static_assert(((SHAPE::numVertices == 3) || (SHAPE::numVertices == 4)),
 			"getBoundingBox(), then the entire class, "
 			"provided only for triangular and quadrilateral grids.");
+		return {};
 	}
+	
+	
+	// Declare specialization for triangular grids
+	template<>
+	bbox3d structuredData<Triangle>::getBoundingBox(const UInt & Id) const;
+	
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	bbox3d structuredData<Quad>::getBoundingBox(const UInt & Id) const;
 		
 	
 	template<typename SHAPE>
@@ -111,14 +122,14 @@ namespace geometry
 					// Out of these boxes, keep only the active ones 
 					// actually intersecting the reference bounding box
 					for (auto it = range.first; it != range.second; ++it)
-						if (grid->getElem(it->getId()).isActive())
+						if (doIntersect(box, *it))
 							res.insert(it->getId());
 				}
 		
 		// Remove Id of reference element from the set,
 		// then convert to a vector
 		res.erase(Id);
-		return vector<UInt>(res.begin(),res.end());
+		return {res.cbegin(), res.cend()};
 	}
 	
 	
@@ -181,8 +192,18 @@ namespace geometry
 	}
 	
 	
+	// Declare specialization for triangular grids
+	template<>
+	void structuredData<Triangle>::update(const vector<UInt> & ids);
+	
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	void structuredData<Quad>::update(const vector<UInt> & ids);
+	
+	
 	template<typename SHAPE>
-	void structuredData<SHAPE>::update(const vector<UInt> & toRemove, 
+	INLINE void structuredData<SHAPE>::update(const vector<UInt> & toRemove, 
 		const vector<UInt> & toKeep)
 	{
 		erase(toRemove);

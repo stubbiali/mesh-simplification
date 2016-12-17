@@ -24,6 +24,16 @@ namespace geometry
 	}
 	
 	
+	// Declare specialization for two-dimensional points
+	template<>
+	geoPoint<2>::geoPoint(const Real & val);
+	
+	
+	// Declare specialization for three-dimensional points
+	template<>
+	geoPoint<3>::geoPoint(const Real & val);
+	
+	
 	template<UInt N>
 	geoPoint<N>::geoPoint(const Real & x, const Real & y) :
 		coor{x,y}
@@ -31,7 +41,7 @@ namespace geometry
 		static_assert(N == 2,
 			"This constructor is provided only for two-dimensional points.");
 	}
-	
+		
 	
 	template<UInt N>
 	geoPoint<N>::geoPoint(const Real & x, const Real & y, const Real & z) :
@@ -49,13 +59,13 @@ namespace geometry
 		auto it = lst.begin();
 		
 		// Fill the coordinates
-		for ( ; i < N && it != lst.end(); i++, it++)
+		for ( ; i < N && it != lst.end(); ++i, ++it)
 			coor[i] = *it;
 			
 		// If the size of the initializer list is smaller than
 		// the spatial dimension, set the remaining coordinates 
 		// to zero
-		for ( ; i < N; i++)
+		for ( ; i < N; ++i)
 			coor[i] = 0.;
 	}
 	
@@ -74,11 +84,11 @@ namespace geometry
 		typename array<Real,N>::size_type i = 0;
 				
 		// Fill the coordinates
-		for ( ; i < N && i < DIM; i++)
+		for ( ; i < N && i < DIM; ++i)
 			coor[i] = gp[i];
 			
 		// If N > DIM, set the remaining coordinates to zero
-		for ( ; i < N; i++)
+		for ( ; i < N; ++i)
 			coor[i] = 0.;
 	}
 	
@@ -105,7 +115,7 @@ namespace geometry
 			
 		return geoPoint<N>(newCoor);
 	}
-			
+				
 		
 	template<UInt N>
 	geoPoint<N> operator-(const geoPoint<N> & gpA, const geoPoint<N> & gpB)
@@ -168,7 +178,7 @@ namespace geometry
 	template<UInt N>	
 	bool operator<(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			// If the i-th coordinate of the first point is greater
 			// or equal than the i-th coordinate of the second point,
@@ -185,7 +195,7 @@ namespace geometry
 	template<UInt N>	
 	bool operator<=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			// If the i-th coordinate of the first point is greater
 			// than the i-th coordinate of the second point,
@@ -197,12 +207,12 @@ namespace geometry
 		// gpA is smaller or equal than gpB
 		return true;
 	}
-	
+		
 	
 	template<UInt N>	
 	bool operator>(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			// If the i-th coordinate of the first point is smaller
 			// or equal than the i-th coordinate of the second point,
@@ -214,12 +224,12 @@ namespace geometry
 		// gpA is greater than gpB
 		return true;
 	}
-	
+		
 	
 	template<UInt N>	
 	bool operator>=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			// If the i-th coordinate of the first point is smaller
 			// than the i-th coordinate of the second point,
@@ -231,12 +241,12 @@ namespace geometry
 		// gpA is greater or equal than gpB
 		return true;
 	}
-	
+		
 	
 	template<UInt N>	
 	bool operator!=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			if (abs(gpA.coor[i] - gpB.coor[i]) > TOLL)
 				return true;
@@ -250,7 +260,7 @@ namespace geometry
 	template<UInt N>	
 	bool operator==(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
-		for (typename array<Real,N>::size_type i = 0; i < N; i++) 
+		for (typename array<Real,N>::size_type i = 0; i < N; ++i) 
 		{
 			if (abs(gpA.coor[i] - gpB.coor[i]) > TOLL)
 				return false;
@@ -283,11 +293,11 @@ namespace geometry
 		
 		// Start copying the coordinates
 		typename array<Real,DIM>::size_type i = 0;
-		for ( ; i < DIM && i < N; i++)
+		for ( ; i < DIM && i < N; ++i)
 			newCoor[i] = coor[i];
 			
 		// If DIM > N, set the remaining coordinates to zero
-		for ( ; i < DIM; i++)
+		for ( ; i < DIM; ++i)
 			newCoor[i] = 0.;
 			
 		return geoPoint<DIM>(newCoor);
@@ -301,6 +311,7 @@ namespace geometry
 		for (auto el : gp.coor)
 			out << el << " ";
 		out << "]";
+		return out;
 	}
 	
 	

@@ -40,17 +40,17 @@ namespace geometry
 			/*!	Constructor.
 				\param id1	Id of first end-point
 				\param id2	Id of second end-point
-				\param cp	collapsing point
-				\param val	collapsing cost */
-			collapsingEdge(const UInt & id1, const UInt & id2, const point3d & cp = {0.,0.,0.}, 
-				const Real & val = 0.);
+				\param val	collapsing cost
+				\param cp	collapsing point */
+			collapsingEdge(const UInt & id1, const UInt & id2, const Real & val = 0.,
+				const point3d & cp = {0.,0.,0.});
 				
 			/*!	Constructor.
 				\param ids	vector with end-points Id's
-				\param cp	collapsing point
-				\param val	collapsing cost */
-			collapsingEdge(const vector<UInt> & ids, const point3d & cp = {0.,0.,0.}, 
-				const Real & val = 0.);
+				\param val	collapsing cost
+				\param cp	collapsing point */
+			collapsingEdge(const vector<UInt> & ids, const Real & val = 0.,
+				const point3d & cp = {0.,0.,0.});
 				
 			/*!	Synthetic copy constructor. 
 				\param cEdge	another collapsingEdge object */

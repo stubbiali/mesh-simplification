@@ -8,6 +8,21 @@
 namespace geometry
 {
 	//
+	// Operators
+	//
+	
+	INLINE bool operator<(const collapsingEdge & cEdge1, const collapsingEdge & cEdge2)
+	{
+		// If the costs are equal, compare the Id's
+		// Otherwise, compare the costs
+		
+		return (!(cEdge1.cost < cEdge2.cost) && !(cEdge1.cost > cEdge2.cost)) ?
+			((cEdge1.Id1 < cEdge1.Id1) || ((cEdge1.Id1 == cEdge2.Id1) && (cEdge1.Id2 < cEdge2.Id2))) :
+			(cEdge1.cost < cEdge2.cost);
+	}
+	
+	
+	//
 	// Get methods
 	//
 	
