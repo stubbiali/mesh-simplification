@@ -73,17 +73,22 @@ int main()
 		
 		projection<Triangle> prj(inputfile);
 		auto conn = prj.getPointerToConnectivity();
-		//OnlyGeo<MeshType::DATA> costFunction(prj.getPointerToProjection());
+		//OnlyGeo<MeshType::DATA> costFunction(&prj);
 		DataGeo costFunction(&prj, 1./3., 1./3., 1./3.);
 		structuredData<Triangle> sdata(prj);
 		intersection<Triangle> intrs(prj.getPointerToMesh());
-		
+				
 		#ifdef NDEBUG
 		stop = high_resolution_clock::now();
 		auto init_duration = duration_cast<milliseconds>(stop-start).count();
 		cout << "Elapsed time: " << init_duration << " ms" << endl;
 		#endif
 		
+		#ifndef NDEBUG
+		auto nc = bbox3d::getNumCells();
+		cout << "Number of cells: " << nc[0] << " " << nc[1] << " " << nc[2] << endl;
+		#endif
+				
 		// Edge end-points
 		//UInt id1(27040), id2(28289);
 		UInt id1(6721), id2(16057);
@@ -139,7 +144,7 @@ int main()
 		#ifdef NDEBUG
 		high_resolution_clock::time_point start, stop; 
 		start = high_resolution_clock::now();
-		for (UInt t = 0; t < 1e5; ++t)
+		for (UInt t = 0; t < 1e4; ++t)
 		{
 		#endif
 		
@@ -183,6 +188,11 @@ int main()
 		
 		// Update node-node, node-element and element-node connections
 		auto oldConnections = conn->applyEdgeCollapse(id2, id1, toRemove, toKeep);
+		
+		vector<vector<UInt>> patches;
+		patches.reserve(toKeep.size());
+		for (auto elem : toKeep)
+			patches.emplace_back(prj.getTriPatch(elem));
 				
 		//
 		// Get potentially valid points
@@ -250,13 +260,16 @@ int main()
 				valid = valid && !(prj.isEmpty(*it1));
 				
 				// No mesh self-intersections
+				for (auto elem : patches[it1-toKeep.cbegin()])
+					prj.getPointerToMesh()->setElemInactive(elem);
+					
 				auto elems = sdata.getNeighbouringElements(*it1);
-				/*
+				
 				#ifndef NDEBUG
 				if (i == 0)
 					cout << "Number of intersection tests: " << elems.size() << endl; 
 				#endif
-				*/
+				
 				for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
 				{
 					valid = valid && !(intrs.intersect(*it1, *it2));
@@ -279,6 +292,9 @@ int main()
 					}
 					#endif
 				}
+				
+				for (auto elem : patches[it1-toKeep.cbegin()])
+					prj.getPointerToMesh()->setElemActive(elem);
 			}
 					
 			//

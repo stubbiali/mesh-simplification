@@ -142,13 +142,14 @@ namespace geometry
 				\param a	first vertex of the triangle
 				\param b	second vertex of the triangle
 				\param c	thrid vertex of the triangle
+				\return		TRUE if the point belongs to the triangle,
+							FALSE otherwise
 				\return		0 if the point falls inside the triangle,
 							1, 2 or 3 if the proint falls onto the edge
 							ab, bc or cd, respectively, 
 							4, 5, 6 if the point coincides with the vertex
-							a, b or c, respectively,
-							7 if the point does not belong to the triangle */
-			static UInt inTri2d(const point2d & p, const point2d & a, const point2d & b, 
+							a, b or c, respectively */
+			static pair<bool,UInt> inTri2d(const point2d & p, const point2d & a, const point2d & b, 
 				const point2d & c);
 			
 			/*!	Starting from the belonging to an element, get all elements

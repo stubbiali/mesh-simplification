@@ -14,17 +14,15 @@ namespace geometry
 	void simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>::
 		getCost(const UInt & id1, const UInt & id2)
 	{
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			// First make sure the fixed element is not involved
-			if (dontTouch)
-				if ((id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
-					(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
-					(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]) ||
-					(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
-					(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
-					(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]))
-					return;
-		#endif
+		// First make sure the fixed element is not involved
+		if (dontTouch)
+			if ((id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
+				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
+				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]))
+				return;
 								
 		//
 		// Get potentially valid points
@@ -65,6 +63,15 @@ namespace geometry
 		// Update node-node, node-element and element-node connections
 		auto oldConnections = gridOperation.getPointerToConnectivity()
 			->applyEdgeCollapse(id2, id1, toRemove, toKeep);
+			
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// For each involved element, get its patch
+			// This will come useful when checking for mesh self-intersections
+			vector<vector<UInt>> patches;
+			patches.reserve(toKeep.size());
+			for (auto elem : toKeep)
+				patches.push_back(gridOperation.getTriPatch(elem));
+		#endif
 									
 		//
 		// Get the cheapest edge
@@ -109,9 +116,23 @@ namespace geometry
 				
 				// No mesh self-intersections
 				#ifndef ENABLE_SELF_INTERSECTIONS
-					auto elems = structData.getNeighbouringElements(*it1);
-					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-						valid = valid && !(intrs.intersect(*it1, *it2));
+					if (valid)
+					{
+						// Make the elements surrounding *it1 inactive
+						// In this way, they will be disregarded in the checks
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemInactive(elem);
+						
+						// Extract elements whose bounding box intersect the one of *it1
+						// and perform triangle-triangle intersection tests
+						auto elems = structData.getNeighbouringElements(*it1);
+						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+							valid = valid && !(intrs.intersect(*it1, *it2));
+						
+						// Restore elements surrounding *it1
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemActive(elem);
+					}
 				#endif
 			}
 						

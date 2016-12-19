@@ -94,8 +94,7 @@ namespace geometry
 		structData.setMesh(gridOperation);
 		
 		// Possibly update fixed element
-		if (dontTouch)
-			findDontTouchId();
+		findDontTouchId();
 	}
 	
 	
@@ -121,8 +120,7 @@ namespace geometry
 		intrs.setMesh(gridOperation.getCPointerToMesh());
 		
 		// Possibly find fixed element
-		if (dontTouch)
-			findDontTouchId();
+		findDontTouchId();
 	}
 
 
@@ -176,14 +174,20 @@ namespace geometry
 		// Update connections
 		//
 		
-		// Store old id1 and make id2 inactive
+		// Store old id1 
 		auto P(gridOperation.getCPointerToMesh()->getNode(id1));
-		gridOperation.getPointerToMesh()->setNodeInactive(id2);
 		
 		// Update node-node, node-element and element-node connections
 		auto oldConnections = gridOperation.getPointerToConnectivity()
 			->applyEdgeCollapse(id2, id1, toRemove, toKeep);	
-									
+			
+		// For each involved element, get its patch
+		// This will come useful when checking for mesh self-intersections
+		vector<vector<UInt>> patches;
+		patches.reserve(toKeep.size());
+		for (auto elem : toKeep)
+			patches.push_back(gridOperation.getTriPatch(elem));
+															
 		//
 		// Get the cheapest edge
 		//
@@ -194,7 +198,7 @@ namespace geometry
 		vector<point3d>::const_iterator oldNormal; 
 		Real opt_cost(numeric_limits<Real>::max());
 		UInt opt_cPoint(pointsList.size());
-		
+				
 		for (UInt i = 0; i < pointsList.size(); ++i)
 		{
 			//
@@ -203,10 +207,10 @@ namespace geometry
 		
 			// Change coordinates and boundary flag of id1
 			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
-			
+						
 			// Update structured data
-			structData.update(toRemove, toKeep); 
-			
+			structData.update(toKeep); 
+						
 			// Project data points and update data-element 
 			// and element-data connections
 			auto oldData = gridOperation.project(toMove, toKeep);
@@ -232,9 +236,23 @@ namespace geometry
 				valid = valid && !(gridOperation.isEmpty(*it1));
 				
 				// No mesh self-intersections
-				auto elems = structData.getNeighbouringElements(*it1);
-				for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-					valid = valid && !(intrs.intersect(*it1, *it2));
+				if (valid)
+				{
+					// Make the elements surrounding *it1 inactive
+					// In this way, they will be disregarded in the checks
+					for (auto elem : patches[it1-toKeep.cbegin()])
+						gridOperation.getPointerToMesh()->setElemInactive(elem);
+						
+					// Extract elements whose bounding box intersect the one of *it1
+					// and perform triangle-triangle intersection tests
+					auto elems = structData.getNeighbouringElements(*it1);
+					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+						valid = valid && !(intrs.intersect(*it1, *it2));
+						
+					// Restore elements surrounding *it1
+					for (auto elem : patches[it1-toKeep.cbegin()])
+						gridOperation.getPointerToMesh()->setElemActive(elem);
+				}
 			}
 			
 			//
@@ -271,10 +289,9 @@ namespace geometry
 			
 		// Restore list of nodes
 		gridOperation.getPointerToMesh()->setNode(id1, P);
-		gridOperation.getPointerToMesh()->setNodeActive(id2);
 		
 		// Restore structured data
-		structData.update(invElems);
+		structData.update(toKeep);
 					
 		//
 		// Update collapseInfo's and collapsingEdge's lists
@@ -480,7 +497,7 @@ namespace geometry
 
 	template<MeshType MT, typename CostClass>
 	void simplification<Triangle, MT, CostClass>::simplificate(const UInt & numNodesMax,
-		const string & file)
+		const bool & enableDontTouch, const string & file)
 	{
 		// Check if the current number of nodes is below the threshold
 		auto numNodesStart(gridOperation.getCPointerToMesh()->getNumNodes());
@@ -494,7 +511,9 @@ namespace geometry
 		//
 		// Run simplification
 		//
-
+		
+		dontTouch = enableDontTouch;
+		
 		cout << "Simplification process..." << endl;
 		#ifdef NDEBUG
 		using namespace std::chrono;

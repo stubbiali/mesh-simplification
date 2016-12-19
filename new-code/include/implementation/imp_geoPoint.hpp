@@ -134,6 +134,7 @@ namespace geometry
 	{
 		static_assert(N == 2 || N == 3,
 			"Cross product defined only for two- and three-dimensional points.");
+		return {};
 	}
 		
 		

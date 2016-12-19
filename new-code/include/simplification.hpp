@@ -215,9 +215,12 @@ namespace geometry
 			/*! Method which iteratively contracts the edge with minimum cost until 
 				reaching a maximum amount of nodes.
 				Once the procedure is done, the mesh is possibly print to file.
-				\param numNodesMax	maximum number of nodes
-				\param file			path to output file; if empty, nothing is printed */
-			void simplificate(const UInt & numNodesMax, const string & file = "");
+				\param numNodesMax		maximum number of nodes
+				\param enableDontTouch	TRUE if one element must be fixed,
+										FALSE otherwise
+				\param file				path to output file; if empty, nothing is printed */
+			void simplificate(const UInt & numNodesMax, const bool & enableDontTouch,
+				const string & file = "");
 	};
 }
 

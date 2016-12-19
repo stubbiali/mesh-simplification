@@ -260,7 +260,7 @@ namespace geometry
 		auto r_plane = D - R*N;
 		if ((-TOLL <= r_plane) && (r_plane <= TOLL))
 			return make_tuple(l2p, p2s, 1.);
-			
+		
 		t = q_plane/den;
 		
 		// They intersect one each other iff \$ 0 \leq t \leq 1 \$
@@ -359,13 +359,7 @@ namespace geometry
 		//
 		
 		// Compute the intersection point
-		point2d p;
-		if ((-TOLL <= t) && (t <= TOLL))
-			p = q;
-		else if ((1.-TOLL <= t) && (t <= 1.+TOLL))
-			p = r;
-		else
-			p = q + t*(r - q);
+		point2d p = q + t*(r - q);
 		
 		// Find the relative position between the intersection
 		// point and the triangle

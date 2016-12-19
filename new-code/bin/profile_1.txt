@@ -1,0 +1,1009 @@
+Flat profile:
+
+Each sample counts as 0.01 seconds.
+  %   cumulative   self              self     total           
+ time   seconds   seconds    calls   s/call   s/call  name    
+ 24.51      2.14     2.14   198756     0.00     0.00  geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const
+ 23.66      4.21     2.07 37469251     0.00     0.00  geometry::intersection<geometry::Triangle>::intersect(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&)
+ 23.66      6.27     2.07 224811012     0.00     0.00  geometry::gutility::intSegPlane(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&)
+ 11.46      7.27     1.00 224811012     0.00     0.00  geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&)
+  2.98      7.53     0.26 37469251     0.00     0.00  geometry::intersection<geometry::Triangle>::intersect(unsigned int const&, unsigned int const&) const
+  1.95      7.70     0.17 14812170     0.00     0.00  geometry::gutility::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&)
+  1.83      7.86     0.16    34156     0.00     0.00  geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  1.60      8.00     0.14                             geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&)
+  1.20      8.11     0.11                             geometry::gutility::inTri3d(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&)
+  1.15      8.21     0.10   895880     0.00     0.00  geometry::projection<geometry::Triangle>::project(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&)
+  0.80      8.28     0.07   213144     0.00     0.00  geometry::connect<geometry::Triangle, (geometry::MeshType)1>::eraseDataInElem2Data(unsigned int const&)
+  0.69      8.34     0.06   187386     0.00     0.00  geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&)
+  0.69      8.40     0.06    53286     0.00     0.00  geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.46      8.44     0.04  1557740     0.00     0.00  std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&)
+  0.46      8.48     0.04   404226     0.00     0.00  geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const
+  0.34      8.51     0.03  5165413     0.00     0.00  std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*)
+  0.23      8.53     0.02 10025176     0.00     0.00  geometry::geoPoint<3u>::geoPoint(double const&)
+  0.23      8.55     0.02  1942542     0.00     0.00  geometry::gutility::intSegSeg2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&)
+  0.23      8.57     0.02   400530     0.00     0.00  std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter)
+  0.23      8.59     0.02   213144     0.00     0.00  geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.23      8.61     0.02   156766     0.00     0.00  geometry::graphItem::replace(unsigned int const&, unsigned int const&)
+  0.17      8.62     0.02        1     0.02     0.02  geometry::intersection<geometry::Triangle>::intersection(geometry::bmesh<geometry::Triangle> const*)
+  0.11      8.63     0.01   705665     0.00     0.00  geometry::dataPoint::print(std::ostream&) const
+  0.11      8.64     0.01   212293     0.00     0.00  std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&)
+  0.11      8.65     0.01   157180     0.00     0.00  geometry::graphItem::graphItem(std::vector<unsigned int, std::allocator<unsigned int> > const&, unsigned int const&)
+  0.11      8.66     0.01   126974     0.00     0.00  geometry::graphItem::graphItem(std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > const&, unsigned int const&)
+  0.11      8.67     0.01   106572     0.00     0.00  geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const
+  0.11      8.68     0.01    45309     0.00     0.00  void Eigen::MatrixBase<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, -1, -1, false> >::applyHouseholderOnTheLeft<Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> const&, double const&, double*)
+  0.11      8.69     0.01    15103     0.00     0.00  Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace()
+  0.11      8.70     0.01     6730     0.00     0.00  std::pair<std::_Rb_tree_iterator<geometry::collapsingEdge>, bool> std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_emplace_unique<unsigned int const&, unsigned int const&, double&, geometry::point&>(unsigned int const&, unsigned int const&, double&, geometry::point&)
+  0.11      8.71     0.01        1     0.01     0.01  geometry::DataGeo::buildQs()
+  0.11      8.72     0.01                             geometry::geoPoint<2u>::geoPoint(double const&)
+  0.11      8.73     0.01                             geometry::bmesh<geometry::Quad>::print_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const
+  0.00      8.73     0.00  1964268     0.00     0.00  geometry::geoPoint<3u>::~geoPoint()
+  0.00      8.73     0.00   895880     0.00     0.00  geometry::projection<geometry::Triangle>::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&)
+  0.00      8.73     0.00   895880     0.00     0.00  void std::vector<unsigned int, std::allocator<unsigned int> >::emplace_back<unsigned int>(unsigned int&&)
+  0.00      8.73     0.00   397512     0.00     0.00  geometry::searchPoint::searchPoint(geometry::geoPoint<3u> const&)
+  0.00      8.73     0.00   292168     0.00     0.00  geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point)
+  0.00      8.73     0.00   292168     0.00     0.00  std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*)
+  0.00      8.73     0.00   287128     0.00     0.00  std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::erase(std::__detail::_Node_const_iterator<geometry::boundingBox<3u>, true, true>)
+  0.00      8.73     0.00   267210     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getNormal(unsigned int const&) const
+  0.00      8.73     0.00   266431     0.00     0.00  std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::reserve(unsigned long)
+  0.00      8.73     0.00   243350     0.00     0.00  geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00   205004     0.00     0.00  std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&)
+  0.00      8.73     0.00   200445     0.00     0.00  std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_get_insert_hint_unique_pos(std::_Rb_tree_const_iterator<unsigned int>, unsigned int const&)
+  0.00      8.73     0.00   198756     0.00     0.00  geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(geometry::point, geometry::point, geometry::point)
+  0.00      8.73     0.00   198756     0.00     0.00  geometry::structuredData<geometry::Triangle>::getBoundingBox(unsigned int const&) const
+  0.00      8.73     0.00   198756     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getTriArea(unsigned int const&) const
+  0.00      8.73     0.00   157180     0.00     0.00  geometry::set_union(geometry::graphItem const&, geometry::graphItem const&)
+  0.00      8.73     0.00   114138     0.00     0.00  geometry::point::~point()
+  0.00      8.73     0.00    68389     0.00     0.00  geometry::point::operator=(geometry::point const&)
+  0.00      8.73     0.00    59888     0.00     0.00  geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&)
+  0.00      8.73     0.00    53286     0.00     0.00  geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&)
+  0.00      8.73     0.00    45309     0.00     0.00  void Eigen::MatrixBase<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false> >::makeHouseholder<Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1>&, double&, double&) const
+  0.00      8.73     0.00    30206     0.00     0.00  geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00    28563     0.00     0.00  geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00    26673     0.00     0.00  geometry::DataGeo::getDecomposedCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+  0.00      8.73     0.00    21048     0.00     0.00  geometry::DataGeo::imp_getCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+  0.00      8.73     0.00    15120     0.00     0.00  std::hash<geometry::geoElement<geometry::Line> >::operator()(geometry::geoElement<geometry::Line> const&) const
+  0.00      8.73     0.00    15120     0.00     0.00  std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&)
+  0.00      8.73     0.00    15103     0.00     0.00  Eigen::internal::triangular_solve_vector<double, double, long, 1, 2, false, 0>::run(long, double const*, long, double*)
+  0.00      8.73     0.00    15103     0.00     0.00  Eigen::internal::triangular_solver_selector<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>, 1, 2, 0, 1>::run(Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const&, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::point::point(double const&, double const&, double const&, unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&)
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00    15103     0.00     0.00  void Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::_solve_impl<Eigen::Matrix<double, 3, 1, 0, 3, 1>, Eigen::Matrix<double, 3, 1, 0, 3, 1> >(Eigen::Matrix<double, 3, 1, 0, 3, 1> const&, Eigen::Matrix<double, 3, 1, 0, 3, 1>&) const
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+  0.00      8.73     0.00    15103     0.00     0.00  geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+  0.00      8.73     0.00    10084     0.00     0.00  geometry::graphItem::graphItem(unsigned int const&)
+  0.00      8.73     0.00     7560     0.00     0.00  geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00     7560     0.00     0.00  geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00     7560     0.00     0.00  bool geometry::operator==<geometry::Line>(geometry::geoElement<geometry::Line> const&, geometry::geoElement<geometry::Line> const&)
+  0.00      8.73     0.00     7560     0.00     0.00  std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::geoElement<geometry::Line>, true>*)
+  0.00      8.73     0.00     7543     0.00     0.00  std::pair<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<unsigned int, std::allocator<unsigned int> > >::~pair()
+  0.00      8.73     0.00     7543     0.00     0.00  std::vector<geometry::point, std::allocator<geometry::point> >::~vector()
+  0.00      8.73     0.00     7543     0.00     0.00  std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::~vector()
+  0.00      8.73     0.00     6730     0.00     0.00  geometry::collapseInfo::collapseInfo(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&)
+  0.00      8.73     0.00     6730     0.00     0.00  geometry::collapsingEdge::collapsingEdge(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&)
+  0.00      8.73     0.00     6730     0.00     0.00  std::hash<geometry::collapseInfo>::operator()(geometry::collapseInfo const&) const
+  0.00      8.73     0.00     6730     0.00     0.00  std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&)
+  0.00      8.73     0.00     6730     0.00     0.00  std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::collapseInfo, true>*)
+  0.00      8.73     0.00     5040     0.00     0.00  geometry::DataGeo::getKMatrix(unsigned int const&) const
+  0.00      8.73     0.00     5040     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getElemBarycenter(unsigned int const&) const
+  0.00      8.73     0.00     2522     0.00     0.00  geometry::point::point(std::array<double, 3ul> const&, unsigned int const&, unsigned int const&)
+  0.00      8.73     0.00     2522     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&)
+  0.00      8.73     0.00     2522     0.00     0.00  geometry::dataPoint::dataPoint(geometry::point const&, double const&)
+  0.00      8.73     0.00       13     0.00     0.00  std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&)
+  0.00      8.73     0.00       13     0.00     0.00  std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*)
+  0.00      8.73     0.00       12     0.00     0.00  std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, false>)
+  0.00      8.73     0.00       12     0.00     0.00  std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&)
+  0.00      8.73     0.00        4     0.00     0.00  std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long)
+  0.00      8.73     0.00        2     0.00     0.00  _GLOBAL__sub_I__ZN8geometry12intersectionINS_8TriangleEEC2EPKNS_5bmeshIS1_EE
+  0.00      8.73     0.00        2     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getCellSize() const
+  0.00      8.73     0.00        2     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry10projectionINS_8TriangleEEC2ERKNS_5bmeshIS1_EE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry11boundingBoxILj3EE5setupERKNS_8geoPointILj3EEES5_RKdS7_S7_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry11searchPoint9NE_globalE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry12collapseInfoC2ERKjS2_RKdRKNS_8geoPointILj3EEE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry14collapsingEdgeC2ERKjS2_RKdRKNS_8geoPointILj3EEE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry14simplificationINS_8TriangleELNS_8MeshTypeE0ENS_7OnlyGeoILS2_0EEEE7getCostERKjS7_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry5pointC2ERKdS2_S2_RKjS4_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry7DataGeoC2EPNS_10projectionINS_8TriangleEEERKdS6_S6_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry7utility16getFileExtensionENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry8geoPointILj2EEC2ERKd
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry8gutility7inTri2dERKNS_8geoPointILj2EEES4_S4_S4_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry9dataPointC2Ev
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZN8geometry9graphItemC2ERKj
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZNK8geometry14structuredDataINS_8TriangleEE14getBoundingBoxERKj
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZNK8geometry5bmeshINS_8TriangleEE9print_inpERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I__ZNKSt4hashISt4pairIjjEEclERKS1_
+  0.00      8.73     0.00        1     0.00     0.00  _GLOBAL__sub_I_main
+  0.00      8.73     0.00        1     0.00     0.00  geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  0.00      8.73     0.00        1     0.00     0.00  void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::searchPoint::updateNumCells()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId()
+  0.00      8.73     0.00        1     0.00     8.17  geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::setupCollapsingSet()
+  0.00      8.73     0.00        1     0.00     0.00  void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)
+  0.00      8.73     0.00        1     0.00     0.27  geometry::DataGeo::getMaximumCosts()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::DataGeo::buildQuantityOfInformation()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::DataGeo::getOriginalDataPointsLocations()
+  0.00      8.73     0.00        1     0.00     0.28  geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::utility::getFileExtension(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+  0.00      8.73     0.00        1     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node()
+  0.00      8.73     0.00        1     0.00     0.00  geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getMeshBarycenter() const
+  0.00      8.73     0.00        1     0.00     0.00  std::vector<geometry::geoElement<geometry::Triangle>, std::allocator<geometry::geoElement<geometry::Triangle> > >::reserve(unsigned long)
+  0.00      8.73     0.00        1     0.00     0.00  std::vector<geometry::point, std::allocator<geometry::point> >::reserve(unsigned long)
+  0.00      8.73     0.00        1     0.00     0.00  std::vector<geometry::dataPoint, std::allocator<geometry::dataPoint> >::reserve(unsigned long)
+
+ %         the percentage of the total running time of the
+time       program used by this function.
+
+cumulative a running sum of the number of seconds accounted
+ seconds   for by this function and those listed above it.
+
+ self      the number of seconds accounted for by this
+seconds    function alone.  This is the major sort for this
+           listing.
+
+calls      the number of times this function was invoked, if
+           this function is profiled, else blank.
+
+ self      the average number of milliseconds spent in this
+ms/call    function per call, if this function is profiled,
+	   else blank.
+
+ total     the average number of milliseconds spent in this
+ms/call    function and its descendents per call, if this
+	   function is profiled, else blank.
+
+name       the name of the function.  This is the minor sort
+           for this listing. The index shows the location of
+	   the function in the gprof listing. If the index is
+	   in parenthesis it shows where it would appear in
+	   the gprof listing if it were to be printed.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+		     Call graph (explanation follows)
+
+
+granularity: each sample hit covers 2 byte(s) for 0.11% of 8.73 seconds
+
+index % time    self  children    called     name
+                                                 <spontaneous>
+[1]     97.0    0.00    8.47                 geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+                0.00    8.17       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::setupCollapsingSet() [3]
+                0.00    0.28       1/1           geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+                0.02    0.00       1/1           geometry::intersection<geometry::Triangle>::intersection(geometry::bmesh<geometry::Triangle> const*) [37]
+                0.00    0.00       1/1           geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [60]
+                0.00    0.00       1/1           void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+                0.00    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId() [138]
+-----------------------------------------------
+                0.00    8.17    7560/7560        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::setupCollapsingSet() [3]
+[2]     93.6    0.00    8.17    7560         geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.26    5.32 37469251/37469251     geometry::intersection<geometry::Triangle>::intersect(unsigned int const&, unsigned int const&) const [4]
+                2.14    0.02  198756/198756      geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const [7]
+                0.16    0.00   34156/34156       geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+                0.03    0.08   26613/53286       geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+                0.00    0.05    7543/15103       geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+                0.00    0.04   21048/21048       geometry::DataGeo::imp_getCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [25]
+                0.00    0.03   26613/53286       geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&) [24]
+                0.01    0.00    6730/6730        std::pair<std::_Rb_tree_iterator<geometry::collapsingEdge>, bool> std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_emplace_unique<unsigned int const&, unsigned int const&, double&, geometry::point&>(unsigned int const&, unsigned int const&, double&, geometry::point&) [48]
+                0.00    0.01    7543/15103       geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+                0.00    0.01    7543/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+                0.00    0.01    7543/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [38]
+                0.00    0.00    7543/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [53]
+                0.00    0.00   53226/212293      std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&) [44]
+                0.00    0.00    7543/15103       geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&) [55]
+                0.00    0.00    7543/157180      geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [52]
+                0.00    0.00    7543/59888       geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00   22629/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+                0.00    0.00  262170/267210      geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getNormal(unsigned int const&) const [83]
+                0.00    0.00  198756/198756      geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getTriArea(unsigned int const&) const [87]
+                0.00    0.00  159678/205004      std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&) [85]
+                0.00    0.00   34156/68389       geometry::point::operator=(geometry::point const&) [89]
+                0.00    0.00    7543/7543        std::pair<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<unsigned int, std::allocator<unsigned int> > >::~pair() [99]
+                0.00    0.00    7543/7543        std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::~vector() [101]
+                0.00    0.00    7543/7543        std::vector<geometry::point, std::allocator<geometry::point> >::~vector() [100]
+                0.00    0.00    6730/6730        std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [105]
+-----------------------------------------------
+                0.00    8.17       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[3]     93.6    0.00    8.17       1         geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::setupCollapsingSet() [3]
+                0.00    8.17    7560/7560        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+-----------------------------------------------
+                0.26    5.32 37469251/37469251     geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[4]     63.9    0.26    5.32 37469251         geometry::intersection<geometry::Triangle>::intersect(unsigned int const&, unsigned int const&) const [4]
+                2.07    3.26 37469251/37469251     geometry::intersection<geometry::Triangle>::intersect(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [5]
+-----------------------------------------------
+                2.07    3.26 37469251/37469251     geometry::intersection<geometry::Triangle>::intersect(unsigned int const&, unsigned int const&) const [4]
+[5]     60.9    2.07    3.26 37469251         geometry::intersection<geometry::Triangle>::intersect(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [5]
+                1.00    2.26 224811012/224811012     geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [6]
+-----------------------------------------------
+                1.00    2.26 224811012/224811012     geometry::intersection<geometry::Triangle>::intersect(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [5]
+[6]     37.3    1.00    2.26 224811012         geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [6]
+                2.07    0.00 224811012/224811012     geometry::gutility::intSegPlane(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&) [8]
+                0.17    0.00 14812170/14812170     geometry::gutility::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [13]
+                0.02    0.00 1942542/1942542     geometry::gutility::intSegSeg2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [30]
+-----------------------------------------------
+                2.14    0.02  198756/198756      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[7]     24.7    2.14    0.02  198756         geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const [7]
+                0.02    0.00 8469072/10025176     geometry::geoPoint<3u>::geoPoint(double const&) [29]
+                0.00    0.00  198756/198756      geometry::structuredData<geometry::Triangle>::getBoundingBox(unsigned int const&) const [59]
+                0.00    0.00  397512/397512      geometry::searchPoint::searchPoint(geometry::geoPoint<3u> const&) [80]
+-----------------------------------------------
+                2.07    0.00 224811012/224811012     geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [6]
+[8]     23.7    2.07    0.00 224811012         geometry::gutility::intSegPlane(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&) [8]
+-----------------------------------------------
+                0.00    0.28       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[9]      3.2    0.00    0.28       1         geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+                0.00    0.27       1/1           geometry::DataGeo::getMaximumCosts() [11]
+                0.01    0.00       1/1           geometry::DataGeo::buildQs() [49]
+                0.00    0.00       1/1           geometry::DataGeo::buildQuantityOfInformation() [56]
+                0.00    0.00       1/1           geometry::DataGeo::getOriginalDataPointsLocations() [142]
+-----------------------------------------------
+                0.00    0.27    7560/7560        geometry::DataGeo::getMaximumCosts() [11]
+[10]     3.1    0.00    0.27    7560         geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.03    0.08   26673/53286       geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+                0.00    0.05   26673/26673       geometry::DataGeo::getDecomposedCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [23]
+                0.00    0.05    7560/15103       geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+                0.00    0.03   26673/53286       geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&) [24]
+                0.00    0.01    7560/15103       geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+                0.00    0.01    7560/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+                0.00    0.01    7560/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [38]
+                0.00    0.00    7560/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [53]
+                0.00    0.00   53346/212293      std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&) [44]
+                0.00    0.00    7560/15103       geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&) [55]
+                0.00    0.00    7560/157180      geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [52]
+                0.00    0.00    7560/59888       geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00   22680/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+                0.00    0.00   34233/68389       geometry::point::operator=(geometry::point const&) [89]
+                0.00    0.00   26673/114138      geometry::point::~point() [88]
+-----------------------------------------------
+                0.00    0.27       1/1           geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+[11]     3.1    0.00    0.27       1         geometry::DataGeo::getMaximumCosts() [11]
+                0.00    0.27    7560/7560        geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+-----------------------------------------------
+                0.03    0.08   26613/53286       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.03    0.08   26673/53286       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[12]     2.6    0.06    0.16   53286         geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+                0.10    0.00  895880/895880      geometry::projection<geometry::Triangle>::project(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [18]
+                0.01    0.04  106572/213144      geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+                0.01    0.00  106572/106572      geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [42]
+                0.00    0.00 1898332/1964268     geometry::geoPoint<3u>::~geoPoint() [77]
+                0.00    0.00  895880/895880      void std::vector<unsigned int, std::allocator<unsigned int> >::emplace_back<unsigned int>(unsigned int&&) [79]
+                0.00    0.00  266430/266431      std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::reserve(unsigned long) [84]
+-----------------------------------------------
+                0.17    0.00 14812170/14812170     geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [6]
+[13]     1.9    0.17    0.00 14812170         geometry::gutility::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [13]
+-----------------------------------------------
+                0.16    0.00   34156/34156       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[14]     1.9    0.16    0.00   34156         geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+                0.00    0.00  574256/10025176     geometry::geoPoint<3u>::geoPoint(double const&) [29]
+                0.00    0.00  287128/292168      geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point) [57]
+                0.00    0.00  287128/292168      std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*) [81]
+                0.00    0.00  287128/287128      std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::erase(std::__detail::_Node_const_iterator<geometry::boundingBox<3u>, true, true>) [82]
+-----------------------------------------------
+                                                 <spontaneous>
+[15]     1.6    0.14    0.00                 geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [15]
+-----------------------------------------------
+                                                 <spontaneous>
+[16]     1.2    0.11    0.00                 geometry::gutility::inTri3d(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [16]
+-----------------------------------------------
+                0.01    0.04  106572/213144      geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&) [24]
+                0.01    0.04  106572/213144      geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[17]     1.2    0.02    0.08  213144         geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+                0.07    0.00  213144/213144      geometry::connect<geometry::Triangle, (geometry::MeshType)1>::eraseDataInElem2Data(unsigned int const&) [21]
+                0.00    0.01  213144/243350      geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+                0.00    0.00  213144/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.10    0.00  895880/895880      geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[18]     1.1    0.10    0.00  895880         geometry::projection<geometry::Triangle>::project(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [18]
+                0.00    0.00  895880/895880      geometry::projection<geometry::Triangle>::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [78]
+-----------------------------------------------
+                0.00    0.00    5040/404226      geometry::DataGeo::buildQuantityOfInformation() [56]
+                0.02    0.02  174960/404226      geometry::DataGeo::imp_getCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [25]
+                0.02    0.03  224226/404226      geometry::DataGeo::getDecomposedCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [23]
+[19]     1.1    0.04    0.06  404226         geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+                0.04    0.00 1522123/1557740     std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+                0.02    0.00 2999533/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.05    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.05    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[20]     1.0    0.00    0.09   15103         geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+                0.05    0.01  157180/187386      geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [22]
+                0.00    0.02   15103/15103       geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [28]
+                0.01    0.00  157180/157180      geometry::graphItem::graphItem(std::vector<unsigned int, std::allocator<unsigned int> > const&, unsigned int const&) [45]
+                0.00    0.00  727253/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+                0.00    0.00   30206/205004      std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&) [85]
+-----------------------------------------------
+                0.07    0.00  213144/213144      geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+[21]     0.8    0.07    0.00  213144         geometry::connect<geometry::Triangle, (geometry::MeshType)1>::eraseDataInElem2Data(unsigned int const&) [21]
+-----------------------------------------------
+                0.00    0.00   15103/187386      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.00    0.00   15103/187386      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [53]
+                0.05    0.01  157180/187386      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+[22]     0.8    0.06    0.01  187386         geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [22]
+                0.01    0.00  487309/705665      geometry::dataPoint::print(std::ostream&) const [43]
+-----------------------------------------------
+                0.00    0.05   26673/26673       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[23]     0.6    0.00    0.05   26673         geometry::DataGeo::getDecomposedCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [23]
+                0.02    0.03  224226/404226      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+-----------------------------------------------
+                0.00    0.03   26613/53286       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.03   26673/53286       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[24]     0.6    0.00    0.05   53286         geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&) [24]
+                0.01    0.04  106572/213144      geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+-----------------------------------------------
+                0.00    0.04   21048/21048       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[25]     0.5    0.00    0.04   21048         geometry::DataGeo::imp_getCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const [25]
+                0.02    0.02  174960/404226      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+-----------------------------------------------
+                             3645499             std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+                0.00    0.00    2522/1557740     geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem() [68]
+                0.00    0.00   33095/1557740     geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [42]
+                0.04    0.00 1522123/1557740     geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+[26]     0.5    0.04    0.00 1557740+3645499 std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+                             3645499             std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+-----------------------------------------------
+                0.00    0.00   15103/5165413     geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [53]
+                0.00    0.00   15120/5165413     bool geometry::operator==<geometry::Line>(geometry::geoElement<geometry::Line> const&, geometry::geoElement<geometry::Line> const&) [66]
+                0.00    0.00   17642/5165413     geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [62]
+                0.00    0.00   22629/5165413     geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00   22680/5165413     geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.00    0.00   26794/5165413     geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::~simplification() [63]
+                0.00    0.00   30206/5165413     geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.00    0.00   47657/5165413     geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [42]
+                0.00    0.00   91547/5165413     geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&) [61]
+                0.00    0.00  213144/5165413     geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+                0.00    0.00  243350/5165413     geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+                0.00    0.00  692755/5165413     geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [28]
+                0.00    0.00  727253/5165413     geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+                0.02    0.00 2999533/5165413     geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+[27]     0.3    0.03    0.00 5165413         std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.02   15103/15103       geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+[28]     0.2    0.00    0.02   15103         geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [28]
+                0.01    0.00  126974/126974      geometry::graphItem::graphItem(std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > const&, unsigned int const&) [46]
+                0.00    0.01  142077/157180      geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [52]
+                0.00    0.00  692755/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00  397512/10025176     geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(geometry::point, geometry::point, geometry::point) [58]
+                0.00    0.00  574256/10025176     geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+                0.00    0.00  584336/10025176     geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point) [57]
+                0.02    0.00 8469072/10025176     geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const [7]
+[29]     0.2    0.02    0.00 10025176         geometry::geoPoint<3u>::geoPoint(double const&) [29]
+-----------------------------------------------
+                0.02    0.00 1942542/1942542     geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [6]
+[30]     0.2    0.02    0.00 1942542         geometry::gutility::intSegSeg2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [30]
+-----------------------------------------------
+                0.01    0.00  157180/400530      geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [52]
+                0.01    0.00  243350/400530      geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+[31]     0.2    0.02    0.00  400530         std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter) [31]
+                0.00    0.00  200445/200445      std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_get_insert_hint_unique_pos(std::_Rb_tree_const_iterator<unsigned int>, unsigned int const&) [86]
+-----------------------------------------------
+                0.01    0.00   63280/156766      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.01    0.00   93486/156766      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [41]
+[32]     0.2    0.02    0.00  156766         geometry::graphItem::replace(unsigned int const&, unsigned int const&) [32]
+-----------------------------------------------
+                0.01    0.01   15103/15103       geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const [34]
+[33]     0.2    0.01    0.01   15103         Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace() [33]
+                0.01    0.00   45309/45309       void Eigen::MatrixBase<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, -1, -1, false> >::applyHouseholderOnTheLeft<Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> const&, double const&, double*) [47]
+                0.00    0.00   45309/45309       void Eigen::MatrixBase<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false> >::makeHouseholder<Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1>&, double&, double&) const [90]
+-----------------------------------------------
+                0.00    0.02   15103/15103       geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+[34]     0.2    0.00    0.02   15103         geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const [34]
+                0.01    0.01   15103/15103       Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace() [33]
+                0.00    0.00   15103/15103       void Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::_solve_impl<Eigen::Matrix<double, 3, 1, 0, 3, 1>, Eigen::Matrix<double, 3, 1, 0, 3, 1> >(Eigen::Matrix<double, 3, 1, 0, 3, 1> const&, Eigen::Matrix<double, 3, 1, 0, 3, 1>&) const [96]
+                0.00    0.00   15103/15103       geometry::point::point(double const&, double const&, double const&, unsigned int const&, unsigned int const&) [95]
+-----------------------------------------------
+                0.00    0.01    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.01    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[35]     0.2    0.00    0.02   15103         geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+                0.00    0.02   15103/15103       geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const [34]
+                0.00    0.00   53286/114138      geometry::point::~point() [88]
+                0.00    0.00   15103/28563       geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&) [91]
+-----------------------------------------------
+                0.00    0.01    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.01    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[36]     0.2    0.00    0.02   15103         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+                0.00    0.01   15103/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [41]
+                0.00    0.00   90618/212293      std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&) [44]
+                0.00    0.00   15103/243350      geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+-----------------------------------------------
+                0.02    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[37]     0.2    0.02    0.00       1         geometry::intersection<geometry::Triangle>::intersection(geometry::bmesh<geometry::Triangle> const*) [37]
+-----------------------------------------------
+                0.00    0.01    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.01    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[38]     0.2    0.00    0.01   15103         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [38]
+                0.00    0.01   15103/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.00    0.00   15103/30206       geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&) [61]
+-----------------------------------------------
+                0.00    0.01   15103/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [38]
+[39]     0.2    0.00    0.01   15103         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.01    0.00   63280/156766      geometry::graphItem::replace(unsigned int const&, unsigned int const&) [32]
+                0.00    0.00   15103/187386      geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [22]
+                0.00    0.00   15103/59888       geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00   15103/30206       geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&) [61]
+                0.00    0.00   30206/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00   15103/243350      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [41]
+                0.00    0.00   15103/243350      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+                0.00    0.01  213144/243350      geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [17]
+[40]     0.2    0.00    0.01  243350         geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+                0.01    0.00  243350/400530      std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter) [31]
+                0.00    0.00  243350/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.01   15103/15103       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+[41]     0.2    0.00    0.01   15103         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [41]
+                0.01    0.00   93486/156766      geometry::graphItem::replace(unsigned int const&, unsigned int const&) [32]
+                0.00    0.00   15103/243350      geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [40]
+                0.00    0.00   15103/212293      std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&) [44]
+-----------------------------------------------
+                0.01    0.00  106572/106572      geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[42]     0.1    0.01    0.00  106572         geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [42]
+                0.00    0.00   33095/1557740     std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+                0.00    0.00   14562/59888       geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00   47657/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00   98580/705665      geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&) [55]
+                0.00    0.00  119776/705665      geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.01    0.00  487309/705665      geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [22]
+[43]     0.1    0.01    0.00  705665         geometry::dataPoint::print(std::ostream&) const [43]
+-----------------------------------------------
+                0.00    0.00   15103/212293      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [41]
+                0.00    0.00   53226/212293      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00   53346/212293      geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.00    0.00   90618/212293      geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [36]
+[44]     0.1    0.01    0.00  212293         std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&) [44]
+-----------------------------------------------
+                0.01    0.00  157180/157180      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+[45]     0.1    0.01    0.00  157180         geometry::graphItem::graphItem(std::vector<unsigned int, std::allocator<unsigned int> > const&, unsigned int const&) [45]
+-----------------------------------------------
+                0.01    0.00  126974/126974      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [28]
+[46]     0.1    0.01    0.00  126974         geometry::graphItem::graphItem(std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > const&, unsigned int const&) [46]
+-----------------------------------------------
+                0.01    0.00   45309/45309       Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace() [33]
+[47]     0.1    0.01    0.00   45309         void Eigen::MatrixBase<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, -1, -1, false> >::applyHouseholderOnTheLeft<Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> const&, double const&, double*) [47]
+-----------------------------------------------
+                0.01    0.00    6730/6730        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[48]     0.1    0.01    0.00    6730         std::pair<std::_Rb_tree_iterator<geometry::collapsingEdge>, bool> std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_emplace_unique<unsigned int const&, unsigned int const&, double&, geometry::point&>(unsigned int const&, unsigned int const&, double&, geometry::point&) [48]
+                0.00    0.00    6730/6730        geometry::collapsingEdge::collapsingEdge(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [103]
+-----------------------------------------------
+                0.01    0.00       1/1           geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+[49]     0.1    0.01    0.00       1         geometry::DataGeo::buildQs() [49]
+                0.00    0.00    5040/5040        geometry::DataGeo::getKMatrix(unsigned int const&) const [107]
+-----------------------------------------------
+                                                 <spontaneous>
+[50]     0.1    0.01    0.00                 geometry::geoPoint<2u>::geoPoint(double const&) [50]
+-----------------------------------------------
+                                                 <spontaneous>
+[51]     0.1    0.01    0.00                 geometry::bmesh<geometry::Quad>::print_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const [51]
+-----------------------------------------------
+                0.00    0.00    7543/157180      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00    7560/157180      geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.00    0.01  142077/157180      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [28]
+[52]     0.1    0.00    0.01  157180         geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [52]
+                0.01    0.00  157180/400530      std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter) [31]
+-----------------------------------------------
+                0.00    0.00    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[53]     0.1    0.00    0.01   15103         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [53]
+                0.00    0.00   15103/187386      geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [22]
+                0.00    0.00   15103/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00    7543/59888       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00    7560/59888       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.00    0.00   14562/59888       geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [42]
+                0.00    0.00   15103/59888       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.00    0.00   15120/59888       geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [62]
+[54]     0.0    0.00    0.00   59888         geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00  119776/705665      geometry::dataPoint::print(std::ostream&) const [43]
+-----------------------------------------------
+                0.00    0.00    7543/15103       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00    7560/15103       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[55]     0.0    0.00    0.00   15103         geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&) [55]
+                0.00    0.00   98580/705665      geometry::dataPoint::print(std::ostream&) const [43]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+[56]     0.0    0.00    0.00       1         geometry::DataGeo::buildQuantityOfInformation() [56]
+                0.00    0.00    5040/404226      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const [19]
+-----------------------------------------------
+                0.00    0.00    5040/292168      void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+                0.00    0.00  287128/292168      geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+[57]     0.0    0.00    0.00  292168         geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point) [57]
+                0.00    0.00  584336/10025176     geometry::geoPoint<3u>::geoPoint(double const&) [29]
+-----------------------------------------------
+                0.00    0.00  198756/198756      geometry::structuredData<geometry::Triangle>::getBoundingBox(unsigned int const&) const [59]
+[58]     0.0    0.00    0.00  198756         geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(geometry::point, geometry::point, geometry::point) [58]
+                0.00    0.00  397512/10025176     geometry::geoPoint<3u>::geoPoint(double const&) [29]
+-----------------------------------------------
+                0.00    0.00  198756/198756      geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const [7]
+[59]     0.0    0.00    0.00  198756         geometry::structuredData<geometry::Triangle>::getBoundingBox(unsigned int const&) const [59]
+                0.00    0.00  198756/198756      geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(geometry::point, geometry::point, geometry::point) [58]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[60]     0.0    0.00    0.00       1         geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [60]
+                0.00    0.00    2522/2522        geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [62]
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+-----------------------------------------------
+                0.00    0.00   15103/30206       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [39]
+                0.00    0.00   15103/30206       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [38]
+[61]     0.0    0.00    0.00   30206         geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&) [61]
+                0.00    0.00   91547/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00    2522/2522        geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [60]
+[62]     0.0    0.00    0.00    2522         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [62]
+                0.00    0.00   15120/59888       geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [54]
+                0.00    0.00   17642/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+                0.00    0.00   15120/205004      std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&) [85]
+-----------------------------------------------
+                                                 <spontaneous>
+[63]     0.0    0.00    0.00                 geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::~simplification() [63]
+                0.00    0.00   26794/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+                0.00    0.00    2522/1964268     geometry::geoPoint<3u>::~geoPoint() [77]
+                0.00    0.00    2522/114138      geometry::point::~point() [88]
+                0.00    0.00      13/13          std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*) [112]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [60]
+[64]     0.0    0.00    0.00       1         geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+                0.00    0.00       1/1           geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [67]
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem() [68]
+                0.00    0.00       1/1           geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [139]
+                0.00    0.00       1/1           geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem() [145]
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data() [143]
+-----------------------------------------------
+                0.00    0.00   15120/15120       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [67]
+[65]     0.0    0.00    0.00   15120         std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&) [65]
+                0.00    0.00    7560/7560        bool geometry::operator==<geometry::Line>(geometry::geoElement<geometry::Line> const&, geometry::geoElement<geometry::Line> const&) [66]
+                0.00    0.00   15120/15120       std::hash<geometry::geoElement<geometry::Line> >::operator()(geometry::geoElement<geometry::Line> const&) const [92]
+                0.00    0.00    7560/7560        std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::geoElement<geometry::Line>, true>*) [98]
+-----------------------------------------------
+                0.00    0.00    7560/7560        std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&) [65]
+[66]     0.0    0.00    0.00    7560         bool geometry::operator==<geometry::Line>(geometry::geoElement<geometry::Line> const&, geometry::geoElement<geometry::Line> const&) [66]
+                0.00    0.00   15120/5165413     std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*) [27]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+[67]     0.0    0.00    0.00       1         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [67]
+                0.00    0.00   15120/15120       std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&) [65]
+                0.00    0.00    2522/10084       geometry::graphItem::graphItem(unsigned int const&) [97]
+                0.00    0.00       1/4           std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long) [115]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+[68]     0.0    0.00    0.00       1         geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem() [68]
+                0.00    0.00    2522/1557740     std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&) [26]
+                0.00    0.00       1/4           std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long) [115]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[69]     0.0    0.00    0.00       1         void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+                0.00    0.00    5040/292168      geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point) [57]
+                0.00    0.00    5040/292168      std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*) [81]
+                0.00    0.00       1/2           geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const [118]
+                0.00    0.00       1/2           geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getCellSize() const [117]
+                0.00    0.00       1/1           geometry::searchPoint::updateNumCells() [137]
+                0.00    0.00       1/1           void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [136]
+-----------------------------------------------
+                0.00    0.00    2522/1964268     geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::~simplification() [63]
+                0.00    0.00   63414/1964268     std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::~vector() [101]
+                0.00    0.00 1898332/1964268     geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[77]     0.0    0.00    0.00 1964268         geometry::geoPoint<3u>::~geoPoint() [77]
+-----------------------------------------------
+                0.00    0.00  895880/895880      geometry::projection<geometry::Triangle>::project(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [18]
+[78]     0.0    0.00    0.00  895880         geometry::projection<geometry::Triangle>::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [78]
+-----------------------------------------------
+                0.00    0.00  895880/895880      geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[79]     0.0    0.00    0.00  895880         void std::vector<unsigned int, std::allocator<unsigned int> >::emplace_back<unsigned int>(unsigned int&&) [79]
+-----------------------------------------------
+                0.00    0.00  397512/397512      geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const [7]
+[80]     0.0    0.00    0.00  397512         geometry::searchPoint::searchPoint(geometry::geoPoint<3u> const&) [80]
+-----------------------------------------------
+                0.00    0.00    5040/292168      void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+                0.00    0.00  287128/292168      geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+[81]     0.0    0.00    0.00  292168         std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*) [81]
+                0.00    0.00      12/12          std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, false>) [113]
+-----------------------------------------------
+                0.00    0.00  287128/287128      geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [14]
+[82]     0.0    0.00    0.00  287128         std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::erase(std::__detail::_Node_const_iterator<geometry::boundingBox<3u>, true, true>) [82]
+-----------------------------------------------
+                0.00    0.00    5040/267210      geometry::DataGeo::getKMatrix(unsigned int const&) const [107]
+                0.00    0.00  262170/267210      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[83]     0.0    0.00    0.00  267210         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getNormal(unsigned int const&) const [83]
+-----------------------------------------------
+                0.00    0.00       1/266431      geometry::DataGeo::getOriginalDataPointsLocations() [142]
+                0.00    0.00  266430/266431      geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [12]
+[84]     0.0    0.00    0.00  266431         std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::reserve(unsigned long) [84]
+-----------------------------------------------
+                0.00    0.00   15120/205004      geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [62]
+                0.00    0.00   30206/205004      geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const [20]
+                0.00    0.00  159678/205004      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[85]     0.0    0.00    0.00  205004         std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&) [85]
+-----------------------------------------------
+                0.00    0.00  200445/200445      std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter) [31]
+[86]     0.0    0.00    0.00  200445         std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_get_insert_hint_unique_pos(std::_Rb_tree_const_iterator<unsigned int>, unsigned int const&) [86]
+-----------------------------------------------
+                0.00    0.00  198756/198756      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[87]     0.0    0.00    0.00  198756         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getTriArea(unsigned int const&) const [87]
+-----------------------------------------------
+                0.00    0.00    2522/114138      geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::~simplification() [63]
+                0.00    0.00    5044/114138      geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const [118]
+                0.00    0.00   26613/114138      std::vector<geometry::point, std::allocator<geometry::point> >::~vector() [100]
+                0.00    0.00   26673/114138      geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+                0.00    0.00   53286/114138      geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+[88]     0.0    0.00    0.00  114138         geometry::point::~point() [88]
+-----------------------------------------------
+                0.00    0.00   34156/68389       geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+                0.00    0.00   34233/68389       geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [10]
+[89]     0.0    0.00    0.00   68389         geometry::point::operator=(geometry::point const&) [89]
+-----------------------------------------------
+                0.00    0.00   45309/45309       Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace() [33]
+[90]     0.0    0.00    0.00   45309         void Eigen::MatrixBase<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false> >::makeHouseholder<Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1>&, double&, double&) const [90]
+-----------------------------------------------
+                0.00    0.00    6730/28563       geometry::collapsingEdge::collapsingEdge(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [103]
+                0.00    0.00    6730/28563       geometry::collapseInfo::collapseInfo(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [102]
+                0.00    0.00   15103/28563       geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const [35]
+[91]     0.0    0.00    0.00   28563         geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&) [91]
+-----------------------------------------------
+                0.00    0.00   15120/15120       std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&) [65]
+[92]     0.0    0.00    0.00   15120         std::hash<geometry::geoElement<geometry::Line> >::operator()(geometry::geoElement<geometry::Line> const&) const [92]
+-----------------------------------------------
+                0.00    0.00   15103/15103       Eigen::internal::triangular_solver_selector<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>, 1, 2, 0, 1>::run(Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const&, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>&) [94]
+[93]     0.0    0.00    0.00   15103         Eigen::internal::triangular_solve_vector<double, double, long, 1, 2, false, 0>::run(long, double const*, long, double*) [93]
+-----------------------------------------------
+                0.00    0.00   15103/15103       void Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::_solve_impl<Eigen::Matrix<double, 3, 1, 0, 3, 1>, Eigen::Matrix<double, 3, 1, 0, 3, 1> >(Eigen::Matrix<double, 3, 1, 0, 3, 1> const&, Eigen::Matrix<double, 3, 1, 0, 3, 1>&) const [96]
+[94]     0.0    0.00    0.00   15103         Eigen::internal::triangular_solver_selector<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>, 1, 2, 0, 1>::run(Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const&, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>&) [94]
+                0.00    0.00   15103/15103       Eigen::internal::triangular_solve_vector<double, double, long, 1, 2, false, 0>::run(long, double const*, long, double*) [93]
+-----------------------------------------------
+                0.00    0.00   15103/15103       geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const [34]
+[95]     0.0    0.00    0.00   15103         geometry::point::point(double const&, double const&, double const&, unsigned int const&, unsigned int const&) [95]
+-----------------------------------------------
+                0.00    0.00   15103/15103       geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const [34]
+[96]     0.0    0.00    0.00   15103         void Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::_solve_impl<Eigen::Matrix<double, 3, 1, 0, 3, 1>, Eigen::Matrix<double, 3, 1, 0, 3, 1> >(Eigen::Matrix<double, 3, 1, 0, 3, 1> const&, Eigen::Matrix<double, 3, 1, 0, 3, 1>&) const [96]
+                0.00    0.00   15103/15103       Eigen::internal::triangular_solver_selector<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>, 1, 2, 0, 1>::run(Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const&, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>&) [94]
+-----------------------------------------------
+                0.00    0.00    2522/10084       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem() [145]
+                0.00    0.00    2522/10084       geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [67]
+                0.00    0.00    5040/10084       geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data() [143]
+[97]     0.0    0.00    0.00   10084         geometry::graphItem::graphItem(unsigned int const&) [97]
+-----------------------------------------------
+                0.00    0.00    7560/7560        std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&) [65]
+[98]     0.0    0.00    0.00    7560         std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::geoElement<geometry::Line>, true>*) [98]
+                0.00    0.00      13/13          std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&) [111]
+-----------------------------------------------
+                0.00    0.00    7543/7543        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[99]     0.0    0.00    0.00    7543         std::pair<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<unsigned int, std::allocator<unsigned int> > >::~pair() [99]
+-----------------------------------------------
+                0.00    0.00    7543/7543        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[100]    0.0    0.00    0.00    7543         std::vector<geometry::point, std::allocator<geometry::point> >::~vector() [100]
+                0.00    0.00   26613/114138      geometry::point::~point() [88]
+-----------------------------------------------
+                0.00    0.00    7543/7543        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[101]    0.0    0.00    0.00    7543         std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::~vector() [101]
+                0.00    0.00   63414/1964268     geometry::geoPoint<3u>::~geoPoint() [77]
+-----------------------------------------------
+                0.00    0.00    6730/6730        std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [105]
+[102]    0.0    0.00    0.00    6730         geometry::collapseInfo::collapseInfo(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [102]
+                0.00    0.00    6730/28563       geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&) [91]
+-----------------------------------------------
+                0.00    0.00    6730/6730        std::pair<std::_Rb_tree_iterator<geometry::collapsingEdge>, bool> std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_emplace_unique<unsigned int const&, unsigned int const&, double&, geometry::point&>(unsigned int const&, unsigned int const&, double&, geometry::point&) [48]
+[103]    0.0    0.00    0.00    6730         geometry::collapsingEdge::collapsingEdge(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [103]
+                0.00    0.00    6730/28563       geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&) [91]
+-----------------------------------------------
+                0.00    0.00    6730/6730        std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [105]
+[104]    0.0    0.00    0.00    6730         std::hash<geometry::collapseInfo>::operator()(geometry::collapseInfo const&) const [104]
+-----------------------------------------------
+                0.00    0.00    6730/6730        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [2]
+[105]    0.0    0.00    0.00    6730         std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [105]
+                0.00    0.00    6730/6730        geometry::collapseInfo::collapseInfo(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [102]
+                0.00    0.00    6730/6730        std::hash<geometry::collapseInfo>::operator()(geometry::collapseInfo const&) const [104]
+                0.00    0.00    6730/6730        std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::collapseInfo, true>*) [106]
+-----------------------------------------------
+                0.00    0.00    6730/6730        std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [105]
+[106]    0.0    0.00    0.00    6730         std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::collapseInfo, true>*) [106]
+                0.00    0.00      12/12          std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&) [114]
+-----------------------------------------------
+                0.00    0.00    5040/5040        geometry::DataGeo::buildQs() [49]
+[107]    0.0    0.00    0.00    5040         geometry::DataGeo::getKMatrix(unsigned int const&) const [107]
+                0.00    0.00    5040/267210      geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getNormal(unsigned int const&) const [83]
+-----------------------------------------------
+                0.00    0.00    5040/5040        geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId() [138]
+[108]    0.0    0.00    0.00    5040         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getElemBarycenter(unsigned int const&) const [108]
+-----------------------------------------------
+                0.00    0.00    2522/2522        geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [140]
+[109]    0.0    0.00    0.00    2522         geometry::point::point(std::array<double, 3ul> const&, unsigned int const&, unsigned int const&) [109]
+-----------------------------------------------
+                0.00    0.00    2522/2522        geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [139]
+[110]    0.0    0.00    0.00    2522         geometry::dataPoint::dataPoint(geometry::point const&, double const&) [110]
+-----------------------------------------------
+                0.00    0.00      13/13          std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::geoElement<geometry::Line>, true>*) [98]
+[111]    0.0    0.00    0.00      13         std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&) [111]
+-----------------------------------------------
+                                 306             std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*) [112]
+                0.00    0.00      13/13          geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::~simplification() [63]
+[112]    0.0    0.00    0.00      13+306     std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*) [112]
+                                 306             std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*) [112]
+-----------------------------------------------
+                0.00    0.00      12/12          std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*) [81]
+[113]    0.0    0.00    0.00      12         std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, false>) [113]
+-----------------------------------------------
+                0.00    0.00      12/12          std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::collapseInfo, true>*) [106]
+[114]    0.0    0.00    0.00      12         std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&) [114]
+-----------------------------------------------
+                0.00    0.00       1/4           geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem() [145]
+                0.00    0.00       1/4           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem() [68]
+                0.00    0.00       1/4           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data() [143]
+                0.00    0.00       1/4           geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [67]
+[115]    0.0    0.00    0.00       4         std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long) [115]
+-----------------------------------------------
+                0.00    0.00       2/2           __libc_csu_init [271]
+[116]    0.0    0.00    0.00       2         _GLOBAL__sub_I__ZN8geometry12intersectionINS_8TriangleEEC2EPKNS_5bmeshIS1_EE [116]
+-----------------------------------------------
+                0.00    0.00       1/2           void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [136]
+                0.00    0.00       1/2           void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+[117]    0.0    0.00    0.00       2         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getCellSize() const [117]
+-----------------------------------------------
+                0.00    0.00       1/2           void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [136]
+                0.00    0.00       1/2           void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+[118]    0.0    0.00    0.00       2         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const [118]
+                0.00    0.00    5044/114138      geometry::point::~point() [88]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[119]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry10projectionINS_8TriangleEEC2ERKNS_5bmeshIS1_EE [119]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[120]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry11boundingBoxILj3EE5setupERKNS_8geoPointILj3EEES5_RKdS7_S7_ [120]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[121]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry11searchPoint9NE_globalE [121]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[122]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry12collapseInfoC2ERKjS2_RKdRKNS_8geoPointILj3EEE [122]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[123]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry14collapsingEdgeC2ERKjS2_RKdRKNS_8geoPointILj3EEE [123]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[124]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry14simplificationINS_8TriangleELNS_8MeshTypeE0ENS_7OnlyGeoILS2_0EEEE7getCostERKjS7_ [124]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[125]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry5pointC2ERKdS2_S2_RKjS4_ [125]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[126]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry7DataGeoC2EPNS_10projectionINS_8TriangleEEERKdS6_S6_ [126]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[127]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry7utility16getFileExtensionENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE [127]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[128]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry8geoPointILj2EEC2ERKd [128]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[129]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry8gutility7inTri2dERKNS_8geoPointILj2EEES4_S4_S4_ [129]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[130]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry9dataPointC2Ev [130]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[131]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZN8geometry9graphItemC2ERKj [131]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[132]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZNK8geometry14structuredDataINS_8TriangleEE14getBoundingBoxERKj [132]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[133]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZNK8geometry5bmeshINS_8TriangleEE9print_inpERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE [133]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[134]    0.0    0.00    0.00       1         _GLOBAL__sub_I__ZNKSt4hashISt4pairIjjEEclERKS1_ [134]
+-----------------------------------------------
+                0.00    0.00       1/1           __libc_csu_init [271]
+[135]    0.0    0.00    0.00       1         _GLOBAL__sub_I_main [135]
+-----------------------------------------------
+                0.00    0.00       1/1           void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+[136]    0.0    0.00    0.00       1         void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [136]
+                0.00    0.00       1/2           geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const [118]
+                0.00    0.00       1/2           geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getCellSize() const [117]
+-----------------------------------------------
+                0.00    0.00       1/1           void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [69]
+[137]    0.0    0.00    0.00       1         geometry::searchPoint::updateNumCells() [137]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::simplification<>(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [1]
+[138]    0.0    0.00    0.00       1         geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId() [138]
+                0.00    0.00    5040/5040        geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getElemBarycenter(unsigned int const&) const [108]
+                0.00    0.00       1/1           geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getMeshBarycenter() const [146]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+[139]    0.0    0.00    0.00       1         geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [139]
+                0.00    0.00    2522/2522        geometry::dataPoint::dataPoint(geometry::point const&, double const&) [110]
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [141]
+                0.00    0.00       1/1           std::vector<geometry::dataPoint, std::allocator<geometry::dataPoint> >::reserve(unsigned long) [149]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [141]
+[140]    0.0    0.00    0.00       1         geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [140]
+                0.00    0.00    2522/2522        geometry::point::point(std::array<double, 3ul> const&, unsigned int const&, unsigned int const&) [109]
+                0.00    0.00       1/1           std::vector<geometry::point, std::allocator<geometry::point> >::reserve(unsigned long) [148]
+                0.00    0.00       1/1           std::vector<geometry::geoElement<geometry::Triangle>, std::allocator<geometry::geoElement<geometry::Triangle> > >::reserve(unsigned long) [147]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [139]
+[141]    0.0    0.00    0.00       1         geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [141]
+                0.00    0.00       1/1           geometry::utility::getFileExtension(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [144]
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [140]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [9]
+[142]    0.0    0.00    0.00       1         geometry::DataGeo::getOriginalDataPointsLocations() [142]
+                0.00    0.00       1/266431      std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::reserve(unsigned long) [84]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+[143]    0.0    0.00    0.00       1         geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data() [143]
+                0.00    0.00    5040/10084       geometry::graphItem::graphItem(unsigned int const&) [97]
+                0.00    0.00       1/4           std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long) [115]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [141]
+[144]    0.0    0.00    0.00       1         geometry::utility::getFileExtension(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [144]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [64]
+[145]    0.0    0.00    0.00       1         geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem() [145]
+                0.00    0.00    2522/10084       geometry::graphItem::graphItem(unsigned int const&) [97]
+                0.00    0.00       1/4           std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long) [115]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId() [138]
+[146]    0.0    0.00    0.00       1         geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getMeshBarycenter() const [146]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [140]
+[147]    0.0    0.00    0.00       1         std::vector<geometry::geoElement<geometry::Triangle>, std::allocator<geometry::geoElement<geometry::Triangle> > >::reserve(unsigned long) [147]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [140]
+[148]    0.0    0.00    0.00       1         std::vector<geometry::point, std::allocator<geometry::point> >::reserve(unsigned long) [148]
+-----------------------------------------------
+                0.00    0.00       1/1           geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [139]
+[149]    0.0    0.00    0.00       1         std::vector<geometry::dataPoint, std::allocator<geometry::dataPoint> >::reserve(unsigned long) [149]
+-----------------------------------------------
+
+ This table describes the call tree of the program, and was sorted by
+ the total amount of time spent in each function and its children.
+
+ Each entry in this table consists of several lines.  The line with the
+ index number at the left hand margin lists the current function.
+ The lines above it list the functions that called this function,
+ and the lines below it list the functions this one called.
+ This line lists:
+     index	A unique number given to each element of the table.
+		Index numbers are sorted numerically.
+		The index number is printed next to every function name so
+		it is easier to look up where the function is in the table.
+
+     % time	This is the percentage of the `total' time that was spent
+		in this function and its children.  Note that due to
+		different viewpoints, functions excluded by options, etc,
+		these numbers will NOT add up to 100%.
+
+     self	This is the total amount of time spent in this function.
+
+     children	This is the total amount of time propagated into this
+		function by its children.
+
+     called	This is the number of times the function was called.
+		If the function called itself recursively, the number
+		only includes non-recursive calls, and is followed by
+		a `+' and the number of recursive calls.
+
+     name	The name of the current function.  The index number is
+		printed after it.  If the function is a member of a
+		cycle, the cycle number is printed between the
+		function's name and the index number.
+
+
+ For the function's parents, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the function into this parent.
+
+     children	This is the amount of time that was propagated from
+		the function's children into this parent.
+
+     called	This is the number of times this parent called the
+		function `/' the total number of times the function
+		was called.  Recursive calls to the function are not
+		included in the number after the `/'.
+
+     name	This is the name of the parent.  The parent's index
+		number is printed after it.  If the parent is a
+		member of a cycle, the cycle number is printed between
+		the name and the index number.
+
+ If the parents of the function cannot be determined, the word
+ `<spontaneous>' is printed in the `name' field, and all the other
+ fields are blank.
+
+ For the function's children, the fields have the following meanings:
+
+     self	This is the amount of time that was propagated directly
+		from the child into the function.
+
+     children	This is the amount of time that was propagated from the
+		child's children to the function.
+
+     called	This is the number of times the function called
+		this child `/' the total number of times the child
+		was called.  Recursive calls by the child are not
+		listed in the number after the `/'.
+
+     name	This is the name of the child.  The child's index
+		number is printed after it.  If the child is a
+		member of a cycle, the cycle number is printed
+		between the name and the index number.
+
+ If there are any cycles (circles) in the call graph, there is an
+ entry for the cycle-as-a-whole.  This entry shows who called the
+ cycle (as parents) and the members of the cycle (as children.)
+ The `+' recursive calls entry shows the number of function calls that
+ were internal to the cycle, and the calls entry for each member shows,
+ for that member, how many times it was called from other members of
+ the cycle.
+
+Copyright (C) 2012-2015 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+Index by function name
+
+ [119] _GLOBAL__sub_I__ZN8geometry10projectionINS_8TriangleEEC2ERKNS_5bmeshIS1_EE [91] geometry::point::point(geometry::geoPoint<3u> const&, unsigned int const&, unsigned int const&) [59] geometry::structuredData<geometry::Triangle>::getBoundingBox(unsigned int const&) const
+ [120] _GLOBAL__sub_I__ZN8geometry11boundingBoxILj3EE5setupERKNS_8geoPointILj3EEES5_RKdS7_S7_ [109] geometry::point::point(std::array<double, 3ul> const&, unsigned int const&, unsigned int const&) [7] geometry::structuredData<geometry::Triangle>::getNeighbouringElements(unsigned int const&) const
+ [121] _GLOBAL__sub_I__ZN8geometry11searchPoint9NE_globalE [95] geometry::point::point(double const&, double const&, double const&, unsigned int const&, unsigned int const&) [51] geometry::bmesh<geometry::Quad>::print_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const
+ [122] _GLOBAL__sub_I__ZN8geometry12collapseInfoC2ERKjS2_RKdRKNS_8geoPointILj3EEE [88] geometry::point::~point() [107] geometry::DataGeo::getKMatrix(unsigned int const&) const
+ [116] _GLOBAL__sub_I__ZN8geometry12intersectionINS_8TriangleEEC2EPKNS_5bmeshIS1_EE [89] geometry::point::operator=(geometry::point const&) [25] geometry::DataGeo::imp_getCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+ [123] _GLOBAL__sub_I__ZN8geometry14collapsingEdgeC2ERKjS2_RKdRKNS_8geoPointILj3EEE [10] geometry::DataGeo::getMaximumCosts(unsigned int const&, unsigned int const&) [34] geometry::DataGeo::getOptimumPoint(unsigned int const&, unsigned int const&) const
+ [124] _GLOBAL__sub_I__ZN8geometry14simplificationINS_8TriangleELNS_8MeshTypeE0ENS_7OnlyGeoILS2_0EEEE7getCostERKjS7_ [11] geometry::DataGeo::getMaximumCosts() [23] geometry::DataGeo::getDecomposedCost(unsigned int const&, unsigned int const&, geometry::geoPoint<3u> const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+ [125] _GLOBAL__sub_I__ZN8geometry5pointC2ERKdS2_S2_RKjS4_ [56] geometry::DataGeo::buildQuantityOfInformation() [35] geometry::DataGeo::imp_getPointsList(unsigned int const&, unsigned int const&) const
+ [126] _GLOBAL__sub_I__ZN8geometry7DataGeoC2EPNS_10projectionINS_8TriangleEEERKdS6_S6_ [142] geometry::DataGeo::getOriginalDataPointsLocations() [19] geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getQuantityOfInformation(unsigned int const&) const
+ [127] _GLOBAL__sub_I__ZN8geometry7utility16getFileExtensionENSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE [49] geometry::DataGeo::buildQs() [28] geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataInvolvedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+ [128] _GLOBAL__sub_I__ZN8geometry8geoPointILj2EEC2ERKd [9] geometry::DataGeo::DataGeo(geometry::projection<geometry::Triangle>*, double const&, double const&, double const&) [20] geometry::meshInfo<geometry::Triangle, (geometry::MeshType)1>::getDataModifiedInEdgeCollapsing(std::vector<unsigned int, std::allocator<unsigned int> > const&) const
+ [129] _GLOBAL__sub_I__ZN8geometry8gutility7inTri2dERKNS_8geoPointILj2EEES4_S4_S4_ [17] geometry::connect<geometry::Triangle, (geometry::MeshType)1>::setData2Elem(unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [87] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getTriArea(unsigned int const&) const
+ [130] _GLOBAL__sub_I__ZN8geometry9dataPointC2Ev [68] geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildData2Elem() [117] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getCellSize() const
+ [131] _GLOBAL__sub_I__ZN8geometry9graphItemC2ERKj [143] geometry::connect<geometry::Triangle, (geometry::MeshType)1>::buildElem2Data() [108] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getElemBarycenter(unsigned int const&) const
+ [132] _GLOBAL__sub_I__ZNK8geometry14structuredDataINS_8TriangleEE14getBoundingBoxERKj [21] geometry::connect<geometry::Triangle, (geometry::MeshType)1>::eraseDataInElem2Data(unsigned int const&) [146] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getMeshBarycenter() const
+ [133] _GLOBAL__sub_I__ZNK8geometry5bmeshINS_8TriangleEE9print_inpERKNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE [64] geometry::connect<geometry::Triangle, (geometry::MeshType)1>::connect<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [118] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getBoundingBoxVertices() const
+ [134] _GLOBAL__sub_I__ZNKSt4hashISt4pairIjjEEclERKS1_ [144] geometry::utility::getFileExtension(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [83] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::getNormal(unsigned int const&) const
+ [135] _GLOBAL__sub_I_main   [145] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Elem() [43] geometry::dataPoint::print(std::ostream&) const
+  [47] void Eigen::MatrixBase<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, -1, -1, false> >::applyHouseholderOnTheLeft<Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1> const&, double const&, double*) [67] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::buildNode2Node() [92] std::hash<geometry::geoElement<geometry::Line> >::operator()(geometry::geoElement<geometry::Line> const&) const
+  [33] Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::computeInPlace() [53] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreElem2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [104] std::hash<geometry::collapseInfo>::operator()(geometry::collapseInfo const&) const
+  [93] Eigen::internal::triangular_solve_vector<double, double, long, 1, 2, false, 0>::run(long, double const*, long, double*) [39] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::restoreNode2Node(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [65] std::pair<std::__detail::_Node_iterator<geometry::geoElement<geometry::Line>, true, true>, bool> std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<std::array<unsigned int, 2ul> >(std::integral_constant<bool, true>, std::array<unsigned int, 2ul>&&)
+  [94] Eigen::internal::triangular_solver_selector<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>, 1, 2, 0, 1>::run(Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3> const, -1, -1, false> const&, Eigen::Block<Eigen::Matrix<double, 3, 1, 0, 3, 1>, -1, 1, false>&) [38] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::undoEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [98] std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::geoElement<geometry::Line>, true>*)
+  [24] geometry::projection<geometry::Triangle>::undo(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > >, std::allocator<std::pair<geometry::geoPoint<3u>, std::vector<unsigned int, std::allocator<unsigned int> > > > > const&) [36] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::applyEdgeCollapse(unsigned int const&, unsigned int const&, std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [111] std::_Hashtable<geometry::geoElement<geometry::Line>, geometry::geoElement<geometry::Line>, std::allocator<geometry::geoElement<geometry::Line> >, std::__detail::_Identity, std::equal_to<geometry::geoElement<geometry::Line> >, std::hash<geometry::geoElement<geometry::Line> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&)
+  [78] geometry::projection<geometry::Triangle>::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [41] geometry::bconnect<geometry::Triangle, (geometry::MeshType)1>::replaceNodeInNode2Node(unsigned int const&, unsigned int const&) [113] std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_rehash_aux(unsigned long, std::integral_constant<bool, false>)
+  [18] geometry::projection<geometry::Triangle>::project(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [50] geometry::geoPoint<2u>::geoPoint(double const&) [81] std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::_M_insert_multi_node(std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*, unsigned long, std::__detail::_Hash_node<geometry::boundingBox<3u>, true>*)
+  [12] geometry::projection<geometry::Triangle>::project(std::vector<unsigned int, std::allocator<unsigned int> > const&, std::vector<unsigned int, std::allocator<unsigned int> > const&) [29] geometry::geoPoint<3u>::geoPoint(double const&) [82] std::_Hashtable<geometry::boundingBox<3u>, geometry::boundingBox<3u>, std::allocator<geometry::boundingBox<3u> >, std::__detail::_Identity, std::equal_to<geometry::boundingBox<3u> >, std::hash<geometry::boundingBox<3u> >, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, false> >::erase(std::__detail::_Node_const_iterator<geometry::boundingBox<3u>, true, true>)
+  [60] geometry::projection<geometry::Triangle>::projection<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > >(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) [77] geometry::geoPoint<3u>::~geoPoint() [105] std::pair<std::__detail::_Node_iterator<geometry::collapseInfo, true, true>, bool> std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_emplace<unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&>(std::integral_constant<bool, true>, unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&)
+ [136] void geometry::boundingBox<3u>::setup<geometry::Triangle, (geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [8] geometry::gutility::intSegPlane(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, double const&) [106] std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_insert_unique_node(unsigned long, unsigned long, std::__detail::_Hash_node<geometry::collapseInfo, true>*)
+  [57] geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(unsigned int const&, geometry::point, geometry::point, geometry::point) [30] geometry::gutility::intSegSeg2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [114] std::_Hashtable<geometry::collapseInfo, geometry::collapseInfo, std::allocator<geometry::collapseInfo>, std::__detail::_Identity, std::equal_to<geometry::collapseInfo>, std::hash<geometry::collapseInfo>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<true, true, true> >::_M_rehash(unsigned long, unsigned long const&)
+  [58] geometry::boundingBox<3u>::boundingBox<geometry::point, geometry::point, geometry::point>(geometry::point, geometry::point, geometry::point) [13] geometry::gutility::inTri2d(geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&) [99] std::pair<std::vector<unsigned int, std::allocator<unsigned int> >, std::vector<unsigned int, std::allocator<unsigned int> > >::~pair()
+ [137] geometry::searchPoint::updateNumCells() [16] geometry::gutility::inTri3d(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [147] std::vector<geometry::geoElement<geometry::Triangle>, std::allocator<geometry::geoElement<geometry::Triangle> > >::reserve(unsigned long)
+  [80] geometry::searchPoint::searchPoint(geometry::geoPoint<3u> const&) [6] geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<2u> const&, geometry::geoPoint<3u> const&, double const&, unsigned int const&, unsigned int const&) [148] std::vector<geometry::point, std::allocator<geometry::point> >::reserve(unsigned long)
+ [102] geometry::collapseInfo::collapseInfo(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [15] geometry::gutility::intSegTri(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [100] std::vector<geometry::point, std::allocator<geometry::point> >::~vector()
+   [5] geometry::intersection<geometry::Triangle>::intersect(geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&, geometry::geoPoint<3u> const&) [62] geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1>::setBoundary(unsigned int const&) [84] std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::reserve(unsigned long)
+  [37] geometry::intersection<geometry::Triangle>::intersection(geometry::bmesh<geometry::Triangle> const*) [110] geometry::dataPoint::dataPoint(geometry::point const&, double const&) [101] std::vector<geometry::geoPoint<3u>, std::allocator<geometry::geoPoint<3u> > >::~vector()
+ [103] geometry::collapsingEdge::collapsingEdge(unsigned int const&, unsigned int const&, double const&, geometry::geoPoint<3u> const&) [61] geometry::graphItem::setConnected(std::vector<unsigned int, std::allocator<unsigned int> > const&) [149] std::vector<geometry::dataPoint, std::allocator<geometry::dataPoint> >::reserve(unsigned long)
+  [22] geometry::set_difference(geometry::graphItem const&, geometry::graphItem const&) [40] geometry::graphItem::insert(std::vector<unsigned int, std::allocator<unsigned int> > const&) [115] std::vector<geometry::graphItem, std::allocator<geometry::graphItem> >::reserve(unsigned long)
+ [138] geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::findDontTouchId() [32] geometry::graphItem::replace(unsigned int const&, unsigned int const&) [79] void std::vector<unsigned int, std::allocator<unsigned int> >::emplace_back<unsigned int>(unsigned int&&)
+   [3] geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::setupCollapsingSet() [45] geometry::graphItem::graphItem(std::vector<unsigned int, std::allocator<unsigned int> > const&, unsigned int const&) [48] std::pair<std::_Rb_tree_iterator<geometry::collapsingEdge>, bool> std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_emplace_unique<unsigned int const&, unsigned int const&, double&, geometry::point&>(unsigned int const&, unsigned int const&, double&, geometry::point&)
+   [2] geometry::simplification<geometry::Triangle, (geometry::MeshType)1, geometry::DataGeo>::getCost(unsigned int const&, unsigned int const&) [46] geometry::graphItem::graphItem(std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > const&, unsigned int const&) [112] std::_Rb_tree<geometry::collapsingEdge, geometry::collapsingEdge, std::_Identity<geometry::collapsingEdge>, std::less<geometry::collapsingEdge>, std::allocator<geometry::collapsingEdge> >::_M_erase(std::_Rb_tree_node<geometry::collapsingEdge>*)
+  [14] geometry::structuredData<geometry::Triangle>::update(std::vector<unsigned int, std::allocator<unsigned int> > const&) [97] geometry::graphItem::graphItem(unsigned int const&) [85] std::pair<std::_Rb_tree_iterator<unsigned int>, bool> std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_insert_unique<unsigned int>(unsigned int&&)
+  [69] void geometry::structuredData<geometry::Triangle>::refresh<(geometry::MeshType)1>(geometry::bmeshInfo<geometry::Triangle, (geometry::MeshType)1> const&) [52] geometry::set_union(geometry::graphItem const&, geometry::graphItem const&) [86] std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_get_insert_hint_unique_pos(std::_Rb_tree_const_iterator<unsigned int>, unsigned int const&)
+  [54] geometry::set_intersection(geometry::graphItem const&, geometry::graphItem const&) [66] bool geometry::operator==<geometry::Line>(geometry::geoElement<geometry::Line> const&, geometry::geoElement<geometry::Line> const&) [44] std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::erase(unsigned int const&)
+  [55] geometry::set_symmetric_difference(geometry::graphItem const&, geometry::graphItem const&) [90] void Eigen::MatrixBase<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false> >::makeHouseholder<Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1> >(Eigen::VectorBlock<Eigen::Block<Eigen::Block<Eigen::Matrix<double, 3, 3, 0, 3, 3>, 3, 1, true>, -1, 1, false>, -1>&, double&, double&) const [26] std::_Rb_tree_node<unsigned int>* std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_copy<std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node>(std::_Rb_tree_node<unsigned int> const*, std::_Rb_tree_node<unsigned int>*, std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_Alloc_node&)
+ [139] geometry::mesh<geometry::Triangle, (geometry::MeshType)1>::mesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [96] void Eigen::ColPivHouseholderQR<Eigen::Matrix<double, 3, 3, 0, 3, 3> >::_solve_impl<Eigen::Matrix<double, 3, 1, 0, 3, 1>, Eigen::Matrix<double, 3, 1, 0, 3, 1> >(Eigen::Matrix<double, 3, 1, 0, 3, 1> const&, Eigen::Matrix<double, 3, 1, 0, 3, 1>&) const [27] std::_Rb_tree<unsigned int, unsigned int, std::_Identity<unsigned int>, std::less<unsigned int>, std::allocator<unsigned int> >::_M_erase(std::_Rb_tree_node<unsigned int>*)
+ [140] geometry::bmesh<geometry::Triangle>::read_inp(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [42] geometry::projection<geometry::Triangle>::getNewData2Elem(unsigned int const&, unsigned int const&) const [31] std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > > std::__set_union<std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter>(std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::_Rb_tree_const_iterator<unsigned int>, std::insert_iterator<std::set<unsigned int, std::less<unsigned int>, std::allocator<unsigned int> > >, __gnu_cxx::__ops::_Iter_less_iter)
+ [141] geometry::bmesh<geometry::Triangle>::bmesh(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) [4] geometry::intersection<geometry::Triangle>::intersect(unsigned int const&, unsigned int const&) const

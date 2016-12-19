@@ -124,6 +124,12 @@ namespace geometry
 				\return		size of elements list */
 			UInt getElemsListSize() const;
 			
+			/*!	Know whether an element is active or not.
+				\param Id	element Id
+				\return		TRUE if the element is active,
+							FALSE otherwise */
+			bool isElemActive(const UInt & Id) const; 
+			
 			//
 			// Set methods
 			//

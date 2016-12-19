@@ -98,7 +98,7 @@ namespace geometry
 		auto p_SW = box.getSW();
 		searchPoint sp_NE(p_NE);
 		searchPoint sp_SW(p_SW);
-		
+			
 		//
 		// Find intersecting boxes
 		//
@@ -106,8 +106,8 @@ namespace geometry
 		// plus an extra layer. This should ensure that all
 		// possible intersecting elements are taken into account
 		// since an element cannot span more than one cell.
-		
-		set<UInt> res;
+					
+		unordered_set<UInt> res;
 		for (UInt i = sp_SW[0]-1; i <= sp_NE[0]+1; ++i)
 			for (UInt j = sp_SW[1]-1; j <= sp_NE[1]+1; ++j)
 				for (UInt k = sp_SW[2]-1; k <= sp_NE[2]+1; ++k)
@@ -122,7 +122,7 @@ namespace geometry
 					// Out of these boxes, keep only the active ones 
 					// actually intersecting the reference bounding box
 					for (auto it = range.first; it != range.second; ++it)
-						if (doIntersect(box, *it))
+						if (grid->isElemActive(it->getId())) //&& doIntersect(box, *it))
 							res.insert(it->getId());
 				}
 		

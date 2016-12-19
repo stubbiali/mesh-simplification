@@ -25,7 +25,7 @@ namespace geometry
 	// Auxiliary methods
 	//
 	
-	UInt projection<Triangle>::inTri2d(const point2d & p, const point2d & a, 
+	pair<bool,UInt> projection<Triangle>::inTri2d(const point2d & p, const point2d & a, 
 		const point2d & b, const point2d & c)
 	{
 		// Compute signed area of the triangle pab, pbc and pac
@@ -33,11 +33,22 @@ namespace geometry
 		auto pbc = ((b - p)^(c - b))[2];
 		auto pca = ((c - p)^(a - c))[2];
 		
+		// If the areas do not have all the same sign:
+		// the point is external
+		if (((pab > TOLL) && (pbc < TOLL) && (pca < TOLL)) ||
+			((pab < TOLL) && (pbc > TOLL) && (pca < TOLL)) ||
+			((pab < TOLL) && (pbc < TOLL) && (pca > TOLL)) ||
+			((pab < TOLL) && (pbc > TOLL) && (pca > TOLL)) ||
+			((pab > TOLL) && (pbc < TOLL) && (pca > TOLL)) ||
+			((pab > TOLL) && (pbc > TOLL) && (pca < TOLL)))
+			return {false, 0};
+			
+		
 		// If the areas are all positive or all negative:
 		// the point is internal to the triangle
-		if (((pab > 0.) && (pbc > 0.) && (pca > 0.)) ||
-			((pab < 0.) && (pbc < 0.) && (pca < 0.)))
-			return 0;
+		if (((pab > TOLL) && (pbc > TOLL) && (pca > TOLL)) ||
+			((pab < -TOLL) && (pbc < -TOLL) && (pca < -TOLL)))
+			return {true, 0};
 			
 		// Check how many signed areas are zero
 		bool pab_iszero = (-TOLL <= pab) && (pab <= TOLL);
@@ -46,22 +57,21 @@ namespace geometry
 				
 		// If two triangles are degenerate, then p coincides with a vertex
 		if (pab_iszero && pbc_iszero)
-			return 5;
+			return {true, 5};
 		if (pbc_iszero && pca_iszero)
-			return 6;
+			return {true, 6};
 		if (pca_iszero && pab_iszero)
-			return 4;
+			return {true, 4};
 		
 		// If just a triangle is degenerate, then p lies on an edge
 		if (pab_iszero)
-			return 1;
+			return {true, 1};
 		if (pbc_iszero)
-			return 2;
+			return {true, 2};
 		if (pca_iszero)
-			return 3;
+			return {true, 3};
 			
-		// Otherwise, the point does not belong to the triangle
-		return 7;	
+		return {};
 	}
 	
 	
@@ -155,15 +165,15 @@ namespace geometry
 		// If so, compute the square distance and return
 		
 		auto q_abc = projection<Triangle>::inTri2d(q, a, b, c);
-		if (q_abc < 7)
+		if (q_abc.first)
 		{
-			if (q_abc == 4)
+			if (q_abc.second == 4)
 				return make_tuple((P - A)*(P - A), A, 4);
-			if (q_abc == 5)
+			if (q_abc.second == 5)
 				return make_tuple((P - B)*(P - B), B, 5);
-			if (q_abc == 6)
+			if (q_abc.second == 6)
 				return make_tuple((P - C)*(P - C), C, 6);
-			return make_tuple((P - Q)*(P - Q), Q, q_abc);
+			return make_tuple((P - Q)*(P - Q), Q, q_abc.second);
 		}
 			
 		//
@@ -338,15 +348,15 @@ namespace geometry
 		// If so, compute the square distance and return
 		
 		auto q_abc = projection<Triangle>::inTri2d(q, a, b, c);
-		if (q_abc < 7)
+		if (q_abc.first)
 		{
-			if (q_abc == 4)
+			if (q_abc.second == 4)
 				return make_tuple((P - A)*(P - A), A, 4);
-			if (q_abc == 5)
+			if (q_abc.second == 5)
 				return make_tuple((P - B)*(P - B), B, 5);
-			if (q_abc == 6)
+			if (q_abc.second == 6)
 				return make_tuple((P - C)*(P - C), C, 6);
-			return make_tuple((P - Q)*(P - Q), Q, q_abc);
+			return make_tuple((P - Q)*(P - Q), Q, q_abc.second);
 		}
 			
 		//

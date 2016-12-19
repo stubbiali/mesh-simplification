@@ -280,79 +280,90 @@ namespace geometry
 		
 		auto pointsList = getPointsList(id1, id2);
 		
-		if (pointsList.size() > 0)
+		if (pointsList.empty())
+			return;
+		
+		Real geo, disp, equi;
+		Real min_geo(numeric_limits<Real>::max()), 
+			min_disp(numeric_limits<Real>::max()), 
+			min_equi(numeric_limits<Real>::max());
+		
+		// 
+		// Get elements and data involved in the collapse
+		//
+		
+		auto invElems = this->oprtr->getElemsInvolvedInEdgeCollapsing(id1, id2);
+		auto toRemove = this->oprtr->getElemsOnEdge(id1, id2);
+		auto toKeep = this->oprtr->getElemsModifiedInEdgeCollapsing(id1, id2);
+		auto toMove = this->oprtr->getDataModifiedInEdgeCollapsing(invElems);
+		
+		//
+		// Update connections
+		//
+	
+		// Store old id1
+		auto P(this->oprtr->getCPointerToMesh()->getNode(id1));
+	
+		// Update node-node, node-element and element-node connections
+		auto oldConnections = this->oprtr->getPointerToConnectivity()
+			->applyEdgeCollapse(id2, id1, toRemove, toKeep);
+		
+		for (auto Q : pointsList)
 		{
-			Real geo, disp, equi;
-			
-			// 
-			// Get elements and data involved in the collapse
 			//
-			
-			auto invElems = this->oprtr->getElemsInvolvedInEdgeCollapsing(id1, id2);
-			auto toRemove = this->oprtr->getElemsOnEdge(id1, id2);
-			auto toKeep = this->oprtr->getElemsModifiedInEdgeCollapsing(id1, id2);
-			auto toMove = this->oprtr->getDataModifiedInEdgeCollapsing(invElems);
-			
+			// Set collapsing point
 			//
-			// Update connections
-			//
+	
+			// Change coordinates and boundary flag of id1
+			this->oprtr->getPointerToMesh()->setNode(id1, Q);
 		
-			// Store old id1
-			auto P(this->oprtr->getCPointerToMesh()->getNode(id1));
-		
-			// Update node-node, node-element and element-node connections
-			auto oldConnections = this->oprtr->getPointerToConnectivity()
-				->applyEdgeCollapse(id2, id1, toRemove, toKeep);
-			
-			for (auto Q : pointsList)
-			{
-				//
-				// Set collapsing point
-				//
-		
-				// Change coordinates and boundary flag of id1
-				this->oprtr->getPointerToMesh()->setNode(id1, Q);
-			
-				// Project data points and update data-element and 
-				// element-data connections
-				auto oldData = this->oprtr->project(toMove, toKeep);
-				this->oprtr->getPointerToConnectivity()->eraseElemInData2Elem(toRemove);
-				
-				//
-				// Update maximum values for each cost function
-				//
-				
-				// Compute all cost functions
-				tie(geo, disp, equi) = getDecomposedCost(id1, id2, Q, toKeep, toMove);
-				
-				// Possibly update maximum values
-				if (geo > maxCost[0])	
-					maxCost[0] = geo;
-				if (disp > maxCost[1]) 
-					maxCost[1] = disp;
-				if (equi > maxCost[2])
-					maxCost[2] = equi;
-				
-				//
-				// Undo projections and restore data-element and
-				// element-data connections
-				//
-				
-				this->oprtr->undo(toMove, oldData);
-				this->oprtr->getPointerToConnectivity()->insertElemInData2Elem(toRemove);
-			}
+			// Project data points and update data-element and 
+			// element-data connections
+			auto oldData = this->oprtr->project(toMove, toKeep);
+			this->oprtr->getPointerToConnectivity()->eraseElemInData2Elem(toRemove);
 			
 			//
-			// Restoration
+			// Update maximum values for each cost function
 			//
-		
-			// Restore connections
-			this->oprtr->getPointerToConnectivity() ->undoEdgeCollapse(id2, id1, 
-				oldConnections.first, oldConnections.second, toRemove); 
 			
-			// Restore list of nodes
-			this->oprtr->getPointerToMesh()->setNode(id1, P);
+			// Compute all cost functions
+			tie(geo, disp, equi) = getDecomposedCost(id1, id2, Q, toKeep, toMove);
+			
+			// Check if they are the best so far
+			if (geo < min_geo)
+				min_geo = geo;
+			if (disp < min_disp)
+				min_disp = disp;
+			if (equi < min_equi)
+				min_equi = equi;
+							
+			//
+			// Undo projections and restore data-element and
+			// element-data connections
+			//
+			
+			this->oprtr->undo(toMove, oldData);
+			this->oprtr->getPointerToConnectivity()->insertElemInData2Elem(toRemove);
 		}
+		
+		//
+		// Restoration
+		//
+	
+		// Restore connections
+		this->oprtr->getPointerToConnectivity() ->undoEdgeCollapse(id2, id1, 
+			oldConnections.first, oldConnections.second, toRemove); 
+		
+		// Restore list of nodes
+		this->oprtr->getPointerToMesh()->setNode(id1, P);
+		
+		// Possibly update maximum values
+		if (min_geo > maxCost[0])	
+			maxCost[0] = min_geo;
+		if (min_disp > maxCost[1]) 
+			maxCost[1] = min_disp;
+		if (min_equi > maxCost[2])
+			maxCost[2] = min_equi;
 	}
 	
 	

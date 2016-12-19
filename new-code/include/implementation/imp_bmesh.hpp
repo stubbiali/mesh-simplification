@@ -160,6 +160,13 @@ namespace geometry
 	}
 	
 	
+	template<typename SHAPE>
+	INLINE bool bmesh<SHAPE>::isElemActive(const UInt & Id) const
+	{
+		return elems[Id].isActive();
+	}
+	
+	
 	//
 	// Set methods
 	//
