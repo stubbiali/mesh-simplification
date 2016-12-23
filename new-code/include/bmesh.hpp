@@ -6,6 +6,7 @@
 
 #include <vector>
 #include <string>
+#include <map>
 
 #include "point.hpp"
 #include "geoElement.hpp"
@@ -227,8 +228,10 @@ namespace geometry
 			// Refresh methods
 			//
 			
-			/*!	Remove inactive nodes and elements from the lists and update Id's. */
-			void refresh();
+			/*!	Remove inactive nodes and elements from the lists and update Id's.
+				\return 	old-to-new map for nodes Id's
+				\return		old-to-new map for elements Id's */
+			pair<map<UInt,UInt>, map<UInt,UInt>> refresh();
 			
 			//
 			// Print

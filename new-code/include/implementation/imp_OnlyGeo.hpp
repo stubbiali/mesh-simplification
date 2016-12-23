@@ -101,47 +101,7 @@ namespace geometry
 			Qs[elem[2]] += K;
 		}
 	}
-	
-	
-	template<MeshType MT>
-	void OnlyGeo<MT>::imp_update(const UInt & newId)
-	{
-		assert(this->oprtr != nullptr);
 		
-		// Extract the nodes connected to id
-		auto nodes = this->oprtr->getCPointerToConnectivity()->getNode2Node(newId).getConnected();
-		
-		// 
-		// Re-build Q matrix for the collapsing point
-		//
-		
-		// Set Q to zero
-		Qs[newId] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-		
-		// Loop over all elements sharing the collapsing point,
-		// compute K and add it to Q
-		auto id_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(newId).getConnected();
-		for (auto elem : id_elems)
-			Qs[newId] += getKMatrix(elem);
-		
-		// 
-		// Re-build Q matrix for all nodes connected to
-		// the collapsing point
-		//
-		
-		for (auto node : nodes)
-		{
-			// Set Q to zero
-			Qs[node] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
-	
-			// Loop over all elements sharing the node,
-			// compute K and add it to Q
-			auto node_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(node).getConnected();
-			for (auto elem : node_elems)
-				Qs[node] += getKMatrix(elem);
-		}
-	}
-	
 	
 	//
 	// Set methods
@@ -277,7 +237,14 @@ namespace geometry
 	
 	
 	template<MeshType MT>
-	Real OnlyGeo<MT>::imp_getCost(const UInt & id1, const UInt & id2, const point3d & p) const
+	INLINE Real OnlyGeo<MT>::imp_getCost(const UInt & id1, const UInt & id2, const point3d & p) const
+	{
+		return imp_getCost_f(id1, id2, p);
+	}
+	
+	
+	template<MeshType MT>
+	Real OnlyGeo<MT>::imp_getCost_f(const UInt & id1, const UInt & id2, const point3d & p) const
 	{
 		// Extract the matrix Q associated to the edge
 		auto Q = Qs[id1] + Qs[id2];
@@ -286,6 +253,72 @@ namespace geometry
 		return (Q[0]*p[0]*p[0] + Q[4]*p[1]*p[1] + Q[7]*p[2]*p[2]
 			+ 2*Q[1]*p[0]*p[1] + 2*Q[2]*p[0]*p[2] + 2*Q[5]*p[1]*p[2]
 			+ 2*Q[3]*p[0] + 2*Q[6]*p[1] + 2*Q[8]*p[2] + Q[9]);
+	}
+	
+	
+	//
+	// Updating methods
+	//
+	
+	template<MeshType MT>
+	INLINE void OnlyGeo<MT>::imp_addCollapseInfo(const UInt & id1, const UInt & id2, 
+		const Real & val, const point3d & p)
+	{
+		this->cInfoList.emplace(id1, id2, val, p);
+	}
+	
+	
+	template<MeshType MT>
+	void OnlyGeo<MT>::imp_update(const UInt & newId)
+	{
+		assert(this->oprtr != nullptr);
+		
+		// Extract the nodes connected to id
+		auto nodes = this->oprtr->getCPointerToConnectivity()->getNode2Node(newId).getConnected();
+		
+		// 
+		// Re-build Q matrix for the collapsing point
+		//
+		
+		// Set Q to zero
+		Qs[newId] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+		
+		// Loop over all elements sharing the collapsing point,
+		// compute K and add it to Q
+		auto id_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(newId).getConnected();
+		for (auto elem : id_elems)
+			Qs[newId] += getKMatrix(elem);
+		
+		// 
+		// Re-build Q matrix for all nodes connected to
+		// the collapsing point
+		//
+		
+		for (auto node : nodes)
+		{
+			// Set Q to zero
+			Qs[node] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+	
+			// Loop over all elements sharing the node,
+			// compute K and add it to Q
+			auto node_elems = this->oprtr->getCPointerToConnectivity()->getNode2Elem(node).getConnected();
+			for (auto elem : node_elems)
+				Qs[node] += getKMatrix(elem);
+		}
+	}
+	
+	
+	template<MeshType MT>
+	CONSTEXPR bool OnlyGeo<MT>::imp_toUpdate() const
+	{
+		return false;
+	}
+	
+	
+	template<MeshType MT>
+	INLINE void OnlyGeo<MT>::imp_clear()
+	{
+		this->cInfoList.clear();
 	}
 }
 

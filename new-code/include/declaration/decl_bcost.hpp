@@ -66,6 +66,14 @@ namespace geometry
 			void setMeshOperation(bmeshOperation<SHAPE,MT> * bmo);
 			
 			//
+			// Access members
+			//
+			
+			/*!	Get list of collapseInfo objects.
+				\return		vector of collapseInfo objects */
+			vector<collapseInfo> getCollapseInfoList() const;
+			
+			//
 			// Get methods
 			//
 			
@@ -79,7 +87,8 @@ namespace geometry
 				\return		vector of valid points */
 			vector<point> getPointsList(const UInt & id1, const UInt & id2) const;
 			
-			/*!	Get cost for collapsing an edge in a point.
+			/*!	Get cost for collapsing an edge in a point and possibly keep
+				track of the resulting cost(s) for future class updates.
 				The implementation is delegated to the derived class.
 			
 				\param id1		Id of first end-point of the edge
@@ -98,22 +107,55 @@ namespace geometry
 				then the class bcost is in charge of forwarding the right number
 				of arguments to the implementation. */
 			Real getCost(const UInt & id1, const UInt & id2, const point3d & p, 
+				const vector<UInt> & toKeep = {}, const vector<UInt> & toMove = {});
+				
+			/*!	Get cost for collapsing an edge in a point without keeping
+				track of the resulting cost(s) for future class updates. Indeed,
+				"f" stands for "fast".
+				The implementation is delegated to the derived class.
+			
+				\param id1		Id of first end-point of the edge
+				\param id2		Id of second end-point of the edge
+				\param p		collapsing point
+				\param toKeep	Id's of elements involved in the collapse 
+								but not insisting on the edge
+				\param toMove	Id's of data points involved in the collapse
+				\return			the cost 
+				
+				Note that the last two parameters may not be required by the
+				implementation, this is why they are given default (empty) values.
+				However, the user is not exposed to this problem thanks to
+				template specialization used in the implementation of the method.
+				One may (or may not!) give all the arguments to the interface,
+				then the class bcost is in charge of forwarding the right number
+				of arguments to the implementation. */
+			Real getCost_f(const UInt & id1, const UInt & id2, const point3d & p, 
 				const vector<UInt> & toKeep = {}, const vector<UInt> & toMove = {}) const;
-			
-			/*!	Get list of collapseInfo objects.
-				\return		vector of collapseInfo objects */
-			vector<collapseInfo> getCollapseInfoList() const;
-			
+						
 			//
-			// Update list
+			// Updating methods
 			//
-			
-			/*!	Add a collapseInfo object to the list.
+							
+			/*!	Add a collapseInfo object to the list and possible check if the class  
+				requires an update.
+				The implementation is delegated to the derived class.
+				
 				\param id1	Id of first end-point of the edge
 				\param id2	Id of second end-point of the edge
 				\param val	collapsing cost
 				\param p	collapsing point */
 			void addCollapseInfo(const UInt & id1, const UInt & id2, const Real & val,
+				const point3d & p);
+				
+			/*!	Add a collapseInfo object to the list without checking if the class  
+				requires an update. Indeed, "f" stands for "fast".
+				The implementation is delegated to the derived class.
+				
+				\param id1	Id of first end-point of the edge
+				\param id2	Id of second end-point of the edge
+				\param val	collapsing cost
+				\param p	collapsing point */
+			void addCollapseInfo_f(const UInt & id1, const UInt & id2, const Real & val,
 				const point3d & p);
 			
 			/*!	Erase a collapseInfo object from the list.
@@ -144,6 +186,18 @@ namespace geometry
 				For further details, see imp_bcost.hpp.*/
 			void update(const UInt & newId, const UInt & oldId = 0.,
 				const vector<UInt> & toRemove = {});
+				
+			/*!	Check whether the collapseInfo's list should be re-built.
+				The implementation is delegated to the derived class.
+				Some derived classes, e.g. OnlyGeo, may never require a re-build. 
+				
+				\return		TRUE if the collapseInfo's list should be re-built,
+							FALSE otherwise */
+			bool toUpdate() const;
+			
+			/*!	Clear the collapseInfo's list.
+				The implementation is delegated to the derived class. */
+			void clear(); 
 	};
 }
 

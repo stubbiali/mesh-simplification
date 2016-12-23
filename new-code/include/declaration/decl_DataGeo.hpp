@@ -63,6 +63,15 @@ namespace geometry
 				distribution cost functions. */
 			array<Real,3> weight;
 			
+			/*!	Variables keeping track, for each edge, of the minimum for 
+				each component. These values will be useful when checking 
+				whether the class requires an update. */
+			Real min_geo, min_disp, min_equi;
+			
+			/*!	Boolean saying whether the costs should be re-computed
+				because the maxima have significantly changed. */
+			bool to_update;
+			
 		public:
 			//
 			// Constructors
@@ -131,10 +140,10 @@ namespace geometry
 							or data distribution (i = 2) cost
 				\return		the new coefficient */
 			void setWeight(const UInt & i, const Real & val);
-			
+						
 		protected:
 			//
-			// Initialization and update 
+			// Initialization and update of class-specific members
 			//
 			// These methods are in charge of handling the lists of Q matrices
 			// and quantity of informations and computing the normalizing factors
@@ -195,16 +204,7 @@ namespace geometry
 			/*!	Get maximum geometric, data displacement and data distribution
 				cost function over the entire mesh. */
 			void getMaximumCosts();
-			
-			/*!	Update the list of Q matrices after an edge collapse.
-				This method should be called after having updated the mesh
-				and all the connections.
-				It provides the implementation of the method update() of bcost.
-				
-				\param newId	Id of the collapsing point 
-				\param toRemove	elements insisting on the edge, then to remove */
-			void imp_update(const UInt & newId, const vector<UInt> & toRemove);
-			
+						
 			//
 			// Set methods
 			//
@@ -240,7 +240,8 @@ namespace geometry
 				\return		vector of valid points */
 			vector<point> imp_getPointsList(const UInt & id1, const UInt & id2) const;
 						
-			/*!	Get cost for collapsing an edge in a point.
+			/*!	Get cost for collapsing an edge in a point and keep track 
+				of the components for future updating checks.
 				The method supposes the connections have already been
 				modified to accomplish the collapse.
 				This method provides the implementation of the method 
@@ -254,7 +255,62 @@ namespace geometry
 				\param toMove	Id's of the data points involved in the collapse
 				\return			the cost */
 			Real imp_getCost(const UInt & id1, const UInt & id2, const point3d & p,
+				const vector<UInt> & toKeep, const vector<UInt> & toMove);
+				
+			/*!	Get cost for collapsing an edge in a point.
+				The method supposes the connections have already been
+				modified to accomplish the collapse.
+				This method provides the implementation of the method 
+				getCost() of bcost.
+				
+				\param id1		Id of first end-point of the edge
+				\param id2		Id of second end-point of the edge
+				\param p		collapsing point
+				\param toKeep	Id's of elements involved in the collapse
+								but not insisting on the edge
+				\param toMove	Id's of the data points involved in the collapse
+				\return			the cost */
+			Real imp_getCost_f(const UInt & id1, const UInt & id2, const point3d & p,
 				const vector<UInt> & toKeep, const vector<UInt> & toMove) const;
+				
+			//
+			// Updating methods
+			//
+			
+			/*!	Add a collapseInfo object to the list and check if the costs
+				should be re-computed because the maxima have significantly changed.
+				This method provides the implementation of the method 
+				addCollapseInfo() of bcost.
+				
+				\param id1	Id of first end-point of the edge
+				\param id2	Id of second end-point of the edge
+				\param val	collapsing cost
+				\param p	collapsing point */
+			void imp_addCollapseInfo(const UInt & id1, const UInt & id2, const Real & val,
+				const point3d & p);
+				
+			/*!	Update the list of Q matrices after an edge collapse.
+				This method should be called after having updated the mesh
+				and all the connections.
+				It provides the implementation of the method update() of bcost.
+				
+				\param newId	Id of the collapsing point 
+				\param toRemove	elements insisting on the edge, then to remove */
+			void imp_update(const UInt & newId, const vector<UInt> & toRemove);
+			
+			/*!	Check if the costs should be re-computed because the maxima
+				have significantly changed. 
+				This method provides the implementation of the method 
+				toUpdate() of bcost.
+				
+				\return 	TRUE if the costs should be re-computed,
+							FALSE otherwise */
+			bool imp_toUpdate() const;
+			
+			/*!	Clear the collapseInfo's list.
+				This method provides the implementation of the method 
+				clear() of bcost. */
+			void imp_clear(); 
 	};
 }
 

@@ -579,10 +579,7 @@ namespace geometry
 			
 			// If the projection falls within the triangle,
 			// make sure it is the closest triangle to the point.
-			// Performing the test $-TOLL < dist$ we take into
-			// account the case where the point $P$ already
-			// belongs to the plane defined by the i-th triangle
-			if (dist < opt_dist - TOLL)
+			if (dist < opt_dist)
 			{
 				opt_dist = dist;
 				opt_Q = Q;
@@ -700,10 +697,7 @@ namespace geometry
 			
 				// If the projection falls within the triangle,
 				// make sure it is the closest triangle to the point.
-				// Performing the test $-TOLL < dist$ we take into
-				// account the case where the point $P$ already
-				// belongs to the plane defined by the i-th triangle
-				if (dist < opt_dist - TOLL)
+				if (dist < opt_dist)
 				{
 					opt_dist = dist;
 					opt_Q = Q;

@@ -43,6 +43,54 @@ namespace geometry
 		bmeshInfo<SHAPE, MeshType::DATA>(args...)
 	{
 	}
+		
+	
+	//
+	// Print methods 
+	//
+	
+	template<typename SHAPE>
+	void meshInfo<SHAPE, MeshType::DATA>::printMesh(const string & filename)
+	{
+		// Refresh the mesh and the connections
+		this->connectivity.refresh();
+		
+		// Extract file extension
+		auto format = utility::getFileExtension(filename);
+							
+		// Switch the format
+		if (format == "inp")
+			print_inp(filename);
+		else if (format == "vtk")
+			print_vtk(filename);
+		else
+			throw runtime_error("Format " + format + " not known.");
+	}
+	
+	
+	//
+	// Print in different format
+	//
+	
+	template<typename SHAPE>
+	void meshInfo<SHAPE, MeshType::DATA>::print_inp(const string & filename) const
+	{
+		// TODO
+	}
+	
+	// Declare specialization for triangular grids
+	template<>
+	void meshInfo<Triangle, MeshType::DATA>::print_inp(const string & filename) const;
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	void meshInfo<Quad, MeshType::DATA>::print_inp(const string & filename) const;
+		
+	template<typename SHAPE>
+	void meshInfo<SHAPE, MeshType::DATA>::print_vtk(const string & filename) const
+	{
+		// TODO
+	}
 	
 	
 	//

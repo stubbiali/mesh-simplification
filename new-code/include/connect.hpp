@@ -237,6 +237,15 @@ namespace geometry
 				
 				\param newData2Elem	vector of connections */
 			void setData2Elem(const vector<graphItem> & newData2Elem);
+		
+		protected:
+			//
+			// Auxiliary refresh methods
+			//
+			
+			/*!	Update data-element connections after a mesh refresh.
+				\param old2new	old-to-new map for elements Id's */
+			void refreshData2Elem(map<UInt,UInt> old2new);
 	};
 }
 

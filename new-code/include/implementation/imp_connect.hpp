@@ -101,16 +101,16 @@ namespace geometry
 	template<typename SHAPE>
 	void connect<SHAPE, MeshType::DATA>::refresh()
 	{
-		// Clear all connections and the set of edges
-		this->clear();
+		// Refresh the mesh
+		auto old2new = this->grid.refresh();
 		
 		// Re-build all connections and the set of edges
 		this->buildNode2Node();
 		this->buildNode2Elem();
-		buildData2Elem();
+		refreshData2Elem(old2new.second);
 		buildElem2Data();
 	}
-	
+		
 	
 	template<typename SHAPE>
 	void connect<SHAPE, MeshType::DATA>::clear()
@@ -317,6 +317,29 @@ namespace geometry
 		
 		// Build new element-data connections
 		buildElem2Data();
+	}
+	
+	
+	//
+	// Auxiliary refresh methods
+	//
+	
+	template<typename SHAPE>
+	void connect<SHAPE, MeshType::DATA>::refreshData2Elem(map<UInt,UInt> old2new)
+	{
+		for (UInt i = 0; i < this->grid.getNumData(); ++i)
+		{
+			// Extract connected elements
+			auto conn = data2elem[i].getConnected();
+			
+			// Clear the datum
+			data2elem[i].clear();
+			
+			// Apply old-to-new map to connected elements
+			// and insert updated Id's
+			for (auto id : conn)
+				data2elem[i].insert(old2new[id]);
+		}
 	}
 }
 

@@ -80,15 +80,7 @@ namespace geometry
 			
 			/*! Build the matrix Q for each node. */
 			void buildQs();
-			
-			/*!	Update the list of Q matrices after an edge collapse.
-				This method should be called after having updated the mesh
-				and all the connections.
-				It provides the implementation of the method update() of bcost.
-				
-				\param newId	Id of the collapsing point */
-			void imp_update(const UInt & newId);
-			
+						
 			//
 			// Set methods
 			//
@@ -135,6 +127,59 @@ namespace geometry
 				\param p	collapsing point
 				\return		the cost */
 			Real imp_getCost(const UInt & id1, const UInt & id2, const point3d & p) const;
+			
+			/*!	Get cost for collapsing an edge in a point.
+				The method supposes the connections have already been
+				modified to accomplish the collapse.
+				This method provides the implementation of the method 
+				getCost_f() of bcost.
+				As it is implemented, this method performs the same operations
+				of getCost().
+				
+				\param id1	Id of first end-point of the edge
+				\param id2	Id of second end-point of the edge
+				\param p	collapsing point
+				\return		the cost */
+			Real imp_getCost_f(const UInt & id1, const UInt & id2, const point3d & p) const;
+			
+			//
+			// Updating methods
+			//
+			
+			/*!	Add a collapseInfo object to the list.
+				This method provides the implementation of the method 
+				addCollapseInfo() of bcost.
+				Actually, as it is implemented this method is equal to
+				the method addCollapseInfo_f() of bcost.
+				
+				\param id1	Id of first end-point of the edge
+				\param id2	Id of second end-point of the edge
+				\param val	collapsing cost
+				\param p	collapsing point */
+			void imp_addCollapseInfo(const UInt & id1, const UInt & id2, 
+				const Real & val, const point3d & p);
+				
+			/*!	Update the list of Q matrices after an edge collapse.
+				This method should be called after having updated the mesh
+				and all the connections.
+				It provides the implementation of the method update() of bcost.
+				
+				\param newId	Id of the collapsing point */
+			void imp_update(const UInt & newId);
+				
+			/*!	Check whether the collapseInfo's list should be re-built.
+				This method provides the implementation of the method 
+				toUpdate() of bcost.
+				Actually, the class OnlyGeo never requires the costs to be re-computed,
+				then this method always return FALSE. 
+				
+				\return		FALSE */
+			CONSTEXPR bool imp_toUpdate() const;
+			
+			/*!	Clear the collapseInfo's list.
+				This method provides the implementation of the method 
+				clear() of bcost. */
+			void imp_clear(); 
 	};
 }
 

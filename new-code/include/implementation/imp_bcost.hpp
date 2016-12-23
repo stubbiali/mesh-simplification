@@ -32,6 +32,17 @@ namespace geometry
 	
 	
 	//
+	// Access members
+	//
+	
+	template<typename SHAPE, MeshType MT, typename D>
+	INLINE vector<collapseInfo> bcost<SHAPE,MT,D>::getCollapseInfoList() const
+	{
+		return {cInfoList.cbegin(), cInfoList.cend()};
+	}
+	
+	
+	//
 	// Get methods
 	//
 	
@@ -43,20 +54,22 @@ namespace geometry
 	}
 		
 	
+	//
+	// Updating methods
+	//
+	
+	
 	template<typename SHAPE, MeshType MT, typename D>
-	INLINE vector<collapseInfo> bcost<SHAPE,MT,D>::getCollapseInfoList() const
+	INLINE void bcost<SHAPE,MT,D>::addCollapseInfo(const UInt & id1, const UInt & id2, 
+		const Real & val, const point3d & p)
 	{
-		return {cInfoList.cbegin(), cInfoList.cend()};
+		static_cast<D *>(this)->imp_addCollapseInfo(id1, id2, val, p);
 	}
 	
 	
-	//
-	// Update list
-	//
-	
 	template<typename SHAPE, MeshType MT, typename D>
-	INLINE void bcost<SHAPE,MT,D>::addCollapseInfo(const UInt & id1, const UInt & id2, const Real & val,
-		const point3d & p)
+	INLINE void bcost<SHAPE,MT,D>::addCollapseInfo_f(const UInt & id1, const UInt & id2, 
+		const Real & val, const point3d & p)
 	{
 		cInfoList.emplace(id1, id2, val, p);
 	}
@@ -75,6 +88,20 @@ namespace geometry
 			return {true, val};
 		}
 		return {false, -1};
+	}
+	
+	
+	template<typename SHAPE, MeshType MT, typename D>
+	INLINE bool bcost<SHAPE,MT,D>::toUpdate() const
+	{
+		return static_cast<const D *>(this)->imp_toUpdate();
+	}
+	
+	
+	template<typename SHAPE, MeshType MT, typename D>
+	INLINE void bcost<SHAPE,MT,D>::clear()
+	{
+		static_cast<D *>(this)->imp_clear();
 	}
 }
 

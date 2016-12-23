@@ -89,8 +89,29 @@ namespace geometry
 			void setMesh(const bmesh<SHAPE> & g);
 			
 			//
+			// Refresh method
+			//
+			
+			/*!	Refresh the mesh and all the connections. */
+			void refresh();
+						
+			//
+			// Print methods
+			//
+			
+			/*!	Print the mesh. 
+				\param filename	name of the output file */
+			virtual void printMesh(const string & filename);
+						
+			//
 			// Get topological info
 			//
+			
+			/*!	Get the nodes shared by the nodes.
+				\param id1	first node
+				\param id2	second node
+				\return		shared nodes */
+			vector<UInt> getNodesOnEdge(const UInt & id1, const UInt & id2) const;
 			
 			/*!	Get nodes involved in an edge collapsing except for the end-points of the edge.
 				\param id1	first end-point of the edge

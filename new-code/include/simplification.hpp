@@ -94,7 +94,7 @@ namespace geometry
 			
 			/*! Id of the fixed element. */
 			UInt	  					dontTouchId;
-
+			
 		public:
 			//
 			// Constructors
@@ -115,6 +115,9 @@ namespace geometry
 				The method uses the edge list from the connections and adds the 
 				cost information. */
 			void setupCollapsingSet();
+			
+			/*!	Method re-building collapsingSet, i.e. re-computing all the costs. */
+			void rebuildCollapsingSet();
 			
 			/*!	Method refreshing
 				<ol>
@@ -149,6 +152,19 @@ namespace geometry
 				\param id1	Id of the first end-point of the edge
 				\param id2	Id of the second end-point of the edge */
 			void getCost(const UInt & id1, const UInt & id2);
+			
+			/*!	Method which takes the cost data for the contraction of the edge.
+				The "fast" version of the methods of CostClass are employed.
+				The function operates by step:
+				- extracts from the CostClass object the list of possible collapse points
+				- controls the validity of the points
+				- takes from the CostClass object the minimum cost value
+				- possibly insert the collapse information to the lists of collapseInfo
+				  and collapsingEdge objects
+								
+				\param id1	Id of the first end-point of the edge
+				\param id2	Id of the second end-point of the edge */
+			void getCost_f(const UInt & id1, const UInt & id2);
 
 			/*!	Method that differently to the previous version first compute the costs 
 				for all possible collapse points and then check if the one with minimum 
@@ -226,5 +242,10 @@ namespace geometry
 
 /*!	Include implementations of class members. */
 #include "implementation/imp_simplification.hpp"
+
+/*!	Include implementations of inlined members. */
+#ifdef INLINED
+#include "inline/inline_simplification.hpp"
+#endif
 
 #endif 

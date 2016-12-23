@@ -13,6 +13,9 @@ namespace geometry
 	template<>
 	void bmesh<Triangle>::print_inp(const string & filename) const
 	{
+		// Note: we suppose the mesh has been refreshed
+		// before print method has been called
+		
 		// Open the file
 		ofstream file(filename);
 		
@@ -22,8 +25,8 @@ namespace geometry
 			file.precision(11);
 			
 			// Preamble
-			file << nodes.size() << " "
-				 << elems.size() << " " 
+			file << numNodes << " "
+				 << numElems << " " 
 				 << "0 0 0" << endl;
 				 
 			// Print nodes
@@ -54,14 +57,17 @@ namespace geometry
 	template<>
 	void bmesh<Quad>::print_inp(const string & filename) const
 	{
+		// Note: we suppose the mesh has been refreshed
+		// before print method has been called
+		
 		// Open the file
 		ofstream file(filename);
 		
 		if (file.is_open())
 		{
 			// Preamble
-			file << nodes.size() << " "
-				 << elems.size() << " " 
+			file << numNodes << " "
+				 << numElems << " " 
 				 << "0 0 0" << endl;
 				 
 			// Print nodes

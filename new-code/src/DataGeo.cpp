@@ -2,6 +2,8 @@
 	\brief	Implementations of members of class DataGeo. */
 	
 #include <limits>
+#include <cmath>
+#include <cstdlib>
 
 #include "DataGeo.hpp"
 #include "array_operators.hpp"
@@ -26,7 +28,7 @@ namespace geometry
 	
 	DataGeo::DataGeo(bmeshOperation<Triangle, MeshType::DATA> * bmo,
 		const Real & a, const Real & b, const Real & c) :
-		bcost<Triangle, MeshType::DATA, DataGeo>(bmo), weight({a,b,c})
+		bcost<Triangle, MeshType::DATA, DataGeo>(bmo), weight({a,b,c}), to_update(false)
 	{
 		// Create list of Q matrices
 		buildQs();
@@ -43,13 +45,13 @@ namespace geometry
 	
 	
 	DataGeo::DataGeo(const Real & a, const Real & b, const Real & c) :
-		bcost<Triangle, MeshType::DATA, DataGeo>(), weight({a,b,c})
+		bcost<Triangle, MeshType::DATA, DataGeo>(), weight({a,b,c}), to_update(false)
 	{
 	}
 	
 	
 	//
-	// Initialization and update
+	// Initialization and update of class-specific members
 	//
 	
 	array<Real,10> DataGeo::getKMatrix(const UInt & id) const
@@ -274,6 +276,12 @@ namespace geometry
 	
 	void DataGeo::getMaximumCosts(const UInt & id1, const UInt & id2) 
 	{
+		// Initialize variables
+		Real geo, disp, equi;
+		min_geo = numeric_limits<Real>::max();
+		min_disp = numeric_limits<Real>::max();
+		min_equi = numeric_limits<Real>::max();
+			
 		//
 		// Get potentially valid collapsing points
 		//
@@ -282,12 +290,7 @@ namespace geometry
 		
 		if (pointsList.empty())
 			return;
-		
-		Real geo, disp, equi;
-		Real min_geo(numeric_limits<Real>::max()), 
-			min_disp(numeric_limits<Real>::max()), 
-			min_equi(numeric_limits<Real>::max());
-		
+				
 		// 
 		// Get elements and data involved in the collapse
 		//
@@ -383,20 +386,7 @@ namespace geometry
 		for (auto edge : edges)
 			getMaximumCosts(edge[0], edge[1]);
 	}
-	
-	
-	void DataGeo::imp_update(const UInt & newId, const vector<UInt> & toRemove)
-	{
-		assert(this->oprtr != nullptr);
 		
-		// Update list of Q matrices
-		updateQs(newId);
-		
-		// Update list of quantity of information for each element,
-		// number of elements and average quantity of information
-		updateQuantityOfInformation(newId, toRemove);
-	}
-	
 	
 	//
 	// Set methods
@@ -418,6 +408,7 @@ namespace geometry
 		
 		// Get maximum for each cost function
 		getMaximumCosts();
+		to_update = false;
 	}
 	
 	
@@ -544,6 +535,76 @@ namespace geometry
 	
 	
 	Real DataGeo::imp_getCost(const UInt & id1, const UInt & id2, const point3d & p,
+		const vector<UInt> & toKeep, const vector<UInt> & toMove)
+	{
+		//
+		// Compute geometric cost function
+		//
+		
+		// Extract the matrix Q associated to the edge
+		auto Q = Qs[id1] + Qs[id2];
+		
+		// Compute the quadratic form
+		Real geo = Q[0]*p[0]*p[0] + Q[4]*p[1]*p[1] + Q[7]*p[2]*p[2]
+			+ 2*Q[1]*p[0]*p[1] + 2*Q[2]*p[0]*p[2] + 2*Q[5]*p[1]*p[2]
+			+ 2*Q[3]*p[0] + 2*Q[6]*p[1] + 2*Q[8]*p[2] + Q[9];
+			
+		// Check if it is the minimum so far (for this edge)
+		if (geo < min_geo)
+			min_geo = geo;
+		
+		//
+		// Compute data displacement cost function
+		//
+		// Get the maximum distance between the original data point
+		// and its current position for involved data points
+		
+		Real disp(numeric_limits<Real>::lowest());
+		if (toMove.size() == 0)
+			disp = 0.;
+		else
+		{
+			for (auto datum : toMove)
+			{
+				point3d dataProjected(this->oprtr->getCPointerToMesh()->getData(datum));
+				Real dl = (dataProjected - dataOrigin[datum]).norm2();
+				if (dl > disp)	
+					disp = dl;
+			}
+		}
+		
+		// Check if it is the minimum so far (for this edge)
+		if (disp < min_disp)
+			min_disp = disp;
+		
+		//
+		// Compute data distribution cost function
+		//
+		
+		Real equi(0.);
+		for (auto elem : toKeep)
+		{
+			Real qoi_new(this->oprtr->getQuantityOfInformation(elem));
+			equi += (qoi_new - qoi_mean)*(qoi_new - qoi_mean);
+		}
+		
+		// Average over all involved elements
+		equi /= toKeep.size();
+		
+		// Check if it is the minimum so far (for this edge)
+		if (equi < min_equi)
+			min_equi = equi;
+		
+		//
+		// Final cost
+		//
+		
+		return (weight[0] * geo / maxCost[0] + weight[1] * disp / maxCost[1]
+			+ weight[2] * equi / maxCost[2]);
+	}
+	
+	
+	Real DataGeo::imp_getCost_f(const UInt & id1, const UInt & id2, const point3d & p,
 		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
 	{
 		//
@@ -557,7 +618,7 @@ namespace geometry
 		Real geo = Q[0]*p[0]*p[0] + Q[4]*p[1]*p[1] + Q[7]*p[2]*p[2]
 			+ 2*Q[1]*p[0]*p[1] + 2*Q[2]*p[0]*p[2] + 2*Q[5]*p[1]*p[2]
 			+ 2*Q[3]*p[0] + 2*Q[6]*p[1] + 2*Q[8]*p[2] + Q[9];
-		
+					
 		//
 		// Compute data displacement cost function
 		//
@@ -598,6 +659,67 @@ namespace geometry
 		
 		return (weight[0] * geo / maxCost[0] + weight[1] * disp / maxCost[1]
 			+ weight[2] * equi / maxCost[2]);
+	}
+	
+	
+	//
+	// Updating methods
+	//
+	
+	void DataGeo::imp_addCollapseInfo(const UInt & id1, const UInt & id2, 
+		const Real & val, const point3d & p)
+	{
+		//
+		// Insert the new collapseInfo to the list
+		//
+		
+		this->cInfoList.emplace(id1, id2, val, p);
+		
+		//
+		// Check if the costs should be re-computed
+		//
+		// For each component, check whether the minimum computed on the current edge
+		// significantly exceeds the current maximum. If so, set to_update to TRUE and
+		// update the maximum.
+		
+		if (min_geo > 1.2 * maxCost[0])
+		{
+			maxCost[0] = min_geo;
+			to_update = true;
+		}
+		
+		if (min_disp > 1.2 * maxCost[1])
+		{
+			maxCost[1] = min_disp;
+			to_update = true;
+		}
+		
+		if (min_equi > 1.2 * maxCost[2])
+		{
+			maxCost[2] = min_equi;
+			to_update = true;
+		}
+		
+		//
+		// Reset minimum values
+		//
+		
+		min_geo = numeric_limits<Real>::max();
+		min_disp = numeric_limits<Real>::max();
+		min_equi = numeric_limits<Real>::max();
+	}
+	
+	
+	void DataGeo::imp_update(const UInt & newId, const vector<UInt> & toRemove)
+	{
+		assert(this->oprtr != nullptr);
+		
+		// Update list of Q matrices
+		updateQs(newId);
+		
+		// Update list of quantity of information for each element,
+		// number of elements and average quantity of information
+		updateQuantityOfInformation(newId, toRemove);
 	}
 }
 

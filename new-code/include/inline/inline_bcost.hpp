@@ -15,7 +15,7 @@ namespace geometry
 	template<>
 	INLINE Real bcost<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>::getCost
 		(const UInt & id1, const UInt & id2, const point3d & p, 
-		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
+		const vector<UInt> & toKeep, const vector<UInt> & toMove)
 	{
 		return static_cast<const OnlyGeo<MeshType::GEO> *>(this)
 			->imp_getCost(id1, id2, p);
@@ -25,7 +25,7 @@ namespace geometry
 	template<>
 	INLINE Real bcost<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>::getCost
 		(const UInt & id1, const UInt & id2, const point3d & p, 
-		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
+		const vector<UInt> & toKeep, const vector<UInt> & toMove)
 	{
 		return static_cast<const OnlyGeo<MeshType::DATA> *>(this)
 			->imp_getCost(id1, id2, p);
@@ -37,14 +37,49 @@ namespace geometry
 	template<>
 	INLINE Real bcost<Triangle, MeshType::DATA, DataGeo>::getCost
 		(const UInt & id1, const UInt & id2, const point3d & p, 
+		const vector<UInt> & toKeep, const vector<UInt> & toMove)
+	{
+		return static_cast<DataGeo *>(this)
+			->imp_getCost(id1, id2, p, toKeep, toMove);
+	}
+	
+	
+	// Both OnlyGeo<MeshType::GEO> and OnlyGeo<MeshType::DATA> just need
+	// the edge end-points and the collapsing point
+	template<>
+	INLINE Real bcost<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>::getCost_f
+		(const UInt & id1, const UInt & id2, const point3d & p, 
 		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
 	{
-		return static_cast<const DataGeo *>(this)->imp_getCost(id1, id2, p, toKeep, toMove);
+		return static_cast<const OnlyGeo<MeshType::GEO> *>(this)
+			->imp_getCost_f(id1, id2, p);
+	}
+	
+	
+	template<>
+	INLINE Real bcost<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>::getCost_f
+		(const UInt & id1, const UInt & id2, const point3d & p, 
+		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
+	{
+		return static_cast<const OnlyGeo<MeshType::DATA> *>(this)
+			->imp_getCost_f(id1, id2, p);
+	}
+	
+	
+	// Specialization for DataGeo, requiring also the Id's of the elements 
+	// and the data points involved in the collapse
+	template<>
+	INLINE Real bcost<Triangle, MeshType::DATA, DataGeo>::getCost_f
+		(const UInt & id1, const UInt & id2, const point3d & p, 
+		const vector<UInt> & toKeep, const vector<UInt> & toMove) const
+	{
+		return static_cast<const DataGeo *>(this)
+			->imp_getCost_f(id1, id2, p, toKeep, toMove);
 	}
 	
 	
 	//
-	// Update list
+	// Updating methods
 	//
 	
 	// Both OnlyGeo<MeshType::GEO> and OnlyGeo<MeshType::DATA> just need

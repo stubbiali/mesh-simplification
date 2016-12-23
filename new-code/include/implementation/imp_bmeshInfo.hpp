@@ -112,8 +112,42 @@ namespace geometry
 	
 	
 	//
+	// Refresh method
+	//
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE void bmeshInfo<SHAPE,MT>::refresh()
+	{
+		connectivity.refresh();
+	}
+	
+	
+	//
+	// Print methods
+	//
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE void bmeshInfo<SHAPE,MT>::printMesh(const string & filename)
+	{
+		// First refresh, then print
+		connectivity.refresh();
+		connectivity.grid.print(filename);
+	}
+		
+	
+	//
 	// Get topological info
 	//
+	
+	template<typename SHAPE, MeshType MT>
+	INLINE vector<UInt> bmeshInfo<SHAPE,MT>::getNodesOnEdge
+		(const UInt & id1, const UInt & id2) const
+	{
+		// Get nodes connected both to id1 and id2
+		auto s = set_intersection(connectivity.node2node[id1], connectivity.node2node[id2]);		
+		return {s.cbegin(), s.cend()};
+	}
+	
 	
 	template<typename SHAPE, MeshType MT>
 	vector<UInt> bmeshInfo<SHAPE,MT>::getNodesInvolvedInEdgeCollapsing
@@ -126,7 +160,7 @@ namespace geometry
 		s.erase(id1);
 		s.erase(id2);
 		
-		return vector<UInt>(s.begin(), s.end());
+		return {s.cbegin(), s.cend()};
 	}
 	
 	

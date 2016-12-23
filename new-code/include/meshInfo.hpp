@@ -73,6 +73,16 @@ namespace geometry
 				\sa mesh.hpp */
 			template<typename... Args>
 			meshInfo(Args... args);
+						
+			//
+			// Print methods
+			//
+			
+			/*!	Print the mesh with quantity of information for each element. 
+				\param filename	name of the output file 
+				
+				\sa getQuantityOfInformation() */
+			virtual void printMesh(const string & filename);
 	
 			//
 			// Get topological info
@@ -145,7 +155,20 @@ namespace geometry
 				\param Id	element Id
 				\return		TRUE if no data points are associated to the element,
 							FALSE otherwise */
-			bool isEmpty(const UInt & Id) const;						
+			bool isEmpty(const UInt & Id) const;
+			
+		protected:
+			//
+			// Print in different formats
+			//
+			
+			/*! Print in .inp format. 
+				\param filename	name of the output file */
+			void print_inp(const string & filename) const;
+			
+			/*! Print in .vtk format. 
+				\param filename	name of the output file */
+			void print_vtk(const string & filename) const;						
 	};
 }
 

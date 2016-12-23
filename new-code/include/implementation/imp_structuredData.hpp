@@ -122,7 +122,7 @@ namespace geometry
 					// Out of these boxes, keep only the active ones 
 					// actually intersecting the reference bounding box
 					for (auto it = range.first; it != range.second; ++it)
-						if (grid->isElemActive(it->getId())) //&& doIntersect(box, *it))
+						if (grid->isElemActive(it->getId()) && doIntersect(box, *it))
 							res.insert(it->getId());
 				}
 		

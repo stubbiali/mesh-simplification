@@ -62,6 +62,23 @@ namespace geometry
 	{
 		weight[i] = val;
 	}
+	
+	
+	//
+	// Updating methods
+	//
+	
+	INLINE bool DataGeo::imp_toUpdate() const
+	{
+		return to_update;
+	}
+			
+	
+	INLINE void DataGeo::imp_clear()
+	{
+		to_update = false;
+		this->cInfoList.clear();
+	} 
 }
 
 #endif

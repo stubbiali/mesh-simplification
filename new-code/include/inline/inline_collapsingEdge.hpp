@@ -5,6 +5,8 @@
 #ifndef HH_INLINECOLLAPSINGEDGE_HH
 #define HH_INLINECOLLAPSINGEDGE_HH
 
+#include <tuple>
+
 namespace geometry
 {
 	//
@@ -15,10 +17,8 @@ namespace geometry
 	{
 		// If the costs are equal, compare the Id's
 		// Otherwise, compare the costs
-		
-		return (!(cEdge1.cost < cEdge2.cost) && !(cEdge1.cost > cEdge2.cost)) ?
-			((cEdge1.Id1 < cEdge1.Id1) || ((cEdge1.Id1 == cEdge2.Id1) && (cEdge1.Id2 < cEdge2.Id2))) :
-			(cEdge1.cost < cEdge2.cost);
+		return (cEdge1.cost != cEdge2.cost) ? (cEdge1.cost < cEdge2.cost) :
+			(tie(cEdge1.Id1, cEdge1.Id2) < tie(cEdge2.Id1, cEdge2.Id2));
 	}
 	
 	

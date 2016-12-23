@@ -384,10 +384,11 @@ namespace geometry
 	//
 	
 	template<typename SHAPE>
-	void bmesh<SHAPE>::refresh()
+	pair<map<UInt,UInt>, map<UInt,UInt>> bmesh<SHAPE>::refresh()
 	{
-		// Map from ond to new nodes id's
-		map<UInt,UInt> old2new;
+		// Map from old to new nodes id's
+		map<UInt,UInt> nodes_old2new;
+		map<UInt,UInt> elems_old2new;
 		
 		// Temporary list of (active) nodes and elements
 		vector<point> tmp_nodes;
@@ -414,8 +415,7 @@ namespace geometry
 				tmp_nodes[count].setId(count);
 
 				// Update old-to-new map and counter
-				old2new[i] = count;
-				
+				nodes_old2new[i] = count;
 				++count;
 			}
 		}
@@ -435,7 +435,7 @@ namespace geometry
 				// Extract the vertices and apply old-to-new map
 				array<UInt, bmesh<SHAPE>::NV> ids;
 				for (UInt j = 0; j < bmesh<SHAPE>::NV; ++j)
-					ids[j] = old2new[elems[i][j]];
+					ids[j] = nodes_old2new[elems[i][j]];
 				
 				// Extract the geometrical Id
 				auto gId = elems[i].getGeoId();
@@ -443,7 +443,8 @@ namespace geometry
 				// Insert in the temporary list of elements
 				tmp_elems.emplace_back(ids, count, gId);
 				
-				// Update counter
+				// Update old-to-new map and counter
+				elems_old2new[i] = count;
 				++count;
 			}
 		}
@@ -459,8 +460,10 @@ namespace geometry
 		
 		// Elements
 		elems.clear();
-		elems.reserve(numNodes);
+		elems.reserve(numElems);
 		copy(tmp_elems.cbegin(), tmp_elems.cend(), back_inserter(elems));
+		
+		return {nodes_old2new, elems_old2new};
 	}
 	
 	

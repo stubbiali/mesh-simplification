@@ -41,7 +41,8 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::buildNode2Node()
 	{
-		// Reserve memory
+		// Clear and reserve memory
+		edges.clear();
 		node2node.clear();
 		node2node.reserve(grid.getNumNodes());
 					
@@ -104,8 +105,8 @@ namespace geometry
 	template<typename SHAPE, MeshType MT>
 	void bconnect<SHAPE,MT>::refresh()
 	{
-		// Clear all connections and the set of edges
-		this->clear();
+		// Refresh the mesh
+		grid.refresh();
 		
 		// Re-build all connections and the set of edges
 		buildNode2Node();

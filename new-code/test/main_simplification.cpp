@@ -12,10 +12,10 @@ int main()
 	
 	// Path to input and output file
 	string iFile("../../mesh/pawn.inp");
-	string oFile("../../mesh/pawn_2200.inp");
+	string oFile("../../mesh/pawn_1000_033_033_033.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(2200);
+	UInt numNodesMax(1000);
 	
 	// Simplificate!
 	#ifdef NDEBUG
@@ -23,8 +23,8 @@ int main()
 	#endif
 	
 	simplification<Triangle, MeshType::DATA, DataGeo> 
-		simplifier(iFile);
-	//simplifier.simplificate(numNodesMax, true, oFile);
+		simplifier(iFile, 1./3, 1./3, 1./3);
+	simplifier.simplificate(numNodesMax, true, oFile);
 	
 	#ifdef NDEBUG
 	high_resolution_clock::time_point stop = high_resolution_clock::now();
