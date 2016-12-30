@@ -202,6 +202,18 @@ namespace geometry
 			
 			/*! Update data points Id's so to make them coincide with the position in the vector. */
 			void setUpDataIds();
+			
+			//
+			// Print in different format
+			//
+			
+			/*! Print in .inp format. 
+				\param filename	name of the output file */
+			virtual void print_inp(const string & filename) const;
+			
+			/*! Print in .vtk format. 
+				\param filename	name of the output file */
+			virtual void print_vtk(const string & filename) const;
 	};
 	
 }

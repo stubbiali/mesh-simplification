@@ -772,7 +772,7 @@ namespace geometry
 		{
 			cout << "The number of mesh points is " << gridOperation.getCPointerToMesh()->getNumNodes()
 				<< ", already below the given threshold " << numNodesMax << endl;
-			return;
+			//return;
 		}
 
 		//

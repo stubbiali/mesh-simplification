@@ -261,6 +261,29 @@ namespace geometry
 		for (UInt Id = 0; Id < data.size(); ++Id)
 			data[Id].setId(Id);
 	}	
+	
+	
+	template<typename SHAPE>
+	void mesh<SHAPE, MeshType::DATA>::print_inp(const string & filename) const
+	{
+	}
+	
+	
+	// Declare specialization for triangular grids
+	template<>
+	void mesh<Triangle, MeshType::DATA>::print_inp(const string & filename) const;
+	
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	void mesh<Quad, MeshType::DATA>::print_inp(const string & filename) const;
+				
+	
+	template<typename SHAPE>
+	void mesh<SHAPE, MeshType::DATA>::print_vtk(const string & filename) const
+	{
+		// TODO
+	}
 }
 
 #endif

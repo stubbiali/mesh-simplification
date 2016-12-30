@@ -643,7 +643,7 @@ namespace geometry
 			refresh();
 		
 		// Switch the format
-		if (format == "inp")
+		if ((format == "inp") || (format == "txt"))
 			print_inp(filename);
 		else if (format == "vtk")
 			print_vtk(filename);

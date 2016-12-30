@@ -11,11 +11,11 @@ int main()
 	using namespace std::chrono;
 	
 	// Path to input and output file
-	string iFile("../../mesh/pawn.inp");
-	string oFile("../../mesh/pawn_1000_033_033_033.inp");
+	string iFile("../../mesh/bunny.inp");
+	string oFile("../../mesh/bunny_5000_033_033_033.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(1000);
+	UInt numNodesMax(5000);
 	
 	// Simplificate!
 	#ifdef NDEBUG
@@ -23,7 +23,7 @@ int main()
 	#endif
 	
 	simplification<Triangle, MeshType::DATA, DataGeo> 
-		simplifier(iFile, 1./3, 1./3, 1./3);
+		simplifier(iFile, 1./3., 1./3., 1./3.);
 	simplifier.simplificate(numNodesMax, true, oFile);
 	
 	#ifdef NDEBUG

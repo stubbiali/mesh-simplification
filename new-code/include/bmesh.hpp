@@ -275,11 +275,11 @@ namespace geometry
 			
 			/*! Print in .inp format. 
 				\param filename	name of the output file */
-			void print_inp(const string & filename) const;
+			virtual void print_inp(const string & filename) const;
 			
 			/*! Print in .vtk format. 
 				\param filename	name of the output file */
-			void print_vtk(const string & filename) const;
+			virtual void print_vtk(const string & filename) const;
 	};
 }
 
