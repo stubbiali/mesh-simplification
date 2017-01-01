@@ -10,9 +10,6 @@ set (MESHDOCTORSIMP_VERSION_MAJOR 1)
 set (MESHDOCTORSIMP_VERSION_MINOR 0)
 set (MESHDOCTORSIMP_PATCH_VERSION 0)
 
-find_package(BLAS REQUIRED)
-find_package(LAPACK REQUIRED)
-
 # include the header
 include_directories("${CMAKE_CURRENT_SOURCE_DIR}/RobustPredicates")
 # add the subdirectory 
@@ -34,8 +31,8 @@ function(add_meshSimplification_executable arg1 arg2)
 add_executable(${arg1} ${arg2})
 target_link_libraries(${arg1} meshSimplification)
 target_link_libraries(${arg1} predicates)
-target_link_libraries(${arg1} blas)
-target_link_libraries(${arg1} lapack)
+target_link_libraries(${arg1} "/usr/lib/libblas/libblas.so.3.6.0")
+target_link_libraries(${arg1} "/usr/lib/lapack/liblapack.so.3.6.0")
 # add the link
 endfunction(add_meshSimplification_executable)
 

@@ -1,0 +1,17 @@
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/test.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/edit_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/rebuild_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/smoothingRoutine.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/geometric_simplification.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/evaluationCostFunction.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/simp2dTest.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles/taubinSmoothingRoutine.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/RobustPredicates/CMakeFiles/test.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/RobustPredicates/CMakeFiles/rebuild_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/RobustPredicates/CMakeFiles/edit_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/RobustPredicates/CMakeFiles/predicates.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/src/CMakeFiles/edit_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/src/CMakeFiles/rebuild_cache.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/src/CMakeFiles/test.dir
+/home/stefano/Desktop/mesh-simplification/buildRelease/src/CMakeFiles/meshSimplification.dir

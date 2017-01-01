@@ -11,5 +11,5 @@ clc
 close all
 beep off
 
-filename = 'dataset/bunny';
+filename = 'dataset/pawn_500_033_033_033';
 viewer(filename);

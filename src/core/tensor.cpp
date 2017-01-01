@@ -249,6 +249,7 @@ Real tensor::getFrobenius()
 
 void tensor::findAutoval()
 {
+	/*
     // prendo i vettori
     int                            N=3;
     int            LDA=3,LDVL=3,LDVR=3;
@@ -291,7 +292,7 @@ void tensor::findAutoval()
     delete [] VL;
     delete [] VR;
     delete [] WORK;
-
+	*/
 }
 
 //-----------------------------------------------------------

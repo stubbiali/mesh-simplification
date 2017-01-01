@@ -268,6 +268,7 @@ Real miniMatrix::getFrobenius()
 
 void miniMatrix::findAutoval()
 {
+	/*
     // prendo i vettori
     int                            N=2;
     int            LDA=2,LDVL=2,LDVR=2;
@@ -307,6 +308,7 @@ void miniMatrix::findAutoval()
     delete [] VL;
     delete [] VR;
     delete [] WORK;
+    */
 
 }
 

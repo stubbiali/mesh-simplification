@@ -3,13 +3,14 @@
 
 #include "shapes.hpp"
 #include "point.h"
-
+/*
 extern "C"{
 
 extern void dgeev_(const char *, const char *, int *, double *, int *, double *, double *, 
 		   double *, int *, double *, int *, double *, int *, int *);
 
 }
+*/
 
 namespace geometry
 {

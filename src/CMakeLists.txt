@@ -4,9 +4,6 @@ cmake_minimum_required (VERSION 2.6)
 project (MESHDOCTORLIB)
 
 # compilers 
-enable_language(Fortran CXX)
-
-# compilers 
 enable_language(CXX)
 
 # The version number.
