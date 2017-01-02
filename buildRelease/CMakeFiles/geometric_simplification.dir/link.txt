@@ -1,0 +1,1 @@
+/usr/bin/c++    -Wall  -O3 -DNDEBUG   CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o  -o geometric_simplification -rdynamic src/libmeshSimplification.a RobustPredicates/libpredicates.a /usr/lib/libblas/libblas.so.3.6.0 /usr/lib/lapack/liblapack.so.3.6.0 

@@ -46,6 +46,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/smoothingRoutine.dir/DependInfo.cmake"
+  "CMakeFiles/geometric_simplification.dir/DependInfo.cmake"
   "CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/DependInfo.cmake"
   "CMakeFiles/evaluationCostFunction.dir/DependInfo.cmake"
   "CMakeFiles/simp2dTest.dir/DependInfo.cmake"

@@ -135,6 +135,19 @@ smoothingRoutine/fast:
 .PHONY : smoothingRoutine/fast
 
 #=============================================================================
+# Target rules for targets named geometric_simplification
+
+# Build rule for target.
+geometric_simplification: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 geometric_simplification
+.PHONY : geometric_simplification
+
+# fast build rule for target.
+geometric_simplification/fast:
+	$(MAKE) -f CMakeFiles/geometric_simplification.dir/build.make CMakeFiles/geometric_simplification.dir/build
+.PHONY : geometric_simplification/fast
+
+#=============================================================================
 # Target rules for targets named applyNoiseAndTaubinSmoothingRoutine
 
 # Build rule for target.
@@ -238,6 +251,33 @@ bin/applyNoiseAndTaubinSmoothingRoutine.s: bin/applyNoiseAndTaubinSmoothingRouti
 bin/applyNoiseAndTaubinSmoothingRoutine.cpp.s:
 	$(MAKE) -f CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/build.make CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.s
 .PHONY : bin/applyNoiseAndTaubinSmoothingRoutine.cpp.s
+
+bin/geometric_simplification.o: bin/geometric_simplification.cpp.o
+
+.PHONY : bin/geometric_simplification.o
+
+# target to build an object file
+bin/geometric_simplification.cpp.o:
+	$(MAKE) -f CMakeFiles/geometric_simplification.dir/build.make CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o
+.PHONY : bin/geometric_simplification.cpp.o
+
+bin/geometric_simplification.i: bin/geometric_simplification.cpp.i
+
+.PHONY : bin/geometric_simplification.i
+
+# target to preprocess a source file
+bin/geometric_simplification.cpp.i:
+	$(MAKE) -f CMakeFiles/geometric_simplification.dir/build.make CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.i
+.PHONY : bin/geometric_simplification.cpp.i
+
+bin/geometric_simplification.s: bin/geometric_simplification.cpp.s
+
+.PHONY : bin/geometric_simplification.s
+
+# target to generate assembly for a file
+bin/geometric_simplification.cpp.s:
+	$(MAKE) -f CMakeFiles/geometric_simplification.dir/build.make CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.s
+.PHONY : bin/geometric_simplification.cpp.s
 
 bin/smoothingRoutine.o: bin/smoothingRoutine.cpp.o
 
@@ -357,6 +397,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... smoothingRoutine"
+	@echo "... geometric_simplification"
 	@echo "... applyNoiseAndTaubinSmoothingRoutine"
 	@echo "... evaluationCostFunction"
 	@echo "... simp2dTest"
@@ -366,6 +407,9 @@ help:
 	@echo "... bin/applyNoiseAndTaubinSmoothingRoutine.o"
 	@echo "... bin/applyNoiseAndTaubinSmoothingRoutine.i"
 	@echo "... bin/applyNoiseAndTaubinSmoothingRoutine.s"
+	@echo "... bin/geometric_simplification.o"
+	@echo "... bin/geometric_simplification.i"
+	@echo "... bin/geometric_simplification.s"
 	@echo "... bin/smoothingRoutine.o"
 	@echo "... bin/smoothingRoutine.i"
 	@echo "... bin/smoothingRoutine.s"
