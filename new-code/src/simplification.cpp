@@ -437,7 +437,8 @@ namespace geometry
 		{
 			auto costPair = costObj.eraseCollapseInfo(id2, conn);
 			if (costPair.first)
-				collapsingSet.erase({id2, conn, costPair.second});
+				id2 < conn ? collapsingSet.erase({id2, conn, costPair.second}) :
+					collapsingSet.erase({conn, id2, costPair.second});
 		}
 						
 		//
