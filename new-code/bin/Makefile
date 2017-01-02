@@ -30,7 +30,7 @@ EXEC=$(patsubst $(TEST_DIR)/%.cpp, %, $(SRC_TEST))
 CXX=clang++
 CXXFLAGS=-std=c++11 -g -I $(INC_DIR) -I $(EIGEN_DIR)
 CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
-#CXXFLAGS=-std=c++11 -DENABLE_SELF_INTERSECTIONS -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
+CXXFLAGS=-std=c++11 -DENABLE_SELF_INTERSECTIONS -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
 
 
 #
