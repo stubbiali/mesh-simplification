@@ -27,9 +27,9 @@ OBJ_TEST=$(patsubst %.cpp, %.o, $(SRC_TEST))
 EXEC=$(patsubst $(TEST_DIR)/%.cpp, %, $(SRC_TEST))
 
 # Compilation flags
-CXX=g++
+CXX=clang++
 CXXFLAGS=-std=c++11 -g -I $(INC_DIR) -I $(EIGEN_DIR)
-CXXFLAGS=-std=c++11 -pg -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
+CXXFLAGS=-std=c++11 -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
 #CXXFLAGS=-std=c++11 -DENABLE_SELF_INTERSECTIONS -DNDEBUG -O3 -ftree-vectorize -I $(INC_DIR) -I $(EIGEN_DIR)
 
 

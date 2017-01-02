@@ -12,7 +12,7 @@ int main()
 	
 	// Path to input and output file
 	string iFile("../../mesh/pawn.inp");
-	string oFile("../../mesh/pawn_1000_033_033_033.inp");
+	string oFile("../../mesh/pawn_1000_033_033_033_enable_self_intersections.inp");
 	
 	// Desired number of nodes
 	UInt numNodesMax(1000);

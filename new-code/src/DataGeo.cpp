@@ -682,19 +682,19 @@ namespace geometry
 		// significantly exceeds the current maximum. If so, set to_update to TRUE and
 		// update the maximum.
 		
-		if (min_geo > 1.2 * maxCost[0])
+		if (min_geo > 1.3 * maxCost[0])
 		{
 			maxCost[0] = min_geo;
 			to_update = true;
 		}
 		
-		if (min_disp > 1.2 * maxCost[1])
+		if (min_disp > 1.3 * maxCost[1])
 		{
 			maxCost[1] = min_disp;
 			to_update = true;
 		}
 		
-		if (min_equi > 1.2 * maxCost[2])
+		if (min_equi > 1.3 * maxCost[2])
 		{
 			maxCost[2] = min_equi;
 			to_update = true;

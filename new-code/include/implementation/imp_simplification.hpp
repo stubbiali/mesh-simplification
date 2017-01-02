@@ -221,12 +221,14 @@ namespace geometry
 			}
 		}	
 			
-		// For each involved element, get its patch
-		// This will come useful when checking for mesh self-intersections
-		vector<vector<UInt>> patches;
-		patches.reserve(toKeep.size());
-		for (auto elem : toKeep)
-			patches.push_back(gridOperation.getTriPatch(elem));
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// For each involved element, get its patch
+			// This will come useful when checking for mesh self-intersections
+			vector<vector<UInt>> patches;
+			patches.reserve(toKeep.size());
+			for (auto elem : toKeep)
+				patches.push_back(gridOperation.getTriPatch(elem));
+		#endif
 															
 		//
 		// Get the cheapest edge
@@ -247,9 +249,11 @@ namespace geometry
 		
 			// Change coordinates and boundary flag of id1
 			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
-						
-			// Update structured data
-			structData.update(toKeep); 
+				
+			#ifndef ENABLE_SELF_INTERSECTIONS		
+				// Update structured data
+				structData.update(toKeep); 
+			#endif
 						
 			// Project data points and update data-element 
 			// and element-data connections
@@ -275,24 +279,26 @@ namespace geometry
 				// No empty triangles
 				valid = valid && !(gridOperation.isEmpty(*it1));
 				
-				// No mesh self-intersections
-				if (valid)
-				{
-					// Make the elements surrounding *it1 inactive
-					// In this way, they will be disregarded in the checks
-					for (auto elem : patches[it1-toKeep.cbegin()])
-						gridOperation.getPointerToMesh()->setElemInactive(elem);
+				#ifndef ENABLE_SELF_INTERSECTIONS
+					// No mesh self-intersections
+					if (valid)
+					{
+						// Make the elements surrounding *it1 inactive
+						// In this way, they will be disregarded in the checks
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemInactive(elem);
 						
-					// Extract elements whose bounding box intersect the one of *it1
-					// and perform triangle-triangle intersection tests
-					auto elems = structData.getNeighbouringElements(*it1);
-					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-						valid = valid && !(intrs.intersect(*it1, *it2));
+						// Extract elements whose bounding box intersect the one of *it1
+						// and perform triangle-triangle intersection tests
+						auto elems = structData.getNeighbouringElements(*it1);
+						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+							valid = valid && !(intrs.intersect(*it1, *it2));
 						
-					// Restore elements surrounding *it1
-					for (auto elem : patches[it1-toKeep.cbegin()])
-						gridOperation.getPointerToMesh()->setElemActive(elem);
-				}
+						// Restore elements surrounding *it1
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemActive(elem);
+					}
+				#endif
 			}
 			
 			//
@@ -330,8 +336,10 @@ namespace geometry
 		// Restore list of nodes
 		gridOperation.getPointerToMesh()->setNode(id1, P);
 		
-		// Restore structured data
-		structData.update(toKeep);
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// Restore structured data
+			structData.update(toKeep);
+		#endif
 					
 		//
 		// Update collapseInfo's and collapsingEdge's lists
@@ -431,12 +439,14 @@ namespace geometry
 			}
 		}	
 			
-		// For each involved element, get its patch
-		// This will come useful when checking for mesh self-intersections
-		vector<vector<UInt>> patches;
-		patches.reserve(toKeep.size());
-		for (auto elem : toKeep)
-			patches.push_back(gridOperation.getTriPatch(elem));
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// For each involved element, get its patch
+			// This will come useful when checking for mesh self-intersections
+			vector<vector<UInt>> patches;
+			patches.reserve(toKeep.size());
+			for (auto elem : toKeep)
+				patches.push_back(gridOperation.getTriPatch(elem));
+		#endif
 															
 		//
 		// Get the cheapest edge
@@ -458,8 +468,10 @@ namespace geometry
 			// Change coordinates and boundary flag of id1
 			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
 						
-			// Update structured data
-			structData.update(toKeep); 
+			#ifndef ENABLE_SELF_INTERSECTIONS
+				// Update structured data
+				structData.update(toKeep); 
+			#endif
 						
 			// Project data points and update data-element 
 			// and element-data connections
@@ -484,25 +496,27 @@ namespace geometry
 				
 				// No empty triangles
 				valid = valid && !(gridOperation.isEmpty(*it1));
-								
-				// No mesh self-intersections
-				if (valid)
-				{
-					// Make the elements surrounding *it1 inactive
-					// In this way, they will be disregarded in the checks
-					for (auto elem : patches[it1-toKeep.cbegin()])
-						gridOperation.getPointerToMesh()->setElemInactive(elem);
+							
+				#ifndef ENABLE_SELF_INTERSECTIONS	
+					// No mesh self-intersections
+					if (valid)
+					{
+						// Make the elements surrounding *it1 inactive
+						// In this way, they will be disregarded in the checks
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemInactive(elem);
 						
-					// Extract elements whose bounding box intersect the one of *it1
-					// and perform triangle-triangle intersection tests
-					auto elems = structData.getNeighbouringElements(*it1);
-					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-						valid = valid && !(intrs.intersect(*it1, *it2));
-						
-					// Restore elements surrounding *it1
-					for (auto elem : patches[it1-toKeep.cbegin()])
-						gridOperation.getPointerToMesh()->setElemActive(elem);
-				}
+						// Extract elements whose bounding box intersect the one of *it1
+						// and perform triangle-triangle intersection tests
+						auto elems = structData.getNeighbouringElements(*it1);
+						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+							valid = valid && !(intrs.intersect(*it1, *it2));
+							
+						// Restore elements surrounding *it1
+						for (auto elem : patches[it1-toKeep.cbegin()])
+							gridOperation.getPointerToMesh()->setElemActive(elem);
+					}
+				#endif
 			}
 			
 			//
@@ -540,8 +554,10 @@ namespace geometry
 		// Restore list of nodes
 		gridOperation.getPointerToMesh()->setNode(id1, P);
 		
-		// Restore structured data
-		structData.update(toKeep);
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// Restore structured data
+			structData.update(toKeep);
+		#endif
 					
 		//
 		// Update collapseInfo's and collapsingEdge's lists
@@ -607,7 +623,9 @@ namespace geometry
 		//
 		
 		costObj.update(id1, id2, toRemove);
-		structData.update(toRemove, toKeep);
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			structData.update(toRemove, toKeep);
+		#endif
 		
 		// 
 		// Remove from collapseInfo's and collapsingEdge's lists
