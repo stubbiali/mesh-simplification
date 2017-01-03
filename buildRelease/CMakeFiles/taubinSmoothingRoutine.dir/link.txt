@@ -1,1 +1,0 @@
-/usr/bin/c++    -Wall    CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o  -o taubinSmoothingRoutine -rdynamic src/libmeshSimplification.a RobustPredicates/libpredicates.a /usr/lib/libblas/libblas.so.3.6.0 /usr/lib/lapack/liblapack.so.3.6.0 
