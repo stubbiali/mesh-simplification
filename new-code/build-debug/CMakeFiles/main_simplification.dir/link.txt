@@ -1,1 +1,0 @@
-/usr/bin/clang++    -std=c++11 -Wall  -g   CMakeFiles/main_simplification.dir/bin/main_simplification.cpp.o  -o main_simplification -rdynamic src/libmeshsimplification.so -Wl,-rpath,/home/stefano/Desktop/mesh-simplification/new-code/build-debug/src 

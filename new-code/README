@@ -1,0 +1,32 @@
+README file for the project "An iterative mesh simplification procedure 
+for grids with distributed data".
+
+The main output of the project is the meshsimplification library.
+The C++ code for the library, as well as that one for the applications
+and the tests, has been split among the following folders:
+	include/	header files for the meshsimplification library
+	src/		source files for the meshsimplification library
+	main/		source files for the applications
+	test/		source files for the tests
+	spike/		extra code which may turn out to be useful in the future
+	lib/		third-party libraries required by the code
+	
+To compile the library meshsimplification and compile and link the
+applications and the tests, from the project root folder type:
+	make [RELEASE=yes] [ENABLE_SELF_INTERSECTIONS=yes]
+Square brackets delimit optional arguments for enabling compile-time
+optimizations and grid self intersections, respectively.
+
+The above command generates the following folders:
+	 build/		object files for the library, the executables (build/main)
+	 			and the tests (build/test)
+	 bin/		binaries for the executables (bin/main) and the tests (bin/test)
+Furthermore, the meshsimplification library is put in the lib/ folder.
+
+Typing
+	make clean
+from the project root folder removed the folders build/ and bin/ as well as
+the compiled library meshsimplification.
+
+Finally, example grids can be found in the folder mesh/ while post_processing/
+stores MATLAB datasets and scripts for postprocessing. 

@@ -1,6 +1,0 @@
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/CMakeFiles/edit_cache.dir
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/CMakeFiles/rebuild_cache.dir
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/CMakeFiles/main_simplification.dir
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/src/CMakeFiles/rebuild_cache.dir
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/src/CMakeFiles/edit_cache.dir
-/home/stefano/Desktop/mesh-simplification/new-code/build-release/src/CMakeFiles/meshsimplification.dir
