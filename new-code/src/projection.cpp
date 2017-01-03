@@ -313,7 +313,12 @@ namespace geometry
 			opt_pos = 6;
 		}
 		
-		return make_tuple(opt_dist, opt_Qp, opt_pos);
+		// Due to floating point arithmetic, the projection may not be computable.
+		// In this case, project the point onto the barycenter of the triangle
+		if (opt_dist < numeric_limits<Real>::max())
+			return make_tuple(opt_dist, opt_Qp, opt_pos);
+		auto G = 0.333*(A + B + C);
+		return make_tuple((P - G)*(P - G), G, 0);
 	}
 	
 	
@@ -496,7 +501,12 @@ namespace geometry
 			opt_pos = 6;
 		}
 		
-		return make_tuple(opt_dist, opt_Qp, opt_pos);
+		// Due to floating point arithmetic, the projection may not be computable.
+		// In this case, project the point onto the barycenter of the triangle
+		if (opt_dist < numeric_limits<Real>::max())
+			return make_tuple(opt_dist, opt_Qp, opt_pos);
+		auto G = 0.333*(A + B + C);
+		return make_tuple((P - G)*(P - G), G, 0);
 	}
 					
 	
@@ -564,7 +574,7 @@ namespace geometry
 		
 		Real dist, opt_dist(numeric_limits<Real>::max());
 		point3d Q, opt_Q;
-		UInt opt_id(MAX_NUM_ELEMS), opt_i;
+		UInt opt_id(MAX_NUM_ELEMS);
 		UInt pos, opt_pos;
 		
 		// Loop over all triangles
@@ -584,7 +594,6 @@ namespace geometry
 				opt_dist = dist;
 				opt_Q = Q;
 				opt_id = elems[i];
-				opt_i = i;
 				opt_pos = pos;
 			}
 		}
@@ -679,7 +688,7 @@ namespace geometry
 		{
 			Real dist, opt_dist(numeric_limits<Real>::max());
 			point3d Q, opt_Q;
-			UInt opt_id(MAX_NUM_ELEMS), opt_i;
+			UInt opt_id(MAX_NUM_ELEMS);
 			UInt pos, opt_pos;
 			
 			//
@@ -702,7 +711,6 @@ namespace geometry
 					opt_dist = dist;
 					opt_Q = Q;
 					opt_id = elems[i];
-					opt_i = i;
 					opt_pos = pos;
 				}
 			}

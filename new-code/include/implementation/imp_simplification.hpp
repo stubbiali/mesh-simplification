@@ -20,7 +20,8 @@ namespace geometry
 	simplification<Triangle, MT, CostClass>::simplification
 		(const string & file, Args... args) :
 		gridOperation(file), costObj(&gridOperation, args...), 
-		structData(gridOperation), intrs(gridOperation.getPointerToMesh()), dontTouch(true)
+		structData(gridOperation), intrs(gridOperation.getPointerToMesh()), 
+		dontTouch(true), dontTouchId(0)
 	{
 		#ifdef NDEBUG
 			using namespace std::chrono;
@@ -72,7 +73,7 @@ namespace geometry
 		// Loop on the edges list and for each edge take the cost
 		// information and add it to the lists
 		for (auto edge : edges) 
-			getCost_f(edge[0], edge[1]);  
+			getCost_f(edge[0], edge[1]); 
 	}
 	
 	
@@ -409,7 +410,7 @@ namespace geometry
 		oldNormals.reserve(toKeep.size());
 		for (auto elem : toKeep)
 			oldNormals.emplace_back(gridOperation.getNormal(elem));
-			
+						
 		//
 		// Update connections
 		//
@@ -783,14 +784,14 @@ namespace geometry
 	template<MeshType MT, typename CostClass>
 	void simplification<Triangle, MT, CostClass>::simplificate(const UInt & numNodesMax,
 		const bool & enableDontTouch, const string & file)
-	{
+	{				
 		// Check if the current number of nodes is below the threshold
 		auto numNodesStart(gridOperation.getCPointerToMesh()->getNumNodes());
 		if (numNodesMax >= numNodesStart)
 		{
 			cout << "The number of mesh points is " << gridOperation.getCPointerToMesh()->getNumNodes()
 				<< ", already below the given threshold " << numNodesMax << endl;
-			//return;
+			return;
 		}
 
 		//
@@ -813,7 +814,7 @@ namespace geometry
 			auto id1 = minCostEdge->getId1();
 			auto id2 = minCostEdge->getId2();
 			auto cPoint = minCostEdge->getCollapsingPoint();
-			
+						
 			// Update the mesh, the connectivities, the structured data, CostClass object
 			// Re-compute cost for involved edges
 			update(id1, id2, cPoint);

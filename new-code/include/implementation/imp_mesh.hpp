@@ -148,6 +148,8 @@ namespace geometry
 		out << "List of " << m.getNumData() << " data points:" << endl;
 		for (auto dat : m.data)
 			out << dat << endl;
+			
+		return out;
 	}
 	
 	

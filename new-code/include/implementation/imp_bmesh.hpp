@@ -97,6 +97,8 @@ namespace geometry
 		out << "List of " << bm.getNumElems() << " elements:" << endl;
 		for (auto elem : bm.elems)
 			out << elem << endl;
+			
+		return out;
 	}
 	
 	
@@ -583,8 +585,8 @@ namespace geometry
 					++id;
 					
 					// To handle the case of a space before "\n"					
-					char cfoo = ss.get();
-					char pfoo = ss.peek();
+					ss.get();
+					ss.peek();
 				}
 			}
 			

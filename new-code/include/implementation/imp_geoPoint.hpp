@@ -36,7 +36,7 @@ namespace geometry
 	
 	template<UInt N>
 	geoPoint<N>::geoPoint(const Real & x, const Real & y) :
-		coor{x,y}
+		coor{{x,y}}
 	{
 		static_assert(N == 2,
 			"This constructor is provided only for two-dimensional points.");
@@ -45,7 +45,7 @@ namespace geometry
 	
 	template<UInt N>
 	geoPoint<N>::geoPoint(const Real & x, const Real & y, const Real & z) :
-		coor{x,y,z}
+		coor{{x,y,z}}
 	{
 		static_assert(N == 3,
 			"This constructor is provided only for three-dimensional points.");
@@ -115,6 +115,16 @@ namespace geometry
 			
 		return geoPoint<N>(newCoor);
 	}
+	
+	
+	// Declare specialization for two-dimensional points 
+	template<>
+	geoPoint<2> operator+(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points 
+	template<>
+	geoPoint<3> operator+(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 				
 		
 	template<UInt N>
@@ -127,6 +137,16 @@ namespace geometry
 			
 		return geoPoint<N>(newCoor);
 	}
+	
+	
+	// Declare specialization for two-dimensional points 
+	template<>
+	geoPoint<2> operator-(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points 
+	template<>
+	geoPoint<3> operator-(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 			
 		
 	template<UInt N>
@@ -136,6 +156,16 @@ namespace geometry
 			"Cross product defined only for two- and three-dimensional points.");
 		return {};
 	}
+	
+	
+	// Declare specialization for two-dimensional points
+	template<>
+	geoPoint<3> operator^(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points
+	template<>
+	geoPoint<3> operator^(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 		
 		
 	template<UInt N>
@@ -148,8 +178,18 @@ namespace geometry
 			
 		return geoPoint<N>(newCoor);
 	}
+	
+	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	geoPoint<2> operator/(const geoPoint<2> & gp, const Real & a);
 			
 		
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	geoPoint<3> operator/(const geoPoint<3> & gp, const Real & a);
+	
+	
 	template<UInt N>
 	geoPoint<N> operator*(const geoPoint<N> & gp, const Real & a)
 	{
@@ -160,6 +200,16 @@ namespace geometry
 			
 		return geoPoint<N>(newCoor);
 	}
+	
+	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	geoPoint<2> operator*(const geoPoint<2> & gp, const Real & a);
+			
+		
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	geoPoint<3> operator*(const geoPoint<3> & gp, const Real & a);
 			
 	
 	template<UInt N>
@@ -193,6 +243,16 @@ namespace geometry
 	}
 	
 	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	bool operator<(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	bool operator<(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
+	
+	
 	template<UInt N>	
 	bool operator<=(const geoPoint<N> & gpA, const geoPoint<N> & gpB) 
 	{
@@ -208,6 +268,16 @@ namespace geometry
 		// gpA is smaller or equal than gpB
 		return true;
 	}
+	
+	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	bool operator<=(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	bool operator<=(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 		
 	
 	template<UInt N>	
@@ -225,6 +295,16 @@ namespace geometry
 		// gpA is greater than gpB
 		return true;
 	}
+	
+	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	bool operator>(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	bool operator>(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 		
 	
 	template<UInt N>	
@@ -242,6 +322,16 @@ namespace geometry
 		// gpA is greater or equal than gpB
 		return true;
 	}
+	
+	
+	// Declare specialization for two-dimensional points (to avoid any for loop)
+	template<>
+	bool operator>=(const geoPoint<2> & gpA, const geoPoint<2> & gpB);
+	
+	
+	// Declare specialization for three-dimensional points (to avoid any for loop)
+	template<>
+	bool operator>=(const geoPoint<3> & gpA, const geoPoint<3> & gpB);
 		
 	
 	template<UInt N>	

@@ -313,7 +313,7 @@ namespace geometry
 		auto pA = connectivity.grid.getNode(elem[0]);
 		auto pB = connectivity.grid.getNode(elem[1]);
 		auto pC = connectivity.grid.getNode(elem[2]);
-		
+				
 		// Get element normal
 		return ((pB - pA)^(pC - pB)).normalize();
 	}
@@ -426,7 +426,7 @@ namespace geometry
 				dz = pq_z; 
 		}
 		
-		return array<Real,3>({dx,dy,dz});
+		return array<Real,3>({{dx,dy,dz}});
 	}
 	
 	

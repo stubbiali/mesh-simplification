@@ -19,7 +19,7 @@ namespace geometry
 		boundingBox::SW_global = psw;
 		
 		// Set cell size
-		boundingBox::cellSize = {dx,dy,dz};
+		boundingBox::cellSize = {{dx,dy,dz}};
 		
 		// Update number of cells along each direction
 		boundingBox::updateNumCells();

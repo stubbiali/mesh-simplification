@@ -17,7 +17,7 @@ namespace geometry
 	// Specialization for two-dimensional points
 	template<>
 	geoPoint<2>::geoPoint(const Real & val) :
-		coor{val,val}
+		coor{{val,val}}
 	{
 	}
 	
@@ -25,7 +25,7 @@ namespace geometry
 	// Specialization for three-dimensional points
 	template<>
 	geoPoint<3>::geoPoint(const Real & val) :
-		coor{val,val,val}
+		coor{{val,val,val}}
 	{
 	}
 }

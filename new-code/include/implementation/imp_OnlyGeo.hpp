@@ -66,8 +66,8 @@ namespace geometry
 		auto d = -(N*p);
 		
 		// Construct matrix K
-		return array<Real,10>({N[0]*N[0], N[0]*N[1], N[0]*N[2], N[0]*d,
-			N[1]*N[1], N[1]*N[2], N[1]*d, N[2]*N[2], N[2]*d, d*d});
+		return array<Real,10>{{N[0]*N[0], N[0]*N[1], N[0]*N[2], N[0]*d,
+			N[1]*N[1], N[1]*N[2], N[1]*d, N[2]*N[2], N[2]*d, d*d}};
 	}
 	
 	
@@ -281,7 +281,7 @@ namespace geometry
 		//
 		
 		// Set Q to zero
-		Qs[newId] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+		Qs[newId] = {{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}};
 		
 		// Loop over all elements sharing the collapsing point,
 		// compute K and add it to Q
@@ -297,7 +297,7 @@ namespace geometry
 		for (auto node : nodes)
 		{
 			// Set Q to zero
-			Qs[node] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+			Qs[node] = {{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}};
 	
 			// Loop over all elements sharing the node,
 			// compute K and add it to Q

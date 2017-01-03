@@ -70,8 +70,8 @@ namespace geometry
 				node2node[id2].insert(id1);
 									
 				// Update set of edges
-				(id1 < id2) ? edges.emplace(array<UInt,2>({id1,id2})) :
-					edges.emplace(array<UInt,2>({id2,id1}));
+				(id1 < id2) ? edges.emplace(array<UInt,2>({{id1,id2}})) :
+					edges.emplace(array<UInt,2>({{id2,id1}}));
 			}
 		}
 	}

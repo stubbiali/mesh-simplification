@@ -28,7 +28,7 @@ namespace geometry
 	
 	DataGeo::DataGeo(bmeshOperation<Triangle, MeshType::DATA> * bmo,
 		const Real & a, const Real & b, const Real & c) :
-		bcost<Triangle, MeshType::DATA, DataGeo>(bmo), weight({a,b,c}), to_update(false)
+		bcost<Triangle, MeshType::DATA, DataGeo>(bmo), weight{{a,b,c}}, to_update(false)
 	{
 		// Create list of Q matrices
 		buildQs();
@@ -45,7 +45,7 @@ namespace geometry
 	
 	
 	DataGeo::DataGeo(const Real & a, const Real & b, const Real & c) :
-		bcost<Triangle, MeshType::DATA, DataGeo>(), weight({a,b,c}), to_update(false)
+		bcost<Triangle, MeshType::DATA, DataGeo>(), weight{{a,b,c}}, to_update(false)
 	{
 	}
 	
@@ -61,15 +61,15 @@ namespace geometry
 		// Extract the first vertex of the triangle
 		auto elem = this->oprtr->getCPointerToMesh()->getElem(id);
 		auto p = this->oprtr->getCPointerToMesh()->getNode(elem[0]);
-		
+			
 		// Compute unit normal and (signed) distance from the origin
 		// for the plane identified by the triangle
 		auto N = this->oprtr->getNormal(id);
 		auto d = -(N*p);
 		
 		// Construct matrix K
-		return array<Real,10>({N[0]*N[0], N[0]*N[1], N[0]*N[2], N[0]*d,
-			N[1]*N[1], N[1]*N[2], N[1]*d, N[2]*N[2], N[2]*d, d*d});
+		return array<Real,10>{{N[0]*N[0], N[0]*N[1], N[0]*N[2], N[0]*d,
+			N[1]*N[1], N[1]*N[2], N[1]*d, N[2]*N[2], N[2]*d, d*d}};
 	}
 	
 	
@@ -87,7 +87,7 @@ namespace geometry
 		for (UInt i = 0; i < numNodes; ++i)
 		{
 			Qs.emplace_back();
-			Qs[i] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+			Qs[i] = {{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}};
 		}
 			
 		// Loop over all elements, for each triangle compute the 
@@ -115,7 +115,7 @@ namespace geometry
 		//
 		
 		// Set Q to zero
-		Qs[newId] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+		Qs[newId] = {{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}};
 		
 		// Loop over all elements sharing the collapsing point,
 		// compute K and add it to Q
@@ -132,7 +132,7 @@ namespace geometry
 		for (auto node : nodes)
 		{
 			// Set Q to zero
-			Qs[node] = {0.,0.,0.,0.,0.,0.,0.,0.,0.,0.};
+			Qs[node] = {{0.,0.,0.,0.,0.,0.,0.,0.,0.,0.}};
 	
 			// Loop over all elements sharing the node,
 			// compute K and add it to Q
@@ -375,8 +375,8 @@ namespace geometry
 		assert(this->oprtr != nullptr);
 		
 		// Reset maximum (i.e. normalizing) values
-		maxCost = {numeric_limits<Real>::lowest(),
-			numeric_limits<Real>::lowest(), numeric_limits<Real>::lowest()};
+		maxCost = {{numeric_limits<Real>::lowest(),
+			numeric_limits<Real>::lowest(), numeric_limits<Real>::lowest()}};
 			
 		// Extract all edges
 		auto edges = this->oprtr->getCPointerToConnectivity()->getEdges();

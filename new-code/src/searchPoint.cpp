@@ -21,8 +21,8 @@ namespace geometry
 	
 	point3d searchPoint::NE_global(1.,1.,1.);
 	point3d searchPoint::SW_global(0.,0.,0.);
-	array<Real,3> searchPoint::cellSize{1.,1.,1.};
-	array<UInt,3> searchPoint::numCells{1,1,1}; 
+	array<Real,3> searchPoint::cellSize{{1.,1.,1.}};
+	array<UInt,3> searchPoint::numCells{{1,1,1}}; 
 	
 	//
 	// Constructors
@@ -169,7 +169,7 @@ namespace geometry
 	{
 		searchPoint::NE_global = pne;
 		searchPoint::SW_global = psw;
-		searchPoint::cellSize = {dx,dy,dz};
+		searchPoint::cellSize = {{dx,dy,dz}};
 				
 		// Compute number of cells
 		searchPoint::updateNumCells();
