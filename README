@@ -1,5 +1,5 @@
-README file for the project "An iterative mesh simplification procedure 
-for grids with distributed data".
+README file for the project "A mesh simplification procedure 
+for grids with distributed data by iterative edge collapsing".
 
 The main output of the project is the meshsimplification library.
 The C++ code for the library, as well as that one for the applications
