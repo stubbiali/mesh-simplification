@@ -11,7 +11,8 @@ TEST_SRC_DIR=test
 MAIN_SRC_DIR=main
 
 OBJ_DIR=build
-LIB_OBJ_DIR=$(OBJ_DIR)
+S_LIB_OBJ_DIR=$(OBJ_DIR)/static
+D_LIB_OBJ_DIR=$(OBJ_DIR)/dynamic
 TEST_OBJ_DIR=$(OBJ_DIR)/test
 MAIN_OBJ_DIR=$(OBJ_DIR)/main
 
@@ -21,6 +22,8 @@ BIN_DIR=bin
 TEST_BIN_DIR=$(BIN_DIR)/test
 MAIN_BIN_DIR=$(BIN_DIR)/main
 
+DOC_DIR=doc
+
 # Path to Eigen directory
 EIGEN_DIR=$(LIB_DIR)/Eigen
 
@@ -29,7 +32,8 @@ LIB=meshsimplification
 
 # Source and object files for meshsimplification library
 LIB_SRC=$(wildcard $(LIB_SRC_DIR)/*.cpp)
-LIB_OBJ=$(patsubst $(LIB_SRC_DIR)/%.cpp, $(LIB_OBJ_DIR)/%.o, $(LIB_SRC)) 
+S_LIB_OBJ=$(patsubst $(LIB_SRC_DIR)/%.cpp, $(S_LIB_OBJ_DIR)/%.o, $(LIB_SRC))
+D_LIB_OBJ=$(patsubst $(LIB_SRC_DIR)/%.cpp, $(D_LIB_OBJ_DIR)/%.o, $(LIB_SRC)) 
 
 # Source, object and binary files for tests
 TEST_SRC=$(wildcard $(TEST_SRC_DIR)/*.cpp)
@@ -65,81 +69,108 @@ ifeq ($(ENABLE_SELF_INTERSECTIONS),yes)
 	CXXFLAGS+=-DENABLE_SELF_INTERSECTIONS 
 endif
 	
-LDFLAGS=-L $(LIB_DIR) -l $(LIB)
+LDFLAGS=-L $(LIB_DIR) -l $(LIB) -Wl,-rpath=$(LIB_DIR)
 
 #
 # Targets
 #
 
-all: create_folders lib test main 
+all: create_folders dynamic test main 
 
 #
-# Build the library
+# Build static library
 #
 
-$(LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
-	@echo -n Compiling $@ ... 
+$(S_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
+	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo " done"
+	@echo "Compiling $@ -- done"
 
-lib: create_folders $(LIB_OBJ)
-	@echo -n Creating libmeshsimplification.a ...
-	@ar -r -s	$(LIB_DIR)/lib$(LIB).a	$(LIB_OBJ) > /dev/null 2>&1
-	@echo " done"
-	@echo "\033[92m\nmeshsimplification library successfully built\n\033[0m"
+static: create_folders $(S_LIB_OBJ)
+	@echo "Creating lib$(LIB).a"
+	@ar -r -s	$(LIB_DIR)/lib$(LIB).a	$(S_LIB_OBJ) > /dev/null 2>&1
+	@echo "Creating lib$(LIB).a -- done"
+	@echo "\033[92mStatic version of meshsimplification library successfully built\n\033[0m"
+	
+#
+# Build dynamic library
+#
+
+$(D_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
+	@echo "Compiling $@" 
+	@$(CXX) $(CXXFLAGS)	-fPIC -c -o	$@	$<	
+	@echo "Compiling $@ -- done"
+
+dynamic: create_folders $(D_LIB_OBJ)
+	@echo "Creating lib$(LIB).so.1.0"
+	@$(CXX) $(CXXFLAGS) -shared 	-o	lib$(LIB).so	$(D_LIB_OBJ) 
+	@mv lib$(LIB).so $(LIB_DIR)
+	@echo "Creating lib$(LIB).so.1.0 -- done"
+	@echo "\033[92mDynamic version of meshsimplification library successfully built\n\033[0m"
 
 #
 # Build the tests
 #
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp
-	@echo -n Compiling $@ ... 
+	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo " done"
+	@echo "Compiling $@ -- done"
 	
-$(TEST_BIN_DIR)/%: $(TEST_OBJ_DIR)/%.o lib
-	@echo -n Linking $@ ... 
-	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)
-	@echo " done"
+$(TEST_BIN_DIR)/%: $(TEST_OBJ_DIR)/%.o dynamic
+	@echo "Linking $@" 
+	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)	
+	@echo "Linking $@ -- done"
 	
 test: create_folders $(TEST_BIN)
-	@echo "\033[92m\nTests successfully compiled and linked\n\033[0m"
+	@echo "\033[92mTests successfully compiled and linked\n\033[0m"
 
 #
 # Build the executables
 #
 
 $(MAIN_OBJ_DIR)/%.o: $(MAIN_SRC_DIR)/%.cpp
-	@echo -n Compiling $@ ... 
+	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo " done"
+	@echo "Compiling $@ -- done"
 	
-$(MAIN_BIN_DIR)/%: $(MAIN_OBJ_DIR)/%.o lib
-	@echo -n Linking $@ ... 
+$(MAIN_BIN_DIR)/%: $(MAIN_OBJ_DIR)/%.o dynamic
+	@echo "Linking $@" 
 	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)
-	@echo " done"
+	@echo "Linking $@ -- done"
 	
 main: create_folders $(MAIN_BIN)
-	@echo "\033[92m\nExecutables successfully compiled and linked\n\033[0m"
+	@echo "\033[92mExecutables successfully compiled and linked\n\033[0m"
 
 #
 # Phony targets
 #
 
-.PHONY: create_folders clean
-	
+.PHONY: clean create_folders doc
+
+clean:
+	@$(RM) -r $(OBJ_DIR) $(BIN_DIR) $(LIB_DIR)/lib$(LIB).* $(DOC_DIR)
+		
 create_folders:
 	@mkdir -p $(OBJ_DIR)
-	@mkdir -p $(LIB_OBJ_DIR)
+	@mkdir -p $(S_LIB_OBJ_DIR)
+	@mkdir -p $(D_LIB_OBJ_DIR)
 	@mkdir -p $(TEST_OBJ_DIR)
 	@mkdir -p $(MAIN_OBJ_DIR)
 	@mkdir -p $(BIN_DIR)
 	@mkdir -p $(MAIN_BIN_DIR)
 	@mkdir -p $(TEST_BIN_DIR)
 
-clean:
-	@$(RM) -r $(OBJ_DIR) $(BIN_DIR) $(LIB_DIR)/lib$(LIB).a
-
+doc:
+	@$(RM) -r $(DOC_DIR)/*
+	@mkdir -p $(DOC_DIR)
+	@doxygen -g $(DOC_DIR)/Doxyfile > /dev/null 2>&1
+	@sed -i 's:PROJECT_NAME           = "My Project":PROJECT_NAME           = "A mesh simplification procedure by iterative edge collapsing":' $(DOC_DIR)/Doxyfile
+	@sed -i 's:OUTPUT_DIRECTORY       =:OUTPUT_DIRECTORY       = $(DOC_DIR):' $(DOC_DIR)/Doxyfile
+	@sed -i 's:INPUT                  =:INPUT                  = $(LIB_INC_DIR) $(LIB_INC_DIR)/implementation $(LIB_INC_DIR)/inline $(LIB_SRC_DIR):' $(DOC_DIR)/Doxyfile
+	@sed -i 's:RECURSIVE              =:RECURSIVE              = YES:' $(DOC_DIR)/Doxyfile
+	@doxygen $(DOC_DIR)/Doxyfile > /dev/null 2>&1
+	
 #
 # Prevent object files to be deleted
 #

@@ -11,22 +11,34 @@ and the tests, has been split among the following folders:
 	spike/		extra code which may turn out to be useful in the future
 	lib/		third-party libraries required by the code
 	
-To compile the library meshsimplification and compile and link the
+To compile the shared library meshsimplification and compile and link the
 applications and the tests, from the project root folder type:
-	make [RELEASE=yes] [ENABLE_SELF_INTERSECTIONS=yes]
-Square brackets delimit optional arguments for enabling compile-time
-optimizations and grid self intersections, respectively.
+	make [CXX=g++] [RELEASE=yes] [ENABLE_SELF_INTERSECTIONS=yes]
+Square brackets delimit optional arguments for setting the GNU compiler,
+enabling compile-time optimizations and grid self intersections, respectively.
+By default, the clang C++ compiler is used.
 
 The above command generates the following folders:
-	 build/		object files for the library, the executables (build/main)
-	 			and the tests (build/test)
-	 bin/		binaries for the executables (bin/main) and the tests (bin/test)
+	build/		object files for the static (build/static) and shared
+				(build/dynamic) version of meshsimplification library, 
+				the executables (build/main) and the tests (build/test)
+	bin/		binaries for the executables (bin/main) and the tests (bin/test)
 Furthermore, the meshsimplification library is put in the lib/ folder.
+
+Other Makefile targets are:
+	create_folders	create output folders
+	static			build the static meshsimplification library
+	dynamic			build the shared meshsimplification library
+	test			compile and link tests executable
+	main			compile and link applications
+	doc				create code documentation through and store it in /doc
+Note that the static version of meshsimplification library may be built,
+but it will never got linked against any application.
 
 Typing
 	make clean
-from the project root folder removed the folders build/ and bin/ as well as
-the compiled library meshsimplification.
+from the project root folder removed the folders build/, bin/ and /doc,
+as well as the compiled library meshsimplification.
 
 Finally, example grids can be found in the folder mesh/ while post_processing/
 stores MATLAB datasets and scripts for postprocessing. 
