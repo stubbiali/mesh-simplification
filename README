@@ -31,7 +31,7 @@ Other Makefile targets are:
 	dynamic			build the shared meshsimplification library
 	test			compile and link tests executable
 	main			compile and link applications
-	doc				create code documentation through and store it in /doc
+	doc				create code documentation through Doxygen and store it in /doc
 Note that the static version of meshsimplification library may be built,
 but it will never got linked against any application.
 
