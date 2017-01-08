@@ -509,6 +509,7 @@ namespace geometry
 			if (ans.first)
 				return {P, Q, 0.5*(P+Q), ans.second};
 			return {P, Q, 0.5*(P+Q)};
+			//return {P, Q};
 		}
 		
 		// 
