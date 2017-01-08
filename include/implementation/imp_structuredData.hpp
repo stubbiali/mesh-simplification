@@ -109,17 +109,12 @@ namespace geometry
 					
 		unordered_set<UInt> res;
 		for (UInt i = sp_SW[0]-1; i <= sp_NE[0]+1; ++i)
-		{
-			// Compute scalar index
-			auto idx = i;
 			for (UInt j = sp_SW[1]-1; j <= sp_NE[1]+1; ++j)
-			{
-				// Update scalar index
-				idx += j * bbox3d::getNumCells(0);
 				for (UInt k = sp_SW[2]-1; k <= sp_NE[2]+1; ++k)
 				{
-					// Update scalar index
-					idx += k * bbox3d::getNumCells(0) * bbox3d::getNumCells(1);
+					// Compute scalar index
+					UInt idx(i + j * bbox3d::getNumCells(0) + 
+						k * bbox3d::getNumCells(0) * bbox3d::getNumCells(1));
 						
 					// Extract all boxes having that index
 					auto range = boxes.equal_range(idx);
@@ -130,8 +125,6 @@ namespace geometry
 						if (grid->isElemActive(it->getId()) && doIntersect(box, *it))
 							res.insert(it->getId());
 				}
-			}
-		}
 		
 		// Remove Id of reference element from the set,
 		// then convert to a vector
