@@ -16,7 +16,7 @@ namespace geometry
 	
 	template<typename SHAPE>
 	structuredData<SHAPE>::structuredData(bmesh<SHAPE> * pg) :
-		grid(pg)
+		grid(pg), torefresh(false)
 	{
 		// Build bounding boxes
 		if (grid != nullptr)
@@ -27,7 +27,7 @@ namespace geometry
 	template<typename SHAPE>
 	template<MeshType MT>
 	structuredData<SHAPE>::structuredData(bmeshInfo<SHAPE,MT> & news) :
-		grid(news.getPointerToMesh())
+		grid(news.getPointerToMesh()), torefresh(false)
 	{
 		// Build bounding boxes
 		refresh(news);
@@ -107,7 +107,7 @@ namespace geometry
 		// possible intersecting elements are taken into account
 		// since an element cannot span more than one cell.
 					
-		unordered_set<UInt> res;
+		unordered_multiset<UInt> res;
 		for (UInt i = sp_SW[0]-1; i <= sp_NE[0]+1; ++i)
 			for (UInt j = sp_SW[1]-1; j <= sp_NE[1]+1; ++j)
 				for (UInt k = sp_SW[2]-1; k <= sp_NE[2]+1; ++k)
@@ -120,7 +120,7 @@ namespace geometry
 					auto range = boxes.equal_range(idx);
 					
 					// Out of these boxes, keep only the active ones 
-					// actually intersecting the reference bounding box
+					// actually intersecting the reference bounding box							
 					for (auto it = range.first; it != range.second; ++it)
 						if (grid->isElemActive(it->getId()) && doIntersect(box, *it))
 							res.insert(it->getId());
@@ -128,7 +128,6 @@ namespace geometry
 		
 		// Remove Id of reference element from the set,
 		// then convert to a vector
-		res.erase(Id);
 		return {res.cbegin(), res.cend()};
 	}
 	
@@ -203,17 +202,51 @@ namespace geometry
 	
 	
 	template<typename SHAPE>
+	void structuredData<SHAPE>::update_f(const vector<UInt> & ids)
+	{
+		static_assert(((SHAPE::numVertices == 3) || (SHAPE::numVertices == 4)),
+			"update(), then the entire class, "
+			"provided only for triangular and quadrilateral grids.");
+	}
+	
+	
+	// Declare specialization for triangular grids
+	template<>
+	void structuredData<Triangle>::update_f(const vector<UInt> & ids);
+	
+	
+	// Declare specialization for quadrilateral grids
+	template<>
+	void structuredData<Quad>::update_f(const vector<UInt> & ids);
+	
+	
+	template<typename SHAPE>
 	INLINE void structuredData<SHAPE>::update(const vector<UInt> & toRemove, 
 		const vector<UInt> & toKeep)
 	{
-		//erase(toRemove);
+		erase(toRemove);
 		update(toKeep);
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE void structuredData<SHAPE>::update_f(const vector<UInt> & toRemove, 
+		const vector<UInt> & toKeep)
+	{
+		erase(toRemove);
+		update_f(toKeep);
 	}
 	
 	
 	//
 	// Refresh methods
 	//
+	
+	template<typename SHAPE>
+	INLINE bool structuredData<SHAPE>::toRefresh() const
+	{
+		return torefresh;
+	}
 	
 	template<typename SHAPE>
 	template<MeshType MT>
@@ -230,6 +263,9 @@ namespace geometry
 	template<MeshType MT>
 	void structuredData<Triangle>::refresh(const bmeshInfo<Triangle,MT> & news)
 	{
+		// Reset torefresh flag
+		torefresh = false;
+		
 		//
 		// Set static members of class searchPoint 
 		// and bbox3d (i.e. boundingBox<3>)
@@ -242,17 +278,21 @@ namespace geometry
 		// Create the bounding box surrounding each element
 		//
 		
-		for (UInt id = 0; id < grid->getNumElems(); ++id)
+		boxes.clear();
+		for (UInt id = 0; id < grid->getElemsListSize(); ++id)
 		{
-			// Extract element
-			auto elem = grid->getElem(id);
+			if (grid->isElemActive(id))
+			{
+				// Extract element
+				auto elem = grid->getElem(id);
 			
-			// Build bounding box
-			auto it = boxes.emplace(id, grid->getNode(elem[0]), 
-				grid->getNode(elem[1]), grid->getNode(elem[2]));
+				// Build bounding box
+				auto it = boxes.emplace(id, grid->getNode(elem[0]), 
+					grid->getNode(elem[1]), grid->getNode(elem[2]));
 				
-			// Set element index
-			grid->setIdx(id, it->getIdx());
+				// Set element index
+				grid->setIdx(id, it->getIdx());
+			}
 		}
 	}
 	
@@ -262,6 +302,9 @@ namespace geometry
 	template<MeshType MT>
 	void structuredData<Quad>::refresh(const bmeshInfo<Quad,MT> & news)
 	{
+		// Reset torefresh flag
+		torefresh = false;
+		
 		//
 		// Set static members of class searchPoint 
 		// and bbox3d (i.e. boundingBox<3>)
@@ -274,17 +317,21 @@ namespace geometry
 		// Create the bounding box surrounding each element
 		//
 		
-		for (UInt id = 0; id < grid->getNumElems(); ++id)
+		boxes.clear();
+		for (UInt id = 0; id < grid->getElemsListSize(); ++id)
 		{
-			// Extract element
-			auto elem = grid->getElem(id);
+			if (grid->isElemActive(id))
+			{
+				// Extract element
+				auto elem = grid->getElem(id);
 			
-			// Build bounding box
-			auto it = boxes.emplace(id, grid->getNode(elem[0]), 
-				grid->getNode(elem[1]), grid->getNode(elem[2]), grid->getNode(elem[3]));
+				// Build bounding box
+				auto it = boxes.emplace(id, grid->getNode(elem[0]), 
+					grid->getNode(elem[1]), grid->getNode(elem[2]), grid->getNode(elem[3]));
 				
-			// Set element index
-			grid->setIdx(id, it->getIdx());
+				// Set element index
+				grid->setIdx(id, it->getIdx());
+			}
 		}
 	}
 }

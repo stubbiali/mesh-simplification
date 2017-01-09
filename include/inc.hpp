@@ -21,11 +21,8 @@ namespace geometry
 		#define CONSTEXPR constexpr
 	#endif
 	
-	/*! Definition of pi. */
-	#define PGRECO 3.141592653589793238462643383279502884197169399375105820974944592308
-	
 	/*! Tolerance. */
-	#define TOLL 1e-10
+	#define TOLL 1e-16
 	
 	/*! Maximum number of nodes a mesh class can store. */
 	#define MAX_NUM_NODES 1e8

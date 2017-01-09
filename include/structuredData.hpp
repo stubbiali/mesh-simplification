@@ -25,8 +25,12 @@ namespace geometry
 			/*!	Pointer to the mesh. */
 			bmesh<SHAPE> * grid;
 			
-			/*!	Set of bounding boxes surrouing the elements. */
+			/*!	Set of bounding boxes surrounding the elements. */
 			unordered_multiset<bbox3d> 	boxes;
+			
+			/*!	Flag saying whether the structure should be updated.
+				This may happen when the elements have been strecthed too much. */
+			bool torefresh;
 			
 		public:
 			//
@@ -102,20 +106,38 @@ namespace geometry
 			void erase(const vector<UInt> & ids);
 			
 			/*!	Re-compute bounding boxes surrounding some elements.
+				Furthermore, check whether the structure requires a refresh.
+				
 				\param ids	vector of elements Id's */
 			void update(const vector<UInt> & ids);
+			
+			/*!	Re-compute bounding boxes surrounding some elements.
+				\param ids	vector of elements Id's */
+			void update_f(const vector<UInt> & ids);
+			
+			/*!	Remove some elements from the set of bounding boxes
+				and update some other ones.
+				Furthermore, check whether the structure requires a refresh.
+				
+				\param toRemove	elements to remove
+				\param toKeep	elements to update */
+			void update(const vector<UInt> & toRemove, const vector<UInt> & toKeep);
 			
 			/*!	Remove some elements from the set of bounding boxes
 				and update some other ones.
 				
 				\param toRemove	elements to remove
 				\param toKeep	elements to update */
-			void update(const vector<UInt> & toRemove, const vector<UInt> & toKeep);
+			void update_f(const vector<UInt> & toRemove, const vector<UInt> & toKeep);
 			
-		private:
 			//
 			// Refresh methods
 			//
+			
+			/*!	Check if the structure requires a refresh.
+				\return		TRUE if the structure should be refreshed,
+							FALSE otherwise */
+			bool toRefresh() const; 
 			
 			/*!	Re-build set of bounding boxes.
 				\param news	a bmeshInfo object 

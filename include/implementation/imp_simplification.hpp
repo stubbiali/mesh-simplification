@@ -169,6 +169,11 @@ namespace geometry
 		auto pointsList = costObj.getPointsList(id1, id2);
 		if (pointsList.empty())
 			return;
+			
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// Flags for self-intersections of first two potentially valid points
+			array<bool,2> no_intersection;
+		#endif
 				
 		//
 		// Extract elements and data involved in the collapse
@@ -253,7 +258,10 @@ namespace geometry
 				
 			#ifndef ENABLE_SELF_INTERSECTIONS		
 				// Update structured data
-				structData.update(toKeep); 
+				structData.update_f(toKeep); 
+				
+				// A useful flag
+				bool flag((i < 2) || !(no_intersection[0] && no_intersection[1]));
 			#endif
 						
 			// Project data points and update data-element 
@@ -282,7 +290,7 @@ namespace geometry
 				
 				#ifndef ENABLE_SELF_INTERSECTIONS
 					// No mesh self-intersections
-					if (valid)
+					if (valid && flag)
 					{
 						// Make the elements surrounding *it1 inactive
 						// In this way, they will be disregarded in the checks
@@ -298,6 +306,10 @@ namespace geometry
 						// Restore elements surrounding *it1
 						for (auto elem : patches[it1-toKeep.cbegin()])
 							gridOperation.getPointerToMesh()->setElemActive(elem);
+							
+						// Update no_intersection flag
+						if (i < 2)
+							no_intersection[i] = valid;
 					}
 				#endif
 			}
@@ -339,7 +351,7 @@ namespace geometry
 		
 		#ifndef ENABLE_SELF_INTERSECTIONS
 			// Restore structured data
-			structData.update(toKeep);
+			structData.update_f(toKeep);
 		#endif
 					
 		//
@@ -390,6 +402,11 @@ namespace geometry
 		auto pointsList = costObj.getPointsList(id1, id2);
 		if (pointsList.empty())
 			return;
+			
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// Flags for self-intersections of first two potentially valid points
+			array<bool,2> no_intersection;
+		#endif
 				
 		//
 		// Extract elements and data involved in the collapse
@@ -471,7 +488,10 @@ namespace geometry
 						
 			#ifndef ENABLE_SELF_INTERSECTIONS
 				// Update structured data
-				structData.update(toKeep); 
+				structData.update_f(toKeep); 
+				
+				// A useful flag
+				bool flag((i < 2) || !(no_intersection[0] && no_intersection[1]));
 			#endif
 						
 			// Project data points and update data-element 
@@ -500,22 +520,26 @@ namespace geometry
 							
 				#ifndef ENABLE_SELF_INTERSECTIONS	
 					// No mesh self-intersections
-					if (valid)
+					if (valid && flag)
 					{
 						// Make the elements surrounding *it1 inactive
 						// In this way, they will be disregarded in the checks
 						for (auto elem : patches[it1-toKeep.cbegin()])
 							gridOperation.getPointerToMesh()->setElemInactive(elem);
-						
+	
 						// Extract elements whose bounding box intersect the one of *it1
 						// and perform triangle-triangle intersection tests
 						auto elems = structData.getNeighbouringElements(*it1);
 						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
 							valid = valid && !(intrs.intersect(*it1, *it2));
-							
+														
 						// Restore elements surrounding *it1
 						for (auto elem : patches[it1-toKeep.cbegin()])
 							gridOperation.getPointerToMesh()->setElemActive(elem);
+							
+						// Update valid flag
+						if (i < 2)
+							no_intersection[i] = valid;
 					}
 				#endif
 			}
@@ -557,7 +581,7 @@ namespace geometry
 		
 		#ifndef ENABLE_SELF_INTERSECTIONS
 			// Restore structured data
-			structData.update(toKeep);
+			structData.update_f(toKeep);
 		#endif
 					
 		//
@@ -625,7 +649,11 @@ namespace geometry
 		
 		costObj.update(id1, id2, toRemove);
 		#ifndef ENABLE_SELF_INTERSECTIONS
-			structData.update(toRemove, toKeep);
+			structData.update(toKeep);
+			
+			// Possibly, refresh structured data
+			if (structData.toRefresh())
+				structData.refresh(gridOperation);
 		#endif
 		
 		// 
@@ -708,6 +736,137 @@ namespace geometry
 	void simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>::
 		update(const UInt & id1, const UInt & id2, const point3d & cPoint);
 	
+	
+	template<MeshType MT, typename CostClass>
+	void simplification<Triangle, MT, CostClass>::
+		update(const vector<UInt> & id1, const vector<UInt> & id2, const vector<point3d> & cPoint)
+	{
+		for (UInt i = 0; i < id1.size(); ++i)
+		{
+			//
+			// Extract elements and data involved in the collapse
+			//
+		
+			auto invElems = gridOperation.getElemsInvolvedInEdgeCollapsing(id1[i],id2[i]);
+			auto toRemove = gridOperation.getElemsOnEdge(id1[i],id2[i]);
+			auto toKeep = gridOperation.getElemsModifiedInEdgeCollapsing(id1[i],id2[i]);
+			auto toMove = gridOperation.getDataModifiedInEdgeCollapsing(invElems);
+		
+			//
+			// Update mesh and connections
+			//
+		
+			// Set node id1 as collapsing point
+			gridOperation.getPointerToMesh()->setNode(id1[i], cPoint[i]);
+		
+			// Set node id2 inactive
+			gridOperation.getPointerToMesh()->setNodeInactive(id2[i]);
+					
+			// Update element-node, node-node and node-element connections
+			gridOperation.getPointerToConnectivity()
+				->applyEdgeCollapse(id2[i], id1[i], toRemove, toKeep);
+			
+			// Project involved data points and update data-element
+			// and element-data connections
+			gridOperation.project(toMove, toKeep);
+			gridOperation.getPointerToConnectivity()->eraseElemInData2Elem(toRemove);
+		
+			// 
+			// Update CostClass object and structured data
+			//
+		
+			costObj.update(id1[i], id2[i], toRemove);
+			#ifndef ENABLE_SELF_INTERSECTIONS
+				structData.update(toKeep);
+			#endif
+		
+			// 
+			// Remove from collapseInfo's and collapsingEdge's lists
+			// the edges previously connected to id2
+			//
+		
+			auto id2Conn = gridOperation.getCPointerToConnectivity()->getNode2Node(id2[i]).getConnected();
+			for (auto conn : id2Conn)
+			{
+				auto costPair = costObj.eraseCollapseInfo(id2[i], conn);
+				if (costPair.first)
+					id2[i] < conn ? collapsingSet.erase({id2[i], conn, costPair.second}) :
+						collapsingSet.erase({conn, id2[i], costPair.second});
+			}
+			
+			//
+			// Extract edges whose cost must be re-computed
+			//
+			// These edges are the ones which shared at least a vertex 
+			// with the triangles in the extended patch of the collapsing node
+		
+			unordered_set<pair<UInt,UInt>> invEdges;
+		
+			// Get node-node connections for collapsing node, ...
+			auto id1Conn = gridOperation.getCPointerToConnectivity()
+				->getNode2Node(id1[i]).getConnected();
+			// ... for each node get the node-node connections...
+			for (auto node_i : id1Conn)
+			{
+				auto iConn = gridOperation.getCPointerToConnectivity()
+					->getNode2Node(node_i).getConnected();
+				// ... and also for these nodes get node-node connections
+				for (auto node_j : iConn)
+				{
+					auto jConn = gridOperation.getCPointerToConnectivity()
+						->getNode2Node(node_j).getConnected();
+					
+					// Finally, save the edge
+					for (auto node_k : jConn)
+					{
+						(node_k > node_j) ? invEdges.emplace(node_j, node_k) :
+							invEdges.emplace(node_k, node_j);
+					}
+				}
+			}
+					
+			//
+			// Re-compute cost for involved edges
+			//
+			// First erase old costs from lists of collapseInfo's and
+			// collapsingEdge's, then insert updated values
+		
+			for (auto edge : invEdges)
+			{
+				// Remove edge from collapseInfo's list and get cost
+				auto costPair = costObj.eraseCollapseInfo(edge.first, edge.second);
+			
+				// Remove edge from collapsingEdge's list
+				if (costPair.first)
+					collapsingSet.erase({edge.first, edge.second, costPair.second});
+			
+				// Compute new cost and possibly add it to collapseInfo's
+				// and collapsingEdge's lists
+				getCost(edge.first, edge.second);
+			}
+		}
+		
+		//
+		// Check if the costs must be re-computed
+		//
+		
+		#ifndef ENABLE_SELF_INTERSECTIONS
+			// Possibly, refresh structured data
+			if (structData.toRefresh())
+				structData.refresh(gridOperation);
+		#endif
+		
+		if (costObj.toUpdate())
+			rebuildCollapsingSet();
+	}
+	
+	
+	// Specialization for grids without distributed data
+	// This method requires a specialization for each purely geometric cost class
+	template<>
+	void simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>>::
+		update(const vector<UInt> & id1, const vector<UInt> & id2, const vector<point3d> & cPoint);
+		
 
 	//
 	// Methods for handling the fixed element
@@ -793,7 +952,7 @@ namespace geometry
 				<< ", already below the given threshold " << numNodesMax << endl;
 			return;
 		}
-
+						
 		//
 		// Run simplification
 		//
@@ -815,6 +974,118 @@ namespace geometry
 			auto id2 = minCostEdge->getId2();
 			auto cPoint = minCostEdge->getCollapsingPoint();
 						
+			// Update the mesh, the connectivities, the structured data, CostClass object
+			// Re-compute cost for involved edges
+			update(id1, id2, cPoint);
+		}
+				
+		#ifdef NDEBUG
+		high_resolution_clock::time_point stop = high_resolution_clock::now();
+		auto dif = duration_cast<milliseconds>(stop-start).count();
+		#endif
+		
+		//
+		// Refresh the mesh and the connections
+		//
+		
+		gridOperation.refresh();
+		
+		//
+		// Print ...
+		//
+		
+		// ... to screen
+		cout << "The mesh size passed from " << numNodesStart << " to " << 
+			gridOperation.getCPointerToMesh()->getNumNodes() << " nodes" << endl;
+		#ifdef NDEBUG
+		cout << "Simplification process completated in " <<  dif << " ms" << endl;
+		#endif
+		
+		// ... to file
+		if (!(file.empty()))
+			gridOperation.getPointerToMesh()->print(file);
+			//gridOperation.printMesh(file);
+	}
+	
+	
+	template<MeshType MT, typename CostClass>
+	void simplification<Triangle, MT, CostClass>::simplificate_greedy(const UInt & numNodesMax,
+		const UInt & K, const bool & enableDontTouch, const string & file)
+	{				
+		// Check if the current number of nodes is below the threshold
+		auto numNodesStart(gridOperation.getCPointerToMesh()->getNumNodes());
+		if (numNodesMax >= numNodesStart)
+		{
+			cout << "The number of mesh points is " << gridOperation.getCPointerToMesh()->getNumNodes()
+				<< ", already below the given threshold " << numNodesMax << endl;
+			return;
+		}
+						
+		//
+		// Run simplification
+		//
+		
+		dontTouch = enableDontTouch;
+		
+		cout << "Simplification process..." << endl;
+		#ifdef NDEBUG
+		using namespace std::chrono;
+		high_resolution_clock::time_point start = high_resolution_clock::now();
+		#endif
+				
+		// Iterative collapse until numNodeMax is reached
+		while (gridOperation.getCPointerToMesh()->getNumNodes() > numNodesMax)
+		{
+			//
+			// Take the first "non-interacting" K valid edges
+			//
+			// Two edges are said "non-interacting" if they do not share
+			// any of the nodes connected to one of the end-points 
+			
+			// Declare useful variables
+			UInt k(1);
+			vector<UInt> id1, id2;
+			vector<point3d> cPoint;
+			
+			// Reserve memory
+			id1.reserve(K);
+			id2.reserve(K);
+			cPoint.reserve(K);
+			
+			// Extract the minimum cost edge
+			auto minCostEdge = collapsingSet.cbegin();
+			id1.push_back(minCostEdge->getId1());
+			id2.push_back(minCostEdge->getId2());
+			cPoint.push_back(minCostEdge->getCollapsingPoint());
+			
+			// Initialize set of involved nodes
+			auto invNodes_v(gridOperation.getNodesInvolvedInEdgeCollapsing(id1[0],id2[0]));
+			set<UInt> invNodes(invNodes_v.cbegin(), invNodes_v.cend());
+			
+			// Extract the other K-1 edges
+			while ((k < K) && (++minCostEdge != collapsingSet.cend()))
+			{
+				// Extract edge end-points and involved nodes
+				auto id1_t(minCostEdge->getId1()), id2_t(minCostEdge->getId2());
+				auto invNodes_t(gridOperation.getNodesInvolvedInEdgeCollapsing(id1_t,id2_t));
+				
+				// Test admissibility of the new edge and possibly keep it
+				vector<UInt> shared;
+				set_intersection(invNodes.cbegin(), invNodes.cend(),
+					invNodes_t.cbegin(), invNodes_t.cend(), back_inserter(shared));
+				if (shared.empty())
+				{
+					// Extract the edge
+					id1.push_back(id1_t);
+					id2.push_back(id2_t);
+					cPoint.push_back(minCostEdge->getCollapsingPoint());
+					
+					// Update auxiliary variables
+					invNodes.insert(invNodes_t.cbegin(), invNodes_t.cend());
+					++k;
+				}
+			}
+									
 			// Update the mesh, the connectivities, the structured data, CostClass object
 			// Re-compute cost for involved edges
 			update(id1, id2, cPoint);

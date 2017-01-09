@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdlib>
 	
+#include "utility.hpp"
 #include "gutility.hpp"
 
 // Include implementation of inlined members
@@ -24,7 +25,7 @@ namespace geometry
 		auto pab = gutility::getTriArea2d(p,a,b);
 		auto pbc = gutility::getTriArea2d(p,b,c);
 		auto pca = gutility::getTriArea2d(p,c,a);
-		
+				
 		// If the areas are all positive or all negative:
 		// the point is internal to the triangle
 		if (((pab > TOLL) && (pbc > TOLL) && (pca > TOLL)) ||
@@ -370,8 +371,8 @@ namespace geometry
 			return IntersectionType::NONE;
 			
 		// The segment intersects the triangle in a conformal way
-		if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
-			return IntersectionType::VALID;
+		//if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
+			//return IntersectionType::VALID;
 			
 		// Only remaining scenario: the segment intersects the
 		// triangle in a non-conformal way
@@ -391,7 +392,7 @@ namespace geometry
 		Point2Seg p2s;
 		Real t;
 		tie(l2p,p2s,t) = gutility::intSegPlane(Q,R,N,D);
-		
+				
 		// Necessary condition for the segment to intersect the triangle
 		// is that the segment intersects the plane
 		if ((l2p == Line2Plane::PARALLEL) || (p2s == Point2Seg::EXTERN))
@@ -411,15 +412,15 @@ namespace geometry
 			auto qr_ab = gutility::intSegSeg2d(q,r,a,b);
 			if (qr_ab == IntersectionType::INVALID)
 				return qr_ab;
-				
+			
 			auto qr_bc = gutility::intSegSeg2d(q,r,b,c);
 			if (qr_bc == IntersectionType::INVALID)
 				return qr_bc;
-				
+			
 			auto qr_ca = gutility::intSegSeg2d(q,r,c,a);
 			if (qr_ca == IntersectionType::INVALID)
 				return qr_ca;
-			 
+			
 			// The segment may be completely within the triangle
 			auto q_abc = gutility::inTri2d(q,a,b,c);
 			auto r_abc = gutility::inTri2d(r,a,b,c);
@@ -449,8 +450,8 @@ namespace geometry
 			return IntersectionType::NONE;
 			
 		// The segment intersects the triangle in a conformal way
-		if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
-			return IntersectionType::VALID;
+		//if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
+			//return IntersectionType::VALID;
 			
 		// Only remaining scenario: the segment intersects the
 		// triangle in a non-conformal way

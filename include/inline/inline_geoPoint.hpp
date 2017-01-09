@@ -104,7 +104,7 @@ namespace geometry
 	template<>
 	INLINE bool operator<(const geoPoint<3> & gpA, const geoPoint<3> & gpB) 
 	{
-		return ((gpA[0]+TOLL < gpB[0]) && (gpA[1]+TOLL < gpB[1]) && (gpA[2]+TOLL < gpB[2]));
+		return ((gpA[0] < gpB[0]) && (gpA[1] < gpB[1]) && (gpA[2] < gpB[2]));
 	}
 	
 	

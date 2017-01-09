@@ -30,7 +30,10 @@ EIGEN_DIR=$(LIB_DIR)/Eigen
 # Name of the library
 LIB=meshsimplification
 
-# Source and object files for meshsimplification library
+# Include, source and object files for meshsimplification library
+LIB_INC=$(wildcard $(LIB_INC_DIR)/*.hpp $(LIB_INC_DIR)/implementation/*.hpp $(LIB_INC_DIR)/inline/*.hpp)
+#LIB_IMP=$(wildcard $(LIB_INC_DIR)/implementation/*.hpp)
+#LIB_INL=$(wildcard $(LIB_INC_DIR)/inline/*.hpp)
 LIB_SRC=$(wildcard $(LIB_SRC_DIR)/*.cpp)
 S_LIB_OBJ=$(patsubst $(LIB_SRC_DIR)/%.cpp, $(S_LIB_OBJ_DIR)/%.o, $(LIB_SRC))
 D_LIB_OBJ=$(patsubst $(LIB_SRC_DIR)/%.cpp, $(D_LIB_OBJ_DIR)/%.o, $(LIB_SRC)) 
@@ -75,13 +78,13 @@ LDFLAGS=-L $(LIB_DIR) -l $(LIB) -Wl,-rpath=$(LIB_DIR)
 # Targets
 #
 
-all: create_folders dynamic test main 
+all: create_folders dynamic main 
 
 #
 # Build static library
 #
 
-$(S_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
+$(S_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
 	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
 	@echo "Compiling $@ -- done"
@@ -96,7 +99,7 @@ static: create_folders $(S_LIB_OBJ)
 # Build dynamic library
 #
 
-$(D_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp
+$(D_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
 	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-fPIC -c -o	$@	$<	
 	@echo "Compiling $@ -- done"
@@ -139,7 +142,7 @@ $(MAIN_BIN_DIR)/%: $(MAIN_OBJ_DIR)/%.o dynamic
 	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)
 	@echo "Linking $@ -- done"
 	
-main: create_folders $(MAIN_BIN)
+main: $(MAIN_BIN)
 	@echo "\033[92mExecutables successfully compiled and linked\n\033[0m"
 
 #
@@ -151,7 +154,7 @@ main: create_folders $(MAIN_BIN)
 clean:
 	@$(RM) -r $(OBJ_DIR) $(BIN_DIR) $(LIB_DIR)/lib$(LIB).* $(DOC_DIR)/Doxyfile $(DOC_DIR)/html $(DOC_DIR)/latex
 		
-create_folders:
+create_folders: 
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(S_LIB_OBJ_DIR)
 	@mkdir -p $(D_LIB_OBJ_DIR)

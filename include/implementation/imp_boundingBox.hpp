@@ -235,8 +235,8 @@ namespace geometry
 	template<UInt N>
 	INLINE bool doIntersect(const boundingBox<N> & bb1, const boundingBox<N> & bb2)
 	{
-		return (((bb2.SW <= bb1.SW) && (bb1.SW < bb2.NE))
-			|| ((bb1.SW <= bb2.SW) && (bb2.SW < bb1.NE)));
+		return (((bb2.SW < bb1.SW) && (bb1.SW < bb2.NE))
+			|| ((bb1.SW < bb2.SW) && (bb2.SW < bb1.NE)));
 	}
 	
 	

@@ -165,19 +165,6 @@ namespace geometry
 				\param id1	Id of the first end-point of the edge
 				\param id2	Id of the second end-point of the edge */
 			void getCost_f(const UInt & id1, const UInt & id2);
-
-			/*!	Method that differently to the previous version first compute the costs 
-				for all possible collapse points and then check if the one with minimum 
-				cost is valid. 
-				If not, the point with the second smaller cost is checked and so on.
-				This implementation should be more efficient because saves time required
-				by the controls. 
-				
-				\param id1	Id of the first end-point of the edge
-				\param id2	Id of the second end-point of the edge
-				\return		a pair with the minimum cost and the 
-							associated collapse point */
-			//pair<point,Real> getCost2(const UInt id1, const UInt id2);
 			
 			/*! Method which updates:
 				<ol>
@@ -194,7 +181,24 @@ namespace geometry
 				\param id1		Id of the first end-point of the edge
 				\param id2		Id of the second end-point of the edge
 				\param cPoint	collapsing point */
-			void update(const UInt & id1, const UInt & id2, const point3d & cPoint);	  
+			void update(const UInt & id1, const UInt & id2, const point3d & cPoint);
+			
+			/*! Method which updates:
+				<ol>
+				<li> the mesh
+				<li> the connectivities
+				<li> the structured data
+				<li> the set of collapsingEdge's
+				<li> the set of collapseInfo's
+				<\ol>
+				for a set of contractions.
+				In case of grids with distributed data, there is the further update 
+				of the distribution of the data points.
+			
+				\param id1		Id's of the first end-points of the edges
+				\param id2		Id's of the second end-points of the edges
+				\param cPoint	collapsing points */
+			void update(const vector<UInt> & id1, const vector<UInt> & id2, const vector<point3d> & cPoint);	  
 
 			//
 			// Methods for handling the fixed element
@@ -231,12 +235,26 @@ namespace geometry
 			/*! Method which iteratively contracts the edge with minimum cost until 
 				reaching a maximum amount of nodes.
 				Once the procedure is done, the mesh is possibly print to file.
+				
 				\param numNodesMax		maximum number of nodes
 				\param enableDontTouch	TRUE if one element must be fixed,
 										FALSE otherwise
 				\param file				path to output file; if empty, nothing is printed */
 			void simplificate(const UInt & numNodesMax, const bool & enableDontTouch,
 				const string & file = "");
+				
+			/*! Method which iteratively contracts the first K "non-interacting"
+				edges with minimum cost until reaching a maximum amount of nodes.
+				The parameter K is defined by the user
+				Once the procedure is done, the mesh is possibly print to file.
+				
+				\param numNodesMax		maximum number of nodes
+				\param K				number of edges to simplificate per iteration
+				\param enableDontTouch	TRUE if one element must be fixed,
+										FALSE otherwise
+				\param file				path to output file; if empty, nothing is printed */
+			void simplificate_greedy(const UInt & numNodesMax, const UInt & k,
+				const bool & enableDontTouch, const string & file = "");
 	};
 }
 

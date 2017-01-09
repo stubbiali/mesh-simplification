@@ -22,9 +22,9 @@ int main()
 	high_resolution_clock::time_point start = high_resolution_clock::now();
 	#endif
 	
-	simplification<Triangle, MeshType::DATA, DataGeo> 
-		simplifier(iFile);
-	simplifier.simplificate(numNodesMax, true, oFile);
+	simplification<Triangle, MeshType::DATA, DataGeo> simplifier(iFile);
+	simplifier.simplificate(numNodesMax, true);
+	//simplifier.simplificate_greedy(numNodesMax, 5, true);
 	
 	#ifdef NDEBUG
 	high_resolution_clock::time_point stop = high_resolution_clock::now();
