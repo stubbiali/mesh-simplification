@@ -286,6 +286,13 @@ namespace geometry
 	{
 		// TODO
 	}
+	
+	
+	template<typename SHAPE>
+	void mesh<SHAPE, MeshType::DATA>::print_obj(const string & filename) const
+	{
+		// TODO
+	}
 }
 
 #endif

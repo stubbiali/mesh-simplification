@@ -10,15 +10,17 @@ using namespace geometry;
 int main()
 {	
 	// Read from file
-	string inputfile("../../mesh/left_hemisphere.vtk");
+	string inputfile("/home/stefano/Desktop/mesh-simplification/mesh/brain.obj");
 	bmesh<Triangle> bm(inputfile);
 	cout << "Number of nodes    : " << bm.getNumNodes() << endl
 		 << "Number of elements : " << bm.getNumElems() << endl;
 		 
 	cout << bm.getNode(45) << endl;
-	cout << bm.getElem(133) << endl;
+	cout << bm.getElem(0) << endl;
+	cout << bm.getElem(1) << endl;
+	cout << bm.getElem(81919) << endl;
 		 
 	// Print to file
-	//string outputfile("../../mesh/out_left_.inp");
-	//bm.print(outputfile);
+	string outputfile("/home/stefano/Desktop/mesh-simplification/mesh/brain.inp");
+	bm.print(outputfile);
 }

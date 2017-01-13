@@ -464,16 +464,21 @@ namespace geometry
 		// As suggested on the Eigen wiki, to know if the
 		// solution exists one may compute the relative
 		// a posteriori error and check it is below an
-		// user-defined tolerance
+		// user-defined tolerance. However, this would require
+		// a division - a well-known computationally expensive operation.
+		// Then, also the absolute a posteriori error may be used.
 		
-		auto err = (A*x - b).norm() / b.norm();
 		point3d P1(this->oprtr->getCPointerToMesh()->getNode(id1));
 		point3d P2(this->oprtr->getCPointerToMesh()->getNode(id2));
-		if ((err < TOLL) && 
-			(((P1[0] < x(0)) && (x(0) < P2[0])) || ((P2[0] < x(0)) && (x(0) < P1[0]))) &&
+		if ((((P1[0] < x(0)) && (x(0) < P2[0])) || ((P2[0] < x(0)) && (x(0) < P1[0]))) &&
 			(((P1[1] < x(1)) && (x(1) < P2[1])) || ((P2[1] < x(1)) && (x(1) < P1[1]))) &&
 			(((P1[2] < x(2)) && (x(2) < P2[2])) || ((P2[2] < x(2)) && (x(2) < P1[2]))))
-			return make_pair<bool,point>(true, {x(0), x(1), x(2)});
+		{
+			auto err = (A*x - b).norm() / b.norm();
+			if (err < TOLL)
+				return make_pair<bool,point>(true, {x(0), x(1), x(2)});
+			return make_pair<bool,point>(false, {0.,0.,0.});
+		}
 		return make_pair<bool,point>(false, {0.,0.,0.});
 	}
 	
@@ -509,7 +514,6 @@ namespace geometry
 			if (ans.first)
 				return {P, Q, 0.5*(P+Q), ans.second};
 			return {P, Q, 0.5*(P+Q)};
-			//return {P, Q};
 		}
 		
 		// 

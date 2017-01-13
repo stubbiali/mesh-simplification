@@ -236,7 +236,8 @@ namespace geometry
 	INLINE bool doIntersect(const boundingBox<N> & bb1, const boundingBox<N> & bb2)
 	{
 		return (((bb2.SW < bb1.SW) && (bb1.SW < bb2.NE))
-			|| ((bb1.SW < bb2.SW) && (bb2.SW < bb1.NE)));
+			|| ((bb1.SW < bb2.SW) && (bb2.SW < bb1.NE))
+			|| ((bb1.SW < bb2.NE) && (bb2.SW < bb1.NE)));
 	}
 	
 	
@@ -430,7 +431,7 @@ namespace geometry
 				boundingBox<N>::numCells.cbegin() + i, 1, multiplies<UInt>());
 		}
 								
-		// Check (olny debug mode): the barycenter must fall
+		// Check (only debug mode): the barycenter must fall
 		// within the mesh (global) bounding box
 		#ifndef NDEBUG
 		auto ncells = accumulate(boundingBox<N>::numCells.cbegin(),
@@ -578,7 +579,7 @@ namespace geometry
 	template<>
 	void boundingBox<3>::setup(const point3d & pne, const point3d & psw, 
 		const Real & dx, const Real & dy, const Real & dz);
-	
+		
 	
 	template<UInt N>
 	template<typename SHAPE, MeshType MT>

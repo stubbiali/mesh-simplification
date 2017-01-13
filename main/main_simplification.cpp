@@ -12,10 +12,10 @@ int main()
 	
 	// Path to input and output file
 	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn.inp");
-	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn_1400_033_033_033.inp");
+	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn_1000_033_033_033_1.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(1400);
+	UInt numNodesMax(1000);
 	
 	// Simplificate!
 	#ifdef NDEBUG
@@ -23,7 +23,7 @@ int main()
 	#endif
 	
 	simplification<Triangle, MeshType::DATA, DataGeo> simplifier(iFile);
-	simplifier.simplificate(numNodesMax, true);
+	simplifier.simplificate(numNodesMax, true, oFile);
 	//simplifier.simplificate_greedy(numNodesMax, 5, true);
 	
 	#ifdef NDEBUG

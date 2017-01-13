@@ -125,6 +125,12 @@ namespace geometry
 				\return		size of elements list */
 			UInt getElemsListSize() const;
 			
+			/*!	Know whether a node is active or not.
+				\param Id	node Id
+				\return		TRUE if the node is active,
+							FALSE otherwise */
+			bool isNodeActive(const UInt & Id) const; 
+			
 			/*!	Know whether an element is active or not.
 				\param Id	element Id
 				\return		TRUE if the element is active,
@@ -241,7 +247,10 @@ namespace geometry
 				<ol>
 				<li> .inp
 				<li> .vtk
+				<li> .obj
 				<\ol>
+				Note that printing methods for .vtk and .obj files
+				still have to be implemented.
 				
 				\param filename	name of the output file */
 			void print(const string & filename); 
@@ -269,6 +278,10 @@ namespace geometry
 				\param filename	name of the input file */
 			void read_vtk(const string & filename);
 			
+			/*! Read mesh from a .obj file.
+				\param filename	name of the input file */
+			void read_obj(const string & filename);
+			
 			//
 			// Print in different format
 			//
@@ -280,6 +293,10 @@ namespace geometry
 			/*! Print in .vtk format. 
 				\param filename	name of the output file */
 			virtual void print_vtk(const string & filename) const;
+			
+			/*! Print in .obj format. 
+				\param filename	name of the output file */
+			virtual void print_obj(const string & filename) const;
 	};
 }
 

@@ -6,6 +6,7 @@
 
 #include "gutility.hpp"
 #include "intersection.hpp"
+#include "meshInfo.hpp"
 
 using namespace geometry;
 
@@ -99,18 +100,27 @@ int main()
 	// Test triangle-triangle intersection (non-static API)
 	//
 	
+	
 	{
 		// Read mesh
-		string inputfile("../../mesh/bunny.inp");
+		string inputfile("/home/stefano/Desktop/mesh-simplification/mesh/brain_10000_033_033_033_6.inp");
 		bmesh<Triangle> bm(inputfile);
 		intersection<Triangle> ntr(&bm);
 		
 		// Id's of triangles to consider
-		UInt id1 = 8356;
-		UInt id2 = 1693;
+		UInt id1 = 1931;
+		UInt id2 = 2774;
+		auto el1(bm.getElem(id1));
+		cout << bm.getNode(el1[0]) << endl
+			<< bm.getNode(el1[1]) << endl
+			<< bm.getNode(el1[2]) << endl;
+		auto el2(bm.getElem(id2));
+		cout << bm.getNode(el2[0]) << endl
+			<< bm.getNode(el2[1]) << endl
+			<< bm.getNode(el2[2]) << endl;
 		
 		// Test intersection
-		#ifndef NDEBUG
+		#ifdef NDEBUG
 		auto ans = ntr.intersect(id1,id2);
 		#else
 		using namespace std::chrono;
@@ -120,7 +130,7 @@ int main()
 			auto ans = ntr.intersect(id1,id2);
 		#endif
 		
-		#ifndef NDEBUG
+		#ifdef NDEBUG
 		if (ans)
 			cout << "Triangles " << id1 << " and " << id2 << " intersect." << endl;
 		else
@@ -156,4 +166,37 @@ int main()
 			cout << "Triangles do not intersect." << endl;
 	}
 	*/
+	
+	//
+	// Test triangle-triangle intersection (non-static API)
+	//
+	
+	{
+		// Read mesh
+		string inputfile("/home/stefano/Desktop/mesh-simplification/mesh/brain_10000_033_033_033_6.inp");
+		bmesh<Triangle> bm(inputfile);
+		bmeshInfo<Triangle, MeshType::GEO> news(inputfile);
+		intersection<Triangle> ntr(&bm);
+		
+		// Id's of triangles to consider
+		for (UInt i = 0; i < bm.getNumElems()-1; ++i)
+		{
+			auto ids = news.getTriPatch(i);
+			for (auto id : ids)
+				bm.setElemInactive(id);
+				
+			for (UInt j = i+1; j < bm.getNumElems(); ++j)
+			{
+				if (bm.isElemActive(j))
+				{
+					auto ans = ntr.intersect(i,j);
+					if (ans)
+						cerr << "Triangles " << i << " and " << j << " intersect." << endl;
+				}
+			}
+			
+			for (auto id : ids)
+				bm.setElemActive(id);
+		}
+	}
 }

@@ -22,7 +22,7 @@ namespace geometry
 	#endif
 	
 	/*! Tolerance. */
-	#define TOLL 1e-16
+	#define TOLL 1e-15
 	
 	/*! Maximum number of nodes a mesh class can store. */
 	#define MAX_NUM_NODES 1e8

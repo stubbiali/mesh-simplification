@@ -331,12 +331,15 @@ namespace geometry
 		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
-			if (p[0] > NE[0])
-				NE[0] = p[0];
-			if (p[1] > NE[1])
-				NE[1] = p[1];
-			if (p[2] > NE[2])
-				NE[2] = p[2];
+			if (p.isActive())
+			{
+				if (p[0] > NE[0])
+					NE[0] = p[0];
+				if (p[1] > NE[1])
+					NE[1] = p[1];
+				if (p[2] > NE[2])
+					NE[2] = p[2];
+			}
 		}
 		
 		return NE;
@@ -355,12 +358,15 @@ namespace geometry
 		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
-			if (p[0] < SW[0])
-				SW[0] = p[0];
-			if (p[1] < SW[1])
-				SW[1] = p[1];
-			if (p[2] < SW[2])
-				SW[2] = p[2];
+			if (p.isActive())
+			{
+				if (p[0] < SW[0])
+					SW[0] = p[0];
+				if (p[1] < SW[1])
+					SW[1] = p[1];
+				if (p[2] < SW[2])
+					SW[2] = p[2];
+			}
 		}
 		
 		return SW;
@@ -380,15 +386,18 @@ namespace geometry
 		auto nodes = connectivity.grid.getNodes();
 		for (auto p : nodes)
 		{
-			for (UInt i = 0; i < 3; i++)
-			{ 
-				// Update North-East point
-				if (p[i] > NE[i])
-					NE[i] = p[i];
+			if (p.isActive())
+			{
+				for (UInt i = 0; i < 3; i++)
+				{ 
+					// Update North-East point
+					if (p[i] > NE[i])
+						NE[i] = p[i];
 										
-				// Update South-West point
-				if (p[i] < SW[i])
-					SW[i] = p[i];
+					// Update South-West point
+					if (p[i] < SW[i])
+						SW[i] = p[i];
+				}
 			}
 		}
 		
@@ -406,24 +415,28 @@ namespace geometry
 		auto edges = connectivity.getEdges();
 		for (auto edge : edges)
 		{
-			// Extract end-points of the edge
-			auto p = connectivity.grid.getNode(edge[0]); 
-			auto q = connectivity.grid.getNode(edge[1]);
-			
-			// Update dx
-			Real pq_x = abs(p[0] - q[0]);
-			if (pq_x > dx)
-				dx = pq_x; 
-				
-			// Update dy
-			Real pq_y = abs(p[1] - q[1]);
-			if (pq_y > dy)
-				dy = pq_y; 
-				
-			// Update dz
-			Real pq_z = abs(p[2] - q[2]);
-			if (pq_z > dz)
-				dz = pq_z; 
+			// Make sure the edge exists
+			if (connectivity.grid.isNodeActive(edge[0]) && connectivity.grid.isNodeActive(edge[1]))
+			{	
+				// Extract end-points of the edge
+				auto p = connectivity.grid.getNode(edge[0]); 
+				auto q = connectivity.grid.getNode(edge[1]);
+
+				// Update dx
+				Real pq_x = abs(p[0] - q[0]);
+				if (pq_x > dx)
+					dx = pq_x; 
+
+				// Update dy
+				Real pq_y = abs(p[1] - q[1]);
+				if (pq_y > dy)
+					dy = pq_y; 
+
+				// Update dz
+				Real pq_z = abs(p[2] - q[2]);
+				if (pq_z > dz)
+					dz = pq_z; 
+			}
 		}
 		
 		return array<Real,3>({{dx,dy,dz}});

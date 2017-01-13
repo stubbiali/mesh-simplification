@@ -98,7 +98,7 @@ namespace geometry
 		auto p_SW = box.getSW();
 		searchPoint sp_NE(p_NE);
 		searchPoint sp_SW(p_SW);
-			
+				
 		//
 		// Find intersecting boxes
 		//
@@ -108,14 +108,23 @@ namespace geometry
 		// since an element cannot span more than one cell.
 					
 		unordered_multiset<UInt> res;
-		for (UInt i = sp_SW[0]-1; i <= sp_NE[0]+1; ++i)
-			for (UInt j = sp_SW[1]-1; j <= sp_NE[1]+1; ++j)
-				for (UInt k = sp_SW[2]-1; k <= sp_NE[2]+1; ++k)
+		
+		// Determine indices range
+		UInt i_start = (sp_SW[0] == 0) ? 0 : sp_SW[0]-1;
+		UInt i_stop = sp_NE[0]+1;
+		UInt j_start = (sp_SW[1] == 0) ? 0 : sp_SW[1]-1;
+		UInt j_stop = sp_NE[1]+1;
+		UInt k_start = (sp_SW[2] == 0) ? 0 : sp_SW[2]-1;
+		UInt k_stop = sp_NE[2]+1;
+						
+		for (UInt i = i_start; i <= i_stop; ++i)
+			for (UInt j = j_start; j <= j_stop; ++j)
+				for (UInt k = k_start; k <= k_stop; ++k)
 				{
 					// Compute scalar index
 					UInt idx(i + j * bbox3d::getNumCells(0) + 
 						k * bbox3d::getNumCells(0) * bbox3d::getNumCells(1));
-						
+												
 					// Extract all boxes having that index
 					auto range = boxes.equal_range(idx);
 					

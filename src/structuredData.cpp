@@ -71,15 +71,15 @@ namespace geometry
 			//
 			
 			torefresh = torefresh || 
-				(abs(B[0] - A[0]) > 1.5 * bbox3d::getCellSize(0)) || 
-				(abs(C[0] - B[0]) > 1.5 * bbox3d::getCellSize(0)) ||
-				(abs(A[0] - C[0]) > 1.5 * bbox3d::getCellSize(0)) ||
-				(abs(B[1] - A[1]) > 1.5 * bbox3d::getCellSize(1)) || 
-				(abs(C[1] - B[1]) > 1.5 * bbox3d::getCellSize(1)) ||
-				(abs(A[1] - C[1]) > 1.5 * bbox3d::getCellSize(1)) ||
-				(abs(B[2] - A[2]) > 1.5 * bbox3d::getCellSize(2)) || 
-				(abs(C[2] - B[2]) > 1.5 * bbox3d::getCellSize(2)) ||
-				(abs(A[2] - C[2]) > 1.5 * bbox3d::getCellSize(2));
+				(abs(B[0] - A[0]) > 1.3 * bbox3d::getCellSize(0)) || 
+				(abs(C[0] - B[0]) > 1.3 * bbox3d::getCellSize(0)) ||
+				(abs(A[0] - C[0]) > 1.3 * bbox3d::getCellSize(0)) ||
+				(abs(B[1] - A[1]) > 1.3 * bbox3d::getCellSize(1)) || 
+				(abs(C[1] - B[1]) > 1.3 * bbox3d::getCellSize(1)) ||
+				(abs(A[1] - C[1]) > 1.3 * bbox3d::getCellSize(1)) ||
+				(abs(B[2] - A[2]) > 1.3 * bbox3d::getCellSize(2)) || 
+				(abs(C[2] - B[2]) > 1.3 * bbox3d::getCellSize(2)) ||
+				(abs(A[2] - C[2]) > 1.3 * bbox3d::getCellSize(2));
 		}
 	}
 	
@@ -123,18 +123,18 @@ namespace geometry
 			//
 			
 			torefresh = torefresh || 
-				(abs(B[0] - A[0]) > 1.5 * bbox3d::getCellSize(0)) || 
-				(abs(C[0] - B[0]) > 1.5 * bbox3d::getCellSize(0)) ||
-				(abs(D[0] - C[0]) > 1.5 * bbox3d::getCellSize(0)) ||
-				(abs(A[0] - D[0]) > 1.5 * bbox3d::getCellSize(0)) ||
-				(abs(B[1] - A[1]) > 1.5 * bbox3d::getCellSize(1)) || 
-				(abs(C[1] - B[1]) > 1.5 * bbox3d::getCellSize(1)) ||
-				(abs(D[1] - C[1]) > 1.5 * bbox3d::getCellSize(1)) ||
-				(abs(A[1] - D[1]) > 1.5 * bbox3d::getCellSize(1)) ||
-				(abs(B[2] - A[2]) > 1.5 * bbox3d::getCellSize(2)) || 
-				(abs(C[2] - B[2]) > 1.5 * bbox3d::getCellSize(2)) ||
-				(abs(D[2] - C[2]) > 1.5 * bbox3d::getCellSize(2)) ||
-				(abs(A[2] - D[2]) > 1.5 * bbox3d::getCellSize(2));
+				(abs(B[0] - A[0]) > 1.3 * bbox3d::getCellSize(0)) || 
+				(abs(C[0] - B[0]) > 1.3 * bbox3d::getCellSize(0)) ||
+				(abs(D[0] - C[0]) > 1.3 * bbox3d::getCellSize(0)) ||
+				(abs(A[0] - D[0]) > 1.3 * bbox3d::getCellSize(0)) ||
+				(abs(B[1] - A[1]) > 1.3 * bbox3d::getCellSize(1)) || 
+				(abs(C[1] - B[1]) > 1.3 * bbox3d::getCellSize(1)) ||
+				(abs(D[1] - C[1]) > 1.3 * bbox3d::getCellSize(1)) ||
+				(abs(A[1] - D[1]) > 1.3 * bbox3d::getCellSize(1)) ||
+				(abs(B[2] - A[2]) > 1.3 * bbox3d::getCellSize(2)) || 
+				(abs(C[2] - B[2]) > 1.3 * bbox3d::getCellSize(2)) ||
+				(abs(D[2] - C[2]) > 1.3 * bbox3d::getCellSize(2)) ||
+				(abs(A[2] - D[2]) > 1.3 * bbox3d::getCellSize(2));
 		}
 	}
 	

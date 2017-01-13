@@ -53,6 +53,8 @@ namespace geometry
 			read_inp(filename);
 		else if (format == "vtk")
 			read_vtk(filename);
+		else if (format == "obj")
+			read_obj(filename);
 		else
 			throw runtime_error("Format " + format + " not known.");
 	}
@@ -159,6 +161,13 @@ namespace geometry
 	INLINE UInt bmesh<SHAPE>::getElemsListSize() const
 	{
 		return elems.size();
+	}
+	
+	
+	template<typename SHAPE>
+	INLINE bool bmesh<SHAPE>::isNodeActive(const UInt & Id) const
+	{
+		return nodes[Id].isActive();
 	}
 	
 	
@@ -630,6 +639,103 @@ namespace geometry
 	}
 	
 	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::read_obj(const string & filename)
+	{
+		ifstream file(filename);
+		if (file.is_open())
+		{
+			string line;
+			
+			// 
+			// Get nodes
+			//
+						
+			// Get number of nodes
+			char foo_c;
+			Real foo_r;
+			getline(file,line);
+			static_cast<stringstream>(line) >> foo_c 
+				>> foo_r >> foo_r >> foo_r >> foo_r >> foo_r 
+				>> numNodes;
+			
+			// Assert
+			assert(numNodes < MAX_NUM_NODES);
+						
+			// Reserve memory
+			nodes.reserve(numNodes);
+						
+			// Insert nodes
+			UInt Id;
+			array<Real,3> coor; 
+			for (UInt n = 0; n < numNodes && getline(file,line); ++n)
+			{
+				// Extract coordinates
+				static_cast<stringstream>(line)	>> coor[0] 
+												>> coor[1] 
+												>> coor[2];
+												
+				// Insert at back
+				nodes.emplace_back(coor,n);
+			}
+			
+			// Skip useless part
+			getline(file,line);
+			for (UInt n = 0; n < numNodes && getline(file,line); ++n)
+				continue;
+			getline(file,line);
+				
+			//
+			// Get elements
+			//
+			
+			// Get number of elements and reserve memory
+			getline(file,line);
+			static_cast<stringstream>(line) >> numElems;
+			elems.reserve(numElems);
+			
+			// Assert
+			assert(numElems < MAX_NUM_ELEMS);
+			
+			// Skip useless part
+			getline(file,line);
+			getline(file,line);
+			
+			UInt lines_to_skip(ceil(numElems / 8.));
+							
+			for (UInt n = 0; n < lines_to_skip && getline(file,line); ++n)
+				continue;
+				
+			getline(file,line);
+			
+			// Insert elements
+			UInt n(0), id(0); 
+			array<UInt,NV> vert;
+			while (getline(file,line))
+			{
+				stringstream ss(line);
+				for (UInt j = 0; j < 8; ++j, ++n)
+				{
+					// Get vertex index
+					ss >> vert[n % 3];
+										
+					// Add a new element
+					if (n % 3 == 2)
+					{
+						elems.emplace_back(vert, id, 0);
+						++id;
+					}
+				}
+			}
+						
+			// Close the file
+			file.close();
+		}
+		else
+			throw runtime_error(filename + " can not be opened.");
+	}
+	
+	
 	//
 	// Print
 	//
@@ -672,6 +778,13 @@ namespace geometry
 	
 	template<typename SHAPE>
 	void bmesh<SHAPE>::print_vtk(const string & filename) const
+	{
+		// TODO
+	}
+	
+	
+	template<typename SHAPE>
+	void bmesh<SHAPE>::print_obj(const string & filename) const
 	{
 		// TODO
 	}

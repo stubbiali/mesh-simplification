@@ -115,7 +115,7 @@ dynamic: create_folders $(D_LIB_OBJ)
 # Build the tests
 #
 
-$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp
+$(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(LIB_INC)
 	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
 	@echo "Compiling $@ -- done"
@@ -132,7 +132,7 @@ test: create_folders $(TEST_BIN)
 # Build the executables
 #
 
-$(MAIN_OBJ_DIR)/%.o: $(MAIN_SRC_DIR)/%.cpp
+$(MAIN_OBJ_DIR)/%.o: $(MAIN_SRC_DIR)/%.cpp $(LIB_INC)
 	@echo "Compiling $@" 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
 	@echo "Compiling $@ -- done"

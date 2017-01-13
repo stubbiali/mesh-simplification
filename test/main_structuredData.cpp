@@ -17,14 +17,26 @@ int main()
 	#endif
 	
 	// Import mesh and create connections
-	string inputfile("../../mesh/bunny.inp");
+	string inputfile("/home/stefano/Desktop/mesh-simplification/mesh/brain_30000_033_033_033_8.inp");
 	meshInfo<Triangle, MeshType::DATA> news(inputfile);
 		
 	// Create structured data
 	structuredData<Triangle> sd(news);
 	
 	// Extract intersecting bounding boxes
-	auto ids = sd.getNeighbouringElements(69229);
+	{
+	auto ids = sd.getNeighbouringElements(35219);
+	for (auto id : ids)
+			cout << id << " ";
+	cout << endl;
+	}
+	
+	{
+	auto ids = sd.getNeighbouringElements(35506);
+	for (auto id : ids)
+			cout << id << " ";
+	cout << endl;
+	}
 	
 	#ifdef NDEBUG
 	stop = high_resolution_clock::now();

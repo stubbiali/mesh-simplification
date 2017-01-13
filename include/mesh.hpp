@@ -214,6 +214,10 @@ namespace geometry
 			/*! Print in .vtk format. 
 				\param filename	name of the output file */
 			virtual void print_vtk(const string & filename) const;
+			
+			/*! Print in .obj format. 
+				\param filename	name of the output file */
+			virtual void print_obj(const string & filename) const;
 	};
 	
 }

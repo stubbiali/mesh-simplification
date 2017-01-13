@@ -371,8 +371,8 @@ namespace geometry
 			return IntersectionType::NONE;
 			
 		// The segment intersects the triangle in a conformal way
-		//if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
-			//return IntersectionType::VALID;
+		if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
+			return IntersectionType::VALID;
 			
 		// Only remaining scenario: the segment intersects the
 		// triangle in a non-conformal way
@@ -450,8 +450,8 @@ namespace geometry
 			return IntersectionType::NONE;
 			
 		// The segment intersects the triangle in a conformal way
-		//if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
-			//return IntersectionType::VALID;
+		if ((p2s == Point2Seg::ONVERTEX) && (p2t != Point2Tri::INTERN))	
+			return IntersectionType::VALID;
 			
 		// Only remaining scenario: the segment intersects the
 		// triangle in a non-conformal way
