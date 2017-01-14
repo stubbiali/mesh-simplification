@@ -27,187 +27,6 @@ namespace geometry
 				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
 				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]))
 				return;
-								
-		//
-		// Get potentially valid points
-		//
-		
-		auto pointsList = costObj.getPointsList(id1, id2);
-		if (pointsList.empty())
-			return;
-			
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			// Flags for self-intersections of first two potentially valid points
-			array<bool,2> no_intersection;
-		#endif
-				
-		//
-		// Extract elements involved in the collapse
-		//
-		
-		auto toRemove = gridOperation.getElemsOnEdge(id1,id2);
-		auto toKeep = gridOperation.getElemsModifiedInEdgeCollapsing(id1,id2);
-		
-		// Furthermore, check that the number of elements insisting
-		// on the edge is exactly two
-		if (toRemove.size() != 2)
-			return;
-		
-		// Get normals to the elements involved in the collapse
-		vector<point3d> oldNormals;
-		oldNormals.reserve(toKeep.size());
-		for (auto elem : toKeep)
-			oldNormals.emplace_back(gridOperation.getNormal(elem));
-			
-		//
-		// Update connections
-		//
-		
-		// Store old id1
-		auto P(gridOperation.getCPointerToMesh()->getNode(id1));
-		
-		// Update node-node, node-element and element-node connections
-		auto oldConnections = gridOperation.getPointerToConnectivity()
-			->applyEdgeCollapse(id2, id1, toRemove, toKeep);
-			
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			// For each involved element, get its patch
-			// This will come useful when checking for mesh self-intersections
-			vector<vector<UInt>> patches;
-			patches.reserve(toKeep.size());
-			for (auto elem : toKeep)
-				patches.push_back(gridOperation.getTriPatch(elem));
-		#endif
-									
-		//
-		// Get the cheapest edge
-		//
-				
-		// Auxiliary variables
-		bool valid;
-		vector<UInt>::const_iterator it1;
-		vector<point3d>::const_iterator oldNormal; 
-		Real opt_cost(numeric_limits<Real>::max());
-		UInt opt_cPoint(pointsList.size());
-				
-		for (UInt i = 0; i < pointsList.size(); ++i)
-		{
-			//
-			// Set collapsing point
-			//
-		
-			// Change coordinates and boundary flag of id1
-			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
-			
-			#ifndef ENABLE_SELF_INTERSECTIONS
-				// Update structured data
-				structData.update_f(toKeep); 
-				
-				// A useful flag
-				bool flag((i < 2) || !(no_intersection[0] && no_intersection[1]));
-			#endif
-			
-			//
-			// Check collapse validity
-			//
-			
-			valid = true;
-						
-			for (it1 = toKeep.cbegin(), oldNormal = oldNormals.cbegin(); 
-				it1 != toKeep.cend() && oldNormal != oldNormals.cend() && valid; 
-				++it1, ++oldNormal)
-			{
-				// No degenerated triangles
-				valid = valid && (gridOperation.getTriArea(*it1) > TOLL);
-				
-				// No triangle inversions
-				valid = valid && ((*oldNormal) * gridOperation.getNormal(*it1) > TOLL);
-				
-				#ifndef ENABLE_SELF_INTERSECTIONS
-					// No mesh self-intersections
-					if (valid && flag)
-					{
-						// Make the elements surrounding *it1 inactive
-						// In this way, they will be disregarded in the checks
-						for (auto elem : patches[it1-toKeep.cbegin()])
-							gridOperation.getPointerToMesh()->setElemInactive(elem);
-						
-						// Extract elements whose bounding box intersect the one of *it1
-						// and perform triangle-triangle intersection tests
-						auto elems = structData.getNeighbouringElements(*it1);
-						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-							valid = valid && !(intrs.intersect(*it1, *it2));
-						
-						// Restore elements surrounding *it1
-						for (auto elem : patches[it1-toKeep.cbegin()])
-							gridOperation.getPointerToMesh()->setElemActive(elem);
-							
-						// Update no_intersection flag
-						if (i < 2)
-							no_intersection[i] = valid;
-					}
-				#endif
-			}
-						
-			//
-			// Get cost associated with edge collapse
-			//
-			
-			if (valid)
-			{
-				auto cost = costObj.getCost_f(id1, id2, pointsList[i]);
-								
-				// Check if it is the smallest so far
-				if (cost < opt_cost - TOLL)
-				{
-					opt_cost = cost;
-					opt_cPoint = i;
-				}
-			}
-		}
-			
-		//
-		// Restoration
-		//
-		
-		// Restore connections
-		gridOperation.getPointerToConnectivity()
-			->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
-			
-		// Restore list of nodes
-		gridOperation.getPointerToMesh()->setNode(id1, P);
-		
-		// Restore structured data
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			structData.update_f(toKeep);
-		#endif
-			
-		//
-		// Update collapseInfo's and collapsingEdge's lists
-		//
-		// First make sure that an optimal point has actually been found
-		
-		if (opt_cPoint < pointsList.size())
-		{
-			costObj.addCollapseInfo_f(id1, id2, opt_cost, pointsList[opt_cPoint]);
-			collapsingSet.emplace(id1, id2, opt_cost, pointsList[opt_cPoint]);
-		}
-	}
-	
-	
-	template<>
-	void simplification<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>::
-		getCost_f(const UInt & id1, const UInt & id2)
-	{
-		// First make sure the fixed element is not involved
-		if (dontTouch)
-			if ((id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
-				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
-				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]) ||
-				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
-				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
-				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]))
-				return;
 				
 		//
 		// Get potentially valid points
@@ -217,20 +36,18 @@ namespace geometry
 		if (pointsList.empty())
 			return;
 			
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			// Flags for self-intersections of first two potentially valid points
-			array<bool,2> no_intersection;
-		#endif
+		// Declare "local" multi-set of collapsingEdge
+		// It stores the collapse information for each 
+		// potentially valid collapsing points
+		multiset<collapsingEdge> collapsingSet_l;
 				
 		//
 		// Extract elements and data involved in the collapse
 		//
 		
-		auto invElems = gridOperation.getElemsInvolvedInEdgeCollapsing(id1,id2);
 		auto toRemove = gridOperation.getElemsOnEdge(id1,id2);
 		auto toKeep = gridOperation.getElemsModifiedInEdgeCollapsing(id1,id2);
-		auto toMove = gridOperation.getDataModifiedInEdgeCollapsing(invElems);
-		
+			
 		// Furthermore, check that the number of elements insisting 
 		// on the edge is exactly two
 		if (toRemove.size() != 2)
@@ -273,27 +90,14 @@ namespace geometry
 				return;
 			}
 		}	
-			
-		#ifndef ENABLE_SELF_INTERSECTIONS
-			// For each involved element, get its patch
-			// This will come useful when checking for mesh self-intersections
-			vector<vector<UInt>> patches;
-			patches.reserve(toKeep.size());
-			for (auto elem : toKeep)
-				patches.push_back(gridOperation.getTriPatch(elem));
-		#endif
 															
 		//
-		// Get the cheapest edge
+		// Get the cheapest collapsing point
 		//
-				
-		// Auxiliary variables
-		bool valid;
-		vector<UInt>::const_iterator it1;
-		vector<point3d>::const_iterator oldNormal; 
-		Real opt_cost(numeric_limits<Real>::max());
-		UInt opt_cPoint(pointsList.size());
-				
+		// Since checking for grid self-intersections is expensive,
+		// these checks will be performed only when the cheapest  
+		// collapsing point has been identified
+												
 		for (UInt i = 0; i < pointsList.size(); ++i)
 		{
 			//
@@ -302,80 +106,251 @@ namespace geometry
 		
 			// Change coordinates and boundary flag of id1
 			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
+													
+			//
+			// Check collapse validity (except for grid self-intersections)
+			//
 			
-			#ifndef ENABLE_SELF_INTERSECTIONS			
-				// Update structured data
-				structData.update_f(toKeep); 
-				
-				// A useful flag
-				bool flag((i < 2) || !(no_intersection[0] && no_intersection[1]));
-			#endif
+			bool valid(true);
 						
+			for (UInt j = 0; j < toKeep.size() && valid; ++j)
+			{
+				// No degenerate triangles
+				valid = (gridOperation.getTriArea(toKeep[j]) > TOLL);
+				
+				// No triangle inversions
+				valid = valid && (oldNormals[j] * gridOperation.getNormal(toKeep[j]) > TOLL);
+			}
+			
+			//
+			// Get cost associated with edge collapse and update local collapsingEdge
+			//
+			
+			if (valid)
+			{
+				auto cost = costObj.getCost(id1, id2, pointsList[i]);
+				collapsingSet_l.emplace(id1, id2, cost, pointsList[i]);
+			}
+		}
+			
+		//
+		// If no valid points have been found, restore and return
+		//
+		
+		if (collapsingSet_l.empty())
+		{
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
+			return;
+		}
+							
+		//
+		// Check for grids self-intersections
+		//
+		// Start from the cheapest collapsing point: if this does not lead to
+		// self-intersections, add it to collapsingEdge; otherwise,
+		// consider the second less expensive point and so on and so forth
+		
+		#ifdef ENABLE_SELF_INTERSECTIONS
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
+			// Update collapseInfo's and collapsingEdge's lists
+			costObj.addCollapseInfo_f(id1, id2, collapsingSet_l.cbegin()->getCost(),
+				collapsingSet_l.cbegin()->getCollapsingPoint());
+			collapsingSet.emplace(id1, id2, collapsingSet_l.cbegin()->getCost(),
+				collapsingSet_l.cbegin()->getCollapsingPoint());
+		#else
+			for (auto it = collapsingSet_l.cbegin(); it != collapsingSet_l.cend(); ++it)
+			{
+				// Set collapsing point
+				gridOperation.getPointerToMesh()->setNode(id1, it->getCollapsingPoint());
+				
+				// Update structured data
+				structData.update_f(toKeep);
+				
+				// Test self-intersections
+				bool valid(true);
+				for (auto it1 = toKeep.cbegin(); it1 != toKeep.cend() && valid; ++it1)
+				{
+					auto elems = structData.getNeighbouringElements(*it1);
+					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+						valid = valid && !(intrs.intersect(*it1, *it2));
+				}
+				
+				// Possibly update collapseInfo's and collapsingEdge's lists
+				if (valid)
+				{
+					// Restore connections
+					gridOperation.getPointerToConnectivity()
+						->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+					// Restore list of nodes
+					gridOperation.getPointerToMesh()->setNode(id1, P);
+					
+					// Restore structured data
+					structData.update_f(toKeep);
+					
+					// Update collapseInfo's and collapsingEdge's lists
+					costObj.addCollapseInfo_f(id1, id2, it->getCost(), it->getCollapsingPoint());
+					collapsingSet.emplace(id1, id2, it->getCost(), it->getCollapsingPoint());
+						
+					return;
+				}
+			}
+			
+			//
+			// No collapsing point turned out to be valid, so just restore everything
+			//
+			
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+	
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
+			// Restore structured data
+			structData.update_f(toKeep);
+		#endif
+	}
+	
+	
+	template<>
+	void simplification<Triangle, MeshType::DATA, OnlyGeo<MeshType::DATA>>::
+		getCost_f(const UInt & id1, const UInt & id2)
+	{
+		// First make sure the fixed element is not involved
+		if (dontTouch)
+			if ((id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
+				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
+				(id1 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[0]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[1]) ||
+				(id2 == gridOperation.getCPointerToMesh()->getElem(dontTouchId)[2]))
+				return;
+				
+		//
+		// Get potentially valid points
+		//
+		
+		auto pointsList = costObj.getPointsList(id1, id2);
+		if (pointsList.empty())
+			return;
+			
+		// Declare "local" multi-set of collapsingEdge
+		// It stores the collapse information for each 
+		// potentially valid collapsing points
+		multiset<collapsingEdge> collapsingSet_l;
+				
+		//
+		// Extract elements and data involved in the collapse
+		//
+		
+		auto invElems = gridOperation.getElemsInvolvedInEdgeCollapsing(id1,id2);
+		auto toRemove = gridOperation.getElemsOnEdge(id1,id2);
+		auto toKeep = gridOperation.getElemsModifiedInEdgeCollapsing(id1,id2);
+		auto toMove = gridOperation.getDataModifiedInEdgeCollapsing(invElems);
+			
+		// Furthermore, check that the number of elements insisting 
+		// on the edge is exactly two
+		if (toRemove.size() != 2)
+			return;
+		
+		// Get normals to the elements involved in the collapse
+		vector<point3d> oldNormals;
+		oldNormals.reserve(toKeep.size());
+		for (auto elem : toKeep)
+			oldNormals.emplace_back(gridOperation.getNormal(elem));
+			
+		//
+		// Update connections
+		//
+		
+		// Store old id1 
+		auto P(gridOperation.getCPointerToMesh()->getNode(id1));
+		
+		// Update node-node, node-element and element-node connections
+		auto oldConnections = gridOperation.getPointerToConnectivity()
+			->applyEdgeCollapse(id2, id1, toRemove, toKeep);	
+		
+		//	
+		// No edges sharing more than two nodes
+		//
+		
+		auto nodes = gridOperation.getCPointerToConnectivity()->getNode2Node(id1).getConnected();
+		for (auto node : nodes)
+		{
+			auto shared = gridOperation.getNodesOnEdge(id1, node);
+			if (shared.size() != 2)
+			{
+				// Restore connections
+				gridOperation.getPointerToConnectivity()
+					->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+				// Restore list of nodes
+				gridOperation.getPointerToMesh()->setNode(id1, P);
+				
+				return;
+			}
+		}	
+															
+		//
+		// Get the cheapest collapsing point
+		//
+		// Since checking for grid self-intersections is expensive,
+		// these checks will be performed only when the cheapest  
+		// collapsing point has been identified
+												
+		for (UInt i = 0; i < pointsList.size(); ++i)
+		{
+			//
+			// Set collapsing point
+			//
+		
+			// Change coordinates and boundary flag of id1
+			gridOperation.getPointerToMesh()->setNode(id1, pointsList[i]);
+										
 			// Project data points and update data-element 
 			// and element-data connections
 			auto oldData = gridOperation.project(toMove, toKeep);
 			gridOperation.getPointerToConnectivity()->eraseElemInData2Elem(toRemove);
 			
 			//
-			// Check collapse validity
+			// Check collapse validity (except for grid self-intersections)
 			//
 			
-			valid = true;
+			bool valid(true);
 						
-			for (it1 = toKeep.cbegin(), oldNormal = oldNormals.cbegin(); 
-				it1 != toKeep.cend() && oldNormal != oldNormals.cend() && valid; 
-				++it1, ++oldNormal)
+			for (UInt j = 0; j < toKeep.size() && valid; ++j)
 			{
 				// No degenerate triangles
-				valid = (gridOperation.getTriArea(*it1) > TOLL);
+				valid = (gridOperation.getTriArea(toKeep[j]) > TOLL);
 				
 				// No triangle inversions
-				valid = valid && ((*oldNormal) * gridOperation.getNormal(*it1) > TOLL);
+				valid = valid && (oldNormals[j] * gridOperation.getNormal(toKeep[j]) > TOLL);
 				
 				// No empty triangles
-				valid = valid && !(gridOperation.isEmpty(*it1));
-				
-				#ifndef ENABLE_SELF_INTERSECTIONS
-					// No mesh self-intersections
-					if (valid && flag)
-					{
-						// Make the elements surrounding *it1 inactive
-						// In this way, they will be disregarded in the checks
-						for (auto elem : patches[it1-toKeep.cbegin()])
-							gridOperation.getPointerToMesh()->setElemInactive(elem);
-						
-						// Extract elements whose bounding box intersect the one of *it1
-						// and perform triangle-triangle intersection tests
-						
-						auto elems = structData.getNeighbouringElements(*it1);
-						for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
-							valid = valid && !(intrs.intersect(*it1, *it2));	
-						
-						// Restore elements surrounding *it1
-						for (auto elem : patches[it1-toKeep.cbegin()])
-							gridOperation.getPointerToMesh()->setElemActive(elem);
-							
-						// Update no_intersection flag
-						if (i < 2)
-							no_intersection[i] = flag;
-					}
-				#endif
+				valid = valid && !(gridOperation.isEmpty(toKeep[j]));
 			}
 			
 			//
-			// Get cost associated with edge collapse
+			// Get cost associated with edge collapse and update local collapsingEdge
 			//
 			
 			if (valid)
 			{
-				auto cost = costObj.getCost_f(id1, id2, pointsList[i]);
-					
-				// Check if it is the smallest so far
-				if (cost < opt_cost - TOLL)
-				{
-					opt_cost = cost;
-					opt_cPoint = i;
-				}
+				auto cost = costObj.getCost(id1, id2, pointsList[i]);
+				collapsingSet_l.emplace(id1, id2, cost, pointsList[i]);
 			}
 			
 			//
@@ -387,31 +362,94 @@ namespace geometry
 		}
 			
 		//
-		// Restoration
+		// If no valid points have been found, restore and return
 		//
 		
-		// Restore connections
-		gridOperation.getPointerToConnectivity()
-			->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+		if (collapsingSet_l.empty())
+		{
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
 			
-		// Restore list of nodes
-		gridOperation.getPointerToMesh()->setNode(id1, P);
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
+			return;
+		}
+							
+		//
+		// Check for grids self-intersections
+		//
+		// Start from the cheapest collapsing point: if this does not lead to
+		// self-intersections, add it to collapsingEdge; otherwise,
+		// consider the second less expensive point and so on and so forth
 		
-		#ifndef ENABLE_SELF_INTERSECTIONS
+		#ifdef ENABLE_SELF_INTERSECTIONS
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
+			// Update collapseInfo's and collapsingEdge's lists
+			costObj.addCollapseInfo_f(id1, id2, collapsingSet_l.cbegin()->getCost(),
+				collapsingSet_l.cbegin()->getCollapsingPoint());
+			collapsingSet.emplace(id1, id2, collapsingSet_l.cbegin()->getCost(),
+				collapsingSet_l.cbegin()->getCollapsingPoint());
+		#else
+			for (auto it = collapsingSet_l.cbegin(); it != collapsingSet_l.cend(); ++it)
+			{
+				// Set collapsing point
+				gridOperation.getPointerToMesh()->setNode(id1, it->getCollapsingPoint());
+				
+				// Update structured data
+				structData.update_f(toKeep);
+				
+				// Test self-intersections
+				bool valid(true);
+				for (auto it1 = toKeep.cbegin(); it1 != toKeep.cend() && valid; ++it1)
+				{
+					auto elems = structData.getNeighbouringElements(*it1);
+					for (auto it2 = elems.cbegin(); it2 != elems.cend() && valid; ++it2)
+						valid = valid && !(intrs.intersect(*it1, *it2));
+				}
+				
+				// Possibly update collapseInfo's and collapsingEdge's lists
+				if (valid)
+				{
+					// Restore connections
+					gridOperation.getPointerToConnectivity()
+						->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+			
+					// Restore list of nodes
+					gridOperation.getPointerToMesh()->setNode(id1, P);
+					
+					// Restore structured data
+					structData.update_f(toKeep);
+					
+					// Update collapseInfo's and collapsingEdge's lists
+					costObj.addCollapseInfo_f(id1, id2, it->getCost(), it->getCollapsingPoint());
+					collapsingSet.emplace(id1, id2, it->getCost(), it->getCollapsingPoint());
+						
+					return;
+				}
+			}
+			
+			//
+			// No collapsing point turned out to be valid, so just restore everything
+			//
+			
+			// Restore connections
+			gridOperation.getPointerToConnectivity()
+				->undoEdgeCollapse(id2, id1, oldConnections.first, oldConnections.second, toRemove); 
+	
+			// Restore list of nodes
+			gridOperation.getPointerToMesh()->setNode(id1, P);
+			
 			// Restore structured data
 			structData.update_f(toKeep);
 		#endif
-					
-		//
-		// Update collapseInfo's and collapsingEdge's lists
-		//
-		// First make sure that an optimal point has actually been found
-		
-		if (opt_cPoint < pointsList.size())
-		{ 
-			costObj.addCollapseInfo_f(id1, id2, opt_cost, pointsList[opt_cPoint]);
-			collapsingSet.emplace(id1, id2, opt_cost, pointsList[opt_cPoint]);
-		}
 	}
 		
 	

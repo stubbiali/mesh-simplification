@@ -474,8 +474,7 @@ namespace geometry
 			(((P1[1] < x(1)) && (x(1) < P2[1])) || ((P2[1] < x(1)) && (x(1) < P1[1]))) &&
 			(((P1[2] < x(2)) && (x(2) < P2[2])) || ((P2[2] < x(2)) && (x(2) < P1[2]))))
 		{
-			auto err = (A*x - b).norm() / b.norm();
-			if (err < TOLL)
+			if ((A*x - b).norm() < TOLL * b.norm())
 				return make_pair<bool,point>(true, {x(0), x(1), x(2)});
 			return make_pair<bool,point>(false, {0.,0.,0.});
 		}

@@ -11,11 +11,11 @@ int main()
 	using namespace std::chrono;
 	
 	// Path to input and output file
-	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn.inp");
-	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn_1000_033_033_033_1.inp");
+	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/bunny.inp");
+	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/bunny_5000_033_033_033.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(1000);
+	UInt numNodesMax(5000);
 	
 	// Simplificate!
 	#ifdef NDEBUG

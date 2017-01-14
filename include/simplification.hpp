@@ -152,8 +152,7 @@ namespace geometry
 				\param id1	Id of the first end-point of the edge
 				\param id2	Id of the second end-point of the edge */
 			void getCost(const UInt & id1, const UInt & id2);
-			void getCost2(const UInt & id1, const UInt & id2);
-			
+						
 			/*!	Method which takes the cost data for the contraction of the edge.
 				The "fast" version of the methods of CostClass are employed.
 				The function operates by step:
@@ -166,8 +165,7 @@ namespace geometry
 				\param id1	Id of the first end-point of the edge
 				\param id2	Id of the second end-point of the edge */
 			void getCost_f(const UInt & id1, const UInt & id2);
-			void getCost2_f(const UInt & id1, const UInt & id2);
-			
+						
 			/*! Method which updates:
 				<ol>
 				<li> the mesh
