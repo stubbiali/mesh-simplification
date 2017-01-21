@@ -340,7 +340,7 @@ namespace geometry
 				valid = valid && (oldNormals[j] * gridOperation.getNormal(toKeep[j]) > TOLL);
 				
 				// No empty triangles
-				valid = valid && !(gridOperation.isEmpty(toKeep[j]));
+				//valid = valid && !(gridOperation.isEmpty(toKeep[j]));
 			}
 			
 			//

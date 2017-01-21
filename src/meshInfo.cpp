@@ -24,7 +24,7 @@ namespace geometry
 			// Preamble
 			file << this->connectivity.grid.getNumNodes() << " "
 				 << this->connectivity.grid.getNumElems() << " " 
-				 << "0 0 0" << endl;
+				 << "0 1 0" << endl;
 				 
 			// Print nodes
 			auto nodes = this->connectivity.grid.getNodes();
@@ -38,11 +38,18 @@ namespace geometry
 			auto elems = this->connectivity.grid.getElems();
 			for (auto elem : elems)
 				file << elem.getId()+1 	<< " "
-					 << getQuantityOfInformation(elem.getId()) << "  "
+					 << 0				<< "  "
 					 << "tri" 			<< "  "
 					 << elem[0]+1		<< "  "
 					 << elem[1]+1		<< "  "
 					 << elem[2]+1		<< endl;
+					 
+			// Print quantity of information for each element
+			file << "1 1" << endl;
+			file << "QOI, -" << endl;
+			for (auto elem : elems)
+				file << elem.getId()+1 << " "
+					 << getQuantityOfInformation(elem.getId()) << endl;
 					 
 			// Close the file
 			file.close();

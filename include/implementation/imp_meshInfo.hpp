@@ -78,13 +78,16 @@ namespace geometry
 		// TODO
 	}
 	
+	
 	// Declare specialization for triangular grids
 	template<>
 	void meshInfo<Triangle, MeshType::DATA>::print_inp(const string & filename) const;
 	
+	
 	// Declare specialization for quadrilateral grids
 	template<>
 	void meshInfo<Quad, MeshType::DATA>::print_inp(const string & filename) const;
+		
 		
 	template<typename SHAPE>
 	void meshInfo<SHAPE, MeshType::DATA>::print_vtk(const string & filename) const

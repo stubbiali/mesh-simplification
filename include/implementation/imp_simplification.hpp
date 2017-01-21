@@ -1024,8 +1024,8 @@ namespace geometry
 		
 		// ... to file
 		if (!(file.empty()))
-			gridOperation.getPointerToMesh()->print(file);
-			//gridOperation.printMesh(file);
+			//gridOperation.getPointerToMesh()->print(file);
+			gridOperation.printMesh(file);
 	}
 	
 	
@@ -1136,8 +1136,8 @@ namespace geometry
 		
 		// ... to file
 		if (!(file.empty()))
-			gridOperation.getPointerToMesh()->print(file);
-			//gridOperation.printMesh(file);
+			//gridOperation.getPointerToMesh()->print(file);
+			gridOperation.printMesh(file);
 	}
 }
 
