@@ -12,7 +12,7 @@ int main()
 	
 	// Path to input and output file
 	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/brain.inp");
-	string oFile("/home/stefano/Desktop/mesh-simplification/results/brain_20000_033_033_033.inp");
+	string oFile("/home/stefano/Desktop/mesh-simplification/results/brain_20000_033_033_033_greedy.inp");
 	
 	// Desired number of nodes
 	UInt numNodesMax(20000);
@@ -23,8 +23,8 @@ int main()
 	#endif
 	
 	simplification<Triangle, MeshType::DATA, DataGeo> simplifier(iFile);
-	simplifier.simplificate(numNodesMax, true, oFile);
-	//simplifier.simplificate_greedy(numNodesMax, 5, true, oFile);
+	//simplifier.simplificate(numNodesMax, true, oFile);
+	simplifier.simplificate_greedy(numNodesMax, 5, true, oFile);
 	
 	#ifdef NDEBUG
 	high_resolution_clock::time_point stop = high_resolution_clock::now();
