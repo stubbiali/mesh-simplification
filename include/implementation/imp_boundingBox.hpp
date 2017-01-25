@@ -178,7 +178,7 @@ namespace geometry
 			
 		// Check (olny debug mode): the barycenter must fall
 		// within the mesh (global) bounding box
-		assert(idx < boundingBox::numCells[0]*boundingBox::numCells[1]*boundingBox::numCells[2]);
+		//assert(idx < boundingBox::numCells[0]*boundingBox::numCells[1]*boundingBox::numCells[2]);
 	} 
 	
 	
