@@ -54,6 +54,8 @@ CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmooth
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/applyNoiseAndTaubinSmoothingRoutine.dir/bin/applyNoiseAndTaubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

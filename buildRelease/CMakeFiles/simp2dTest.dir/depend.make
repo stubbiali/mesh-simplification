@@ -54,6 +54,8 @@ CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/intersec/triangleIn
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/simp2dTest.dir/unitTests/simp2dTest.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

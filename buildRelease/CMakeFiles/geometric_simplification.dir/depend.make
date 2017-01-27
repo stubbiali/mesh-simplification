@@ -54,6 +54,8 @@ CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../s
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/geometric_simplification.dir/bin/geometric_simplification.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

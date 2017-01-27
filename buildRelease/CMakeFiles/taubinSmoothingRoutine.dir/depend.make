@@ -54,6 +54,8 @@ CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/i
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/taubinSmoothingRoutine.dir/bin/taubinSmoothingRoutine.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

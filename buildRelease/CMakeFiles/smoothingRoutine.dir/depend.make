@@ -54,6 +54,8 @@ CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/intersec/tria
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/smoothingRoutine.dir/bin/smoothingRoutine.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

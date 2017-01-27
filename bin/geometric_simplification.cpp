@@ -18,7 +18,7 @@ int main()
     downloadMesh down;
     
     // Path to the file
-    string filename("../mesh/bunny.inp");
+    string filename("../mesh/pawn.inp");
     
     // Reading
     down.fileFromParaview(filename, &surf);
@@ -27,20 +27,20 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(27840);
+    UInt numNodesMax(1000);
         
-    simplification2d<Triangle> s(&surf);
-    s.simplificateGreedy(numNodesMax);
+    //simplification2d<Triangle> s(&surf);
+    //s.simplificateGreedy(numNodesMax);
         
     //garlandCostFunction cf;
     //vector<UInt> pointMaterialId(2522, 0);
     //simplification2dCostFunctionBased s(&cf, &surf, pointMaterialId);
     //s.simplificateGreedy(numNodesMax);
     
-    //meshDataSimplification<Triangle> s;
-    //s.setMeshPointer(&surf);
-    //s.simplificate(numNodesMax);
+    meshDataSimplification<Triangle> s;
+    s.setMeshPointer(&surf);
+    s.simplificationProcess(numNodesMax);
         
     createFile up;
-    up.fileForParaview("../mesh/bunny_27840.inp", &surf);
+    up.fileForParaview("../mesh/pawn_1000_033_033_033_bis.inp", &surf);
 }

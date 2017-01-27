@@ -232,6 +232,45 @@ src/CMakeFiles/meshSimplification.dir/geometry/tricky3d.cpp.o
  /home/stefano/Desktop/mesh-simplification/src/geometry/mesh3d.hpp
  /home/stefano/Desktop/mesh-simplification/src/geometry/tricky3d.cpp
  /home/stefano/Desktop/mesh-simplification/src/geometry/tricky3d.h
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o
+ /home/stefano/Desktop/mesh-simplification/src/core/shapes.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.cpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o
+ ../RobustPredicates/predicates.h
+ /home/stefano/Desktop/mesh-simplification/src/core/point.h
+ /home/stefano/Desktop/mesh-simplification/src/core/shapes.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.cpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inSegment.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o
+ ../RobustPredicates/predicates.h
+ /home/stefano/Desktop/mesh-simplification/src/core/graphItem.h
+ /home/stefano/Desktop/mesh-simplification/src/core/point.h
+ /home/stefano/Desktop/mesh-simplification/src/core/shapes.hpp
+ /home/stefano/Desktop/mesh-simplification/src/file/createFile.h
+ /home/stefano/Desktop/mesh-simplification/src/geometry/geoElement.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh0d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh1d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh2d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh3d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.cpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/barCoordinates.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inSegment.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inTriangle.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o
+ ../RobustPredicates/predicates.h
+ /home/stefano/Desktop/mesh-simplification/src/core/point.h
+ /home/stefano/Desktop/mesh-simplification/src/core/shapes.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.cpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/barCoordinates.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inSegment.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inTriangle.h
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o
  /home/stefano/Desktop/mesh-simplification/src/core/graphItem.h
  /home/stefano/Desktop/mesh-simplification/src/core/point.h
@@ -266,6 +305,43 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o
  /home/stefano/Desktop/mesh-simplification/src/geometry/tricky2d.h
  /home/stefano/Desktop/mesh-simplification/src/meshOperation/isotropicQuality2d.cpp
  /home/stefano/Desktop/mesh-simplification/src/meshOperation/isotropicQuality2d.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o
+ ../RobustPredicates/predicates.h
+ /home/stefano/Desktop/mesh-simplification/src/core/graphItem.h
+ /home/stefano/Desktop/mesh-simplification/src/core/point.h
+ /home/stefano/Desktop/mesh-simplification/src/core/shapes.hpp
+ /home/stefano/Desktop/mesh-simplification/src/doctor/doctor2d.h
+ /home/stefano/Desktop/mesh-simplification/src/doctor/meshHandler.hpp
+ /home/stefano/Desktop/mesh-simplification/src/file/createFile.h
+ /home/stefano/Desktop/mesh-simplification/src/geometry/connect1d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/connect2d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/connect3d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/geoElement.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/geoElementSearch.h
+ /home/stefano/Desktop/mesh-simplification/src/geometry/geoElementSize.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh0d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh1d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh2d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/mesh3d.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/meshSearch.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/meshSearchStructured.hpp
+ /home/stefano/Desktop/mesh-simplification/src/geometry/tricky2d.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/intersecHandler.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/meshIntersec.hpp
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.h
+ /home/stefano/Desktop/mesh-simplification/src/meshOperation/isotropicQuality2d.h
+ /home/stefano/Desktop/mesh-simplification/src/meshOperation/mementoElement.hpp
+ /home/stefano/Desktop/mesh-simplification/src/meshOperation/meshDataSimplification.cpp
+ /home/stefano/Desktop/mesh-simplification/src/meshOperation/meshDataSimplification.h
+ /home/stefano/Desktop/mesh-simplification/src/meshOperation/simplification2d.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/barCoordinates.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inSegment.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/inTriangle.h
+ /home/stefano/Desktop/mesh-simplification/src/utility/sortList.hpp
+ /home/stefano/Desktop/mesh-simplification/src/utility/tree.hpp
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o
  ../RobustPredicates/predicates.h
  /home/stefano/Desktop/mesh-simplification/src/core/graphItem.h

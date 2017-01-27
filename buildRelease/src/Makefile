@@ -703,6 +703,114 @@ geometry/tricky3d.cpp.s:
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/geometry/tricky3d.cpp.s
 .PHONY : geometry/tricky3d.cpp.s
 
+intersec/intervalIntersection.o: intersec/intervalIntersection.cpp.o
+
+.PHONY : intersec/intervalIntersection.o
+
+# target to build an object file
+intersec/intervalIntersection.cpp.o:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o
+.PHONY : intersec/intervalIntersection.cpp.o
+
+intersec/intervalIntersection.i: intersec/intervalIntersection.cpp.i
+
+.PHONY : intersec/intervalIntersection.i
+
+# target to preprocess a source file
+intersec/intervalIntersection.cpp.i:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.i
+.PHONY : intersec/intervalIntersection.cpp.i
+
+intersec/intervalIntersection.s: intersec/intervalIntersection.cpp.s
+
+.PHONY : intersec/intervalIntersection.s
+
+# target to generate assembly for a file
+intersec/intervalIntersection.cpp.s:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.s
+.PHONY : intersec/intervalIntersection.cpp.s
+
+intersec/lineIntersection.o: intersec/lineIntersection.cpp.o
+
+.PHONY : intersec/lineIntersection.o
+
+# target to build an object file
+intersec/lineIntersection.cpp.o:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o
+.PHONY : intersec/lineIntersection.cpp.o
+
+intersec/lineIntersection.i: intersec/lineIntersection.cpp.i
+
+.PHONY : intersec/lineIntersection.i
+
+# target to preprocess a source file
+intersec/lineIntersection.cpp.i:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.i
+.PHONY : intersec/lineIntersection.cpp.i
+
+intersec/lineIntersection.s: intersec/lineIntersection.cpp.s
+
+.PHONY : intersec/lineIntersection.s
+
+# target to generate assembly for a file
+intersec/lineIntersection.cpp.s:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.s
+.PHONY : intersec/lineIntersection.cpp.s
+
+intersec/triangleIntersection.o: intersec/triangleIntersection.cpp.o
+
+.PHONY : intersec/triangleIntersection.o
+
+# target to build an object file
+intersec/triangleIntersection.cpp.o:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o
+.PHONY : intersec/triangleIntersection.cpp.o
+
+intersec/triangleIntersection.i: intersec/triangleIntersection.cpp.i
+
+.PHONY : intersec/triangleIntersection.i
+
+# target to preprocess a source file
+intersec/triangleIntersection.cpp.i:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.i
+.PHONY : intersec/triangleIntersection.cpp.i
+
+intersec/triangleIntersection.s: intersec/triangleIntersection.cpp.s
+
+.PHONY : intersec/triangleIntersection.s
+
+# target to generate assembly for a file
+intersec/triangleIntersection.cpp.s:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.s
+.PHONY : intersec/triangleIntersection.cpp.s
+
+intersec/triangleLineIntersection.o: intersec/triangleLineIntersection.cpp.o
+
+.PHONY : intersec/triangleLineIntersection.o
+
+# target to build an object file
+intersec/triangleLineIntersection.cpp.o:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o
+.PHONY : intersec/triangleLineIntersection.cpp.o
+
+intersec/triangleLineIntersection.i: intersec/triangleLineIntersection.cpp.i
+
+.PHONY : intersec/triangleLineIntersection.i
+
+# target to preprocess a source file
+intersec/triangleLineIntersection.cpp.i:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.i
+.PHONY : intersec/triangleLineIntersection.cpp.i
+
+intersec/triangleLineIntersection.s: intersec/triangleLineIntersection.cpp.s
+
+.PHONY : intersec/triangleLineIntersection.s
+
+# target to generate assembly for a file
+intersec/triangleLineIntersection.cpp.s:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.s
+.PHONY : intersec/triangleLineIntersection.cpp.s
+
 meshOperation/costFunction.o: meshOperation/costFunction.cpp.o
 
 .PHONY : meshOperation/costFunction.o
@@ -756,6 +864,33 @@ meshOperation/isotropicQuality2d.s: meshOperation/isotropicQuality2d.cpp.s
 meshOperation/isotropicQuality2d.cpp.s:
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.s
 .PHONY : meshOperation/isotropicQuality2d.cpp.s
+
+meshOperation/meshDataSimplification.o: meshOperation/meshDataSimplification.cpp.o
+
+.PHONY : meshOperation/meshDataSimplification.o
+
+# target to build an object file
+meshOperation/meshDataSimplification.cpp.o:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o
+.PHONY : meshOperation/meshDataSimplification.cpp.o
+
+meshOperation/meshDataSimplification.i: meshOperation/meshDataSimplification.cpp.i
+
+.PHONY : meshOperation/meshDataSimplification.i
+
+# target to preprocess a source file
+meshOperation/meshDataSimplification.cpp.i:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.i
+.PHONY : meshOperation/meshDataSimplification.cpp.i
+
+meshOperation/meshDataSimplification.s: meshOperation/meshDataSimplification.cpp.s
+
+.PHONY : meshOperation/meshDataSimplification.s
+
+# target to generate assembly for a file
+meshOperation/meshDataSimplification.cpp.s:
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease && $(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.s
+.PHONY : meshOperation/meshDataSimplification.cpp.s
 
 meshOperation/simplification1d.o: meshOperation/simplification1d.cpp.o
 
@@ -1127,12 +1262,27 @@ help:
 	@echo "... geometry/tricky3d.o"
 	@echo "... geometry/tricky3d.i"
 	@echo "... geometry/tricky3d.s"
+	@echo "... intersec/intervalIntersection.o"
+	@echo "... intersec/intervalIntersection.i"
+	@echo "... intersec/intervalIntersection.s"
+	@echo "... intersec/lineIntersection.o"
+	@echo "... intersec/lineIntersection.i"
+	@echo "... intersec/lineIntersection.s"
+	@echo "... intersec/triangleIntersection.o"
+	@echo "... intersec/triangleIntersection.i"
+	@echo "... intersec/triangleIntersection.s"
+	@echo "... intersec/triangleLineIntersection.o"
+	@echo "... intersec/triangleLineIntersection.i"
+	@echo "... intersec/triangleLineIntersection.s"
 	@echo "... meshOperation/costFunction.o"
 	@echo "... meshOperation/costFunction.i"
 	@echo "... meshOperation/costFunction.s"
 	@echo "... meshOperation/isotropicQuality2d.o"
 	@echo "... meshOperation/isotropicQuality2d.i"
 	@echo "... meshOperation/isotropicQuality2d.s"
+	@echo "... meshOperation/meshDataSimplification.o"
+	@echo "... meshOperation/meshDataSimplification.i"
+	@echo "... meshOperation/meshDataSimplification.s"
 	@echo "... meshOperation/simplification1d.o"
 	@echo "... meshOperation/simplification1d.i"
 	@echo "... meshOperation/simplification1d.s"

@@ -537,9 +537,33 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o.provi
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o
 
 
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/meshDataSimplification.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/meshDataSimplification.cpp
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.i"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Desktop/mesh-simplification/src/meshOperation/meshDataSimplification.cpp > CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.i
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.s"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Desktop/mesh-simplification/src/meshOperation/meshDataSimplification.cpp -o CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.s
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.requires
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.provides: src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.provides.build
+.PHONY : src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.provides
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o
+
+
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o: ../src/meshOperation/simplification1d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/simplification1d.cpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.i: cmake_force
@@ -563,7 +587,7 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o.provi
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: ../src/meshOperation/isotropicQuality2d.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/isotropicQuality2d.cpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.i: cmake_force
@@ -587,7 +611,7 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o.pro
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o: ../src/meshOperation/costFunction.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/costFunction.cpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.i: cmake_force
@@ -611,7 +635,7 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o.provides.
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/simplification2dCostFunctionBased.cpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunctionBased.cpp.i: cmake_force
@@ -635,7 +659,7 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2dCostFunction
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o: ../src/meshOperation/taubinSmoothing.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/meshOperation/taubinSmoothing.cpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.i: cmake_force
@@ -659,7 +683,7 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/taubinSmoothing.cpp.o.provid
 
 src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o: ../src/utility/inTetrahedron.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/inTetrahedron.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.i: cmake_force
@@ -683,7 +707,7 @@ src/CMakeFiles/meshSimplification.dir/utility/inTetrahedron.cpp.o.provides.build
 
 src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o: ../src/utility/insidePolygon.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/insidePolygon.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.i: cmake_force
@@ -707,7 +731,7 @@ src/CMakeFiles/meshSimplification.dir/utility/insidePolygon.cpp.o.provides.build
 
 src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o: ../src/utility/inTriangle.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/inTriangle.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.i: cmake_force
@@ -731,7 +755,7 @@ src/CMakeFiles/meshSimplification.dir/utility/inTriangle.cpp.o.provides.build: s
 
 src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o: ../src/utility/inSegment.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/inSegment.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.i: cmake_force
@@ -755,7 +779,7 @@ src/CMakeFiles/meshSimplification.dir/utility/inSegment.cpp.o.provides.build: sr
 
 src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o: ../src/utility/triangleMapping.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/triangleMapping.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.i: cmake_force
@@ -779,7 +803,7 @@ src/CMakeFiles/meshSimplification.dir/utility/triangleMapping.cpp.o.provides.bui
 
 src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o: ../src/utility/barCoordinates.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/barCoordinates.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.i: cmake_force
@@ -803,7 +827,7 @@ src/CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o.provides.buil
 
 src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o: ../src/utility/insideVolume.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/utility/insideVolume.cpp
 
 src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.i: cmake_force
@@ -827,7 +851,7 @@ src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o.provides.build:
 
 src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o: ../src/file/downloadMesh.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_33) "Building CXX object src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/file/downloadMesh.cpp
 
 src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.i: cmake_force
@@ -851,7 +875,7 @@ src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o.provides.build: sr
 
 src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
 src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o: ../src/file/createFile.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_34) "Building CXX object src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Building CXX object src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/file/createFile.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/file/createFile.cpp
 
 src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.i: cmake_force
@@ -871,6 +895,102 @@ src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o.provides: src/CMakeF
 .PHONY : src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o.provides
 
 src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o
+
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/intersec/triangleLineIntersection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_36) "Building CXX object src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.cpp
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.i"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.cpp > CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.i
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.s"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Desktop/mesh-simplification/src/intersec/triangleLineIntersection.cpp -o CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.s
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.requires
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.provides: src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.provides.build
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.provides
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o
+
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o: ../src/intersec/intervalIntersection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_37) "Building CXX object src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.cpp
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.i"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.cpp > CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.i
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.s"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Desktop/mesh-simplification/src/intersec/intervalIntersection.cpp -o CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.s
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.requires
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.provides: src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.provides.build
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.provides
+
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o
+
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/intersec/triangleIntersection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_38) "Building CXX object src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.cpp
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.i"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.cpp > CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.i
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.s"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Desktop/mesh-simplification/src/intersec/triangleIntersection.cpp -o CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.s
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.requires
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.provides: src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.provides.build
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.provides
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o
+
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: src/CMakeFiles/meshSimplification.dir/flags.make
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/intersec/lineIntersection.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_39) "Building CXX object src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o -c /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.cpp
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.i"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.cpp > CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.i
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.s"
+	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/stefano/Desktop/mesh-simplification/src/intersec/lineIntersection.cpp -o CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.s
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.requires:
+
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.requires
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.provides: src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.requires
+	$(MAKE) -f src/CMakeFiles/meshSimplification.dir/build.make src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.provides.build
+.PHONY : src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.provides
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.provides.build: src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o
 
 
 # Object files for target meshSimplification
@@ -895,6 +1015,7 @@ meshSimplification_OBJECTS = \
 "CMakeFiles/meshSimplification.dir/geometry/tricky1d.cpp.o" \
 "CMakeFiles/meshSimplification.dir/geometry/tricky2d.cpp.o" \
 "CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o" \
+"CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o" \
 "CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o" \
 "CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o" \
 "CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o" \
@@ -908,7 +1029,11 @@ meshSimplification_OBJECTS = \
 "CMakeFiles/meshSimplification.dir/utility/barCoordinates.cpp.o" \
 "CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o" \
 "CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o" \
-"CMakeFiles/meshSimplification.dir/file/createFile.cpp.o"
+"CMakeFiles/meshSimplification.dir/file/createFile.cpp.o" \
+"CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o" \
+"CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o" \
+"CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o" \
+"CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o"
 
 # External object files for target meshSimplification
 meshSimplification_EXTERNAL_OBJECTS =
@@ -933,6 +1058,7 @@ src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/geometry/geoE
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/geometry/tricky1d.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/geometry/tricky2d.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o
+src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o
@@ -947,9 +1073,13 @@ src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/utility/barCo
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o
+src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o
+src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o
+src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o
+src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/build.make
 src/libmeshSimplification.a: src/CMakeFiles/meshSimplification.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_35) "Linking CXX static library libmeshSimplification.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/stefano/Desktop/mesh-simplification/buildRelease/CMakeFiles --progress-num=$(CMAKE_PROGRESS_40) "Linking CXX static library libmeshSimplification.a"
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && $(CMAKE_COMMAND) -P CMakeFiles/meshSimplification.dir/cmake_clean_target.cmake
 	cd /home/stefano/Desktop/mesh-simplification/buildRelease/src && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/meshSimplification.dir/link.txt --verbose=$(VERBOSE)
 
@@ -978,6 +1108,7 @@ src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplificatio
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/geometry/tricky1d.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/geometry/tricky2d.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o.requires
+src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o.requires
@@ -992,6 +1123,10 @@ src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplificatio
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o.requires
 src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/file/createFile.cpp.o.requires
+src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o.requires
+src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o.requires
+src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o.requires
+src/CMakeFiles/meshSimplification.dir/requires: src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o.requires
 
 .PHONY : src/CMakeFiles/meshSimplification.dir/requires
 

@@ -54,6 +54,8 @@ CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ..
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/intersec/triangleLineIntersection.h
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/costFunction.h
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/mementoElement.hpp
+CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/meshDataSimplification.h
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/simplification1d.h
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/simplification2d.h
 CMakeFiles/evaluationCostFunction.dir/unitTests/evaluationCostFunction.cpp.o: ../src/meshOperation/simplification2dCostFunctionBased.h

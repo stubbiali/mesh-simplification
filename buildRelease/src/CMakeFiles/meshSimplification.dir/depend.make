@@ -232,6 +232,45 @@ src/CMakeFiles/meshSimplification.dir/geometry/tricky3d.cpp.o: ../src/geometry/m
 src/CMakeFiles/meshSimplification.dir/geometry/tricky3d.cpp.o: ../src/geometry/tricky3d.cpp
 src/CMakeFiles/meshSimplification.dir/geometry/tricky3d.cpp.o: ../src/geometry/tricky3d.h
 
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o: ../src/core/shapes.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o: ../src/intersec/intervalIntersection.cpp
+src/CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o: ../src/intersec/intervalIntersection.h
+
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../RobustPredicates/predicates.h
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/core/point.h
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/core/shapes.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/intersec/lineIntersection.cpp
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/intersec/lineIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o: ../src/utility/inSegment.h
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../RobustPredicates/predicates.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/core/graphItem.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/core/point.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/core/shapes.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/file/createFile.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/geometry/geoElement.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/geometry/mesh0d.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/geometry/mesh1d.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/geometry/mesh2d.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/geometry/mesh3d.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/intersec/lineIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/intersec/triangleIntersection.cpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/intersec/triangleIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/intersec/triangleLineIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/utility/barCoordinates.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/utility/inSegment.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o: ../src/utility/inTriangle.h
+
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../RobustPredicates/predicates.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/core/point.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/core/shapes.hpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/intersec/lineIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/intersec/triangleLineIntersection.cpp
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/intersec/triangleLineIntersection.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/utility/barCoordinates.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/utility/inSegment.h
+src/CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o: ../src/utility/inTriangle.h
+
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o: ../src/core/graphItem.h
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o: ../src/core/point.h
 src/CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o: ../src/core/shapes.hpp
@@ -265,6 +304,43 @@ src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: ..
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: ../src/geometry/tricky2d.h
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: ../src/meshOperation/isotropicQuality2d.cpp
 src/CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../RobustPredicates/predicates.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/core/graphItem.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/core/point.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/core/shapes.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/doctor/doctor2d.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/doctor/meshHandler.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/file/createFile.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/connect1d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/connect2d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/connect3d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/geoElement.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/geoElementSearch.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/geoElementSize.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/mesh0d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/mesh1d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/mesh2d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/mesh3d.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/meshSearch.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/meshSearchStructured.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/geometry/tricky2d.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/intersecHandler.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/intervalIntersection.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/lineIntersection.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/meshIntersec.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/triangleIntersection.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/intersec/triangleLineIntersection.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/isotropicQuality2d.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/mementoElement.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/meshDataSimplification.cpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/meshDataSimplification.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/meshOperation/simplification2d.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/utility/barCoordinates.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/utility/inSegment.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/utility/inTriangle.h
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/utility/sortList.hpp
+src/CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o: ../src/utility/tree.hpp
 
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o: ../RobustPredicates/predicates.h
 src/CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o: ../src/core/graphItem.h

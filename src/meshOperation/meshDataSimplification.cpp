@@ -923,9 +923,9 @@ void meshDataSimplification<Triangle>::findElemDontTouch()
 void meshDataSimplification<Triangle>::controlUpdatingList(vector<Real> * costi)
 {
     // varaibili booleane con i test per i costi 
-    bool hightGeoCost  = ((costi->at(0)/maxGeoCost)>1.1);	// forse converrebbe guardare che il rapporto fra le due sia 
-    bool hightAssCost  = ((costi->at(1)/maxAssCost)>1.1);	// maggiore di 1.3 ? così la aggiorna troppo!!
-    bool hightDistCost = ((costi->at(2)/maxDistCost)>1.1);
+    bool hightGeoCost  = ((costi->at(0)/maxGeoCost)>1.3);	// forse converrebbe guardare che il rapporto fra le due sia 
+    bool hightAssCost  = ((costi->at(1)/maxAssCost)>1.3);	// maggiore di 1.3 ? così la aggiorna troppo!!
+    bool hightDistCost = ((costi->at(2)/maxDistCost)>1.3);
     
     // varaibili booleane con il test per il valor medio delle associazioni  
     bool assUpdate     = ((getMeanElemAss()/meanAssValue)>1.3);
@@ -1600,7 +1600,7 @@ Real meshDataSimplification<Triangle>::getElementCost(UInt elemId, vector<Real> 
 		costi->push_back(costDist);
 		
 		// solo geometria
-  		return(costi->at(0));
+  		return(pesoGeo*costi->at(0) + pesoAss*costi->at(1) + pesoDist*costi->at(2));
 	
 		break;
 	    }
@@ -1722,7 +1722,7 @@ void meshDataSimplification<Triangle>::simplificate(UInt numNodesMax)
 	      // diminuisco i punto 
 	      --numNode;
 	      
-	      cout << numNode << "  " << numNodesMax << endl;
+	      //cout << numNode << "  " << numNodesMax << endl;
 	  
 	      // aggiungo gli elementi modificati 
 	      upDate(&toAdd);
@@ -1738,7 +1738,7 @@ void meshDataSimplification<Triangle>::simplificate(UInt numNodesMax)
 		  ++updateCounter;
 		  
 		  // stampo un messaggio 
-		  cout << "Aggiorno per la " << updateCounter << " volta" << endl;
+		  //cout << "Aggiorno per la " << updateCounter << " volta" << endl;
 		  
 		  // aggiorno il valore medio 
 		  meanAssValue = getMeanElemAss();

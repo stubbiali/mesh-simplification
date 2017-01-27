@@ -19,6 +19,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/meshSimplification.dir/geometry/tricky1d.cpp.o"
   "CMakeFiles/meshSimplification.dir/geometry/tricky2d.cpp.o"
   "CMakeFiles/meshSimplification.dir/meshOperation/simplification2d.cpp.o"
+  "CMakeFiles/meshSimplification.dir/meshOperation/meshDataSimplification.cpp.o"
   "CMakeFiles/meshSimplification.dir/meshOperation/simplification1d.cpp.o"
   "CMakeFiles/meshSimplification.dir/meshOperation/isotropicQuality2d.cpp.o"
   "CMakeFiles/meshSimplification.dir/meshOperation/costFunction.cpp.o"
@@ -33,6 +34,10 @@ file(REMOVE_RECURSE
   "CMakeFiles/meshSimplification.dir/utility/insideVolume.cpp.o"
   "CMakeFiles/meshSimplification.dir/file/downloadMesh.cpp.o"
   "CMakeFiles/meshSimplification.dir/file/createFile.cpp.o"
+  "CMakeFiles/meshSimplification.dir/intersec/triangleLineIntersection.cpp.o"
+  "CMakeFiles/meshSimplification.dir/intersec/intervalIntersection.cpp.o"
+  "CMakeFiles/meshSimplification.dir/intersec/triangleIntersection.cpp.o"
+  "CMakeFiles/meshSimplification.dir/intersec/lineIntersection.cpp.o"
   "libmeshSimplification.pdb"
   "libmeshSimplification.a"
 )

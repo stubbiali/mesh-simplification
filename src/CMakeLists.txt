@@ -19,6 +19,6 @@ set (MESHDOCTORLIB_VERSION "${MESHDOCTORLIB_MAJOR_VERSION}.${MESHDOCTORLIB_MINOR
 # add the flags
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall ")
 
-file(GLOB SRCFILES adding/*.cpp core/*.cpp doctor/*.cpp geometry/*.cpp meshOperation/*.cpp utility/*.cpp file/*.cpp intersect/.cpp)
+file(GLOB SRCFILES adding/*.cpp core/*.cpp doctor/*.cpp geometry/*.cpp meshOperation/*.cpp utility/*.cpp file/*.cpp intersec/*.cpp)
 
 add_library(meshSimplification ${SRCFILES})

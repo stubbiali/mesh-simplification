@@ -60,8 +60,8 @@
 #include "meshOperation/costFunction.h"
 #include "meshOperation/simplification2dCostFunctionBased.h"
 #include "meshOperation/taubinSmoothing.h"
-//#include "meshOperation/mementoElement.hpp"
-//#include "meshOperation/meshDataSimplification.h"
+#include "meshOperation/mementoElement.hpp"
+#include "meshOperation/meshDataSimplification.h"
 // utility functions 
 #include "utility/barCoordinates.h"  
 #include "utility/bin.hpp"           
