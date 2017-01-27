@@ -15,7 +15,7 @@ int main()
 	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/cow_1160_033_033_033_greedy_30.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(20000);
+	UInt numNodesMax(1740);
 	
 	// Simplificate!
 	#ifdef NDEBUG
