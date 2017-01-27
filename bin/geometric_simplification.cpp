@@ -18,7 +18,7 @@ int main()
     downloadMesh down;
     
     // Path to the file
-    string filename("../mesh/pawn.inp");
+    string filename("../mesh/bunny.inp");
     
     // Reading
     down.fileFromParaview(filename, &surf);
@@ -27,7 +27,7 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(500);
+    UInt numNodesMax(27840);
         
     simplification2d<Triangle> s(&surf);
     s.simplificateGreedy(numNodesMax);
@@ -42,5 +42,5 @@ int main()
     //s.simplificate(numNodesMax);
         
     createFile up;
-    up.fileForParaview("../mesh/pawn_500.inp", &surf);
+    up.fileForParaview("../mesh/bunny_27840.inp", &surf);
 }
