@@ -1,6 +1,9 @@
+#include <chrono>
+
 #include "simplification2d.h"
 
 using namespace std;
+using namespace std::chrono;
 using namespace geometry;
 
 //
@@ -699,8 +702,8 @@ void simplification2d<Triangle>::simplificate(UInt numNodesMax)
       // variabili in uso
       UInt	numNode=meshPointer->getNumNodes();
       UInt numNodeStart=meshPointer->getNumNodes();
-      time_t 				 start,end;
-      Real          			       dif;
+      //time_t 				 start,end;
+      //Real          			       dif;
       vector<UInt>			      edge;
       pair<point, vector<Real> >	    result;
       
@@ -714,7 +717,8 @@ void simplification2d<Triangle>::simplificate(UInt numNodesMax)
       
       // stampe 
       cout << "Processo di semplificazione..." << endl;
-      time(&start);
+      //time(&start);
+      high_resolution_clock::time_point start = high_resolution_clock::now();
          
       // fino a che i nodi sono più grandi di quanto voglio proseguo con la decimazione 
       while(numNode>numNodesMax)
@@ -757,10 +761,12 @@ void simplification2d<Triangle>::simplificate(UInt numNodesMax)
       // faccio un refresh 
       refresh();
       
-      time(&end);
-      dif = difftime(end,start);
+      //time(&end);
+      //dif = difftime(end,start);
+      high_resolution_clock::time_point stop = high_resolution_clock::now();
+      auto dif = duration_cast<milliseconds>(stop-start).count();
       cout << "Il processo è partito da " << numNodeStart << " a " << meshPointer->getNumNodes() << " nodi" << endl;
-      cout << "Processo di semplificazione completato: " <<  dif << " sec." << endl;
+      cout << "Processo di semplificazione completato: " <<  dif << " ms" << endl;
       
       // metto a posto le Q
       setUpQ();
@@ -772,8 +778,8 @@ void simplification2d<Triangle>::simplificateGreedy(UInt numNodesMax)
       UInt 	 	        elemId=0,counter=0;
       UInt	numNode=meshPointer->getNumNodes();
       UInt numNodeStart=meshPointer->getNumNodes();
-      time_t 				 start,end;
-      Real          			       dif;
+      //time_t 				 start,end;
+      //Real          			       dif;
       point 					 p;
       vector<UInt>			edge,toAdd;
       pair<point, vector<Real> > 	    result;
@@ -789,7 +795,8 @@ void simplification2d<Triangle>::simplificateGreedy(UInt numNodesMax)
       
       // stampe 
       cout << "Processo di semplificazione Greedy..." << endl;
-      time(&start);
+      //time(&start);
+      high_resolution_clock::time_point start = high_resolution_clock::now();
       
       // creo la lista 
       createElementList(&lista);
@@ -833,16 +840,18 @@ void simplification2d<Triangle>::simplificateGreedy(UInt numNodesMax)
 	  // incremento counter 
 	  ++counter;
 	    
- 	  cout << numNode << " nodi su un limite massimo di " << numNodesMax << "                            \r";
+ 	  //cout << numNode << " nodi su un limite massimo di " << numNodesMax << "                            \r";
       }
       
       // faccio un refresh 
       refresh();
       
-      time(&end);
-      dif = difftime(end,start);
+      //time(&end);
+      //dif = difftime(end,start);
+      high_resolution_clock::time_point stop = high_resolution_clock::now();
+      auto dif = duration_cast<milliseconds>(stop-start).count();
       cout << "Il processo è partito da " << numNodeStart << " a " << meshPointer->getNumNodes() << " nodi" << endl;
-      cout << "Processo di semplificazione Greedy completato: " <<  dif << " sec." << endl;
+      cout << "Processo di semplificazione Greedy completato: " <<  dif << " ms" << endl;
 }
 
 void simplification2d<Triangle>::simplificateGreedyEasy(UInt numNodesMax)

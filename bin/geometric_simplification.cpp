@@ -1,4 +1,5 @@
 #include <iostream>
+#include <chrono>
 
 #include "meshSimplification.h"
 
@@ -6,6 +7,7 @@ int main()
 {	
 	using namespace geometry;
 	using namespace std;
+	using namespace std::chrono;
 	
 	//
 	// Read the mesh
@@ -25,17 +27,20 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(1000);
-    
-    //simplification2d<Triangle> s(&surf);
-    //s.simplificate(numNodesMax);
-    
-    garlandCostFunction cf;
-    vector<UInt> pointMaterialId(2522, 0);
-    
-    simplification2dCostFunctionBased s(&cf, &surf, pointMaterialId);
+    UInt numNodesMax(1400);
+        
+    simplification2d<Triangle> s(&surf);
     s.simplificateGreedy(numNodesMax);
+        
+    //garlandCostFunction cf;
+    //vector<UInt> pointMaterialId(2522, 0);
+    //simplification2dCostFunctionBased s(&cf, &surf, pointMaterialId);
+    //s.simplificateGreedy(numNodesMax);
     
+    //meshDataSimplification<Triangle> s;
+    //s.setMeshPointer(&surf);
+    //s.simplificate(numNodesMax);
+        
     createFile up;
-    up.fileForParaview("../mesh/out_pawn.inp", &surf);
+    up.fileForParaview("../mesh/out_pawn_1400.inp", &surf);
 }

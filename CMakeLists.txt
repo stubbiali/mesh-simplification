@@ -4,6 +4,7 @@ project (MESHDOCTORSIMP)
 
 # compilers 
 enable_language(CXX)
+SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11" )
 
 # The version number.
 set (MESHDOCTORSIMP_VERSION_MAJOR 1)

@@ -1517,6 +1517,8 @@ cmath
 /home/stefano/Desktop/mesh-simplification/bin/geometric_simplification.cpp
 iostream
 -
+chrono
+-
 meshSimplification.h
 /home/stefano/Desktop/mesh-simplification/bin/meshSimplification.h
 
