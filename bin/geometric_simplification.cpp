@@ -27,7 +27,7 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(1400);
+    UInt numNodesMax(500);
         
     simplification2d<Triangle> s(&surf);
     s.simplificateGreedy(numNodesMax);
@@ -42,5 +42,5 @@ int main()
     //s.simplificate(numNodesMax);
         
     createFile up;
-    up.fileForParaview("../mesh/out_pawn_1400.inp", &surf);
+    up.fileForParaview("../mesh/pawn_500.inp", &surf);
 }
