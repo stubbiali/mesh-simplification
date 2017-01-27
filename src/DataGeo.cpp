@@ -509,9 +509,9 @@ namespace geometry
 		
 		if (((bP == 0) && (bQ == 0)) || ((bP == 1) && (bQ == 1)))
 		{
-			auto ans = getOptimumPoint(id1,id2);
-			if (ans.first)
-				return {P, Q, 0.5*(P+Q), ans.second};
+			//auto ans = getOptimumPoint(id1,id2);
+			//if (ans.first)
+				//return {P, Q, 0.5*(P+Q), ans.second};
 			return {P, Q, 0.5*(P+Q)};
 		}
 		
