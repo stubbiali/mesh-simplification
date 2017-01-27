@@ -15,15 +15,15 @@ int main()
 	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/cow_1160_033_033_033_greedy_30.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(1400);
+	UInt numNodesMax(2000);
 	
 	// Simplificate!
 	#ifdef NDEBUG
 	high_resolution_clock::time_point start = high_resolution_clock::now();
 	#endif
 	
-	simplification<Triangle, MeshType::DATA, DataGeo> simplifier(iFile);
-	simplifier.simplificate(numNodesMax, true);
+	simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>> simplifier(iFile);
+	simplifier.simplificate(numNodesMax, false);
 	//simplifier.simplificate_greedy(numNodesMax, 30, true, oFile);
 	
 	#ifdef NDEBUG
