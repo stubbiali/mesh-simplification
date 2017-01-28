@@ -18,7 +18,7 @@ int main()
     downloadMesh down;
     
     // Path to the file
-    string filename("../mesh/pawn.inp");
+    string filename("../mesh/cow.inp");
     
     // Reading
     down.fileFromParaview(filename, &surf);
@@ -27,7 +27,7 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(1000);
+    UInt numNodesMax(2320);
         
     //simplification2d<Triangle> s(&surf);
     //s.simplificateGreedy(numNodesMax);
@@ -41,6 +41,6 @@ int main()
     s.setMeshPointer(&surf);
     s.simplificationProcess(numNodesMax);
         
-    createFile up;
-    up.fileForParaview("../mesh/pawn_1000_033_033_033_bis.inp", &surf);
+    //createFile up;
+    //up.fileForParaview("../mesh/pawn_1000_033_033_033_bis.inp", &surf);
 }
