@@ -11,19 +11,19 @@ int main()
 	using namespace std::chrono;
 	
 	// Path to input and output file
-	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/pawn.inp");
+	string iFile("/home/stefano/Desktop/mesh-simplification/mesh/bunny.inp");
 	string oFile("/home/stefano/Desktop/mesh-simplification/mesh/cow_1160_033_033_033_greedy_30.inp");
 	
 	// Desired number of nodes
-	UInt numNodesMax(2000);
+	UInt numNodesMax(27840);
 	
 	// Simplificate!
 	#ifdef NDEBUG
 	high_resolution_clock::time_point start = high_resolution_clock::now();
 	#endif
 	
-	simplification<Triangle, MeshType::GEO, OnlyGeo<MeshType::GEO>> simplifier(iFile);
-	simplifier.simplificate(numNodesMax, false);
+	simplification<Triangle, MeshType::DATA, DataGeo> simplifier(iFile);
+	simplifier.simplificate(numNodesMax, true);
 	//simplifier.simplificate_greedy(numNodesMax, 30, true, oFile);
 	
 	#ifdef NDEBUG
