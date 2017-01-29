@@ -1,5 +1,4 @@
 #include <iostream>
-#include <chrono>
 
 #include "meshSimplification.h"
 
@@ -7,7 +6,6 @@ int main()
 {	
 	using namespace geometry;
 	using namespace std;
-	using namespace std::chrono;
 	
 	//
 	// Read the mesh
@@ -18,7 +16,7 @@ int main()
     downloadMesh down;
     
     // Path to the file
-    string filename("../mesh/brain.inp");
+    string filename("../mesh/bunny.inp");
     
     // Reading
     down.fileFromParaview(filename, &surf);
@@ -27,7 +25,7 @@ int main()
     // Simplificate
     //
     
-    UInt numNodesMax(10000);
+    UInt numNodesMax(20880);
         
     //simplification2d<Triangle> s(&surf);
     //s.simplificateGreedy(numNodesMax);
@@ -42,5 +40,5 @@ int main()
     s.simplificationProcess(numNodesMax);
         
     createFile up;
-    up.fileForParaview("../mesh/brain_10000_033_033_033.inp", &surf);
+    up.fileForParaview("../mesh/bunny_20880_033_033_033.inp", &surf);
 }
