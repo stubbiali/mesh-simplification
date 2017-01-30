@@ -78,7 +78,7 @@ LDFLAGS=-L $(LIB_DIR) -l $(LIB) -Wl,-rpath=$(LIB_DIR)
 # Targets
 #
 
-all: create_folders dynamic main 
+all: folders dynamic main 
 
 #
 # Build static library
@@ -89,7 +89,7 @@ $(S_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
 	@echo "Compiling $@ -- done"
 
-static: create_folders $(S_LIB_OBJ)
+static: folders $(S_LIB_OBJ)
 	@echo "Creating lib$(LIB).a"
 	@ar -r -s	$(LIB_DIR)/lib$(LIB).a	$(S_LIB_OBJ) > /dev/null 2>&1
 	@echo "Creating lib$(LIB).a -- done"
@@ -104,7 +104,7 @@ $(D_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
 	@$(CXX) $(CXXFLAGS)	-fPIC -c -o	$@	$<	
 	@echo "Compiling $@ -- done"
 
-dynamic: create_folders $(D_LIB_OBJ)
+dynamic: folders $(D_LIB_OBJ)
 	@echo "Creating lib$(LIB).so.1.0"
 	@$(CXX) $(CXXFLAGS) -shared 	-o	lib$(LIB).so	$(D_LIB_OBJ) 
 	@mv lib$(LIB).so $(LIB_DIR)
@@ -125,7 +125,7 @@ $(TEST_BIN_DIR)/%: $(TEST_OBJ_DIR)/%.o dynamic
 	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)	
 	@echo "Linking $@ -- done"
 	
-test: create_folders $(TEST_BIN)
+test: folders $(TEST_BIN)
 	@echo "\033[92mTests successfully compiled and linked\n\033[0m"
 
 #
@@ -149,12 +149,12 @@ main: $(MAIN_BIN)
 # Phony targets
 #
 
-.PHONY: clean create_folders doc
+.PHONY: clean folders doc
 
 clean:
 	@$(RM) -r $(OBJ_DIR) $(BIN_DIR) $(LIB_DIR)/lib$(LIB).* $(DOC_DIR)/Doxyfile $(DOC_DIR)/html $(DOC_DIR)/latex
 		
-create_folders: 
+folders: 
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(S_LIB_OBJ_DIR)
 	@mkdir -p $(D_LIB_OBJ_DIR)
