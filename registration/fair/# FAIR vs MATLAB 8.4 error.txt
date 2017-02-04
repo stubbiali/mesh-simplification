@@ -1,0 +1,53 @@
+Thanks for pointing out the incompatibility of the FAIR toolbox with MATLAB 8.4
+
+I apologize for the delayed answer. I did install the newest MATLAB version and Xcode and I was able to reproduce the error as well as to localize its source:
+
+The MATLAB command fig = figure returns a so-called handle to a figure.
+In previous versions of MATLAB, this is a number (numerical) in the new version, this is replaced by a structured object with a corresponding field.
+
+The fix is actually relatively easy: simply replace 
+OLD: fig = figure* by
+NEW: fig = figure*; if ~isnumeric(fig), fig = fig.number; end
+Note that the fix also covers older MATLAB versions.
+
+Your error message is caused by the sprint command as it intends to format the structure fig as an integer.
+
+Just now, I run the complete code to make sure I spot all the occurrences (so fare I found 3 occasions). As soon as this terminates, I will either update the zip file, or simply provide updated versions of affected m-files.
+
+Thanks, Jan
+
+
+
+ERROR:
+
+I have a question related to FAIR.
+> As quite obvious, I am new to FAIR, so first I followed the instructions given in the README.m file. That is to say I run FAIRstartup.
+> Followed by BigTutorial2D.
+> But that ended up with errors
+> 
+>>> % create multilevel representation of the data MLdata = 
+>>> getMultilevel({Tdata,Rdata},omega,m,'fig',2);
+>>> getMultilevel(2 image(s), filter=block, 2D data,level=3:7), figure=2 
+>>> Error using sprintf Function is not defined for 'matlab.ui.Figure' 
+>>> inputs.
+> 
+>>> Error in FAIRfigure (line 25)
+>>> figname  = sprintf('[FAIR:%d] %s',fig,figname);
+> 
+>>> Error in getMultilevel (line 82)
+>>> FAIRfigure(fig,'figname',msg);
+> 
+> 
+>>> Error in E2_setupHandData (line 66)
+>>> MLdata = getMultilevel({Tdata,Rdata},omega,m,'fig',2);
+> 
+>>> Error in runThis (line 26)
+>>> eval(file);
+> 
+>>> Error in BigTutorial2D (line 46)
+>>> runThis('E2_setupHandData','initialize 2D data for use in FAIR');
+> 
+> 
+> I am using Matlab version 8.4.0.150421 (R2014b).
+> 
+> Could you help me to fix this problem?
