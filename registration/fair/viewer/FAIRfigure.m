@@ -21,10 +21,10 @@ if isempty(fig),
   fig = figure;  
 end;
 
-fig      = figure(fig); 
+fig = figure(fig); if ~isnumeric(fig), fig = fig.Number; end
 figname  = sprintf('[FAIR:%d] %s',fig,figname);
-position = FAIRposition('fig',fig,'position',position);
-set(fig,'numbertitle','off','name',figname,'color',color,'position',position);
+%position = FAIRposition('fig',fig,'position',position);
+set(fig,'numbertitle','off','name',figname,'color',color); %'position',position);
 if nargout == 1, varargout = {fig};  end;
 
 %{ 

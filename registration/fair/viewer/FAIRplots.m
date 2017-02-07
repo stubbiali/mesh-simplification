@@ -273,6 +273,7 @@ switch task,
     if ~isempty(plotOptn.position),
       pos = plotOptn.position;
     else
+        if ~isnumeric(fig), fig = fig.Number; end
       pos = FAIRposition('fig',fig);
     end;
     FAIRfigure(fig,...

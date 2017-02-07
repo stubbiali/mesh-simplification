@@ -8,7 +8,7 @@
 % Data originates from Ron Kikinis, 
 
 example = '3Dbrain';
-checkSetupDataFile; if OK,   return; end;
+%checkSetupDataFile; if OK,   return; end;
 
 FAIRmessage(mfilename)
 

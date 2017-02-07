@@ -41,7 +41,7 @@ else
   fig = figure;     
 end;
 clf;
-set(fig,'numbertitle','off','name',sprintf('[FAIR:%d] %s',fig,figname));
+set(fig,'numbertitle','off','name',sprintf('[FAIR:%d] %s',fig.Number,figname));
 
 aa = max(his,[],1);
 KK = 1:size(his,1);
@@ -60,7 +60,7 @@ set(pp(3),'linewidth',3,'color','b','markersize',10);
 
 %tt = title('multi-level iteration history: ');
 %set(tt,'fontsize',15,'fontweight','bold');
-ll = legend(pp(1:2),{'J(y^h_0)','J(y^h_k)'},2);
+ll = legend(pp(1:2),{'J(y^h_0)','J(y^h_k)'}); %,2);
 q = max(his(:,2));
 
 for j=1:length(JJ),
