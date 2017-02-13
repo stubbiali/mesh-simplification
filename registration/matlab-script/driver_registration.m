@@ -14,7 +14,7 @@ fileR = '../matlab-data/MRI/template.mat';
 % List template datasets and names for output NiFTI files
 fileT = strings(0);
 outfile = strings(0);
-for id = 50024:50030
+for id = 50024:50029
     if id ~= 50018 && id ~= 50021
         file = sprintf('../matlab-data/MRI/%i.mat', id);
         fileT = [fileT; file];
