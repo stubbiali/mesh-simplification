@@ -4,46 +4,29 @@
 
 function FAIRstartup
 
-<<<<<<< HEAD
 %fprintf('\n%% %s\n',char('='*ones(78,1)));
 %fprintf('FAIR: Flexible Algorithms for Image Registration\n');
 %fprintf('(c) Jan Modersitzki  -- 2011-01-11\n');
 %fprintf('\n%% %s\n',char('='*ones(78,1)));
 %fprintf('Set path on [%s], pwd is [%s]\n',computer,pwd);
-=======
-fprintf('\n%% %s\n',char('='*ones(78,1)));
-fprintf('FAIR: Flexible Algorithms for Image Registration\n');
-fprintf('(c) Jan Modersitzki  -- 2011-01-11\n');
-fprintf('\n%% %s\n',char('='*ones(78,1)));
-fprintf('Set path on [%s], pwd is [%s]\n',computer,pwd);
->>>>>>> d8493919c7f1f6179346663856c925e0153757f0
 
 FAIRpath = fileparts(which('FAIRcopyright.m'));
 
 str = sprintf('function value=FAIRpath; value=''%s'';',FAIRpath);
-<<<<<<< HEAD
 %fprintf('  - %s\n',str);
-=======
-fprintf('  - %s\n',str);
->>>>>>> d8493919c7f1f6179346663856c925e0153757f0
 f = fopen(fullfile('tools','FAIRpath.m'),'w'); fprintf(f,'%s\n',str); fclose(f);
 
 fairTemp = fullfile(FAIRpath,'temp');
 if ~exist(fairTemp,'dir'), mkdir(fairTemp);  end;
 
 folder = dir(FAIRpath);
-<<<<<<< HEAD
 %fprintf('  - addpath %s\n',pwd);
-=======
-fprintf('  - addpath %s\n',pwd);
->>>>>>> d8493919c7f1f6179346663856c925e0153757f0
 addpath(pwd);
 for i=1:length(folder)
   if folder(i).isdir ...
       && ~strcmp(folder(i).name(1),'.') ...
       && ~(folder(i).name(1) == '#'),
     f = fullfile(FAIRpath,folder(i).name);
-<<<<<<< HEAD
     %fprintf('  - addpath %s\n',f);
     addpath(f);
   end;
@@ -52,22 +35,11 @@ end;
 folder = dir([FAIRpath filesep 'apps']);
 if not(isempty(folder)),
     %fprintf('Add FAIR apps to path\n');
-=======
-    fprintf('  - addpath %s\n',f);
-    addpath(f);
-  end;
-end;
-fprintf('%% %s\n',char('='*ones(78,1)));
-folder = dir([FAIRpath filesep 'apps']);
-if not(isempty(folder)),
-    fprintf('Add FAIR apps to path\n');
->>>>>>> d8493919c7f1f6179346663856c925e0153757f0
     for i=1:length(folder)
         if folder(i).isdir ...
                 && ~strcmp(folder(i).name(1),'.') ...
                 && ~(folder(i).name(1) == '#'),
             f = fullfile([FAIRpath filesep 'apps'],folder(i).name);
-<<<<<<< HEAD
             %fprintf('  - addpath %s\n',f);
             addpath(f);
         end;
@@ -76,16 +48,6 @@ if not(isempty(folder)),
 end
 FAIRmode('normal')
 %fprintf('\n[new to FAIR? type: help tutorials and/or run BigTutorial2D]\n\n');
-=======
-            fprintf('  - addpath %s\n',f);
-            addpath(f);
-        end;
-    end;
-    fprintf('%% %s\n',char('='*ones(78,1)));
-end
-FAIRmode('normal')
-fprintf('\n[new to FAIR? type: help tutorials and/or run BigTutorial2D]\n\n');
->>>>>>> d8493919c7f1f6179346663856c925e0153757f0
 
 %{ 
 =======================================================================================
