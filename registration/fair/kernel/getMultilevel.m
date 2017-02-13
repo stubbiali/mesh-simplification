@@ -72,7 +72,11 @@ dim   = length(omega)/2;            % spacial dimension
 maxLevel = ceil(log2(min(m)));      % finest level
 
 % messaging 
+<<<<<<< HEAD
 msg = sprintf('%s(%d image(s), filter=%s, %dD data, level=%d:%d)',...
+=======
+msg = sprintf('%s(%d image(s), filter=%s, %dD data,level=%d:%d)',...
+>>>>>>> d8493919c7f1f6179346663856c925e0153757f0
   mfilename,lenIS,filter,dim,minLevel,maxLevel);
 
 fprintf('%s, figure=%d\n',msg,fig);

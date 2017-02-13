@@ -21,5 +21,10 @@ switch mode,
   otherwise,
     error('nyi')
 end;
+<<<<<<< HEAD
 %fprintf('[global(PAUSE=%d,PRINT=%d,DEBUG=%d,OUT=%d)]\n',...
  % PAUSE,PRINT,DEBUG,OUT);
+=======
+fprintf('[global(PAUSE=%d,PRINT=%d,DEBUG=%d,OUT=%d)]\n',...
+  PAUSE,PRINT,DEBUG,OUT);
+>>>>>>> d8493919c7f1f6179346663856c925e0153757f0
