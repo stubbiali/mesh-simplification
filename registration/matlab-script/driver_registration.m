@@ -14,7 +14,7 @@ fileR = '../matlab-data/MRI/template.mat';
 % List template datasets and names for output NiFTI files
 fileT = strings(0);
 outfile = strings(0);
-for id = 50027:50029
+for id = 50029:50033
     if id ~= 50018 && id ~= 50021
         file = sprintf('../matlab-data/MRI/%i.mat', id);
         fileT = [fileT; file];
@@ -24,8 +24,8 @@ for id = 50027:50029
     end
 end
 
-%fileT = [fileT; '../matlab-data/MRI/50002.mat'];
-%outfile = [outfile; '../result/MRI/50002_register.nii'];
+fileT = [fileT; '../matlab-data/MRI/50002.mat'];
+outfile = [outfile; '../result/MRI/50002_register.nii'];
 
 % Perform registrations
 for i = 1:length(fileT)
