@@ -1,0 +1,13 @@
+Joined project for Numerical Analysis for Partial Differential equations (NAPDE) 
+and Advanced Programming for Scientific Computing (APSC) courses @ Politecnico of Milan.
+
+The aim of the project is two-folded:
+-	providing a C++ implementation of an iterattive, edge collapsing-based mesh 
+	simplification strategy for three-dimensional surface grids with distributed data
+-	testing and comparing different image registration techniques for registering 
+	a set of brain MRIs with a given template.
+
+This repository comes with two main folders - simplification/ and registration/ - 
+addressing the aforementioned tasks, respectively. 
+Further details on the content of each folder can be found in the README files 
+of the folders themselves.

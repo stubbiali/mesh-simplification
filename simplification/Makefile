@@ -72,27 +72,27 @@ ifeq ($(ENABLE_SELF_INTERSECTIONS),yes)
 	CXXFLAGS+=-DENABLE_SELF_INTERSECTIONS 
 endif
 	
-LDFLAGS=-L $(LIB_DIR) -l $(LIB) -Wl,-rpath=$(LIB_DIR)
+LDFLAGS=-L $(LIB_DIR) -l $(LIB) #-Wl,-rpath=$(LIB_DIR)
 
 #
 # Targets
 #
 
-all: folders dynamic main 
+all: folders static main 
 
 #
 # Build static library
 #
 
 $(S_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
-	@echo "Compiling $@" 
+	@echo -n "Compiling $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo "Compiling $@ -- done"
+	@echo "done"
 
 static: folders $(S_LIB_OBJ)
-	@echo "Creating lib$(LIB).a"
+	@echo -n "Creating lib$(LIB).a ... "
 	@ar -r -s	$(LIB_DIR)/lib$(LIB).a	$(S_LIB_OBJ) > /dev/null 2>&1
-	@echo "Creating lib$(LIB).a -- done"
+	@echo "done"
 	@echo "\033[92mStatic version of meshsimplification library successfully built\n\033[0m"
 	
 #
@@ -100,15 +100,15 @@ static: folders $(S_LIB_OBJ)
 #
 
 $(D_LIB_OBJ_DIR)/%.o: $(LIB_SRC_DIR)/%.cpp $(LIB_INC_DIR)/%.hpp $(LIB_INC)
-	@echo "Compiling $@" 
+	@echo -n "Compiling $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-fPIC -c -o	$@	$<	
-	@echo "Compiling $@ -- done"
+	@echo "done"
 
 dynamic: folders $(D_LIB_OBJ)
-	@echo "Creating lib$(LIB).so.1.0"
+	@echo -n "Creating lib$(LIB).so.1.0 ... "
 	@$(CXX) $(CXXFLAGS) -shared 	-o	lib$(LIB).so	$(D_LIB_OBJ) 
 	@mv lib$(LIB).so $(LIB_DIR)
-	@echo "Creating lib$(LIB).so.1.0 -- done"
+	@echo "done"
 	@echo "\033[92mDynamic version of meshsimplification library successfully built\n\033[0m"
 
 #
@@ -116,14 +116,14 @@ dynamic: folders $(D_LIB_OBJ)
 #
 
 $(TEST_OBJ_DIR)/%.o: $(TEST_SRC_DIR)/%.cpp $(LIB_INC)
-	@echo "Compiling $@" 
+	@echo -n "Compiling $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo "Compiling $@ -- done"
+	@echo "done"
 	
-$(TEST_BIN_DIR)/%: $(TEST_OBJ_DIR)/%.o dynamic
-	@echo "Linking $@" 
+$(TEST_BIN_DIR)/%: $(TEST_OBJ_DIR)/%.o static
+	@echo -n "Linking $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)	
-	@echo "Linking $@ -- done"
+	@echo "done"
 	
 test: folders $(TEST_BIN)
 	@echo "\033[92mTests successfully compiled and linked\n\033[0m"
@@ -133,14 +133,14 @@ test: folders $(TEST_BIN)
 #
 
 $(MAIN_OBJ_DIR)/%.o: $(MAIN_SRC_DIR)/%.cpp $(LIB_INC)
-	@echo "Compiling $@" 
+	@echo -n "Compiling $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-c -o	$@	$<	
-	@echo "Compiling $@ -- done"
+	@echo "done"
 	
-$(MAIN_BIN_DIR)/%: $(MAIN_OBJ_DIR)/%.o dynamic
-	@echo "Linking $@" 
+$(MAIN_BIN_DIR)/%: $(MAIN_OBJ_DIR)/%.o static
+	@echo -n "Linking $@ ... " 
 	@$(CXX) $(CXXFLAGS)	-o	$@	$<	$(LDFLAGS)
-	@echo "Linking $@ -- done"
+	@echo "done"
 	
 main: $(MAIN_BIN)
 	@echo "\033[92mExecutables successfully compiled and linked\n\033[0m"
@@ -165,6 +165,7 @@ folders:
 	@mkdir -p $(TEST_BIN_DIR)
 
 doc:
+	@echo -n "Building Doxygen documentation ... "
 	@$(RM) -r $(DOC_DIR)/Doxyfile $(DOC_DIR)/html $(DOC_DIR)/latex
 	@mkdir -p $(DOC_DIR)
 	@doxygen -g $(DOC_DIR)/Doxyfile > /dev/null 2>&1
@@ -173,6 +174,8 @@ doc:
 	@sed -i 's:INPUT                  =:INPUT                  = $(LIB_INC_DIR) $(LIB_INC_DIR)/implementation $(LIB_INC_DIR)/inline $(LIB_SRC_DIR):' $(DOC_DIR)/Doxyfile
 	@sed -i 's:RECURSIVE              =:RECURSIVE              = YES:' $(DOC_DIR)/Doxyfile
 	@doxygen $(DOC_DIR)/Doxyfile > /dev/null 2>&1
+	@echo "done"
+	
 	
 #
 # Prevent object files to be deleted
