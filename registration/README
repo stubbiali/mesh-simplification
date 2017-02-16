@@ -7,10 +7,12 @@ The procedure consists of two steps:
 Two registration techniques are tested and compared. 
 They have been proposed in the following two works:
 [1]	Fischer B., Modersitzki J. 
-	"A unified approach to fast image registration and a new curvature based registration technique".
+	"A unified approach to fast image registration and a new curvature based 
+	registration technique".
 	Linear Algebra and its Applications 380:107-124, 2004.
 [2]	Fischl B., Sereno M. I., Tootell R. B. H., Dale A. M.
-	"High-resolution intersubject averaging and a coordinate system for the cortical surface".
+	"High-resolution intersubject averaging and a coordinate system for the 
+	cortical surface".
 	Human Brain Mapping 8:272-284, 1999.
 	
 The current folder is structured as follows:
@@ -18,8 +20,11 @@ The current folder is structured as follows:
 	curvature-matlab-data/ 		MATLAB datasets needed for [1]
 	curvature-matlab-script/	MATLAB functions and scripts performing [1]
 	doc/                    	various useful sources
-	fair/                   	FAIR MATLAB software implementing [1];
-								see https://www.mic.uni-luebeck.de/people/jan-modersitzki/software/fair.html
-	nifti-image-toolbox/		MATLAB toolbox for importing and exporting images in NiFTI format;
-                        		see https://it.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image
+	fair/                   	FAIR MATLAB software implementing [1]
+	nifti-image-toolbox/		MATLAB toolbox for images in NiFTI format
     result/                 	results obtained using [1] and [2]
+    
+For details on FAIR software: 
+https://www.mic.uni-luebeck.de/people/jan-modersitzki/software/fair.html
+For details on MATLAB toolbox for NiFTI and Analyze images:
+https://it.mathworks.com/matlabcentral/fileexchange/8797-tools-for-nifti-and-analyze-image
