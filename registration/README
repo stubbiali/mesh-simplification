@@ -22,7 +22,7 @@ The current folder is structured as follows:
 	doc/                    	various useful sources
 	fair/                   	FAIR MATLAB software implementing [1]
 	nifti-image-toolbox/		MATLAB toolbox for images in NiFTI format
-    result/                 	results obtained using [1] and [2]
+	result/                 	results obtained using [1] and [2]
     
 For details on FAIR software: 
 https://www.mic.uni-luebeck.de/people/jan-modersitzki/software/fair.html
